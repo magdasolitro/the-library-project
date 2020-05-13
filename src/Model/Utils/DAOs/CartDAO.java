@@ -12,9 +12,6 @@ public interface CartDAO {
     public void addBookToCart(String ISBN, String username, int quantity)
             throws SQLException;
 
-    public void removeBookFromCart(String ISBN, String username)
-            throws SQLException;
-
     public void increaseQuantity(String ISBN, String username)
             throws SQLException;
 
@@ -24,10 +21,11 @@ public interface CartDAO {
     public ArrayList<Book> showCartContent(String username)
             throws SQLException;
 
-    // prima di utilizzare il metodo checkout, l'utente deve specificare
-    // metodo di pagamento e indirizzo di spedizione --> attenzione! l'utente
-    // può specificare un indirizzo di spedizione diverso da quello di
-    // residenza SOLO SE E' REGISTRATO!
-    public void checkout(User user, String paymentMethod )
+    // invoke this method when press "CHECKOUT" button
+    // all the options for the order are specified and stored
+    // returns orderID
+    public String checkoutUserReg(String email, String paymentMethod)
             throws SQLException;
+
+    public String checkoutUserNotReg(String email, String payment);
 }

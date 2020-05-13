@@ -4,30 +4,28 @@ DROP TABLE IF EXISTS "LibroCard";
 DROP TABLE IF EXISTS "order";
 DROP TABLE IF EXISTS "book";
 DROP TABLE IF EXISTS "composition";
-DROP TABLE IF EXISTS "chart";
+DROP TABLE IF EXISTS "cart";
 DROP TABLE IF EXISTS "employee";
 
 CREATE TABLE IF NOT EXISTS "user" (
-	"username"     TEXT NOT NULL,
 	"name"         TEXT NOT NULL,
 	"surname"      TEXT NOT NULL,
 	"phone"	       TEXT NOT NULL UNIQUE,
-	"email"	       TEXT NOT NULL UNIQUE,
+	"email"	       TEXT NOT NULL,
 	"password"     TEXT NOT NULL UNIQUE,
 	"homeAddress"  TEXT NOT NULL,
 	"streetNumber" TEXT NOT NULL,
 	"ZIPcode"      TEXT NOT NULL,
 	"homeCity"     TEXT NOT NULL,
-	PRIMARY KEY("username")
+	PRIMARY KEY("email")
 );
 
 CREATE TABLE IF NOT EXISTS "user_notReg" (
-    "username"     TEXT NOT NULL,
     "name"         TEXT NOT NULL,
     "surname"      TEXT NOT NULL,
     "phone"	       TEXT NOT NULL UNIQUE,
-    "email"	       TEXT NOT NULL UNIQUE,
-    PRIMARY KEY ("username")
+    "email"	       TEXT NOT NULL,
+    PRIMARY KEY ("email")
 );
 
 CREATE TABLE IF NOT EXISTS "LibroCard" (
@@ -36,7 +34,7 @@ CREATE TABLE IF NOT EXISTS "LibroCard" (
 	"points"    INTEGER DEFAULT 0,
 	"user"      TEXT NOT NULL,
     PRIMARY KEY("cardID"),
-    FOREIGN KEY ("user") REFERENCES "user"("username")
+    FOREIGN KEY ("user") REFERENCES "user"("email")
 );
 
 CREATE TABLE IF NOT EXISTS "order" (
@@ -49,8 +47,8 @@ CREATE TABLE IF NOT EXISTS "order" (
 	"shippingAddress" TEXT NOT NULL,
     "user"	          TEXT,
     "user_notReg"     TEXT,
-    FOREIGN KEY ("user") REFERENCES "user"("username"),
-    FOREIGN KEY ("user_notReg") REFERENCES "user_notReg"("username"),
+    FOREIGN KEY ("user") REFERENCES "user"("email"),
+    FOREIGN KEY ("user_notReg") REFERENCES "user_notReg"("email"),
 	PRIMARY KEY("orderID")
 );
 
@@ -82,7 +80,7 @@ CREATE TABLE IF NOT EXISTS "cart" (
     "book"      TEXT NOT NULL,
     "quantity"  INTEGER DEFAULT 1,
     PRIMARY KEY ("user", "book"),
-    FOREIGN KEY ("user") REFERENCES "user"("username"),
+    FOREIGN KEY ("user") REFERENCES "user"("email"),
     FOREIGN KEY ("book") REFERENCES "book"("ISBN")
 );
 

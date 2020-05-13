@@ -9,9 +9,9 @@ public interface BookDAO {
 
     public Book getBook(String ISBN) throws SQLException;
 
-    public boolean isAvailable(Book book) throws SQLException;
+    public boolean isAvailable(String ISBN) throws SQLException;
 
-    public void setDiscount(Book book, float discount) throws SQLException;
+    public void setDiscount(String ISBN, float discount) throws SQLException;
 
-    public void editDescription(Book book, String newDescription) throws SQLException;
+    public void editDescription(String ISBN, String newDescription) throws SQLException;
 }

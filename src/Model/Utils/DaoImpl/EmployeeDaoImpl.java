@@ -51,6 +51,5 @@ public class EmployeeDaoImpl implements EmployeeDAO {
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
-
     }
 }

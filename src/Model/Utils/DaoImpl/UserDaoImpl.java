@@ -5,8 +5,8 @@ import Model.Utils.DatabaseConnection;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDAO {
-    public User getUser(String username) throws SQLException {
-        String sql = "SELECT * FROM user WHERE username = ?";
+    public User getUser(String email) throws SQLException {
+        String sql = "SELECT * FROM user WHERE email = " + email;
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -15,13 +15,12 @@ public class UserDaoImpl implements UserDAO {
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         // fill the parameters in the SQL statement
-        connection.pstmt.setString(1, username);
+        connection.pstmt.setString(1, email);
 
         // execute query
         connection.rs = connection.pstmt.executeQuery();
 
-        User user = new User(connection.rs.getString("username"),
-                connection.rs.getString("name"),
+        User user = new User(connection.rs.getString("name"),
                 connection.rs.getString("surname"),
                 connection.rs.getString("phone"),
                 connection.rs.getString("email"),
@@ -38,16 +37,15 @@ public class UserDaoImpl implements UserDAO {
 
     public void addUser(User user) throws SQLException {
 
-        String sql = "INSERT INTO user(username, name, surname, phone, email," +
+        String sql = "INSERT INTO user(name, surname, phone, email," +
                 "password, homeAddress, streetNumber, ZIPCode, homeCity)" +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
-        /*
-        connection.pstmt.setString(1, user.getUsername());
+
         connection.pstmt.setString(2, user.getName());
         connection.pstmt.setString(3, user.getSurname());
         connection.pstmt.setString(4, user.getPhone());
@@ -55,46 +53,28 @@ public class UserDaoImpl implements UserDAO {
         connection.pstmt.setString(6, user.getPassword());
         connection.pstmt.setString(7, user.getHomeAddress());
         connection.pstmt.setString(8, user.getStreetNumber());
-        connection.pstmt.setString(9, user.getZIPcode());
+        connection.pstmt.setString(9, user.getZIPCode());
         connection.pstmt.setString(10, user.getHomeCity());
-        */
+
 
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
     }
 
-    public void deleteUser(String username) throws SQLException {
-        String sql = "DELETE FROM user WHERE username = ?";
+    public void deleteUser(String email) throws SQLException {
+        String sql = "DELETE FROM user WHERE email = " + email;
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        // connection.pstmt.setString(1, user.getUsername());
-
         connection.pstmt.executeUpdate();
     }
 
-    public void updateUsername(User user, String newUsername) throws SQLException {
-        String sql = "UPDATE user SET username = ? WHERE username = ?";
-
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.openConnection();
-
-        connection.pstmt = connection.conn.prepareStatement(sql);
-
-        connection.pstmt.setString(1, newUsername);
-        // connection.pstmt.setString(2, user.getUsername());
-
-        connection.pstmt.executeUpdate();
-
-        connection.closeConnection();
-    }
-
-    public void updatePhone(User user, String newPhone) throws SQLException {
-        String sql = "UPDATE user SET phone = ? WHERE username = ?";
+    public void updatePhone(String email, String newPhone) throws SQLException {
+        String sql = "UPDATE user SET phone = ? WHERE email = ?" ;
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -102,15 +82,15 @@ public class UserDaoImpl implements UserDAO {
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         connection.pstmt.setString(1, newPhone);
-        // connection.pstmt.setString(2, user.getUsername());
+        connection.pstmt.setString(2, email);
 
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
     }
 
-    public void updateEmail(User user, String newEmail) throws SQLException {
-        String sql = "UPDATE user SET email = ? WHERE username = ?";
+    public void updateEmail(String email, String newEmail) throws SQLException {
+        String sql = "UPDATE user SET email = ? WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -118,15 +98,15 @@ public class UserDaoImpl implements UserDAO {
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         connection.pstmt.setString(1, newEmail);
-        // connection.pstmt.setString(2, user.getUsername());
+        connection.pstmt.setString(2, email);
 
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
     }
 
-    public void updatePassword(User user, String newPassword) throws SQLException {
-        String sql = "UPDATE user SET password = ? WHERE username = ?";
+    public void updatePassword(String email, String newPassword) throws SQLException {
+        String sql = "UPDATE user SET password = ? WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -134,17 +114,17 @@ public class UserDaoImpl implements UserDAO {
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         connection.pstmt.setString(1, newPassword);
-        // connection.pstmt.setString(2, user.getUsername());
+        connection.pstmt.setString(2, email);
 
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
     }
 
-    public void updateAddress(User user, String addressField, String newValue)
+    public void updateAddress(String email, String addressField, String newValue)
             throws SQLException {
 
-        String sql = "UPDATE user SET ? = ? WHERE username = ?";
+        String sql = "UPDATE user SET ? = ? WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -153,7 +133,7 @@ public class UserDaoImpl implements UserDAO {
 
         connection.pstmt.setString(1, addressField);
         connection.pstmt.setString(2, newValue);
-        // connection.pstmt.setString(3, user.getUsername());
+        connection.pstmt.setString(3, email);
 
         connection.pstmt.executeUpdate();
 

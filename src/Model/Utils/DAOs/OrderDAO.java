@@ -23,5 +23,4 @@ public interface OrderDAO {
                          String user_notReg) throws SQLException;
 
     public void updateStatus(Order order, String newStatus) throws SQLException;
-
 }

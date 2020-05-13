@@ -66,31 +66,24 @@ public class BookDaoImpl implements BookDAO {
     }
 
     @Override
-    public boolean isAvailable(Book book) throws SQLException {
-        String sql = "SELECT availableCopies FROM book WHERE ISBN = ?";
+    public boolean isAvailable(String ISBN) throws SQLException {
+        String sql = "SELECT availableCopies FROM book WHERE ISBN = " + ISBN;
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, book.getISBN());
-
         connection.rs = connection.pstmt.executeQuery();
         int availableCopies = connection.rs.getInt("availableCopies");
 
         connection.closeConnection();
 
-        if(availableCopies > 0 ) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return availableCopies > 0;
     }
 
     @Override
-    public void setDiscount(Book book, float discount) throws SQLException {
+    public void setDiscount(String ISBN, float discount) throws SQLException {
         String sql = "UPDATE book SET discount = ? WHERE ISBN = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -99,7 +92,7 @@ public class BookDaoImpl implements BookDAO {
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         connection.pstmt.setFloat(1, discount);
-        connection.pstmt.setString(2, book.getISBN());
+        connection.pstmt.setString(2, ISBN);
 
         connection.pstmt.executeUpdate();
 
@@ -108,7 +101,8 @@ public class BookDaoImpl implements BookDAO {
     }
 
     @Override
-    public void editDescription(Book book, String newDescription) throws SQLException {
+    public void editDescription(String ISBN, String newDescription)
+            throws SQLException {
         String sql = "UPDATE book SET description = ? WHERE ISBN = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -117,7 +111,7 @@ public class BookDaoImpl implements BookDAO {
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         connection.pstmt.setString(1, newDescription);
-        connection.pstmt.setString(2, book.getISBN());
+        connection.pstmt.setString(2, ISBN);
 
         connection.pstmt.executeUpdate();
 

@@ -10,5 +10,4 @@ public interface EmployeeDAO {
     public void addEmployee(String employeeID, String name, String surname,
                             String birthDate, String role, String employedSince)
             throws SQLException;
-
 }

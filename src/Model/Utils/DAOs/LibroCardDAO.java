@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public interface LibroCardDAO {
 
-    public void addLibroCard(String cardID, String username, String issueDate)
+    public void addLibroCard(String cardID, String email, String issueDate)
             throws SQLException;
 
     public LibroCard getLibroCard(String cardID) throws SQLException;

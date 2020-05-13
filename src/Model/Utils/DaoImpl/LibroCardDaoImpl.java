@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class LibroCardDaoImpl implements LibroCardDAO {
     @Override
-    public void addLibroCard(String cardID, String username, String issueDate)
+    public void addLibroCard(String cardID, String email, String issueDate)
             throws SQLException {
 
         String sql = "INSERT INTO LibroCard(cardID, issueDate, points, user)" +
@@ -25,7 +25,7 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         connection.pstmt.setString(1, cardID);
         connection.pstmt.setString(2, issueDate);
         connection.pstmt.setInt(3, 0);
-        connection.pstmt.setString(4, username);
+        connection.pstmt.setString(4, email);
 
         connection.pstmt.executeUpdate();
 
@@ -55,7 +55,7 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
     public LibroCard getLibroCard(User user) throws SQLException{
         String sql = "SELECT * FROM LibroCard WHERE user = "
-                + user.getUsername();
+                + user.getEmail();
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
