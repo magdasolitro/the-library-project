@@ -1,6 +1,7 @@
 package Model.Utils.DAOs;
 
 import Model.Book;
+import Model.CartView;
 import Model.User;
 import Model.UserNotReg;
 
@@ -18,11 +19,9 @@ public interface CartDAO {
     public void decreaseQuantity(String ISBN, String username)
             throws SQLException;
 
-    public ArrayList<Book> showCartContent(String username)
+    public ArrayList<CartView> showCartContent(String username)
             throws SQLException;
 
-    // invoke this method when press "CHECKOUT" button
-    // all the options for the order are specified and stored
     // returns orderID
     public String checkoutUserReg(String email, String paymentMethod)
             throws SQLException;

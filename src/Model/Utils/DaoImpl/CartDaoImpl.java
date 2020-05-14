@@ -1,6 +1,7 @@
 package Model.Utils.DaoImpl;
 
 import Model.Book;
+import Model.CartView;
 import Model.Order;
 import Model.User;
 import Model.Utils.DAOs.CartDAO;
@@ -10,7 +11,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-// import java.util.regex.Pattern;
 
 public class CartDaoImpl implements CartDAO {
 
@@ -61,10 +61,10 @@ public class CartDaoImpl implements CartDAO {
     }
 
     @Override
-    public ArrayList<Book> showCartContent(String username) throws SQLException {
-        String sql = "SELECT ISBN, title, authors, genre, price, " +
-                "publishingHouse, publishingYear, discount, quantity " +
-                "FROM cart JOIN book ON ISBN = book WHERE user = ?";
+    public ArrayList<CartView> showCartContent(String username) throws SQLException {
+        String sql = "SELECT ISBN, title, authors, genre, price, description," +
+                "publishingHouse, publishingYear, discount, availableCopies," +
+                "quantity FROM cart JOIN book ON ISBN = book WHERE user = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -76,28 +76,28 @@ public class CartDaoImpl implements CartDAO {
         connection.rs = connection.pstmt.executeQuery();
 
         // store the result of the query in a list
-        ArrayList<Book> cartContent = new ArrayList<>();
-        /*
+        ArrayList<CartView> cartContent = new ArrayList<>();
+
         while(connection.rs.next()) {
-            cartContent.add(new Book(connection.rs.getString("ISBN"),
+            cartContent.add(new CartView(connection.rs.getString("ISBN"),
                     connection.rs.getString("title"),
                     connection.rs.getString("authors"),
                     connection.rs.getString("genre"),
-                    connection.rs.getString("price"),
+                    connection.rs.getFloat("price"),
                     connection.rs.getString("description"),
                     connection.rs.getString("publishingHouse"),
-                    connection.rs.getString("publishingYear"),
-                    connection.rs.getString("discount")
-                    ));
+                    connection.rs.getInt("publishingYear"),
+                    connection.rs.getFloat("discount"),
+                    connection.rs.getInt("availableCopies"),
+                    connection.rs.getInt("quantity")));
         }
-        */
+
         return cartContent;
     }
 
-
     public String checkoutUserReg(String email, String paymentMethod)
             throws SQLException {
-        Order newOrder = new Order();
+        //String sql = "SELECT"
         return null;
     }
 

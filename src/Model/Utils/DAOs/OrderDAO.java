@@ -13,13 +13,10 @@ public interface OrderDAO {
     public ArrayList<Order> getAllOrders() throws SQLException;
 
     // visualizza tutti gli ordini di un certo utente
-    public ArrayList<Order> getOrdersByUser(User user) throws SQLException;
+    public ArrayList<Order> getOrdersByUser(String email) throws SQLException;
 
-    // visualizza tutti gli ordini che sono in un certo stato
-    public ArrayList<Order> getOrdersByStatus(String status) throws SQLException;
-    
     public void addOrder(String orderID, String date, String status, String paymentMethod,
-                         String price, String points, String shippingAddress, String user,
+                         float price, int points, String shippingAddress, String user,
                          String user_notReg) throws SQLException;
 
     public void updateStatus(Order order, String newStatus) throws SQLException;
