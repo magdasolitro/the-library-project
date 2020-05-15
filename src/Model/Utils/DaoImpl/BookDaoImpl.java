@@ -4,6 +4,7 @@ import Model.Book;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DatabaseConnection;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 public class BookDaoImpl implements BookDAO {
@@ -11,9 +12,9 @@ public class BookDaoImpl implements BookDAO {
     public void addBook(Book book)
             throws SQLException {
 
-        String sql = "INSERT INTO book(ISBN, title, authors, genre, price, description, " +
-                "publishingHouse, publishingYear, discount, availableCopies) VALUES (?," +
-                "?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO book(ISBN, title, authors, genre, price, " +
+                "description, publishingHouse, publishingYear, discount, " +
+                "availableCopies) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -28,7 +29,7 @@ public class BookDaoImpl implements BookDAO {
         connection.pstmt.setString(6, book.getDescription());
         connection.pstmt.setString(7, book.getPublishingHouse());
         connection.pstmt.setInt(8, book.getPublishingYear());
-        connection.pstmt.setFloat(9, book.getDiscount());
+        connection.pstmt.setBigDecimal(9, new BigDecimal(book.getDiscount()));
         connection.pstmt.setInt(10, book.getAvailableCopies());
 
         connection.pstmt.executeUpdate();
@@ -67,12 +68,13 @@ public class BookDaoImpl implements BookDAO {
 
     @Override
     public boolean isAvailable(String ISBN) throws SQLException {
-        String sql = "SELECT availableCopies FROM book WHERE ISBN = " + ISBN;
+        String sql = "SELECT availableCopies FROM book WHERE ISBN = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, ISBN);
 
         connection.rs = connection.pstmt.executeQuery();
         int availableCopies = connection.rs.getInt("availableCopies");

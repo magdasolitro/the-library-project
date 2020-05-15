@@ -10,12 +10,13 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 
     @Override
     public Employee getEmployee(String employeeID) throws SQLException {
-        String sql = "SELECT * FROM employee WHERE employeeID = " + employeeID;
+        String sql = "SELECT * FROM employee WHERE employeeID = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, employeeID);
 
         connection.rs = connection.pstmt.executeQuery();
 

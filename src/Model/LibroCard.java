@@ -26,7 +26,6 @@ public class LibroCard {
         this.issueDate = getCurrentDate();
     }
 
-
     private String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();
 

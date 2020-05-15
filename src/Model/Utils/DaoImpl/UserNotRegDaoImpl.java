@@ -9,12 +9,13 @@ import java.sql.SQLException;
 public class UserNotRegDaoImpl implements UserNotRegDAO {
     @Override
     public UserNotReg getUserNotReg(String email) throws SQLException {
-        String sql = "SELECT * FROM user_notReg WHERE email = " + email;
+        String sql = "SELECT * FROM user_notReg WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, email);
 
         connection.rs = connection.pstmt.executeQuery();
 
@@ -51,12 +52,13 @@ public class UserNotRegDaoImpl implements UserNotRegDAO {
 
     @Override
     public void deleteUserNotReg(String email) throws SQLException {
-        String sql = "DELETE FROM user_notReg WHERE email = " + email;
+        String sql = "DELETE FROM user_notReg WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, email);
 
         connection.pstmt.executeUpdate();
 

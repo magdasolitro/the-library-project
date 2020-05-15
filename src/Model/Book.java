@@ -1,5 +1,9 @@
 package Model;
 
+import Model.Utils.DatabaseConnection;
+
+import java.sql.SQLException;
+
 public class Book {
     public String ISBN;
     public String title;
@@ -65,5 +69,20 @@ public class Book {
 
     public int getAvailableCopies(){
         return availableCopies;
+    }
+
+    public int getQuantity(String email) throws SQLException {
+        String sql = "SELECT quantity FROM cart WHERE user = ? AND book = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, email);
+        connection.pstmt.setString(2, this.ISBN);
+
+        connection.rs = connection.pstmt.executeQuery();
+
+        return connection.rs.getInt("quantity");
     }
 }

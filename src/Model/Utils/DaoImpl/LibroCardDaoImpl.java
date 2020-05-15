@@ -34,12 +34,13 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
     @Override
     public LibroCard getLibroCard(String cardID) throws SQLException {
-        String sql = "SELECT * FROM LibroCard WHERE cardID = " + cardID;
+        String sql = "SELECT * FROM LibroCard WHERE cardID = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, cardID);
 
         connection.rs = connection.pstmt.executeQuery();
 
@@ -54,13 +55,13 @@ public class LibroCardDaoImpl implements LibroCardDAO {
     }
 
     public LibroCard getLibroCard(User user) throws SQLException{
-        String sql = "SELECT * FROM LibroCard WHERE user = "
-                + user.getEmail();
+        String sql = "SELECT * FROM LibroCard WHERE user = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, user.getEmail());
 
         connection.rs = connection.pstmt.executeQuery();
 
@@ -76,12 +77,13 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
     @Override
     public void deleteLibroCard(String cardID) throws SQLException {
-        String sql = "DELETE FROM LibroCard WHERE cardID = " + cardID;
+        String sql = "DELETE FROM LibroCard WHERE cardID = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, cardID);
 
         connection.pstmt.executeUpdate();
 

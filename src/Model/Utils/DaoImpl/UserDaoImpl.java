@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDAO {
     public User getUser(String email) throws SQLException {
-        String sql = "SELECT * FROM user WHERE email = " + email;
+        String sql = "SELECT * FROM user WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -63,12 +63,13 @@ public class UserDaoImpl implements UserDAO {
     }
 
     public void deleteUser(String email) throws SQLException {
-        String sql = "DELETE FROM user WHERE email = " + email;
+        String sql = "DELETE FROM user WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
+        connection.pstmt.setString(1, email);
 
         connection.pstmt.executeUpdate();
     }
