@@ -3,10 +3,11 @@ package Model.Utils.DaoImpl;
 import Model.Book;
 
 import Model.Composition;
+import Model.Order;
 import Model.Utils.DAOs.CartDAO;
 import Model.Utils.DatabaseConnection;
 
-import java.sql.Array;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -100,7 +101,11 @@ public class CartDaoImpl implements CartDAO {
         return cartContent;
     }
 
-    public String checkoutUserReg(String email) throws SQLException {
+    // da fare: calcolare costo totale dell'ordine
+    //          calcolare punti
+    //
+    public String checkoutUserReg(String email, String paymentMethod,
+                                  String shippingAddress) throws SQLException {
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -133,24 +138,41 @@ public class CartDaoImpl implements CartDAO {
         ArrayList<Composition> compositions = new ArrayList<>();
 
         while(connection.rs.next()){
-            compositions.add(new Composition(connection.rs.getString("book"),
-                    orderID, connection.rs.getInt("quantity")));
-            // + aggiungi riga a tabella composition
+            String currentBook = connection.rs.getString("book");
+            int currentQuantity = connection.rs.getInt("quantity");
+
+            compositions.add(new Composition(currentBook, orderID, currentQuantity));
+
+            String newComposition = "INSERT INTO composition(book, order, quantity)" +
+                    "VALUES (?,?,?)";
+
+            connection.pstmt = connection.conn.prepareStatement(newComposition);
+            connection.pstmt.setString(1, currentBook);
+            connection.pstmt.setString(2, orderID);
+            connection.pstmt.setInt(3, currentQuantity);
+
+            connection.pstmt.executeUpdate();
         }
 
-        // chiedo all'utente: metodo di pagamento, indirizzo di spedizione
-        // creo oggetto ordine
-        // inserisco nella tabella order il nuovo ordine
+        // create a new order and insert it in the table
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String currentDate  = dtf.format(LocalDateTime.now());
 
+        /* Order newOrder = new Order(orderID, currentDate,
+                OrderStatus.ORDER_REQUEST_RECEIVED, paymentMethod, 0, 0,
+                shippingAddress, email, null);*/
+
+        return orderID;
+    }
+
+    public String checkoutUserNotReg(String email, String paymentMethod)
+            throws SQLException {
         return null;
     }
 
-    public String checkoutUserNotReg(String email) throws SQLException {
-        return null;
-    }
 
-
-    /* Creates a unique alphanumeric string that will be user to identify the
+    /*
+        Creates a unique alphanumeric string that will be user to identify the
        order. It is generated using: first 3 letters of the surname + first
        3 letter of the name + integer timestamp (es. the orderID is generated
        on 15 May 2020, at 09:26:22 --> integer timestamp = 15052020092622
@@ -165,6 +187,39 @@ public class CartDaoImpl implements CartDAO {
         String dateTimeToken  = dtf.format(now);
 
         return firstToken + dateTimeToken;
+    }
+
+    // costo totale dell'ordine: prezzo libro * quantità
+    // DA MODIFICARE!!
+    private float getOrderPrice(String email) throws SQLException{
+        // seleziono i prezzi dei libri
+        String bookPrices = "SELECT book, price FROM book JOIN cart ON book.ISBN = cart.book " +
+                "WHERE cart.user = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(bookPrices);
+        connection.pstmt.setString(1, email);
+        connection.rs = connection.pstmt.executeQuery();
+
+        float totalPrice = 0;
+
+        while(connection.rs.next()){
+            float currentBookPrice = connection.rs.getFloat("price");
+
+            String bookQuantity = "SELECT quantity FROM cart WHERE book = ? AND" +
+                    " user = ?";
+            connection.pstmt = connection.conn.prepareStatement(bookQuantity);
+            connection.pstmt.setString(1, connection.rs.getString("book"));
+            connection.pstmt.setString(2, email);
+
+            connection.pstmt.executeQuery();
+            currentBookPrice *= connection.rs.getInt("quantity");
+
+            totalPrice += currentBookPrice;
+        }
+
     }
 
 }
