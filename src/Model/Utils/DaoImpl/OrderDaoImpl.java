@@ -1,10 +1,10 @@
 package Model.Utils.DaoImpl;
 
 import Model.Order;
-import Model.User;
 import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DatabaseConnection;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class OrderDaoImpl implements OrderDAO {
                 connection.rs.getString("date"),
                 connection.rs.getString("status"),
                 connection.rs.getString("paymentMethod"),
-                connection.rs.getFloat("price"),
+                connection.rs.getBigDecimal("price"),
                 connection.rs.getInt("points"),
                 connection.rs.getString("shippingAddress"),
                 connection.rs.getString("user"),
@@ -56,7 +56,7 @@ public class OrderDaoImpl implements OrderDAO {
                     connection.rs.getString("date"),
                     connection.rs.getString("status"),
                     connection.rs.getString("paymentMethod"),
-                    connection.rs.getFloat("price"),
+                    connection.rs.getBigDecimal("price"),
                     connection.rs.getInt("points"),
                     connection.rs.getString("shippingAddress"),
                     connection.rs.getString("user"),
@@ -85,7 +85,7 @@ public class OrderDaoImpl implements OrderDAO {
                     connection.rs.getString("date"),
                     connection.rs.getString("status"),
                     connection.rs.getString("paymentMethod"),
-                    connection.rs.getFloat("price"),
+                    connection.rs.getBigDecimal("price"),
                     connection.rs.getInt("points"),
                     connection.rs.getString("shippingAddress"),
                     connection.rs.getString("user"),
@@ -97,8 +97,9 @@ public class OrderDaoImpl implements OrderDAO {
 
     @Override
     public void addOrder(String orderID, String date, String status, String paymentMethod,
-                         float price, int points, String shippingAddress, String user,
+                         BigDecimal price, int points, String shippingAddress, String user,
                          String user_notReg) throws SQLException {
+
         String sql = "INSERT INTO order(orderID, date, status, paymentMethod," +
                 " price, points, shippingAddress, user, user_notReg) " +
                 "VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -112,7 +113,7 @@ public class OrderDaoImpl implements OrderDAO {
         connection.pstmt.setString(2, date);
         connection.pstmt.setString(3, status);
         connection.pstmt.setString(4, paymentMethod);
-        connection.pstmt.setFloat(5, price);
+        connection.pstmt.setBigDecimal(5, price);
         connection.pstmt.setInt(6, points);
         connection.pstmt.setString(7, shippingAddress);
         connection.pstmt.setString(8, user);
@@ -138,6 +139,5 @@ public class OrderDaoImpl implements OrderDAO {
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
-
     }
 }

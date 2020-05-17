@@ -14,7 +14,7 @@ public class BookDaoImpl implements BookDAO {
 
         String sql = "INSERT INTO book(ISBN, title, authors, genre, price, " +
                 "description, publishingHouse, publishingYear, discount, " +
-                "availableCopies) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                "availableCopies, libroCardPoints) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -25,12 +25,13 @@ public class BookDaoImpl implements BookDAO {
         connection.pstmt.setString(2, book.getTitle());
         connection.pstmt.setString(3, book.getAuthors());
         connection.pstmt.setString(4, book.getGenre());
-        connection.pstmt.setFloat(5, book.getPrice());
+        connection.pstmt.setBigDecimal(5, book.getPrice());
         connection.pstmt.setString(6, book.getDescription());
         connection.pstmt.setString(7, book.getPublishingHouse());
         connection.pstmt.setInt(8, book.getPublishingYear());
-        connection.pstmt.setBigDecimal(9, new BigDecimal(book.getDiscount()));
+        connection.pstmt.setBigDecimal(9, book.getDiscount());
         connection.pstmt.setInt(10, book.getAvailableCopies());
+        connection.pstmt.setInt(11, book.getLibroCardPoints());
 
         connection.pstmt.executeUpdate();
 
@@ -54,12 +55,13 @@ public class BookDaoImpl implements BookDAO {
                 connection.rs.getString("title"),
                 connection.rs.getString("authors"),
                 connection.rs.getString("genre"),
-                connection.rs.getFloat("price"),
+                connection.rs.getBigDecimal("price"),
                 connection.rs.getString("description"),
                 connection.rs.getString("publishingHouse"),
                 connection.rs.getInt("publishingYear"),
-                connection.rs.getFloat("discount"),
-                connection.rs.getInt("availableCopies"));
+                connection.rs.getBigDecimal("discount"),
+                connection.rs.getInt("availableCopies"),
+                connection.rs.getInt("libroCardPoint"));
 
         connection.closeConnection();
 
@@ -85,7 +87,7 @@ public class BookDaoImpl implements BookDAO {
     }
 
     @Override
-    public void setDiscount(String ISBN, float discount) throws SQLException {
+    public void setDiscount(String ISBN, BigDecimal discount) throws SQLException {
         String sql = "UPDATE book SET discount = ? WHERE ISBN = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -93,7 +95,7 @@ public class BookDaoImpl implements BookDAO {
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setFloat(1, discount);
+        connection.pstmt.setBigDecimal(1, discount);
         connection.pstmt.setString(2, ISBN);
 
         connection.pstmt.executeUpdate();

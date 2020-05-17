@@ -2,6 +2,7 @@ package Model;
 
 import Model.Utils.DatabaseConnection;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 public class Book {
@@ -9,16 +10,17 @@ public class Book {
     public String title;
     public String authors;
     public String genre;
-    public float price;
+    public BigDecimal price;
     public String publishingHouse;
     public int publishingYear;
-    public float discount;
+    public BigDecimal discount;
     public String description;
     public int availableCopies;
+    public int libroCardPoints;
 
-    public Book (String ISBN, String title, String authors, String genre, float price,
+    public Book (String ISBN, String title, String authors, String genre, BigDecimal price,
                  String description, String publishingHouse, int publishingYear,
-                 float discount, int availableCopies){
+                 BigDecimal discount, int availableCopies, int libroCardPoints){
         this.ISBN = ISBN;
         this.title = title;
         this.authors = authors;
@@ -29,6 +31,7 @@ public class Book {
         this.discount = discount;
         this.description = description;
         this.availableCopies = availableCopies;
+        this.libroCardPoints = libroCardPoints;
     }
 
     public String getISBN(){
@@ -47,7 +50,7 @@ public class Book {
         return genre;
     }
 
-    public float getPrice(){
+    public BigDecimal getPrice(){
         return price;
     }
 
@@ -59,7 +62,7 @@ public class Book {
         return publishingYear;
     }
 
-    public float getDiscount(){
+    public BigDecimal getDiscount(){
         return discount;
     }
 
@@ -70,6 +73,8 @@ public class Book {
     public int getAvailableCopies(){
         return availableCopies;
     }
+
+    public int getLibroCardPoints(){ return libroCardPoints; }
 
     public int getQuantity(String email) throws SQLException {
         String sql = "SELECT quantity FROM cart WHERE user = ? AND book = ?";

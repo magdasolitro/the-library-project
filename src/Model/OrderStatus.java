@@ -1,4 +1,4 @@
-package Model.Utils.DaoImpl;
+package Model;
 
 public enum OrderStatus {
     ORDER_REQUEST_RECEIVED,

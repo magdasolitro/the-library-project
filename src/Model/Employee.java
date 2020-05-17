@@ -17,4 +17,16 @@ public class Employee {
         this.role = role;
         this.employedSince = employedSince;
     }
+
+    public String getEmployeeID(){ return employeeID; }
+
+    public String getName(){ return name; }
+
+    public String getSurname() { return surname; }
+
+    public String getBirthDate(){ return birthDate; }
+
+    public String getRole(){ return role; }
+
+    public String getEmployedSince(){ return employedSince; }
 }

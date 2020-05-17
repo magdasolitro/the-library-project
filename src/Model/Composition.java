@@ -10,4 +10,10 @@ public class Composition {
         this.order = order;
         this.quantity = quantity;
     }
+
+    public String getBook(){ return book; }
+
+    public String getOrder(){ return order; }
+
+    public int getQuantity(){ return quantity; }
 }
