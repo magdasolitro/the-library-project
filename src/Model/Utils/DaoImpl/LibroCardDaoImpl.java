@@ -11,8 +11,7 @@ import java.sql.SQLException;
 
 public class LibroCardDaoImpl implements LibroCardDAO {
     @Override
-    public void addLibroCard(String cardID, String email, String issueDate)
-            throws SQLException {
+    public void addLibroCard(LibroCard newLibroCard) throws SQLException {
 
         String sql = "INSERT INTO LibroCard(cardID, issueDate, points, user)" +
                 "VALUES(?,?,?,?)";
@@ -20,12 +19,13 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
+
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, cardID);
-        connection.pstmt.setString(2, issueDate);
-        connection.pstmt.setInt(3, 0);
-        connection.pstmt.setString(4, email);
+        connection.pstmt.setString(1, newLibroCard.getCardID());
+        connection.pstmt.setString(2, newLibroCard.getIssueDate());
+        connection.pstmt.setInt(3, newLibroCard.getPoints());
+        connection.pstmt.setString(4, newLibroCard.getUser());
 
         connection.pstmt.executeUpdate();
 
@@ -54,14 +54,14 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         return libroCard;
     }
 
-    public LibroCard getLibroCard(User user) throws SQLException{
+    public LibroCard getUserLibroCard(String email) throws SQLException{
         String sql = "SELECT * FROM LibroCard WHERE user = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, user.getEmail());
+        connection.pstmt.setString(1, email);
 
         connection.rs = connection.pstmt.executeQuery();
 
@@ -91,17 +91,18 @@ public class LibroCardDaoImpl implements LibroCardDAO {
     }
 
     @Override
-    public void addPoints(LibroCard libroCard, Order order) throws SQLException {
+    public void addPoints(String cardID, String orderID) throws SQLException {
         // verifico che la carta e l'ordine siano associate allo stesso utente
+
         /*
         if(libroCard.getUser().equals(order.getUser())) {
-            System.out.println("An error occurred: " + nsu.getMessage());
+
         }
-         */
+        */
 
         String sql = "UPDATE LibroCard SET points = points + " +
                 "(SELECT o.points " +
-                "FROM order o " +
+                "FROM orders o " +
                 "WHERE o.orderID = ?)" +
                 "WHERE cardID = ?";
 
@@ -110,8 +111,8 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        // connection.pstmt.setString(1, order.getOrderID());
-        // connection.pstmt.setString(2, libroCard.getCardID());
+        connection.pstmt.setString(1, orderID);
+        connection.pstmt.setString(2, cardID);
 
         connection.pstmt.executeUpdate();
 

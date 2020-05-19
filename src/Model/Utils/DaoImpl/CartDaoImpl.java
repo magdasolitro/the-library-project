@@ -2,10 +2,9 @@ package Model.Utils.DaoImpl;
 
 import Model.Book;
 
+import Model.Exceptions.UserNotInDatabaseException;
 import Model.OrderStatus;
-import Model.Utils.DAOs.BookDAO;
-import Model.Utils.DAOs.CartDAO;
-import Model.Utils.DAOs.CompositionDAO;
+import Model.Utils.DAOs.*;
 import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
@@ -107,25 +106,13 @@ public class CartDaoImpl implements CartDAO {
     }
 
     public String checkoutUserReg(String email, String paymentMethod,
-                                  String shippingAddress) throws SQLException {
+                                  String shippingAddress)
+            throws SQLException, UserNotInDatabaseException {
 
         connection = new DatabaseConnection();
         connection.openConnection();
 
-        // obtain user's name and surname to create the orderID
-        String userNameSurname = "SELECT name, surname FROM user INNER JOIN cart " +
-                "ON user.email = cart.user WHERE user.email = ?";
-
-        connection.pstmt = connection.conn.prepareStatement(userNameSurname);
-        connection.pstmt.setString(1, email);
-
-        connection.rs = connection.pstmt.executeQuery();
-
-        String name = connection.rs.getString("name");
-        String surname = connection.rs.getString("surname");
-
-        // generate orderID
-        String orderID = generateOrderID(name, surname);
+        String orderID = generateOrderID(connection, email);
 
         // select all the books and relative quantities from the user cart
         String booksInCart = "SELECT book, quantity FROM cart WHERE user = ?";
@@ -138,7 +125,7 @@ public class CartDaoImpl implements CartDAO {
         ArrayList<Book> booksInCartAttributes = new ArrayList<>();
         BookDAO bookDao = new BookDaoImpl();
 
-        // add a new row in table Composition for each book in cart
+        // for each book in cart, add a new row in table Composition
         while(connection.rs.next()){
             String currentBook = connection.rs.getString("book");
             int currentQuantity = connection.rs.getInt("quantity");
@@ -149,25 +136,30 @@ public class CartDaoImpl implements CartDAO {
             newComposition.addBookToOrder(currentBook, orderID, currentQuantity);
         }
 
+        // calculate total price and points
         BigDecimal totalPrice = getOrderPrice(connection, booksInCartAttributes, email);
         int totalPoints = getOrderPoints(connection, booksInCartAttributes);
 
-        String insertOrder = "INSERT INTO order(orderID, date, status, paymentMethod," +
-                "price, points, shippingAddress, user, user_notReg) VALUES(?,?,?,?,?," +
-                "?,?,?,?)";
+        // add new row in Order table
+        OrderDAO orderDAO = new OrderDaoImpl();
 
-        connection.pstmt = connection.conn.prepareStatement(insertOrder);
-        connection.pstmt.setString(1, orderID);
-        connection.pstmt.setString(2, OrderStatus.ORDER_REQUEST_RECEIVED.toString());
-        connection.pstmt.setString(3, getCurrentDate());
-        connection.pstmt.setString(4, paymentMethod);
-        connection.pstmt.setBigDecimal(5, totalPrice);
-        connection.pstmt.setInt(6, totalPoints);
-        connection.pstmt.setString(7, shippingAddress);
-        connection.pstmt.setString(8, email);
-        connection.pstmt.setString(9, null);
+        orderDAO.addOrder(orderID, getCurrentDate(),
+                OrderStatus.ORDER_REQUEST_RECEIVED, paymentMethod,
+                totalPrice, totalPoints, shippingAddress, email, null);
 
-        connection.pstmt.executeUpdate();
+
+        // add points to user's LibroCard
+        LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+
+        String cardIDQuery = "SELECT cardID FROM LibroCard WHERE user = ?";
+
+        connection.pstmt = connection.conn.prepareStatement(cardIDQuery);
+
+        connection.pstmt.setString(1, email);
+
+        connection.rs = connection.pstmt.executeQuery();
+
+        libroCardDAO.addPoints(connection.rs.getString("cardID"), orderID);
 
         connection.closeConnection();
 
@@ -175,15 +167,15 @@ public class CartDaoImpl implements CartDAO {
     }
 
     public String checkoutUserNotReg(String email, String paymentMethod)
-            throws SQLException {
+            throws SQLException, UserNotInDatabaseException {
 
-        connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         // obtain user's name and surname to create the orderID
-        String userNameSurname = "SELECT name, surname FROM user_notReg " +
-                "INNER JOIN cart ON user_notReg.email = cart.user " +
-                "WHERE user_notReg.email = ?";
+        String userNameSurname = "SELECT name, surname FROM userNotReg " +
+                "INNER JOIN cart ON userNotReg.email = cart.user " +
+                "WHERE userNotReg.email = ?";
 
         connection.pstmt = connection.conn.prepareStatement(userNameSurname);
         connection.pstmt.setString(1, email);
@@ -194,7 +186,7 @@ public class CartDaoImpl implements CartDAO {
         String surname = connection.rs.getString("surname");
 
         // generate orderID
-        String orderID = generateOrderID(name, surname);
+        String orderID = generateOrderID(connection, email);
 
         return null;
     }
@@ -208,6 +200,48 @@ public class CartDaoImpl implements CartDAO {
     */
     private String generateOrderID(String name, String surname)
             throws SQLException {
+
+        String firstToken = name.substring(0,3).toUpperCase() +
+                surname.substring(0,3).toUpperCase();
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        LocalDateTime now = LocalDateTime.now();
+        String dateTimeToken  = dtf.format(now);
+
+        return firstToken + dateTimeToken;
+    }
+
+    private String generateOrderID(DatabaseConnection connection, String email)
+            throws SQLException, UserNotInDatabaseException{
+        String name, surname;
+
+        String userNameSurname = "SELECT name, surname " +
+                "FROM user INNER JOIN cart ON user.email = cart.user " +
+                "WHERE user.email = ?";
+
+        connection.pstmt = connection.conn.prepareStatement(userNameSurname);
+        connection.pstmt.setString(1, email);
+
+        connection.rs = connection.pstmt.executeQuery();
+
+        // check if ResultSet is empty --> verify if email is in userNotReg table
+        if(!connection.rs.next()){
+            userNameSurname = "SELECT name, surname FROM userNotReg " +
+                    "INNER JOIN cart ON userNotReg.email = cart.user " +
+                    "WHERE userNotReg.email = ?";
+
+            connection.pstmt = connection.conn.prepareStatement(userNameSurname);
+            connection.pstmt.setString(1, email);
+
+            connection.rs = connection.pstmt.executeQuery();
+
+            if(!connection.rs.next()){
+                throw new UserNotInDatabaseException();
+            }
+        }
+
+        name = connection.rs.getString("name");
+        surname = connection.rs.getString("surname");
 
         String firstToken = name.substring(0,3).toUpperCase() +
                 surname.substring(0,3).toUpperCase();

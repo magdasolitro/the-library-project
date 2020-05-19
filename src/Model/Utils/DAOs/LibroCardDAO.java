@@ -8,15 +8,16 @@ import java.sql.SQLException;
 
 public interface LibroCardDAO {
 
-    public void addLibroCard(String cardID, String email, String issueDate)
+    // prima creo un oggetto LibroCard, poi lo passo in input al metodo
+    public void addLibroCard(LibroCard newLibroCard)
             throws SQLException;
 
     public LibroCard getLibroCard(String cardID) throws SQLException;
 
-    public LibroCard getLibroCard(User user) throws SQLException;
+    public LibroCard getUserLibroCard(String email) throws SQLException;
 
     public void deleteLibroCard(String cardID) throws SQLException;
 
     // utilizzato per aggiungere punti appena l'ordine viene effettuato
-    public void addPoints(LibroCard libroCard, Order orderID) throws SQLException;
+    public void addPoints(String cardID, String orderID) throws SQLException;
 }

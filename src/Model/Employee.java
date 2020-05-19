@@ -5,11 +5,11 @@ public class Employee {
     public String name;
     public String surname;
     public String birthDate;
-    public String role;
+    public EmployeeRole role;
     public String employedSince;
 
     public Employee(String employeeID, String name, String surname,
-                    String birthDate, String role, String employedSince){
+                    String birthDate, EmployeeRole role, String employedSince){
         this.employeeID = employeeID;
         this.name = name;
         this.surname = surname;
@@ -26,7 +26,7 @@ public class Employee {
 
     public String getBirthDate(){ return birthDate; }
 
-    public String getRole(){ return role; }
+    public EmployeeRole getRole(){ return role; }
 
     public String getEmployedSince(){ return employedSince; }
 }

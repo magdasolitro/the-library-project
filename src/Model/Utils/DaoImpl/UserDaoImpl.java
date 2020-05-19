@@ -11,7 +11,7 @@ public class UserDaoImpl implements UserDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        // fill pstmt with the SQL statement, still to be parametrized
+        // fill pstmt object for sending parameterized SQL statements to the database
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         // fill the parameters in the SQL statement

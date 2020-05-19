@@ -76,6 +76,8 @@ public class Book {
 
     public int getLibroCardPoints(){ return libroCardPoints; }
 
+    // ritorna il numero di copie di questo libro presenti nel carrello di un
+    // determinato utente
     public int getQuantity(String email) throws SQLException {
         String sql = "SELECT quantity FROM cart WHERE user = ? AND book = ?";
 

@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS "user";
-DROP TABLE IF EXISTS "user_notReg";
+DROP TABLE IF EXISTS userNotReg;
 DROP TABLE IF EXISTS "LibroCard";
-DROP TABLE IF EXISTS "order";
+DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS "book";
 DROP TABLE IF EXISTS "composition";
 DROP TABLE IF EXISTS "cart";
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "order" (
     "user"	          TEXT,
     "user_notReg"     TEXT,
     FOREIGN KEY ("user") REFERENCES "user"("email"),
-    FOREIGN KEY ("user_notReg") REFERENCES "user_notReg"("email"),
+    FOREIGN KEY ("user_notReg") REFERENCES userNotReg("email"),
 	PRIMARY KEY("orderID")
 );
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS "composition" (
     "quantity"  INTEGER DEFAULT 1,
     PRIMARY KEY ("book", "order"),
     FOREIGN KEY("book") REFERENCES "book"("ISBN"),
-    FOREIGN KEY("order") REFERENCES "order"("orderID")
+    FOREIGN KEY("order") REFERENCES orders("orderID")
 );
 
 CREATE TABLE IF NOT EXISTS "book" (

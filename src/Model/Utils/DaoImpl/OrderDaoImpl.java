@@ -1,6 +1,7 @@
 package Model.Utils.DaoImpl;
 
 import Model.Order;
+import Model.OrderStatus;
 import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DatabaseConnection;
 
@@ -12,7 +13,7 @@ public class OrderDaoImpl implements OrderDAO {
 
     @Override
     public Order getOrder(String orderID) throws SQLException {
-        String sql = "SELECT * FROM order WHERE orderID = ?";
+        String sql = "SELECT * FROM orders WHERE orderID = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -25,7 +26,7 @@ public class OrderDaoImpl implements OrderDAO {
 
         Order order = new Order(connection.rs.getString("orderID"),
                 connection.rs.getString("date"),
-                connection.rs.getString("status"),
+                (OrderStatus) connection.rs.getObject("status"),
                 connection.rs.getString("paymentMethod"),
                 connection.rs.getBigDecimal("price"),
                 connection.rs.getInt("points"),
@@ -40,7 +41,7 @@ public class OrderDaoImpl implements OrderDAO {
 
     @Override
     public ArrayList<Order> getAllOrders() throws SQLException {
-        String sql = "SELECT * FROM order";
+        String sql = "SELECT * FROM orders";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -54,7 +55,7 @@ public class OrderDaoImpl implements OrderDAO {
         while(connection.rs.next()){
             ordersList.add(new Order(connection.rs.getString("orderID"),
                     connection.rs.getString("date"),
-                    connection.rs.getString("status"),
+                    (OrderStatus) connection.rs.getObject("status"),
                     connection.rs.getString("paymentMethod"),
                     connection.rs.getBigDecimal("price"),
                     connection.rs.getInt("points"),
@@ -68,7 +69,7 @@ public class OrderDaoImpl implements OrderDAO {
 
     @Override
     public ArrayList<Order> getOrdersByUser(String email) throws SQLException {
-        String sql = "SELECT * FROM order WHERE user = ?";
+        String sql = "SELECT * FROM orders WHERE user = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -83,7 +84,7 @@ public class OrderDaoImpl implements OrderDAO {
         while(connection.rs.next()){
             ordersListPerUser.add(new Order(connection.rs.getString("orderID"),
                     connection.rs.getString("date"),
-                    connection.rs.getString("status"),
+                    (OrderStatus) connection.rs.getObject("status"),
                     connection.rs.getString("paymentMethod"),
                     connection.rs.getBigDecimal("price"),
                     connection.rs.getInt("points"),
@@ -96,11 +97,12 @@ public class OrderDaoImpl implements OrderDAO {
     }
 
     @Override
-    public void addOrder(String orderID, String date, String status, String paymentMethod,
-                         BigDecimal price, int points, String shippingAddress, String user,
-                         String user_notReg) throws SQLException {
+    public void addOrder(String orderID, String date, OrderStatus status,
+                         String paymentMethod, BigDecimal price, int points,
+                         String shippingAddress, String user, String user_notReg)
+            throws SQLException {
 
-        String sql = "INSERT INTO order(orderID, date, status, paymentMethod," +
+        String sql = "INSERT INTO orders(orderID, date, status, paymentMethod," +
                 " price, points, shippingAddress, user, user_notReg) " +
                 "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
@@ -111,7 +113,7 @@ public class OrderDaoImpl implements OrderDAO {
 
         connection.pstmt.setString(1, orderID);
         connection.pstmt.setString(2, date);
-        connection.pstmt.setString(3, status);
+        connection.pstmt.setString(3, status.toString());
         connection.pstmt.setString(4, paymentMethod);
         connection.pstmt.setBigDecimal(5, price);
         connection.pstmt.setInt(6, points);
@@ -125,15 +127,15 @@ public class OrderDaoImpl implements OrderDAO {
     }
 
     @Override
-    public void updateStatus(Order order, String newStatus) throws SQLException {
-        String sql = "UPDATE order SET status = ? WHERE orderID = ?";
+    public void updateStatus(Order order, OrderStatus newStatus) throws SQLException {
+        String sql = "UPDATE orders SET status = ? WHERE orderID = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newStatus);
+        connection.pstmt.setString(1, newStatus.toString());
         connection.pstmt.setString(2, order.getOrderID());
 
         connection.pstmt.executeUpdate();

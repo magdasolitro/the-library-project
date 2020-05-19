@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class UserNotRegDaoImpl implements UserNotRegDAO {
     @Override
     public UserNotReg getUserNotReg(String email) throws SQLException {
-        String sql = "SELECT * FROM user_notReg WHERE email = ?";
+        String sql = "SELECT * FROM userNotReg WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -32,7 +32,7 @@ public class UserNotRegDaoImpl implements UserNotRegDAO {
     @Override
     public void addUserNotReg(String name, String surname, String phone, String email)
             throws SQLException {
-        String sql = "INSERT INTO user_notReg(name, surname, phone, email)" +
+        String sql = "INSERT INTO userNotReg(name, surname, phone, email)" +
                 "VALUES(?,?,?,?)";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -52,7 +52,7 @@ public class UserNotRegDaoImpl implements UserNotRegDAO {
 
     @Override
     public void deleteUserNotReg(String email) throws SQLException {
-        String sql = "DELETE FROM user_notReg WHERE email = ?";
+        String sql = "DELETE FROM userNotReg WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();

@@ -1,6 +1,7 @@
 package Model.Utils.DaoImpl;
 
 import Model.Employee;
+import Model.EmployeeRole;
 import Model.Utils.DAOs.EmployeeDAO;
 import Model.Utils.DatabaseConnection;
 
@@ -24,7 +25,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
                 connection.rs.getString("name"),
                 connection.rs.getString("surname"),
                 connection.rs.getString("birthDate"),
-                connection.rs.getString("role"),
+                (EmployeeRole) connection.rs.getObject("role"),
                 connection.rs.getString("employedSince"));
 
         return employee;
@@ -32,7 +33,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 
     @Override
     public void addEmployee(String employeeID, String name, String surname,
-                            String birthDate, String role, String employedSince)
+                            String birthDate, EmployeeRole role, String employedSince)
             throws SQLException {
         String sql = "INSERT INTO employee(employeeID, name, surname, birthDate," +
                 "role, employedSince) VALUES (?, ?, ?, ?, ?, ?)";
@@ -46,7 +47,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
         connection.pstmt.setString(2, name);
         connection.pstmt.setString(3, surname);
         connection.pstmt.setString(4, birthDate);
-        connection.pstmt.setString(5, role);
+        connection.pstmt.setString(5, role.toString());
         connection.pstmt.setString(6, employedSince);
 
         connection.pstmt.executeUpdate();

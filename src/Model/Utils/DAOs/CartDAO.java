@@ -1,6 +1,7 @@
 package Model.Utils.DAOs;
 
 import Model.Book;
+import Model.Exceptions.UserNotInDatabaseException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ public interface CartDAO {
 
     // returns orderID
     public String checkoutUserReg(String email, String paymentMethod, String shippingAddress)
-            throws SQLException;
+            throws SQLException, UserNotInDatabaseException;
 
     public String checkoutUserNotReg(String email, String paymentMethod)
-            throws SQLException;
+            throws SQLException, UserNotInDatabaseException;
 }
