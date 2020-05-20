@@ -5,6 +5,7 @@ import Model.OrderStatus;
 import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DatabaseConnection;
 
+import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,6 +38,23 @@ public class OrderDaoImpl implements OrderDAO {
         connection.closeConnection();
 
         return order;
+    }
+
+    @Override
+    public String getUserEmail(String orderID) throws SQLException{
+        String sql = "SELECT user, userNotReg FROM orders WHERE orderID = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, orderID);
+
+        if(connection.rs.getString("user") != null){
+            return connection.rs.getString("user");
+        }
+            return connection.rs.getString("userNotReg");
     }
 
     @Override
@@ -98,12 +116,12 @@ public class OrderDaoImpl implements OrderDAO {
 
     @Override
     public void addOrder(String orderID, String date, OrderStatus status,
-                         String paymentMethod, BigDecimal price, int points,
+                         String paymentMethod, BigDecimal price, Integer points,
                          String shippingAddress, String user, String user_notReg)
             throws SQLException {
 
         String sql = "INSERT INTO orders(orderID, date, status, paymentMethod," +
-                " price, points, shippingAddress, user, user_notReg) " +
+                " price, points, shippingAddress, user, userNotReg) " +
                 "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         DatabaseConnection connection = new DatabaseConnection();

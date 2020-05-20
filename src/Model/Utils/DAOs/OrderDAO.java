@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public interface OrderDAO {
     public Order getOrder(String orderID) throws SQLException;
 
+    public String getUserEmail(String orderID) throws SQLException;
+
     // visualizza tutti gli ordini effettuati da tutti gli utenti
     public ArrayList<Order> getAllOrders() throws SQLException;
 
@@ -19,7 +21,7 @@ public interface OrderDAO {
     public ArrayList<Order> getOrdersByUser(String email) throws SQLException;
 
     public void addOrder(String orderID, String date, OrderStatus status,
-                         String paymentMethod, BigDecimal price, int points,
+                         String paymentMethod, BigDecimal price, Integer points,
                          String shippingAddress, String user, String user_notReg)
             throws SQLException;
 

@@ -17,9 +17,6 @@ public interface CartDAO {
     public ArrayList<Book> showCartContent(String email) throws SQLException;
 
     // returns orderID
-    public String checkoutUserReg(String email, String paymentMethod, String shippingAddress)
-            throws SQLException, UserNotInDatabaseException;
-
-    public String checkoutUserNotReg(String email, String paymentMethod)
+    public String checkout(String email, String paymentMethod, String shippingAddress)
             throws SQLException, UserNotInDatabaseException;
 }

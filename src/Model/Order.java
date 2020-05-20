@@ -10,14 +10,14 @@ public class Order {
     public OrderStatus status;
     public String paymentMethod;
     public BigDecimal price;
-    public int points;
+    public Integer points;
     public String shippingAddress;
     public String user;
     public String userNotReg;
 
     // usato al momento della creazione di un nuovo ordine
     public Order(String orderID, OrderStatus status, String paymentMethod, BigDecimal price,
-                 int points, String shippingAddress, String user, String userNotReg){
+                 Integer points, String shippingAddress, String user, String userNotReg){
         this.orderID = orderID;
         this.date = getCurrentDate();
         this.status = status;
@@ -31,7 +31,7 @@ public class Order {
 
     // usato per memorizzare il risultato di una query
     public Order(String orderID, String date, OrderStatus status, String paymentMethod,
-                 BigDecimal price, int points, String shippingAddress, String user,
+                 BigDecimal price, Integer points, String shippingAddress, String user,
                  String userNotReg){
         this.orderID = orderID;
         this.date = date;
@@ -54,7 +54,7 @@ public class Order {
 
     public BigDecimal getPrice(){ return price; }
 
-    public int getPoints(){ return points; }
+    public Integer getPoints(){ return points; }
 
     public String getShippingAddress(){ return shippingAddress; }
 

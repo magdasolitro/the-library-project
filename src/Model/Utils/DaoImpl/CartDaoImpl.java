@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 public class CartDaoImpl implements CartDAO {
     DatabaseConnection connection;
@@ -105,8 +106,8 @@ public class CartDaoImpl implements CartDAO {
         return cartContent;
     }
 
-    public String checkoutUserReg(String email, String paymentMethod,
-                                  String shippingAddress)
+    public String checkout(String email, String paymentMethod,
+                           String shippingAddress)
             throws SQLException, UserNotInDatabaseException {
 
         connection = new DatabaseConnection();
@@ -115,9 +116,9 @@ public class CartDaoImpl implements CartDAO {
         String orderID = generateOrderID(connection, email);
 
         // select all the books and relative quantities from the user cart
-        String booksInCart = "SELECT book, quantity FROM cart WHERE user = ?";
+        String booksInCartQuery = "SELECT book, quantity FROM cart WHERE user = ?";
 
-        connection.pstmt = connection.conn.prepareStatement(booksInCart);
+        connection.pstmt = connection.conn.prepareStatement(booksInCartQuery);
         connection.pstmt.setString(1, email);
 
         connection.rs = connection.pstmt.executeQuery();
@@ -138,105 +139,82 @@ public class CartDaoImpl implements CartDAO {
 
         // calculate total price and points
         BigDecimal totalPrice = getOrderPrice(connection, booksInCartAttributes, email);
-        int totalPoints = getOrderPoints(connection, booksInCartAttributes);
 
-        // add new row in Order table
-        OrderDAO orderDAO = new OrderDaoImpl();
+        if(!Pattern.matches("NOTREG*", orderID) ){
+            int totalPoints = getOrderPoints(connection, booksInCartAttributes);
 
-        orderDAO.addOrder(orderID, getCurrentDate(),
-                OrderStatus.ORDER_REQUEST_RECEIVED, paymentMethod,
-                totalPrice, totalPoints, shippingAddress, email, null);
+            // add new row in Order table
+            OrderDAO orderDAO = new OrderDaoImpl();
+
+            orderDAO.addOrder(orderID, getCurrentDate(),
+                    OrderStatus.ORDER_REQUEST_RECEIVED, paymentMethod,
+                    totalPrice, totalPoints, shippingAddress, email, null);
 
 
-        // add points to user's LibroCard
-        LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+            // add points to user's LibroCard
+            LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
 
-        String cardIDQuery = "SELECT cardID FROM LibroCard WHERE user = ?";
+            String cardIDQuery = "SELECT cardID FROM LibroCard WHERE user = ?";
 
-        connection.pstmt = connection.conn.prepareStatement(cardIDQuery);
+            connection.pstmt = connection.conn.prepareStatement(cardIDQuery);
 
-        connection.pstmt.setString(1, email);
+            connection.pstmt.setString(1, email);
 
-        connection.rs = connection.pstmt.executeQuery();
+            connection.rs = connection.pstmt.executeQuery();
 
-        libroCardDAO.addPoints(connection.rs.getString("cardID"), orderID);
+            // libroCardDAO.addPoints(connection.rs.getString("cardID"), orderID);
+
+        } else {
+            // add new row in Order table
+            OrderDAO orderDAO = new OrderDaoImpl();
+
+            orderDAO.addOrder(orderID, getCurrentDate(),
+                    OrderStatus.ORDER_REQUEST_RECEIVED, paymentMethod,
+                    totalPrice, null, shippingAddress, null, email);
+        }
 
         connection.closeConnection();
 
         return orderID;
     }
 
-    public String checkoutUserNotReg(String email, String paymentMethod)
-            throws SQLException, UserNotInDatabaseException {
-
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.openConnection();
-
-        // obtain user's name and surname to create the orderID
-        String userNameSurname = "SELECT name, surname FROM userNotReg " +
-                "INNER JOIN cart ON userNotReg.email = cart.user " +
-                "WHERE userNotReg.email = ?";
-
-        connection.pstmt = connection.conn.prepareStatement(userNameSurname);
-        connection.pstmt.setString(1, email);
-
-        connection.rs = connection.pstmt.executeQuery();
-
-        String name = connection.rs.getString("name");
-        String surname = connection.rs.getString("surname");
-
-        // generate orderID
-        String orderID = generateOrderID(connection, email);
-
-        return null;
-    }
-
-
     /*
-        Creates a unique alphanumeric string that will be user to identify the
+       Creates a unique alphanumeric string that will be user to identify the
        order. It is generated using: first 3 letters of the surname + first
        3 letter of the name + integer timestamp (es. the orderID is generated
        on 15 May 2020, at 09:26:22 --> integer timestamp = 15052020092622
     */
-    private String generateOrderID(String name, String surname)
-            throws SQLException {
-
-        String firstToken = name.substring(0,3).toUpperCase() +
-                surname.substring(0,3).toUpperCase();
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDateTime now = LocalDateTime.now();
-        String dateTimeToken  = dtf.format(now);
-
-        return firstToken + dateTimeToken;
-    }
-
     private String generateOrderID(DatabaseConnection connection, String email)
             throws SQLException, UserNotInDatabaseException{
-        String name, surname;
 
-        String userNameSurname = "SELECT name, surname " +
-                "FROM user INNER JOIN cart ON user.email = cart.user " +
+        String name, surname;
+        boolean isRegistred = true;
+
+        String userNameSurnameQuery = "SELECT name, surname " +
+                "FROM user JOIN cart ON user.email = cart.user " +
                 "WHERE user.email = ?";
 
-        connection.pstmt = connection.conn.prepareStatement(userNameSurname);
+        connection.pstmt = connection.conn.prepareStatement(userNameSurnameQuery);
         connection.pstmt.setString(1, email);
 
         connection.rs = connection.pstmt.executeQuery();
 
-        // check if ResultSet is empty --> verify if email is in userNotReg table
+        // if ResultSet is empty, try to find user in userNotReg table
         if(!connection.rs.next()){
-            userNameSurname = "SELECT name, surname FROM userNotReg " +
-                    "INNER JOIN cart ON userNotReg.email = cart.user " +
+            isRegistred = false;
+
+            userNameSurnameQuery = "SELECT name, surname " +
+                    "FROM userNotReg JOIN cart ON userNotReg.email = cart.user " +
                     "WHERE userNotReg.email = ?";
 
-            connection.pstmt = connection.conn.prepareStatement(userNameSurname);
+            connection.pstmt = connection.conn.prepareStatement(userNameSurnameQuery);
             connection.pstmt.setString(1, email);
 
             connection.rs = connection.pstmt.executeQuery();
 
             if(!connection.rs.next()){
-                throw new UserNotInDatabaseException();
+                //throw new UserNotInDatabaseException();
+                System.out.println(new UserNotInDatabaseException().getMessage());
             }
         }
 
@@ -250,7 +228,11 @@ public class CartDaoImpl implements CartDAO {
         LocalDateTime now = LocalDateTime.now();
         String dateTimeToken  = dtf.format(now);
 
-        return firstToken + dateTimeToken;
+        if(isRegistred) {
+            return firstToken + dateTimeToken;
+        } else{
+            return "NOTREG" + firstToken + dateTimeToken;
+        }
     }
 
     // costo totale dell'ordine: prezzo libro * quantità

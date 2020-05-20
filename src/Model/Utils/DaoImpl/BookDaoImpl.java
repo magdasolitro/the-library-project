@@ -9,8 +9,7 @@ import java.sql.SQLException;
 
 public class BookDaoImpl implements BookDAO {
     @Override
-    public void addBook(Book book)
-            throws SQLException {
+    public void addBook(Book book) throws SQLException {
 
         String sql = "INSERT INTO book(ISBN, title, authors, genre, price, " +
                 "description, publishingHouse, publishingYear, discount, " +

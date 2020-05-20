@@ -7,6 +7,7 @@ import Model.User;
 import Model.Utils.DAOs.LibroCardDAO;
 import Model.Utils.DatabaseConnection;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 
 public class LibroCardDaoImpl implements LibroCardDAO {
@@ -19,7 +20,6 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         connection.pstmt.setString(1, newLibroCard.getCardID());
@@ -30,6 +30,22 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
+    }
+
+    @Override
+    public String getUserEmail(String cardID) throws SQLException{
+        String sql = "SELECT user FROM LibroCard WHERE user = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, cardID);
+
+        connection.rs = connection.pstmt.executeQuery();
+
+        return connection.rs.getString("user");
     }
 
     @Override
@@ -91,30 +107,28 @@ public class LibroCardDaoImpl implements LibroCardDAO {
     }
 
     @Override
-    public void addPoints(String cardID, String orderID) throws SQLException {
-        // verifico che la carta e l'ordine siano associate allo stesso utente
-
-        /*
-        if(libroCard.getUser().equals(order.getUser())) {
-
-        }
-        */
-
-        String sql = "UPDATE LibroCard SET points = points + " +
-                "(SELECT o.points " +
-                "FROM orders o " +
-                "WHERE o.orderID = ?)" +
-                "WHERE cardID = ?";
-
+    public void addPoints(String cardID, String orderID) throws SQLException, NotSameUserException {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        try{
+            String sql = "UPDATE LibroCard SET points = points + " +
+                    "(SELECT points " +
+                    "FROM orders " +
+                    "WHERE orderID = ?)" +
+                    "WHERE cardID = ?";
 
-        connection.pstmt.setString(1, orderID);
-        connection.pstmt.setString(2, cardID);
+            connection.pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.executeUpdate();
+            connection.pstmt.setString(1, orderID);
+            connection.pstmt.setString(2, cardID);
+
+            connection.pstmt.executeUpdate();
+        } catch(SQLException sqle){
+            System.out.println(sqle.getMessage());
+        } /*catch(NotSameUserException nsue){
+            System.out.println(nsue.getMessage());
+        }*/
 
         connection.closeConnection();
     }
