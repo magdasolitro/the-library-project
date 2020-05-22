@@ -27,7 +27,7 @@ public class OrderDaoImpl implements OrderDAO {
 
         Order order = new Order(connection.rs.getString("orderID"),
                 connection.rs.getString("date"),
-                (OrderStatus) connection.rs.getObject("status"),
+                connection.rs.getString("status"),
                 connection.rs.getString("paymentMethod"),
                 connection.rs.getBigDecimal("price"),
                 connection.rs.getInt("points"),
@@ -73,7 +73,7 @@ public class OrderDaoImpl implements OrderDAO {
         while(connection.rs.next()){
             ordersList.add(new Order(connection.rs.getString("orderID"),
                     connection.rs.getString("date"),
-                    (OrderStatus) connection.rs.getObject("status"),
+                    connection.rs.getString("status"),
                     connection.rs.getString("paymentMethod"),
                     connection.rs.getBigDecimal("price"),
                     connection.rs.getInt("points"),
@@ -102,7 +102,7 @@ public class OrderDaoImpl implements OrderDAO {
         while(connection.rs.next()){
             ordersListPerUser.add(new Order(connection.rs.getString("orderID"),
                     connection.rs.getString("date"),
-                    (OrderStatus) connection.rs.getObject("status"),
+                    connection.rs.getString("status"),
                     connection.rs.getString("paymentMethod"),
                     connection.rs.getBigDecimal("price"),
                     connection.rs.getInt("points"),
@@ -115,9 +115,9 @@ public class OrderDaoImpl implements OrderDAO {
     }
 
     @Override
-    public void addOrder(String orderID, String date, OrderStatus status,
+    public void addOrder(String orderID, String date, String status,
                          String paymentMethod, BigDecimal price, Integer points,
-                         String shippingAddress, String user, String user_notReg)
+                         String shippingAddress, String user, String userNotReg)
             throws SQLException {
 
         String sql = "INSERT INTO orders(orderID, date, status, paymentMethod," +
@@ -131,13 +131,13 @@ public class OrderDaoImpl implements OrderDAO {
 
         connection.pstmt.setString(1, orderID);
         connection.pstmt.setString(2, date);
-        connection.pstmt.setString(3, status.toString());
+        connection.pstmt.setString(3, status);
         connection.pstmt.setString(4, paymentMethod);
         connection.pstmt.setBigDecimal(5, price);
         connection.pstmt.setInt(6, points);
         connection.pstmt.setString(7, shippingAddress);
         connection.pstmt.setString(8, user);
-        connection.pstmt.setString(9, user_notReg);
+        connection.pstmt.setString(9, userNotReg);
 
         connection.pstmt.executeUpdate();
 

@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Exceptions.InvalidStringException;
+
 public class User extends UserNotReg{
     public String password;
     public String homeAddress;
@@ -8,9 +10,16 @@ public class User extends UserNotReg{
     public String homeCity;
 
     public User(String name, String surname, String phone, String email,
-                String password, String homeAddress, String streetNumber, String ZIPCode,
-                String homeCity) {
+                String password, String homeAddress, String streetNumber,
+                String ZIPCode, String homeCity) throws InvalidStringException {
         super(name, surname, phone, email);
+
+        if(password.length() == 0 || homeAddress.length() == 0
+                || streetNumber.length() == 0 || ZIPCode.length() == 0
+                || homeCity.length() == 0){
+            throw new InvalidStringException();
+        }
+
         this.password = password;
         this.homeAddress = homeAddress;
         this.streetNumber = streetNumber;

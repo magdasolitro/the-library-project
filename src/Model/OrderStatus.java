@@ -20,10 +20,8 @@ public enum OrderStatus {
                 return "Your order has been successfully delivered";
             case UNABLE_TO_DELIVER:
                 return "Delivery has failed because of a problem";
-            case LOST:
+            default:
                 return "Your order has been lost";
         }
-
-        return "";
     }
 }

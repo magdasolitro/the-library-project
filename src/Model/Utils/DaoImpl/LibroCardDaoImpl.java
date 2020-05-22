@@ -2,19 +2,16 @@ package Model.Utils.DaoImpl;
 
 import Model.Exceptions.NotSameUserException;
 import Model.LibroCard;
-import Model.Order;
-import Model.User;
 import Model.Utils.DAOs.LibroCardDAO;
 import Model.Utils.DatabaseConnection;
 
-import javax.xml.crypto.Data;
 import java.sql.SQLException;
 
 public class LibroCardDaoImpl implements LibroCardDAO {
     @Override
     public void addLibroCard(LibroCard newLibroCard) throws SQLException {
 
-        String sql = "INSERT INTO LibroCard(cardID, issueDate, points, user)" +
+        String sql = "INSERT INTO LibroCard(cardID, issueDate, points, email)" +
                 "VALUES(?,?,?,?)";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -34,7 +31,7 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
     @Override
     public String getUserEmail(String cardID) throws SQLException{
-        String sql = "SELECT user FROM LibroCard WHERE user = ?";
+        String sql = "SELECT email FROM LibroCard WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -71,7 +68,7 @@ public class LibroCardDaoImpl implements LibroCardDAO {
     }
 
     public LibroCard getUserLibroCard(String email) throws SQLException{
-        String sql = "SELECT * FROM LibroCard WHERE user = ?";
+        String sql = "SELECT * FROM LibroCard WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();

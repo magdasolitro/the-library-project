@@ -2,6 +2,8 @@ package Model.Utils.DaoImpl;
 
 import Model.Book;
 
+import Model.Exceptions.InvalidStringException;
+import Model.Exceptions.NotSameUserException;
 import Model.Exceptions.UserNotInDatabaseException;
 import Model.OrderStatus;
 import Model.Utils.DAOs.*;
@@ -72,7 +74,8 @@ public class CartDaoImpl implements CartDAO {
     }
 
     @Override
-    public ArrayList<Book> showCartContent(String email) throws SQLException {
+    public ArrayList<Book> showCartContent(String email) throws SQLException,
+            InvalidStringException {
         String sql = "SELECT ISBN, title, authors, genre, price, description," +
                 "publishingHouse, publishingYear, discount, availableCopies," +
                 "quantity FROM cart JOIN book ON ISBN = book WHERE user = ?";
@@ -108,7 +111,7 @@ public class CartDaoImpl implements CartDAO {
 
     public String checkout(String email, String paymentMethod,
                            String shippingAddress)
-            throws SQLException, UserNotInDatabaseException {
+            throws SQLException, UserNotInDatabaseException, NotSameUserException {
 
         connection = new DatabaseConnection();
         connection.openConnection();
@@ -147,14 +150,14 @@ public class CartDaoImpl implements CartDAO {
             OrderDAO orderDAO = new OrderDaoImpl();
 
             orderDAO.addOrder(orderID, getCurrentDate(),
-                    OrderStatus.ORDER_REQUEST_RECEIVED, paymentMethod,
-                    totalPrice, totalPoints, shippingAddress, email, null);
-
+                    OrderStatus.ORDER_REQUEST_RECEIVED.toString(),
+                    paymentMethod, totalPrice, totalPoints, shippingAddress,
+                    email, null);
 
             // add points to user's LibroCard
             LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
 
-            String cardIDQuery = "SELECT cardID FROM LibroCard WHERE user = ?";
+            String cardIDQuery = "SELECT cardID FROM LibroCard WHERE email = ?";
 
             connection.pstmt = connection.conn.prepareStatement(cardIDQuery);
 
@@ -162,15 +165,16 @@ public class CartDaoImpl implements CartDAO {
 
             connection.rs = connection.pstmt.executeQuery();
 
-            // libroCardDAO.addPoints(connection.rs.getString("cardID"), orderID);
+            libroCardDAO.addPoints(connection.rs.getString("cardID"), orderID);
 
         } else {
             // add new row in Order table
             OrderDAO orderDAO = new OrderDaoImpl();
 
             orderDAO.addOrder(orderID, getCurrentDate(),
-                    OrderStatus.ORDER_REQUEST_RECEIVED, paymentMethod,
-                    totalPrice, null, shippingAddress, null, email);
+                    OrderStatus.ORDER_REQUEST_RECEIVED.toString(),
+                    paymentMethod, totalPrice, null, shippingAddress,
+                    null, email);
         }
 
         connection.closeConnection();
@@ -213,8 +217,7 @@ public class CartDaoImpl implements CartDAO {
             connection.rs = connection.pstmt.executeQuery();
 
             if(!connection.rs.next()){
-                //throw new UserNotInDatabaseException();
-                System.out.println(new UserNotInDatabaseException().getMessage());
+                throw new UserNotInDatabaseException();
             }
         }
 

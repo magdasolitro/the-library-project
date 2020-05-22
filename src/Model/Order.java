@@ -1,13 +1,14 @@
 package Model;
 
+import Model.Exceptions.IllegalValueException;
+import Model.Exceptions.InvalidStringException;
+
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class Order {
     public String orderID;
     public String date;
-    public OrderStatus status;
+    public String status;
     public String paymentMethod;
     public BigDecimal price;
     public Integer points;
@@ -15,24 +16,20 @@ public class Order {
     public String user;
     public String userNotReg;
 
-    // usato al momento della creazione di un nuovo ordine
-    public Order(String orderID, OrderStatus status, String paymentMethod, BigDecimal price,
-                 Integer points, String shippingAddress, String user, String userNotReg){
-        this.orderID = orderID;
-        this.date = getCurrentDate();
-        this.status = status;
-        this.paymentMethod = paymentMethod;
-        this.price = price;
-        this.points = points;
-        this.shippingAddress = shippingAddress;
-        this.user = user;
-        this.userNotReg = userNotReg;
-    }
-
     // usato per memorizzare il risultato di una query
-    public Order(String orderID, String date, OrderStatus status, String paymentMethod,
+    public Order(String orderID, String date, String status, String paymentMethod,
                  BigDecimal price, Integer points, String shippingAddress, String user,
-                 String userNotReg){
+                 String userNotReg) throws InvalidStringException, IllegalValueException {
+
+        if(orderID.length() == 0 || date.length() == 0 || status.length() == 0
+                || paymentMethod.length() == 0 || shippingAddress.length() == 0){
+            throw new InvalidStringException();
+        }
+
+        if(price.compareTo(new BigDecimal(0)) == -1 || points < 0){
+            throw new IllegalValueException();
+        }
+
         this.orderID = orderID;
         this.date = date;
         this.status = status;
@@ -48,7 +45,7 @@ public class Order {
 
     public String getDate(){ return date; }
 
-    public OrderStatus getStatus(){ return status; }
+    public String getStatus(){ return status; }
 
     public String getPaymentMethod(){ return paymentMethod; }
 
@@ -64,12 +61,5 @@ public class Order {
         } else {
             return userNotReg;
         }
-    }
-
-    private String getCurrentDate(){
-        Calendar calendar = Calendar.getInstance();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        return formatter.format(calendar.getTime());
     }
 }

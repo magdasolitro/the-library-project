@@ -1,11 +1,15 @@
 package Model.Utils.DaoImpl;
+import Model.Exceptions.NullStringException;
+import Model.Exceptions.UserNotInDatabaseException;
+import Model.LibroCard;
+import Model.Utils.DAOs.LibroCardDAO;
 import Model.Utils.DAOs.UserDAO;
 import Model.User;
 import Model.Utils.DatabaseConnection;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDAO {
-    public User getUser(String email) throws SQLException {
+    public User getUser(String email) throws SQLException, NullStringException {
         String sql = "SELECT * FROM user WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -35,7 +39,7 @@ public class UserDaoImpl implements UserDAO {
         return user;
     }
 
-    public void addUser(User user) throws SQLException {
+    public void addUser(User user) throws SQLException, UserNotInDatabaseException {
 
         String sql = "INSERT INTO user(name, surname, phone, email," +
                 "password, homeAddress, streetNumber, ZIPCode, homeCity)" +
@@ -56,8 +60,18 @@ public class UserDaoImpl implements UserDAO {
         connection.pstmt.setString(9, user.getZIPCode());
         connection.pstmt.setString(10, user.getHomeCity());
 
-
         connection.pstmt.executeUpdate();
+
+        // add LibroCard for user
+        try {
+            LibroCard newLibroCard = new LibroCard(user.getEmail());
+
+            LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+            libroCardDAO.addLibroCard(newLibroCard);
+        } catch (UserNotInDatabaseException unidb){
+            System.out.println("Database update was not successful: " +
+                    unidb.getMessage());
+        }
 
         connection.closeConnection();
     }
@@ -72,6 +86,19 @@ public class UserDaoImpl implements UserDAO {
         connection.pstmt.setString(1, email);
 
         connection.pstmt.executeUpdate();
+
+        // delete LibroCard associated to user
+        String cardIDQuery = "SELECT cardID FROM LibroCard WHERE email = ?";
+
+        connection.pstmt = connection.conn.prepareStatement(cardIDQuery);
+        connection.pstmt.setString(1, email);
+
+        connection.pstmt.executeQuery();
+
+        LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+        libroCardDAO.deleteLibroCard(connection.rs.getString("cardID"));
+
+        connection.closeConnection();
     }
 
     public void updatePhone(String email, String newPhone) throws SQLException {

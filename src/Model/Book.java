@@ -1,9 +1,13 @@
 package Model;
 
+import Model.Exceptions.InvalidStringException;
 import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
+
+// possibili eccezioni: InvalidISBNException, NullStringException
 
 public class Book {
     public String ISBN;
@@ -20,7 +24,13 @@ public class Book {
 
     public Book (String ISBN, String title, String authors, String genre, BigDecimal price,
                  String description, String publishingHouse, int publishingYear,
-                 BigDecimal discount, int availableCopies, int libroCardPoints){
+                 BigDecimal discount, int availableCopies, int libroCardPoints) throws
+            InvalidStringException {
+
+        if(!Pattern.matches("[0-9]{3}-[0-9]{2}-[0-9]{5}-[0-9]{2}-[0-9]{1}", ISBN)){
+            throw new InvalidStringException();
+        }
+
         this.ISBN = ISBN;
         this.title = title;
         this.authors = authors;
