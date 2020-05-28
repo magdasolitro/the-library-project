@@ -1,5 +1,5 @@
 package Model.Utils.DaoImpl;
-import Model.Exceptions.NullStringException;
+import Model.Exceptions.InvalidStringException;
 import Model.Exceptions.UserNotInDatabaseException;
 import Model.LibroCard;
 import Model.Utils.DAOs.LibroCardDAO;
@@ -9,7 +9,7 @@ import Model.Utils.DatabaseConnection;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDAO {
-    public User getUser(String email) throws SQLException, NullStringException {
+    public User getUser(String email) throws SQLException, InvalidStringException {
         String sql = "SELECT * FROM user WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -39,7 +39,8 @@ public class UserDaoImpl implements UserDAO {
         return user;
     }
 
-    public void addUser(User user) throws SQLException, UserNotInDatabaseException {
+    public void addUser(User user) throws SQLException, UserNotInDatabaseException,
+            InvalidStringException{
 
         String sql = "INSERT INTO user(name, surname, phone, email," +
                 "password, homeAddress, streetNumber, ZIPCode, homeCity)" +

@@ -2,6 +2,7 @@ package Model.Utils.DaoImpl;
 
 import Model.Book;
 
+import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Exceptions.NotSameUserException;
 import Model.Exceptions.UserNotInDatabaseException;
@@ -75,7 +76,7 @@ public class CartDaoImpl implements CartDAO {
 
     @Override
     public ArrayList<Book> showCartContent(String email) throws SQLException,
-            InvalidStringException {
+            InvalidStringException, IllegalValueException {
         String sql = "SELECT ISBN, title, authors, genre, price, description," +
                 "publishingHouse, publishingYear, discount, availableCopies," +
                 "quantity FROM cart JOIN book ON ISBN = book WHERE user = ?";
@@ -111,7 +112,8 @@ public class CartDaoImpl implements CartDAO {
 
     public String checkout(String email, String paymentMethod,
                            String shippingAddress)
-            throws SQLException, UserNotInDatabaseException, NotSameUserException {
+            throws SQLException, UserNotInDatabaseException, NotSameUserException,
+            InvalidStringException, IllegalValueException {
 
         connection = new DatabaseConnection();
         connection.openConnection();

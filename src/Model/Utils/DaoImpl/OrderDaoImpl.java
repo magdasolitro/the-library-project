@@ -1,5 +1,7 @@
 package Model.Utils.DaoImpl;
 
+import Model.Exceptions.IllegalValueException;
+import Model.Exceptions.InvalidStringException;
 import Model.Order;
 import Model.OrderStatus;
 import Model.Utils.DAOs.OrderDAO;
@@ -13,7 +15,8 @@ import java.util.ArrayList;
 public class OrderDaoImpl implements OrderDAO {
 
     @Override
-    public Order getOrder(String orderID) throws SQLException {
+    public Order getOrder(String orderID) throws SQLException ,
+            InvalidStringException, IllegalValueException {
         String sql = "SELECT * FROM orders WHERE orderID = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -58,7 +61,8 @@ public class OrderDaoImpl implements OrderDAO {
     }
 
     @Override
-    public ArrayList<Order> getAllOrders() throws SQLException {
+    public ArrayList<Order> getAllOrders() throws SQLException ,
+            InvalidStringException, IllegalValueException {
         String sql = "SELECT * FROM orders";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -86,7 +90,8 @@ public class OrderDaoImpl implements OrderDAO {
     }
 
     @Override
-    public ArrayList<Order> getOrdersByUser(String email) throws SQLException {
+    public ArrayList<Order> getOrdersByUser(String email) throws SQLException,
+            InvalidStringException, IllegalValueException {
         String sql = "SELECT * FROM orders WHERE user = ?";
 
         DatabaseConnection connection = new DatabaseConnection();

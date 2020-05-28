@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
+    <children>
+        <Pane id="StackPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+            <children>
+                <Label id="WelcomeText" contentDisplay="CENTER" layoutX="200.0" layoutY="66.0" style="-fx-background-color: #ffffff;" text="Welcome!" textAlignment="CENTER">
+                    <font>
+                        <Font name="Avenir Next Bold" size="40.0" />
+                    </font>
+                </Label>
+                <Button id="UserBotton" layoutX="145.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#handleUserBottonClick" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #A9A9A9;" text="USER">
+                    <font>
+                        <Font name="Avenir Book" size="17.0" />
+                    </font></Button>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="145.0" style="-fx-background-color: #ffffff;" text="You can log in as:">
+                    <font>
+                        <Font name="Avenir Book" size="17.0" />
+                    </font>
+                </Label>
+                <Button id="EmployeeButton" layoutX="365.0" layoutY="215.0" mnemonicParsing="false" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
+                    <font>
+                        <Font name="Avenir Book" size="17.0" />
+                    </font>
+                </Button>
+                <Label id="ContinueAsGuest" contentDisplay="CENTER" layoutX="162.0" layoutY="299.0" style="-fx-background-color: #ffffff;" text="... or click here to continue as guest" textAlignment="CENTER" underline="true">
+                    <font>
+                        <Font name="Avenir Book" size="17.0" />
+                    </font>
+                </Label>
+            </children></Pane>
+    </children>
+</AnchorPane>

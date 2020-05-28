@@ -82,6 +82,6 @@ public class LibroCard {
 
         connection.closeConnection();
 
-        return "CARD_" + surname + dateTimeToken;
+        return surname + dateTimeToken;
     }
 }

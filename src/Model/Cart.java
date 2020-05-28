@@ -1,11 +1,24 @@
 package Model;
 
+import Model.Exceptions.IllegalValueException;
+import Model.Exceptions.InvalidStringException;
+
 public class Cart {
     public String user;
     public String book;
     public int quantity;
 
-    public Cart(String user, String book, int quantity){
+    public Cart(String user, String book, int quantity) throws InvalidStringException,
+            IllegalValueException {
+
+        if(user.length() == 0 || book.length() == 0){
+            throw new InvalidStringException();
+        }
+
+        if(quantity < 1){
+            throw new IllegalValueException();
+        }
+
         this.user = user;
         this.book = book;
         this.quantity = quantity;

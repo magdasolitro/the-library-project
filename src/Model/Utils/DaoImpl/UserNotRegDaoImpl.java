@@ -1,5 +1,6 @@
 package Model.Utils.DaoImpl;
 
+import Model.Exceptions.InvalidStringException;
 import Model.UserNotReg;
 import Model.Utils.DAOs.UserNotRegDAO;
 import Model.Utils.DatabaseConnection;
@@ -8,7 +9,8 @@ import java.sql.SQLException;
 
 public class UserNotRegDaoImpl implements UserNotRegDAO {
     @Override
-    public UserNotReg getUserNotReg(String email) throws SQLException {
+    public UserNotReg getUserNotReg(String email) throws SQLException,
+            InvalidStringException {
         String sql = "SELECT * FROM userNotReg WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();

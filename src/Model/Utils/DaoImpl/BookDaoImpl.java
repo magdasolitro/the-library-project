@@ -1,6 +1,8 @@
 package Model.Utils.DaoImpl;
 
 import Model.Book;
+import Model.Exceptions.IllegalValueException;
+import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DatabaseConnection;
 
@@ -41,7 +43,7 @@ public class BookDaoImpl implements BookDAO {
     public void addBook(String ISBN, String title, String authors, String genre,
                         BigDecimal price, String description, String publishingHouse,
                         int publishingYear, BigDecimal discount, int availableCopies,
-                        int libroCardPoints) throws SQLException{
+                        int libroCardPoints) throws SQLException, InvalidStringException {
 
         String sql = "INSERT INTO book(ISBN, title, authors, genre, price, " +
                 "description, publishingHouse, publishingYear, discount, " +
@@ -70,7 +72,8 @@ public class BookDaoImpl implements BookDAO {
     }
 
     @Override
-    public Book getBook(String ISBN) throws SQLException {
+    public Book getBook(String ISBN) throws SQLException, InvalidStringException,
+            IllegalValueException {
         String sql = "SELECT * FROM book WHERE ISBN = ?";
 
         DatabaseConnection connection = new DatabaseConnection();

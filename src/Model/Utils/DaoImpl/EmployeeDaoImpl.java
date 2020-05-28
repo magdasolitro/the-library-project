@@ -2,6 +2,7 @@ package Model.Utils.DaoImpl;
 
 import Model.Employee;
 import Model.EmployeeRole;
+import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.EmployeeDAO;
 import Model.Utils.DatabaseConnection;
 
@@ -10,7 +11,8 @@ import java.sql.SQLException;
 public class EmployeeDaoImpl implements EmployeeDAO {
 
     @Override
-    public Employee getEmployee(String employeeID) throws SQLException {
+    public Employee getEmployee(String employeeID) throws SQLException,
+            InvalidStringException {
         String sql = "SELECT * FROM employee WHERE employeeID = ?";
 
         DatabaseConnection connection = new DatabaseConnection();

@@ -1,15 +1,16 @@
 package Model.Utils.DAOs;
 
-import Model.Exceptions.NullStringException;
+import Model.Exceptions.InvalidStringException;
 import Model.Exceptions.UserNotInDatabaseException;
 import Model.User;
 import java.sql.SQLException;
 
 public interface UserDAO {
 
-    public User getUser(String email) throws SQLException, NullStringException;
+    public User getUser(String email) throws SQLException, InvalidStringException;
 
-    public void addUser(User user) throws SQLException, UserNotInDatabaseException;
+    public void addUser(User user) throws SQLException, UserNotInDatabaseException,
+            InvalidStringException;
 
     public void deleteUser(String email) throws SQLException;
 

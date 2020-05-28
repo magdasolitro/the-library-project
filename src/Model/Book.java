@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Utils.DatabaseConnection;
 
@@ -25,10 +26,21 @@ public class Book {
     public Book (String ISBN, String title, String authors, String genre, BigDecimal price,
                  String description, String publishingHouse, int publishingYear,
                  BigDecimal discount, int availableCopies, int libroCardPoints) throws
-            InvalidStringException {
+            InvalidStringException, IllegalValueException {
 
         if(!Pattern.matches("[0-9]{3}-[0-9]{2}-[0-9]{5}-[0-9]{2}-[0-9]{1}", ISBN)){
             throw new InvalidStringException();
+        }
+
+        if(title.length() == 0 || authors.length() == 0 || genre.length() == 0
+            || description.length() < 0 || publishingHouse.length() == 0){
+            throw new InvalidStringException();
+        }
+
+        if(price.compareTo(new BigDecimal(0)) <= 0 || publishingYear < 1000 ||
+            discount.compareTo(new BigDecimal(0)) < 0 || availableCopies < 0 ||
+            libroCardPoints < 0){
+            throw new IllegalValueException();
         }
 
         this.ISBN = ISBN;
