@@ -4,32 +4,37 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
+<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
     <children>
-        <Pane id="StackPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+        <Pane id="StackPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;">
             <children>
-                <Label id="WelcomeText" contentDisplay="CENTER" layoutX="200.0" layoutY="66.0" style="-fx-background-color: #ffffff;" text="Welcome!" textAlignment="CENTER">
+                <Label id="WelcomeText" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="170.0" prefHeight="59.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Welcome!" textAlignment="CENTER">
                     <font>
-                        <Font name="Avenir Next Bold" size="40.0" />
+                        <Font name="Avenir Next Bold" size="70.0" />
                     </font>
                 </Label>
-                <Button id="UserBotton" layoutX="145.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#handleUserBottonClick" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #A9A9A9;" text="USER">
+                <Button id="UserBotton" layoutX="430.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#handleUserBottonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="USER">
                     <font>
-                        <Font name="Avenir Book" size="17.0" />
+                        <Font name="Avenir Book" size="25.0" />
                     </font></Button>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="145.0" style="-fx-background-color: #ffffff;" text="You can log in as:">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="306.0" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="You can log in as:">
                     <font>
-                        <Font name="Avenir Book" size="17.0" />
+                        <Font name="Avenir Book" size="25.0" />
                     </font>
                 </Label>
-                <Button id="EmployeeButton" layoutX="365.0" layoutY="215.0" mnemonicParsing="false" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
+                <Button id="EmployeeButton" layoutX="719.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#handleEmployeeButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
                     <font>
-                        <Font name="Avenir Book" size="17.0" />
+                        <Font name="Avenir Book" size="25.0" />
                     </font>
                 </Button>
-                <Label id="ContinueAsGuest" contentDisplay="CENTER" layoutX="162.0" layoutY="299.0" style="-fx-background-color: #ffffff;" text="... or click here to continue as guest" textAlignment="CENTER" underline="true">
+                <Label id="ContinueAsGuest" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#handleGuestClick" layoutX="7.0" layoutY="520.0" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Continue as guest" textAlignment="CENTER" underline="true">
                     <font>
-                        <Font name="Avenir Book" size="17.0" />
+                        <Font name="Avenir Book" size="20.0" />
+                    </font>
+                </Label>
+                <Label id="SignIn" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#handleSignInClick" layoutX="7.0" layoutY="570.0" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Sign in" textAlignment="CENTER" underline="true">
+                    <font>
+                        <Font name="Avenir Book" size="20.0" />
                     </font>
                 </Label>
             </children></Pane>
