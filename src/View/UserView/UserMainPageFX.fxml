@@ -7,51 +7,52 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserMainPageFXController">
    <children>
-      <SplitPane dividerPositions="0.29" prefHeight="800.0" prefWidth="1300.0">
+      <SplitPane dividerPositions="0.2" prefHeight="800.0" prefWidth="1300.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #ffffff;">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <ChoiceBox id="GenresDropDown" layoutX="35.0" layoutY="200.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="200.0" prefWidth="150.0" />
                   <Label layoutX="35.0" layoutY="170.0" text="Genres:">
                      <font>
                         <Font name="Avenir Book" size="17.0" />
                      </font>
                   </Label>
-                  <ChoiceBox layoutX="35.0" layoutY="300.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="rankingsDropDown" layoutX="35.0" layoutY="300.0" prefWidth="150.0" />
                    <Label layoutX="35.0" layoutY="270.0" text="Rankings:">
                        <font>
                            <Font name="Avenir Book" size="17.0" />
                        </font>
                    </Label>
-                  <Label layoutX="35.0" layoutY="400.0" text="Filters">
+                  <Label fx:id="filters" layoutX="35.0" layoutY="400.0" text="Filters">
                      <font>
                         <Font name="Avenir Next Bold" size="20.0" />
                      </font>
                   </Label>
-                  <RadioButton layoutX="35.0" layoutY="440.0" mnemonicParsing="false" text="Price (low to high)">
+                  <RadioButton fx:id="priceRB1" layoutX="35.0" layoutY="440.0" mnemonicParsing="false" text="Price (low to high)">
                      <font>
                         <Font name="Avenir Book" size="15.0" />
                      </font></RadioButton>
-                   <RadioButton layoutX="35.0" layoutY="470.0" mnemonicParsing="false" text="Price (high to low)">
+                   <RadioButton fx:id="priceRB2" layoutX="35.0" layoutY="470.0" mnemonicParsing="false" text="Price (high to low)">
                      <font>
                         <Font name="Avenir Book" size="15.0" />
                      </font></RadioButton>
-                   <RadioButton layoutX="35.0" layoutY="500.0" mnemonicParsing="false" text="Publication Year">
+                   <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" text="Publication Year">
                      <font>
                         <Font name="Avenir Book" size="15.0" />
                      </font></RadioButton>
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="100.0" layoutX="798.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
+                  <ImageView fitHeight="80.0" fitWidth="100.0" layoutX="924.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.384384155273438">
                      <image>
                         <Image url="@../../images/cartIcon.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="70.0" fitWidth="75.0" layoutX="726.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="80.0" fitWidth="73.0" layoutX="836.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/personIcon.png" />
                      </image>
                   </ImageView>
+                  <ScrollPane fx:id="scrollPane" layoutY="80.0" prefHeight="720.0" prefWidth="1034.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>
