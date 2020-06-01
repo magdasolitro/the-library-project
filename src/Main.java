@@ -9,8 +9,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        // loader.setLocation(getClass().getResource("WelcomePageFX.fxml"));
-        loader.setLocation(getClass().getResource("View/UserView/UserMainPageFX.fxml"));
+        loader.setLocation(getClass().getResource("View/WelcomePageFX.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

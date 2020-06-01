@@ -12,44 +12,44 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #ffffff;">
                <children>
                   <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="200.0" prefWidth="150.0" />
-                  <Label layoutX="35.0" layoutY="170.0" text="Genres:">
+                  <Label layoutX="35.0" layoutY="168.0" text="Genres:">
                      <font>
-                        <Font name="Avenir Book" size="17.0" />
+                        <Font name="Avenir Book" size="20.0" />
                      </font>
                   </Label>
                   <ChoiceBox fx:id="rankingsDropDown" layoutX="35.0" layoutY="300.0" prefWidth="150.0" />
-                   <Label layoutX="35.0" layoutY="270.0" text="Rankings:">
+                   <Label layoutX="35.0" layoutY="268.0" text="Rankings:">
                        <font>
-                           <Font name="Avenir Book" size="17.0" />
+                           <Font name="Avenir Book" size="20.0" />
                        </font>
                    </Label>
-                  <Label fx:id="filters" layoutX="35.0" layoutY="400.0" text="Filters">
+                  <Label fx:id="filters" layoutX="37.0" layoutY="393.0" text="Filters">
                      <font>
-                        <Font name="Avenir Next Bold" size="20.0" />
+                        <Font name="Avenir Next Bold" size="22.0" />
                      </font>
                   </Label>
                   <RadioButton fx:id="priceRB1" layoutX="35.0" layoutY="440.0" mnemonicParsing="false" text="Price (low to high)">
                      <font>
-                        <Font name="Avenir Book" size="15.0" />
+                        <Font name="Avenir Book" size="17.0" />
                      </font></RadioButton>
-                   <RadioButton fx:id="priceRB2" layoutX="35.0" layoutY="470.0" mnemonicParsing="false" text="Price (high to low)">
+                   <RadioButton fx:id="priceRB2" layoutX="34.0" layoutY="479.0" mnemonicParsing="false" text="Price (high to low)">
                      <font>
-                        <Font name="Avenir Book" size="15.0" />
+                        <Font name="Avenir Book" size="17.0" />
                      </font></RadioButton>
-                   <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" text="Publication Year">
+                   <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="517.0" mnemonicParsing="false" text="Publication Year">
                      <font>
-                        <Font name="Avenir Book" size="15.0" />
+                        <Font name="Avenir Book" size="17.0" />
                      </font></RadioButton>
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="100.0" layoutX="924.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.384384155273438">
+                  <ImageView fitHeight="64.0" fitWidth="73.0" onMouseClicked="#handleCartClick" layoutX="806.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="155.45126342773438">
                      <image>
                         <Image url="@../../images/cartIcon.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="80.0" fitWidth="73.0" layoutX="836.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="80.0" fitWidth="73.0" onMouseClicked="#handleProfileClick" layoutX="927.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../images/personIcon.png" />
+                        <Image url="@../../images/userIcon.png" />
                      </image>
                   </ImageView>
                   <ScrollPane fx:id="scrollPane" layoutY="80.0" prefHeight="720.0" prefWidth="1034.0" />

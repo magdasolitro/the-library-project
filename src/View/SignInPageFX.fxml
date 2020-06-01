@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SignInPageFXController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="309.0" layoutY="48.0" prefHeight="102.0" prefWidth="683.0" text="Enter your data" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="308.0">
+         <font>
+            <Font name="Avenir Next Bold" size="70.0" />
+         </font>
+      </Label>
+      <Label layoutX="220.0" layoutY="223.0" text="Name:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="220.0" layoutY="298.0" text="Surname:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="222.0" layoutY="373.0" text="Address:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="220.0" layoutY="448.0" text="ZIP Code:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="220.0" layoutY="523.0" text="City:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="720.0" layoutY="223.0" text="Phone number:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="720.0" layoutY="298.0" text="e-mail:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="720.0" layoutY="373.0" text="Password:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="720.0" layoutY="448.0" text="Repeat password:">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameField" layoutX="370.0" layoutY="215.0" prefHeight="36.0" prefWidth="210.0" promptText="name">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="surnameField" layoutX="370.0" layoutY="290.0" prefHeight="36.0" prefWidth="210.0" promptText="surname">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="addressField" layoutX="370.0" layoutY="365.0" prefHeight="36.0" prefWidth="210.0" promptText="address">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ZIPCodeField" layoutX="370.0" layoutY="440.0" prefHeight="36.0" prefWidth="210.0" promptText="ZIP Code">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="cityField" layoutX="370.0" layoutY="515.0" prefHeight="36.0" prefWidth="210.0" promptText="city">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="phoneField" layoutX="945.0" layoutY="215.0" prefHeight="36.0" prefWidth="210.0" promptText="phone">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="emailField" layoutX="945.0" layoutY="290.0" prefHeight="36.0" prefWidth="210.0" promptText="e-mail">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="passwordField" layoutX="945.0" layoutY="365.0" prefHeight="36.0" prefWidth="210.0" promptText="password">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="passwordAgainField" layoutX="945.0" layoutY="440.0" prefHeight="36.0" prefWidth="210.0" promptText="password">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </TextField>
+      <Button fx:id="GoBackButton" onMouseClicked="#handleGoBackButton" mnemonicParsing="false" text="Go Back">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="SignInButton" layoutX="573.0" layoutY="615.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="155.0" style="-fx-background-color: #3CB371;" text="Sign In" textFill="WHITE">
+         <font>
+            <Font name="Avenir Next Bold" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
