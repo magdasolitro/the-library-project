@@ -1,6 +1,6 @@
 package Model;
 
-public enum OrderStatus {
+public enum OrderStatusEnum {
     ORDER_REQUEST_RECEIVED,
     IN_PREPARATION,
     SHIPPED,

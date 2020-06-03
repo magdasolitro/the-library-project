@@ -11,92 +11,92 @@
             <Font name="Avenir Next Bold" size="70.0" />
          </font>
       </Label>
-      <Label layoutX="220.0" layoutY="223.0" text="Name:">
+      <Label layoutX="200.0" layoutY="223.0" text="Name:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="220.0" layoutY="298.0" text="Surname:">
+      <Label layoutX="200.0" layoutY="298.0" text="Surname:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="222.0" layoutY="373.0" text="Address:">
+      <Label layoutX="200.0" layoutY="373.0" text="Address:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="220.0" layoutY="448.0" text="ZIP Code:">
+      <Label layoutX="200.0" layoutY="448.0" text="ZIP Code:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="220.0" layoutY="523.0" text="City:">
+      <Label layoutX="200.0" layoutY="523.0" text="City:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="720.0" layoutY="223.0" text="Phone number:">
+      <Label layoutX="700.0" layoutY="223.0" text="Phone number:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="720.0" layoutY="298.0" text="e-mail:">
+      <Label layoutX="700.0" layoutY="298.0" text="e-mail:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="720.0" layoutY="373.0" text="Password:">
+      <Label layoutX="700.0" layoutY="373.0" text="Password:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="720.0" layoutY="448.0" text="Repeat password:">
+      <Label layoutX="700.0" layoutY="448.0" text="Repeat password:">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Label>
-      <TextField fx:id="nameField" layoutX="370.0" layoutY="215.0" prefHeight="36.0" prefWidth="210.0" promptText="name">
+      <TextField fx:id="nameField" layoutX="350.0" layoutY="215.0" prefHeight="36.0" prefWidth="210.0" promptText="name">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="surnameField" layoutX="370.0" layoutY="290.0" prefHeight="36.0" prefWidth="210.0" promptText="surname">
+      <TextField fx:id="surnameField" layoutX="350.0" layoutY="290.0" prefHeight="36.0" prefWidth="210.0" promptText="surname">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="addressField" layoutX="370.0" layoutY="365.0" prefHeight="36.0" prefWidth="210.0" promptText="address">
+      <TextField fx:id="addressField" layoutX="350.0" layoutY="365.0" prefHeight="36.0" prefWidth="210.0" promptText="address">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="ZIPCodeField" layoutX="370.0" layoutY="440.0" prefHeight="36.0" prefWidth="210.0" promptText="ZIP Code">
+      <TextField fx:id="ZIPCodeField" layoutX="350.0" layoutY="440.0" prefHeight="36.0" prefWidth="210.0" promptText="ZIP Code">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="cityField" layoutX="370.0" layoutY="515.0" prefHeight="36.0" prefWidth="210.0" promptText="city">
+      <TextField fx:id="cityField" layoutX="350.0" layoutY="515.0" prefHeight="36.0" prefWidth="210.0" promptText="city">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="phoneField" layoutX="945.0" layoutY="215.0" prefHeight="36.0" prefWidth="210.0" promptText="phone">
+      <TextField fx:id="phoneField" layoutX="925.0" layoutY="215.0" prefHeight="36.0" prefWidth="210.0" promptText="phone">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="emailField" layoutX="945.0" layoutY="290.0" prefHeight="36.0" prefWidth="210.0" promptText="e-mail">
+      <TextField fx:id="emailField" layoutX="925.0" layoutY="290.0" prefHeight="36.0" prefWidth="210.0" promptText="e-mail">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="passwordField" layoutX="945.0" layoutY="365.0" prefHeight="36.0" prefWidth="210.0" promptText="password">
+      <TextField fx:id="passwordField" layoutX="925.0" layoutY="365.0" prefHeight="36.0" prefWidth="210.0" promptText="password">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="passwordAgainField" layoutX="945.0" layoutY="440.0" prefHeight="36.0" prefWidth="210.0" promptText="password">
+      <TextField fx:id="passwordAgainField" layoutX="925.0" layoutY="440.0" prefHeight="36.0" prefWidth="210.0" promptText="password">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>

@@ -1,7 +1,7 @@
 package Model.Utils.DAOs;
 
 import Model.Employee;
-import Model.EmployeeRole;
+import Model.EmployeeRoleEnum;
 import Model.Exceptions.InvalidStringException;
 
 import java.sql.SQLException;
@@ -12,6 +12,6 @@ public interface EmployeeDAO {
             InvalidStringException;
 
     public void addEmployee(String employeeID, String name, String surname,
-                            String birthDate, EmployeeRole role, String employedSince)
+                            String birthDate, EmployeeRoleEnum role, String employedSince)
             throws SQLException;
 }

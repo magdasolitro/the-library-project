@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.CartPageFXController">
+   <children>
+       <Separator layoutX="920.0" layoutY="0.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="15.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="925.0" layoutY="351.0" prefHeight="35.0" prefWidth="375.0" text="TOTALE: ">
+         <font>
+            <Font name="Avenir Next Bold" size="23.0" />
+         </font>
+      </Label>
+      <Button layoutX="1038.0" layoutY="455.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Checkout">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

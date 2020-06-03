@@ -3,44 +3,18 @@ package Model.Utils.DaoImpl;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.GenresEnum;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BookDaoImpl implements BookDAO {
-    @Override
-    public void addBook(Book book) throws SQLException {
-
-        String sql = "INSERT INTO book(ISBN, title, authors, genre, price, " +
-                "description, publishingHouse, publishingYear, discount, " +
-                "availableCopies, libroCardPoints) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.openConnection();
-
-        connection.pstmt = connection.conn.prepareStatement(sql);
-
-        connection.pstmt.setString(1, book.getISBN());
-        connection.pstmt.setString(2, book.getTitle());
-        connection.pstmt.setString(3, book.getAuthors());
-        connection.pstmt.setString(4, book.getGenre());
-        connection.pstmt.setBigDecimal(5, book.getPrice());
-        connection.pstmt.setString(6, book.getDescription());
-        connection.pstmt.setString(7, book.getPublishingHouse());
-        connection.pstmt.setInt(8, book.getPublishingYear());
-        connection.pstmt.setBigDecimal(9, book.getDiscount());
-        connection.pstmt.setInt(10, book.getAvailableCopies());
-        connection.pstmt.setInt(11, book.getLibroCardPoints());
-
-        connection.pstmt.executeUpdate();
-
-        connection.closeConnection();
-    }
 
     @Override
-    public void addBook(String ISBN, String title, String authors, String genre,
+    public void addBook(String ISBN, String title, String authors, GenresEnum genre,
                         BigDecimal price, String description, String publishingHouse,
                         int publishingYear, BigDecimal discount, int availableCopies,
                         int libroCardPoints) throws SQLException, InvalidStringException {
@@ -57,7 +31,7 @@ public class BookDaoImpl implements BookDAO {
         connection.pstmt.setString(1, ISBN);
         connection.pstmt.setString(2, title);
         connection.pstmt.setString(3, authors);
-        connection.pstmt.setString(4, genre);
+        connection.pstmt.setString(4, genre.toString());
         connection.pstmt.setBigDecimal(5, price);
         connection.pstmt.setString(6, description);
         connection.pstmt.setString(7, publishingHouse);
@@ -99,6 +73,66 @@ public class BookDaoImpl implements BookDAO {
         connection.closeConnection();
 
         return book;
+    }
+
+    public ArrayList<Book> getAllBooks() throws SQLException, InvalidStringException,
+            IllegalValueException {
+
+        String sql = "SELECT * FROM book";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        ArrayList<Book> allBooks = new ArrayList<>();
+
+        while(connection.rs.next()){
+            allBooks.add(new Book(connection.rs.getString("ISBN"),
+                    connection.rs.getString("title"),
+                    connection.rs.getString("authors"),
+                    connection.rs.getString("genre"),
+                    connection.rs.getBigDecimal("price"),
+                    connection.rs.getString("description"),
+                    connection.rs.getString("publishingHouse"),
+                    connection.rs.getInt("publishingYear"),
+                    connection.rs.getBigDecimal("discount"),
+                    connection.rs.getInt("availableCopies"),
+                    connection.rs.getInt("libroCardPoint")));
+        }
+
+        return allBooks;
+    }
+
+    public ArrayList<Book> getBooksByGenre(GenresEnum genre) throws SQLException,
+            InvalidStringException, IllegalValueException {
+
+        String sql = "SELECT * FROM book WHERE genre = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, genre.toString());
+
+        ArrayList<Book> allBooksByGenre = new ArrayList<>();
+
+        while(connection.rs.next()){
+            allBooksByGenre.add(new Book(connection.rs.getString("ISBN"),
+                    connection.rs.getString("title"),
+                    connection.rs.getString("authors"),
+                    connection.rs.getString("genre"),
+                    connection.rs.getBigDecimal("price"),
+                    connection.rs.getString("description"),
+                    connection.rs.getString("publishingHouse"),
+                    connection.rs.getInt("publishingYear"),
+                    connection.rs.getBigDecimal("discount"),
+                    connection.rs.getInt("availableCopies"),
+                    connection.rs.getInt("libroCardPoint")));
+        }
+
+        return allBooksByGenre;
     }
 
     @Override

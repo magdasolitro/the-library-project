@@ -6,7 +6,7 @@ import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Exceptions.NotSameUserException;
 import Model.Exceptions.UserNotInDatabaseException;
-import Model.OrderStatus;
+import Model.OrderStatusEnum;
 import Model.Utils.DAOs.*;
 import Model.Utils.DatabaseConnection;
 
@@ -152,7 +152,7 @@ public class CartDaoImpl implements CartDAO {
             OrderDAO orderDAO = new OrderDaoImpl();
 
             orderDAO.addOrder(orderID, getCurrentDate(),
-                    OrderStatus.ORDER_REQUEST_RECEIVED.toString(),
+                    OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
                     paymentMethod, totalPrice, totalPoints, shippingAddress,
                     email, null);
 
@@ -174,7 +174,7 @@ public class CartDaoImpl implements CartDAO {
             OrderDAO orderDAO = new OrderDaoImpl();
 
             orderDAO.addOrder(orderID, getCurrentDate(),
-                    OrderStatus.ORDER_REQUEST_RECEIVED.toString(),
+                    OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
                     paymentMethod, totalPrice, null, shippingAddress,
                     null, email);
         }

@@ -1,6 +1,6 @@
 package Model;
 
-public enum EmployeeRole {
+public enum EmployeeRoleEnum {
     GENERAL_DIRECTOR,
     LOCAL_DIRECTOR,
     BOOK_SELLER,

@@ -3,11 +3,10 @@ package Model.Utils.DaoImpl;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Order;
-import Model.OrderStatus;
+import Model.OrderStatusEnum;
 import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DatabaseConnection;
 
-import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -150,7 +149,7 @@ public class OrderDaoImpl implements OrderDAO {
     }
 
     @Override
-    public void updateStatus(Order order, OrderStatus newStatus) throws SQLException {
+    public void updateStatus(Order order, OrderStatusEnum newStatus) throws SQLException {
         String sql = "UPDATE orders SET status = ? WHERE orderID = ?";
 
         DatabaseConnection connection = new DatabaseConnection();

@@ -32,7 +32,7 @@ public class Book {
             throw new InvalidStringException();
         }
 
-        if(title.length() == 0 || authors.length() == 0 || genre.length() == 0
+        if(title.length() == 0 || authors.length() == 0 || genre.toString().length() == 0
             || description.length() < 0 || publishingHouse.length() == 0){
             throw new InvalidStringException();
         }
@@ -46,7 +46,7 @@ public class Book {
         this.ISBN = ISBN;
         this.title = title;
         this.authors = authors;
-        this.genre = genre;
+        this.genre = genre.toString();
         this.price = price;
         this.publishingHouse = publishingHouse;
         this.publishingYear = publishingYear;

@@ -1,11 +1,9 @@
 package Model.Utils.DAOs;
 
-import Model.EmployeeRole;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Order;
-import Model.OrderStatus;
-import Model.User;
+import Model.OrderStatusEnum;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -30,6 +28,6 @@ public interface OrderDAO {
                          String shippingAddress, String user, String userNotReg)
             throws SQLException;
 
-    public void updateStatus(Order order, OrderStatus newStatus)
+    public void updateStatus(Order order, OrderStatusEnum newStatus)
             throws SQLException;
 }

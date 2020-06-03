@@ -11,7 +11,7 @@ public class Employee {
     public String employedSince;
 
     public Employee(String employeeID, String name, String surname,
-                    String birthDate, EmployeeRole role, String employedSince)
+                    String birthDate, EmployeeRoleEnum role, String employedSince)
             throws InvalidStringException {
 
         if(employeeID.length() == 0 || name.length() == 0 || surname.length() == 0

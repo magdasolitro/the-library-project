@@ -1,7 +1,7 @@
 package Model.Utils.DaoImpl;
 
 import Model.Employee;
-import Model.EmployeeRole;
+import Model.EmployeeRoleEnum;
 import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.EmployeeDAO;
 import Model.Utils.DatabaseConnection;
@@ -27,7 +27,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
                 connection.rs.getString("name"),
                 connection.rs.getString("surname"),
                 connection.rs.getString("birthDate"),
-                (EmployeeRole) connection.rs.getObject("role"),
+                (EmployeeRoleEnum) connection.rs.getObject("role"),
                 connection.rs.getString("employedSince"));
 
         return employee;
@@ -35,7 +35,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 
     @Override
     public void addEmployee(String employeeID, String name, String surname,
-                            String birthDate, EmployeeRole role, String employedSince)
+                            String birthDate, EmployeeRoleEnum role, String employedSince)
             throws SQLException {
         String sql = "INSERT INTO employee(employeeID, name, surname, birthDate," +
                 "role, employedSince) VALUES (?, ?, ?, ?, ?, ?)";

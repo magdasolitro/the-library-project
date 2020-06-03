@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserMainPageFXController">
+   <children>
+      <SplitPane dividerPositions="0.2" prefHeight="800.0" prefWidth="1300.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #ffffff;">
+               <children>
+                   <Label layoutX="35.0" layoutY="233.0" text="Genres:">
+                       <font>
+                           <Font name="Avenir Book" size="20.0" />
+                       </font>
+                   </Label>
+                   <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="275.0" prefHeight="30.0" prefWidth="150.0" />
+                   <Label layoutX="35.0" layoutY="456.0" text="Filters">
+                       <font>
+                           <Font name="Avenir Next Bold" size="20.0" />
+                       </font>
+                   </Label>
+                   <RadioButton fx:id="priceRB1" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" text="Price (low to high)">
+                       <font>
+                           <Font name="Avenir Book" size="17.0" />
+                       </font></RadioButton>
+                   <RadioButton fx:id="priceRB2" layoutX="35.0" layoutY="540.0" mnemonicParsing="false" text="Price (high to low)">
+                       <font>
+                           <Font name="Avenir Book" size="17.0" />
+                       </font></RadioButton>
+                   <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="580.0" mnemonicParsing="false" text="Publication Year">
+                       <font>
+                        <Font name="Avenir Book" size="17.0" />
+                       </font></RadioButton>
+                  <TextField layoutX="35.0" layoutY="156.0" promptText="Search a book...">
+                     <font>
+                        <Font name="Avenir Book" size="14.0" />
+                     </font></TextField>
+                  <Button layoutX="35.0" layoutY="356.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
+                     <font>
+                        <Font name="Avenir Book" size="17.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" layoutY="100.0" prefHeight="700.0" prefWidth="1034.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
