@@ -46,7 +46,7 @@ public class Book {
         this.ISBN = ISBN;
         this.title = title;
         this.authors = authors;
-        this.genre = genre.toString();
+        this.genre = genre;
         this.price = price;
         this.publishingHouse = publishingHouse;
         this.publishingYear = publishingYear;

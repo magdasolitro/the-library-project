@@ -45,7 +45,8 @@
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" layoutY="100.0" prefHeight="700.0" prefWidth="1034.0" />
+                  <ScrollPane hbarPolicy="NEVER" layoutY="100.0" prefHeight="700.0" prefWidth="1034.0">
+                  </ScrollPane>
                </children></AnchorPane>
         </items>
       </SplitPane>

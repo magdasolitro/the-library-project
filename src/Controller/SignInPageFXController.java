@@ -17,7 +17,7 @@ public class SignInPageFXController {
         ((Button) evt.getSource()).getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../View/WelcomePageFX.fxml"));
+        loader.setLocation(getClass().getResource("../FXML/WelcomePageFX.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

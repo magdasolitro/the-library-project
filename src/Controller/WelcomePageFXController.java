@@ -21,7 +21,7 @@ public class WelcomePageFXController implements Initializable {
         ((Button) evt.getSource()).getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../View/UserView/UserLoginFX.fxml"));
+        loader.setLocation(getClass().getResource("../FXML/UserFXML/UserLoginFX.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
@@ -37,7 +37,7 @@ public class WelcomePageFXController implements Initializable {
         ((Button) evt.getSource()).getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../View/EmployeeView/EmployeeLoginFX.fxml"));
+        loader.setLocation(getClass().getResource("../FXML/EmployeeFXML/EmployeeLoginFX.fxml"));
 
         Parent root = loader.load();
 
@@ -60,7 +60,7 @@ public class WelcomePageFXController implements Initializable {
         ((Label) evt.getSource()).getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../View/SignInPageFX.fxml"));
+        loader.setLocation(getClass().getResource("../FXML/SignInPageFX.fxml"));
 
         Parent root = loader.load();
 

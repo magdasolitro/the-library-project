@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public interface UserDAO {
 
-    public User getUser(String email) throws SQLException, InvalidStringException;
+    public User getUser(String email) throws InvalidStringException;
 
     public void addUser(User user) throws SQLException, UserNotInDatabaseException,
             InvalidStringException;

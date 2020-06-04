@@ -10,10 +10,14 @@ import java.sql.PreparedStatement;
 // in particolare, fornisce i metodi per inserire i dati nelle tabelle
 
 public class DatabaseConnection {
-    public Connection conn = null;    // a connection to a specific database
-    public PreparedStatement pstmt = null;  // will store a precompiled SQL statement.
-    public ResultSet rs = null;             // will store the table of data representing
-                                            // the result of a query on the database
+    /* a connection to a specific database */
+    public Connection conn;
+
+    /* will store a precompiled SQL statement. */
+    public PreparedStatement pstmt;
+
+    /* will store the table of data representing the result of a query on the database */
+    public ResultSet rs;
 
     /**
      * Connection to library.db database
@@ -22,11 +26,14 @@ public class DatabaseConnection {
         try {
             // load JDBC driver for SQLite
             Class.forName("org.sqlite.JDBC");
+
             // establish connection providing the database URL
-            conn = DriverManager.getConnection("jdbc:sqlite:library.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:src/Database/library.db");
+
             System.out.println("Database connection successful");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("An error occurred trying to establish a " +
+                    "connection with the database: " + e.getMessage());
         } catch (ClassNotFoundException e){
             System.out.println(e.getMessage());
         }
@@ -43,6 +50,5 @@ public class DatabaseConnection {
             System.out.println(e.getMessage());
         }
     }
-
 
 }

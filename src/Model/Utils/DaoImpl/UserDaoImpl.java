@@ -9,34 +9,46 @@ import Model.Utils.DatabaseConnection;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDAO {
-    public User getUser(String email) throws SQLException, InvalidStringException {
+
+    public User getUser(String email) throws InvalidStringException {
+
         String sql = "SELECT * FROM user WHERE email = ?";
 
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.openConnection();
+        User user;
 
-        // fill pstmt object for sending parameterized SQL statements to the database
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        try{
+            DatabaseConnection connection = new DatabaseConnection();
+            connection.openConnection();
 
-        // fill the parameters in the SQL statement
-        connection.pstmt.setString(1, email);
+            connection.pstmt = connection.conn.prepareStatement(sql);
 
-        // execute query
-        connection.rs = connection.pstmt.executeQuery();
+            // fill the parameters in the SQL statement
+            connection.pstmt.setString(1, email);
 
-        User user = new User(connection.rs.getString("name"),
-                connection.rs.getString("surname"),
-                connection.rs.getString("phone"),
-                connection.rs.getString("email"),
-                connection.rs.getString("password"),
-                connection.rs.getString("homeAddress"),
-                connection.rs.getString("streetNumber"),
-                connection.rs.getString("ZIPcode"),
-                connection.rs.getString("homeCity"));
+            // execute query
+            connection.rs = connection.pstmt.executeQuery();
 
-        connection.closeConnection();
+            user = new User(connection.rs.getString("name"),
+                    connection.rs.getString("surname"),
+                    connection.rs.getString("phone"),
+                    connection.rs.getString("email"),
+                    connection.rs.getString("password"),
+                    connection.rs.getString("homeAddress"),
+                    connection.rs.getString("streetNumber"),
+                    connection.rs.getString("ZIPcode"),
+                    connection.rs.getString("homeCity"));
 
-        return user;
+            connection.closeConnection();
+
+            return user;
+
+        } catch (SQLException sqle){
+            System.out.println( sqle.getMessage());
+        } catch(NullPointerException npe){
+            System.out.println(npe.getMessage());
+        }
+
+        return null;
     }
 
     public void addUser(User user) throws SQLException, UserNotInDatabaseException,
