@@ -28,7 +28,7 @@ public class DatabaseConnection {
             Class.forName("org.sqlite.JDBC");
 
             // establish connection providing the database URL
-            conn = DriverManager.getConnection("jdbc:sqlite:src/Database/library.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:src/Database/library2.db");
 
             System.out.println("Database connection successful");
         } catch (SQLException e) {
