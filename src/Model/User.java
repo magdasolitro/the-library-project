@@ -3,11 +3,11 @@ package Model;
 import Model.Exceptions.InvalidStringException;
 
 public class User extends UserNotReg{
-    public String password;
-    public String homeAddress;
-    public String streetNumber;
-    public String ZIPCode;
-    public String homeCity;
+    private String password;
+    private String homeAddress;
+    private String streetNumber;
+    private String ZIPCode;
+    private String homeCity;
 
     public User(String name, String surname, String phone, String email,
                 String password, String homeAddress, String streetNumber,

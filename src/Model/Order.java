@@ -6,15 +6,15 @@ import Model.Exceptions.InvalidStringException;
 import java.math.BigDecimal;
 
 public class Order {
-    public String orderID;
-    public String date;
-    public String status;
-    public String paymentMethod;
-    public BigDecimal price;
-    public Integer points;
-    public String shippingAddress;
-    public String user;
-    public String userNotReg;
+    private String orderID;
+    private String date;
+    private String status;
+    private String paymentMethod;
+    private BigDecimal price;
+    private Integer points;
+    private String shippingAddress;
+    private String user;
+    private String userNotReg;
 
     // usato per memorizzare il risultato di una query
     public Order(String orderID, String date, String status, String paymentMethod,

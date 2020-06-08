@@ -4,9 +4,9 @@ import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 
 public class Composition {
-    public String book;
-    public String order;
-    public int quantity;
+    private String book;
+    private String order;
+    private int quantity;
 
     public Composition(String book, String order, int quantity) throws
             InvalidStringException, IllegalValueException {

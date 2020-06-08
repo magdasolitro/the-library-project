@@ -11,17 +11,17 @@ import java.util.regex.Pattern;
 // possibili eccezioni: InvalidISBNException, NullStringException
 
 public class Book {
-    public String ISBN;
-    public String title;
-    public String authors;
-    public String genre;
-    public BigDecimal price;
-    public String publishingHouse;
-    public int publishingYear;
-    public BigDecimal discount;
-    public String description;
-    public int availableCopies;
-    public int libroCardPoints;
+    private String ISBN;
+    private String title;
+    private String authors;
+    private String genre;
+    private BigDecimal price;
+    private String publishingHouse;
+    private int publishingYear;
+    private BigDecimal discount;
+    private String description;
+    private int availableCopies;
+    private int libroCardPoints;
 
     public Book (String ISBN, String title, String authors, String genre, BigDecimal price,
                  String description, String publishingHouse, int publishingYear,

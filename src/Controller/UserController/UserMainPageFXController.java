@@ -26,7 +26,6 @@ public class UserMainPageFXController implements Initializable {
     @FXML
     ChoiceBox genresDropDown;
 
-    @FXML
     public void handleProfileClick(MouseEvent evt) throws IOException {
         ((Button) evt.getSource()).getScene().getWindow().hide();
 
@@ -42,7 +41,6 @@ public class UserMainPageFXController implements Initializable {
         stage.show();
     }
 
-    @FXML
     public void handleCartClick(MouseEvent evt) throws IOException {
 
     }
@@ -55,4 +53,30 @@ public class UserMainPageFXController implements Initializable {
                 "Politics", "Science Fiction");
     }
 
+    public void handleLogOutRequest(MouseEvent evt) throws IOException {
+        ((Button) evt.getSource()).getScene().getWindow().hide();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../WelcomePageFX.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.show();
+    }
+
+    public void handlePriceAscFilter(MouseEvent evt) {
+
+    }
+
+    public void handlePriceDescFilter(MouseEvent evt) {
+
+    }
+
+    public void handlePublYearFilter(MouseEvent evt) {
+
+    }
 }

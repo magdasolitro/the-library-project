@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.UserNotRegFXML.UserNotRegMainPageFX">
+
+    <children>
+        <SplitPane dividerPositions="0.2" prefHeight="800.0" prefWidth="1300.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #ffffff;">
+                    <children>
+                        <Label layoutX="35.0" layoutY="233.0" text="Genres:">
+                            <font>
+                                <Font name="Avenir Book" size="20.0" />
+                            </font>
+                        </Label>
+                        <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="275.0" prefHeight="30.0" prefWidth="150.0" />
+                        <Label layoutX="35.0" layoutY="456.0" text="Filters">
+                            <font>
+                                <Font name="Avenir Next Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <RadioButton fx:id="priceRB1" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" text="Price (low to high)">
+                            <font>
+                                <Font name="Avenir Book" size="17.0" />
+                            </font></RadioButton>
+                        <RadioButton fx:id="priceRB2" layoutX="35.0" layoutY="540.0" mnemonicParsing="false" text="Price (high to low)">
+                            <font>
+                                <Font name="Avenir Book" size="17.0" />
+                            </font></RadioButton>
+                        <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="580.0" mnemonicParsing="false" text="Publication Year">
+                            <font>
+                                <Font name="Avenir Book" size="17.0" />
+                            </font></RadioButton>
+                        <Button layoutX="35.0" layoutY="356.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
+                            <font>
+                                <Font name="Avenir Book" size="17.0" />
+                            </font>
+                        </Button>
+                    </children></AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
+                    <children>
+                        <ScrollPane hbarPolicy="NEVER" layoutY="100.0" prefHeight="700.0" prefWidth="1034.0">
+                        </ScrollPane>
+                        <Label layoutX="738.0" layoutY="35.0" text="SIGN IN" underline="true">
+                            <font>
+                                <Font name="Avenir Book" size="20.0" />
+                             </font>
+                        </Label>
+                        <Separator layoutX="840.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
+                        <Label layoutX="618.0" layoutY="37.0" text="LOG IN" underline="true">
+                            <font>
+                                <Font name="Avenir Book" size="20.0" />
+                            </font>
+                        </Label>
+                        <TextField layoutX="191.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Book Title">
+                            <font>
+                                <Font name="Avenir Book" size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="103.0" layoutY="40.0" text="Search:">
+                            <font>
+                                <Font name="Avenir Book" size="17.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

@@ -4,9 +4,9 @@ import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 
 public class Cart {
-    public String user;
-    public String book;
-    public int quantity;
+    private String user;
+    private String book;
+    private int quantity;
 
     public Cart(String user, String book, int quantity) throws InvalidStringException,
             IllegalValueException {

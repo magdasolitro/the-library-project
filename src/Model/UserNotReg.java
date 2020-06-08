@@ -3,10 +3,10 @@ package Model;
 import Model.Exceptions.InvalidStringException;
 
 public class UserNotReg {
-    public String name;
-    public String surname;
-    public String phone;
-    public String email;
+    private String name;
+    private String surname;
+    private String phone;
+    private String email;
 
     public UserNotReg(String name, String surname, String phone,
                       String email) throws InvalidStringException {
