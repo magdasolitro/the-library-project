@@ -11,13 +11,13 @@ import java.util.regex.Pattern;
 // possibili eccezioni: InvalidISBNException, NullStringException
 
 public class Book {
-    private String ISBN;
-    private String title;
-    private String authors;
+    private final String ISBN;
+    private final String title;
+    private final String authors;
     private String genre;
     private BigDecimal price;
-    private String publishingHouse;
-    private int publishingYear;
+    private final String publishingHouse;
+    private final int publishingYear;
     private BigDecimal discount;
     private String description;
     private int availableCopies;

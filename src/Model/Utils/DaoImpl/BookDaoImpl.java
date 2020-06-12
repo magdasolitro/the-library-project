@@ -68,7 +68,7 @@ public class BookDaoImpl implements BookDAO {
                 connection.rs.getInt("publishingYear"),
                 connection.rs.getBigDecimal("discount"),
                 connection.rs.getInt("availableCopies"),
-                connection.rs.getInt("libroCardPoint"));
+                connection.rs.getInt("libroCardPoints"));
 
         connection.closeConnection();
 

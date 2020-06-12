@@ -12,6 +12,7 @@ public class User extends UserNotReg{
     public User(String name, String surname, String phone, String email,
                 String password, String homeAddress, String streetNumber,
                 String ZIPCode, String homeCity) throws InvalidStringException {
+
         super(name, surname, phone, email);
 
         if(password.length() == 0 || homeAddress.length() == 0

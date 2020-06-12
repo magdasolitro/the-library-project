@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -8,7 +9,7 @@
    <children>
        <SplitPane dividerPositions="0.2" prefHeight="800.0" prefWidth="1300.0">
            <items>
-               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #ffffff;">
+               <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #ffffff;">
                    <children>
                        <Label layoutX="35.0" layoutY="233.0" text="Genres:">
                            <font>
@@ -21,15 +22,15 @@
                                <Font name="Avenir Next Bold" size="20.0" />
                            </font>
                        </Label>
-                       <RadioButton fx:id="priceAscRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" text="Price (low to high)" onMouseClicked="#handlePriceAscFilter">
+                       <RadioButton fx:id="priceAscRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handlePriceAscFilter" text="Price (low to high)">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <RadioButton fx:id="priceDescRB" layoutX="35.0" layoutY="540.0" mnemonicParsing="false" text="Price (high to low)" onMouseClicked="#handlePriceDescFilter">
+                       <RadioButton fx:id="priceDescRB" layoutX="35.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#handlePriceDescFilter" text="Price (high to low)">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="580.0" mnemonicParsing="false" text="Publication Year" onMouseClicked="#handlePublYearFilter">
+                       <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="580.0" mnemonicParsing="false" onMouseClicked="#handlePublYearFilter" text="Publication Year">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
@@ -40,17 +41,14 @@
                        </Button>
                    </children>
                </AnchorPane>
-               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
+               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
                    <children>
-                       <Label layoutX="646.0" layoutY="35.0" text="LOG OUT" underline="true" onMouseClicked="#handleLogOutRequest">
+                       <Label layoutX="646.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
                            <font>
                                <Font name="Avenir Book" size="20.0" />
                            </font>
                        </Label>
                        <Separator layoutX="769.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
-                       <ScrollPane hbarPolicy="NEVER" layoutY="100.0" prefHeight="700.0" prefWidth="1034.0">
-
-                       </ScrollPane>
                        <TextField layoutX="191.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Book Title">
                            <font>
                                <Font name="Avenir Book" size="14.0" />
@@ -61,6 +59,9 @@
                                <Font name="Avenir Book" size="17.0" />
                            </font>
                        </Label>
+                  <ImageView fitHeight="100.0" fitWidth="134.0" layoutX="772.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="100.0" fitWidth="134.0" layoutX="900.0" pickOnBounds="true" preserveRatio="true" />
+                       <!-- <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="100.0" prefHeight="700.0" prefWidth="1035.0" /> -->
                    </children>
                </AnchorPane>
            </items>

@@ -3,12 +3,12 @@ package Model;
 import Model.Exceptions.InvalidStringException;
 
 public class Employee {
-    private String employeeID;
-    private String name;
-    private String surname;
-    private String birthDate;
+    private final String employeeID;
+    private final String name;
+    private final String surname;
+    private final String birthDate;
     private String role;
-    private String employedSince;
+    private final String employedSince;
 
     public Employee(String employeeID, String name, String surname,
                     String birthDate, EmployeeRoleEnum role, String employedSince)

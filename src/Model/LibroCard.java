@@ -13,10 +13,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class LibroCard {
-    private String cardID;
-    private String email;
+    private final String cardID;
+    private final String email;
     private int points;
-    private String issueDate;
+    private final String issueDate;
 
     // usato al ritorno da una query sul database, per memorizzare il risultato
     public LibroCard(String cardID, String email, int points,

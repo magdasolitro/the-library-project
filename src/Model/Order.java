@@ -6,13 +6,13 @@ import Model.Exceptions.InvalidStringException;
 import java.math.BigDecimal;
 
 public class Order {
-    private String orderID;
-    private String date;
+    private final String orderID;
+    private final String date;
     private String status;
-    private String paymentMethod;
-    private BigDecimal price;
-    private Integer points;
-    private String shippingAddress;
+    private final String paymentMethod;
+    private final BigDecimal price;
+    private final Integer points;
+    private final String shippingAddress;
     private String user;
     private String userNotReg;
 
