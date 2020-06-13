@@ -85,6 +85,8 @@ public class BookDaoImpl implements BookDAO {
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
+        connection.rs = connection.pstmt.executeQuery();
+
         ArrayList<Book> allBooks = new ArrayList<>();
 
         while(connection.rs.next()){
@@ -98,10 +100,23 @@ public class BookDaoImpl implements BookDAO {
                     connection.rs.getInt("publishingYear"),
                     connection.rs.getBigDecimal("discount"),
                     connection.rs.getInt("availableCopies"),
-                    connection.rs.getInt("libroCardPoint")));
+                    connection.rs.getInt("libroCardPoints")));
         }
 
         return allBooks;
+    }
+
+    public int titlesInCatalog() throws SQLException{
+        String sql = "SELECT COUNT(ISBN) FROM book";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.rs = connection.pstmt.executeQuery();
+
+        return connection.rs.getInt(1);
     }
 
     public ArrayList<Book> getBooksByGenre(GenresEnum genre) throws SQLException,
@@ -113,8 +128,9 @@ public class BookDaoImpl implements BookDAO {
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
-
         connection.pstmt.setString(1, genre.toString());
+
+        connection.rs = connection.pstmt.executeQuery();
 
         ArrayList<Book> allBooksByGenre = new ArrayList<>();
 
@@ -129,7 +145,7 @@ public class BookDaoImpl implements BookDAO {
                     connection.rs.getInt("publishingYear"),
                     connection.rs.getBigDecimal("discount"),
                     connection.rs.getInt("availableCopies"),
-                    connection.rs.getInt("libroCardPoint")));
+                    connection.rs.getInt("libroCardPoints")));
         }
 
         return allBooksByGenre;

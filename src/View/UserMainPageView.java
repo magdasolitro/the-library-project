@@ -6,10 +6,12 @@ import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -20,29 +22,33 @@ public class UserMainPageView {
     public static ScrollPane buildCatalogView() throws InvalidStringException, SQLException,
             IllegalValueException {
 
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> catalog = new ArrayList<>();
-
         ScrollPane scrollPane = new ScrollPane();
-
         scrollPane.setPrefSize(1034, 700);
         scrollPane.isResizable();
 
-        // fill the catalog
-        //catalog.addAll(bookDAO.getAllBooks());
+        GridPane container = new GridPane();
+        container.setHgap(20);
 
-        scrollPane.setContent(buildSingleBookView(bookDAO.getBook("978-14" +
-                "-08855-65-2")));
+        BookDAO bookDAO = new BookDaoImpl();
+
+        ArrayList<Book> catalog = new ArrayList<>();
+        catalog.addAll(bookDAO.getAllBooks());
+
+        int i = 0;
+        for(Book b : catalog){
+            GridPane currentBook = buildSingleBookView(b);
+            container.add(currentBook, 0, i);
+            container.setMargin(currentBook, new Insets(20, 0, 20, 30));
+            i++;
+        }
+
+        scrollPane.setContent(container);
 
         return scrollPane;
 
     }
 
-    private static BorderPane buildSingleBookView(Book book){
-
-        BorderPane bookRoot = new BorderPane();
-
+    private static GridPane buildSingleBookView(Book book){
         GridPane singleBook = new GridPane();
 
         Label titleLabel;
@@ -52,12 +58,47 @@ public class UserMainPageView {
         Label priceLabel;
         Label discountLabel;
 
-        // book info labels
-        titleLabel = new Label(book.getTitle());
-        authorLabel = new Label(book.getAuthors());
-        genreLabel = new Label(book.getGenre());
 
-        priceLabel = new Label("$" + book.getPrice());
+        Font bookTitleFont = new Font("Avenir Book Bold", 25);
+        Font genericLabelFont = new Font("Avenir Book", 20);
+
+        // set book informations' labels and font
+        titleLabel = new Label("\"" + book.getTitle() + "\"");
+        titleLabel.setFont(bookTitleFont);
+
+        // FIX TITLE VISUALIZATION
+        /*
+        if (book.getTitle().length() <= 40) {
+            titleLabel = new Label("\"" + book.getTitle() + "\"");
+            titleLabel.setFont(bookTitleFont);
+        } else {
+            int nRowsNeeded = (int) Math.ceil(book.getTitle().length() / 40.0);
+            String title = book.getTitle().substring(0, 40) + "\n";
+
+            for(int i = 41; i < 41*nRowsNeeded; i += 40){
+                title += book.getTitle().substring(i, i+40) + "\n";
+            }
+
+            titleLabel = new Label(title);
+        }
+
+         */
+
+        authorLabel = new Label("by " + book.getAuthors());
+        authorLabel.setFont(genericLabelFont);
+
+        genreLabel = new Label(book.getGenre());
+        genreLabel.setFont(genericLabelFont);
+
+        priceLabel = new Label("$ " + book.getPrice());
+        priceLabel.setFont(genericLabelFont);
+
+        if(book.getDiscount().compareTo(new BigDecimal(0)) > 0) {
+            discountLabel = new Label("Discount: " + book.getDiscount() + " %");
+            discountLabel.setFont(genericLabelFont);
+        } else {
+            discountLabel = new Label();
+        }
 
         // set columns costraints
         ColumnConstraints column1 = new ColumnConstraints();
@@ -89,12 +130,6 @@ public class UserMainPageView {
         discountRow.setValignment(VPos.CENTER);
         discountRow.setPercentHeight(100.0 / 2);
 
-        if(book.getDiscount().compareTo(new BigDecimal(0)) > 0) {
-            discountLabel = new Label(book.getDiscount() + " %");
-        } else {
-            discountLabel = new Label();
-        }
-
         singleBook.add(titleLabel, 0, 0);
         singleBook.add(authorLabel, 0, 1);
         singleBook.add(genreLabel, 0, 2);
@@ -107,9 +142,8 @@ public class UserMainPageView {
         singleBook.getRowConstraints().addAll(titleRow, authorRow, genreRow,
                 priceRow, discountRow);
 
-        bookRoot.setCenter(singleBook);
 
-        return bookRoot;
+        return singleBook;
     }
 
 

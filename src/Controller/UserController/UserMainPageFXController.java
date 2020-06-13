@@ -3,7 +3,6 @@ package Controller.UserController;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import View.UserMainPageView;
-import View.UserMainPageView.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -40,7 +41,7 @@ public class UserMainPageFXController implements Initializable {
         try {
             ScrollPane bookView = UserMainPageView.buildCatalogView();
             rightPane.getChildren().add(bookView);
-            //rightPane.positionInArea(bookView, 0, 100, 1034, 700, 0, HPos.CENTER, VPos.CENTER);
+            rightPane.setTopAnchor(bookView, (double) 100);
         } catch (InvalidStringException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -48,13 +49,14 @@ public class UserMainPageFXController implements Initializable {
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
-    }
 
+    }
+    /*
     public void handleProfileClick(MouseEvent evt) throws IOException {
-        ((Button) evt.getSource()).getScene().getWindow().hide();
+        ((Image) evt.getSource()).getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/UserFXML/UserMainPageFX.fxml"));
+        loader.setLocation(getClass().getResource("FXML/UserFXML/UserProfileFX.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
@@ -66,11 +68,23 @@ public class UserMainPageFXController implements Initializable {
     }
 
     public void handleCartClick(MouseEvent evt) throws IOException {
+        ((Image) evt.getSource()).getScene().getWindow().hide();
 
-    }
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXML/UserFXML/CartPageFX.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.show();
+
+    }*/
 
     public void handleLogOutRequest(MouseEvent evt) throws IOException {
-        ((Button) evt.getSource()).getScene().getWindow().hide();
+        ((Label) evt.getSource()).getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../WelcomePageFX.fxml"));
@@ -94,5 +108,12 @@ public class UserMainPageFXController implements Initializable {
 
     public void handlePublYearFilter(MouseEvent evt) {
 
+    }
+
+    public void goToProfilePage(MouseEvent mouseEvent) {
+
+    }
+
+    public void goToCartPage(MouseEvent mouseEvent) {
     }
 }

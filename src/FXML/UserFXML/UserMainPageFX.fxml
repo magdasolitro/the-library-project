@@ -9,36 +9,41 @@
    <children>
        <SplitPane dividerPositions="0.2" prefHeight="800.0" prefWidth="1300.0">
            <items>
-               <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #ffffff;">
+               <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #688EB5;">
                    <children>
-                       <Label layoutX="35.0" layoutY="233.0" text="Genres:">
-                           <font>
-                               <Font name="Avenir Book" size="20.0" />
-                           </font>
-                       </Label>
-                       <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="275.0" prefHeight="30.0" prefWidth="150.0" />
-                       <Label layoutX="35.0" layoutY="456.0" text="Filters">
+                       <Label layoutX="35.0" layoutY="198.0" text="Genres:" textFill="WHITE">
                            <font>
                                <Font name="Avenir Next Bold" size="20.0" />
                            </font>
                        </Label>
-                       <RadioButton fx:id="priceAscRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handlePriceAscFilter" text="Price (low to high)">
+                       <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="239.0" prefHeight="30.0" prefWidth="150.0" />
+                       <Label layoutX="35.0" layoutY="412.0" text="Filters" textFill="WHITE">
+                           <font>
+                               <Font name="Avenir Next Bold" size="20.0" />
+                           </font>
+                       </Label>
+                       <RadioButton fx:id="priceAscRB" layoutX="35.0" layoutY="455.0" mnemonicParsing="false" onMouseClicked="#handlePriceAscFilter" text="Price (low to high)" textFill="WHITE">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <RadioButton fx:id="priceDescRB" layoutX="35.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#handlePriceDescFilter" text="Price (high to low)">
+                       <RadioButton fx:id="priceDescRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handlePriceDescFilter" text="Price (high to low)" textFill="WHITE">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="580.0" mnemonicParsing="false" onMouseClicked="#handlePublYearFilter" text="Publication Year">
+                       <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="545.0" mnemonicParsing="false" onMouseClicked="#handlePublYearFilter" text="Publication Year" textFill="WHITE">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <Button layoutX="35.0" layoutY="356.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
+                       <Button layoutX="35.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font>
                        </Button>
+                  <ImageView fitHeight="136.0" fitWidth="230.0" layoutX="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/libraryOfficialLogo.png" />
+                     </image>
+                  </ImageView>
                    </children>
                </AnchorPane>
                <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
@@ -59,9 +64,17 @@
                                <Font name="Avenir Book" size="17.0" />
                            </font>
                        </Label>
-                  <ImageView fitHeight="100.0" fitWidth="134.0" layoutX="772.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="100.0" fitWidth="134.0" layoutX="900.0" pickOnBounds="true" preserveRatio="true" />
-                       <!-- <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="100.0" prefHeight="700.0" prefWidth="1035.0" /> -->
+                  <ImageView fx:id="profileIcon" fitHeight="76.0" fitWidth="81.0" layoutX="808.0" layoutY="14.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/userIcon.png" />
+                     </image></ImageView>
+                  <ImageView fx:id="cartIcon" fitHeight="71.0" fitWidth="90.0" layoutX="922.0" layoutY="15.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/cartIcon.png" />
+                     </image></ImageView>
+                  <Separator layoutY="98.0" prefHeight="4.0" prefWidth="1034.0" />
+                  <Button layoutX="500.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0"
+                  style="-fx-background-image: url(../../images/searchIcon.png)"/>
                    </children>
                </AnchorPane>
            </items>
