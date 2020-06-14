@@ -19,9 +19,13 @@ public interface BookDAO {
     public Book getBook(String ISBN) throws SQLException, InvalidStringException,
             IllegalValueException;
 
+    public ArrayList<Book> getBookByTitle(String title) throws SQLException,
+            InvalidStringException, IllegalValueException;
+
     public ArrayList<Book> getAllBooks() throws SQLException, InvalidStringException,
             IllegalValueException;
 
+    // questo metodo serve?? era stato creato per UserMainPageView
     public int titlesInCatalog() throws SQLException;
 
     public ArrayList<Book> getBooksByGenre(GenresEnum genre) throws SQLException,

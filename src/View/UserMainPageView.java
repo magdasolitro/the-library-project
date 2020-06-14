@@ -3,8 +3,6 @@ package View;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
-import Model.Utils.DAOs.BookDAO;
-import Model.Utils.DaoImpl.BookDaoImpl;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 
 public class UserMainPageView {
 
-    public static ScrollPane buildCatalogView() throws InvalidStringException, SQLException,
+    public static ScrollPane buildCatalogView(ArrayList<Book> booksToShow) throws InvalidStringException, SQLException,
             IllegalValueException {
 
         ScrollPane scrollPane = new ScrollPane();
@@ -29,13 +27,8 @@ public class UserMainPageView {
         GridPane container = new GridPane();
         container.setHgap(20);
 
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> catalog = new ArrayList<>();
-        catalog.addAll(bookDAO.getAllBooks());
-
         int i = 0;
-        for(Book b : catalog){
+        for(Book b : booksToShow){
             GridPane currentBook = buildSingleBookView(b);
             container.add(currentBook, 0, i);
             container.setMargin(currentBook, new Insets(20, 0, 20, 30));
@@ -53,6 +46,7 @@ public class UserMainPageView {
 
         Label titleLabel;
         Label authorLabel;
+        Label publishingYearLabel;
         Label genreLabel;
 
         Label priceLabel;
@@ -81,11 +75,13 @@ public class UserMainPageView {
 
             titleLabel = new Label(title);
         }
-
-         */
+        */
 
         authorLabel = new Label("by " + book.getAuthors());
         authorLabel.setFont(genericLabelFont);
+
+        publishingYearLabel = new Label("" + book.getPublishingYear());
+        publishingYearLabel.setFont(genericLabelFont);
 
         genreLabel = new Label(book.getGenre());
         genreLabel.setFont(genericLabelFont);
@@ -112,15 +108,19 @@ public class UserMainPageView {
         // set rows constraints
         RowConstraints titleRow = new RowConstraints();
         titleRow.setValignment(VPos.CENTER);
-        titleRow.setPercentHeight(100.0 / 3);       // perché ci sono 3 righe
+        titleRow.setPercentHeight(100.0 / 4);       // perché ci sono 4 righe
 
         RowConstraints authorRow = new RowConstraints();
         authorRow.setValignment(VPos.CENTER);
-        authorRow.setPercentHeight(100.0 / 3);
+        authorRow.setPercentHeight(100.0 / 4);
+
+        RowConstraints publishingYearRow = new RowConstraints();
+        publishingYearRow.setValignment(VPos.CENTER);
+        publishingYearRow.setPercentHeight(100.0 / 4);
 
         RowConstraints genreRow = new RowConstraints();
         genreRow.setValignment(VPos.CENTER);
-        genreRow.setPercentHeight(100.0 / 3);
+        genreRow.setPercentHeight(100.0 / 4);
 
         RowConstraints priceRow = new RowConstraints();
         priceRow.setValignment(VPos.CENTER);
@@ -132,7 +132,8 @@ public class UserMainPageView {
 
         singleBook.add(titleLabel, 0, 0);
         singleBook.add(authorLabel, 0, 1);
-        singleBook.add(genreLabel, 0, 2);
+        singleBook.add(publishingYearLabel, 0, 2);
+        singleBook.add(genreLabel, 0, 3);
 
         singleBook.add(priceLabel, 1, 0);
         singleBook.add(discountLabel, 1 ,1);
@@ -141,7 +142,6 @@ public class UserMainPageView {
         singleBook.getColumnConstraints().addAll(column1, column2);
         singleBook.getRowConstraints().addAll(titleRow, authorRow, genreRow,
                 priceRow, discountRow);
-
 
         return singleBook;
     }

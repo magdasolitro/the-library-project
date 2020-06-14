@@ -6,11 +6,12 @@ import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.regex.Pattern;
 
 // possibili eccezioni: InvalidISBNException, NullStringException
 
-public class Book {
+public class Book implements Comparable<Book>{
     private final String ISBN;
     private final String title;
     private final String authors;
@@ -113,5 +114,11 @@ public class Book {
         connection.rs = connection.pstmt.executeQuery();
 
         return connection.rs.getInt("quantity");
+    }
+
+
+    @Override
+    public int compareTo(Book book) {
+        return this.getTitle().compareTo(book.getTitle());
     }
 }

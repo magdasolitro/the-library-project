@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -37,8 +36,12 @@ public class SignInPageFXController {
                 phoneField.getText().isEmpty() || emailField.getText().isEmpty() ||
                 passwordField.getText().isEmpty() || passwordAgainField.getText().isEmpty()){
 
-            Alert missingField = new Alert(Alert.AlertType.ERROR, "Please, " +
-                    "fill all the required fields", ButtonType.OK);
+            Alert missingField = new Alert(Alert.AlertType.ERROR);
+
+            missingField.setTitle("Fields Error");
+            missingField.setHeaderText("You did not fill all the fields!");
+            missingField.setContentText("To register successfully, please " +
+                    "provide all the requested informations");
 
             missingField.showAndWait();
 
@@ -47,10 +50,13 @@ public class SignInPageFXController {
 
         // check if password matches in both password fields
         if(!passwordField.getText().equals(passwordAgainField.getText())){
-            Alert missingField = new Alert(Alert.AlertType.ERROR, "Password fields " +
-                    "do not match! Try to spell it again.", ButtonType.OK);
+            Alert notMatchingFields = new Alert(Alert.AlertType.ERROR);
 
-            missingField.showAndWait();
+            notMatchingFields.setTitle("Fields Error");
+            notMatchingFields.setHeaderText("Password fields do not match!");
+            notMatchingFields.setContentText("Try to spell the password again.");
+
+            notMatchingFields.showAndWait();
 
             return;
         }
@@ -59,10 +65,13 @@ public class SignInPageFXController {
 
         // check if user is already in db
         if(userDAO.getUser(emailField.getText()) != null ){
-            Alert missingField = new Alert(Alert.AlertType.ERROR, "You are already " +
-                    "registred! Try to log in.", ButtonType.OK);
+            Alert alreadyRegistred = new Alert(Alert.AlertType.ERROR);
 
-            missingField.showAndWait();
+            alreadyRegistred.setTitle("Registration Error");
+            alreadyRegistred.setHeaderText("You are already registred!");
+            alreadyRegistred.setContentText("Please, try to log in.");
+
+            alreadyRegistred.showAndWait();
 
             return;
         }

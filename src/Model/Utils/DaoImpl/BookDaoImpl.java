@@ -8,6 +8,7 @@ import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -73,6 +74,39 @@ public class BookDaoImpl implements BookDAO {
         connection.closeConnection();
 
         return book;
+    }
+
+    @Override
+    public ArrayList<Book> getBookByTitle(String title) throws SQLException,
+            InvalidStringException, IllegalValueException {
+        String sql = "SELECT * FROM book WHERE title = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, title);
+
+        connection.rs = connection.pstmt.executeQuery();
+
+        ArrayList<Book> books = new ArrayList<>();
+
+        while(connection.rs.next()){
+            books.add(new Book(connection.rs.getString("ISBN"),
+                    connection.rs.getString("title"),
+                    connection.rs.getString("authors"),
+                    connection.rs.getString("genre"),
+                    connection.rs.getBigDecimal("price"),
+                    connection.rs.getString("description"),
+                    connection.rs.getString("publishingHouse"),
+                    connection.rs.getInt("publishingYear"),
+                    connection.rs.getBigDecimal("discount"),
+                    connection.rs.getInt("availableCopies"),
+                    connection.rs.getInt("libroCardPoints")));
+        }
+
+        return books;
     }
 
     public ArrayList<Book> getAllBooks() throws SQLException, InvalidStringException,

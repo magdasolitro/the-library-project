@@ -28,7 +28,7 @@ public class UserLoginFXController {
     TextField userPasswordField;
 
     @FXML
-    public void handleLoginInfos(MouseEvent evt) throws SQLException,
+    public void handleLoginRequest(MouseEvent evt) throws SQLException,
             InvalidStringException, IOException {
 
         if(userEmailField.getText().isEmpty() || userPasswordField.getText().isEmpty()){

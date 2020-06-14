@@ -16,8 +16,8 @@
                                <Font name="Avenir Next Bold" size="20.0" />
                            </font>
                        </Label>
-                       <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="239.0" prefHeight="30.0" prefWidth="150.0" />
-                       <Label layoutX="35.0" layoutY="412.0" text="Filters" textFill="WHITE">
+                       <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="239.0" prefHeight="30.0" prefWidth="150.0"/>
+                       <Label layoutX="35.0" layoutY="412.0" text="Order by" textFill="WHITE">
                            <font>
                                <Font name="Avenir Next Bold" size="20.0" />
                            </font>
@@ -31,6 +31,10 @@
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
                        <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="545.0" mnemonicParsing="false" onMouseClicked="#handlePublYearFilter" text="Publication Year" textFill="WHITE">
+                           <font>
+                               <Font name="Avenir Book" size="17.0" />
+                           </font></RadioButton>
+                       <RadioButton fx:id="titleRB" layoutX="35.0" layoutY="590.0" mnemonicParsing="false" onMouseClicked="#handleTitleFilter" text="Title" textFill="WHITE">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
@@ -54,7 +58,7 @@
                            </font>
                        </Label>
                        <Separator layoutX="769.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
-                       <TextField layoutX="191.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Book Title">
+                       <TextField fx:id="bookSearchTextField" layoutX="191.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Enter book title">
                            <font>
                                <Font name="Avenir Book" size="14.0" />
                            </font>
@@ -73,8 +77,8 @@
                         <Image url="@../../images/cartIcon.png" />
                      </image></ImageView>
                   <Separator layoutY="98.0" prefHeight="4.0" prefWidth="1034.0" />
-                  <Button layoutX="500.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0"
-                  style="-fx-background-image: url(../../images/searchIcon.png)"/>
+                  <Button fx:id="searchButton" layoutX="500.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0"
+                  onMouseClicked="#handleBookSearch"/>
                    </children>
                </AnchorPane>
            </items>

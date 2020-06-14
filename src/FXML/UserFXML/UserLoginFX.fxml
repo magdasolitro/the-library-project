@@ -28,7 +28,7 @@
         </Button>
         <Button fx:id="loginButton" layoutX="573.0" layoutY="517.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="155.0"
                 style="-fx-background-color: #3CB371;" text="Log In" textFill="WHITE"
-                onMouseClicked="#handleLoginInfos">
+                onMouseClicked="#handleLoginRequest">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
