@@ -17,64 +17,61 @@ import java.util.ResourceBundle;
 public class WelcomePageFXController implements Initializable {
 
     @FXML
-    private void handleUserBottonClick(MouseEvent evt) throws IOException {
-        ((Button) evt.getSource()).getScene().getWindow().hide();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../FXML/UserFXML/UserLoginFX.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    }
+    Button userButton, employeeButton;
 
     @FXML
-    private void handleEmployeeButtonClick(MouseEvent evt) throws IOException {
-        ((Button) evt.getSource()).getScene().getWindow().hide();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../FXML/EmployeeFXML/EmployeeLoginFX.fxml"));
-
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    }
-
-    @FXML
-    private void handleGuestClick(MouseEvent evt) throws IOException {
-        ((Button) evt.getSource()).getScene().getWindow().hide();
-
-    }
-
-    @FXML
-    private void handleSignInClick(MouseEvent evt) throws IOException{
-        ((Label) evt.getSource()).getScene().getWindow().hide();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../FXML/SignInPageFX.fxml"));
-
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    }
+    Label continueAsGuest, signInLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
 
+    }
+
+    @FXML
+    private void handleUserButtonClick(MouseEvent evt) throws IOException {
+        //((Button) evt.getSource()).getScene().getWindow().hide();
+        Stage stage = (Stage) userButton.getScene().getWindow();
+        stage.close();
+
+        viewPage("../FXML/UserFXML/UserLoginFX.fxml");
+    }
+
+    @FXML
+    private void handleEmployeeButtonClick(MouseEvent evt) throws IOException {
+        Stage stage = (Stage) employeeButton.getScene().getWindow();
+        stage.close();
+
+        viewPage("../FXML/EmployeeFXML/EmployeeLoginFX.fxml");
+    }
+
+    @FXML
+    private void handleGuestClick(MouseEvent evt) throws IOException {
+        Stage stage = (Stage) continueAsGuest.getScene().getWindow();
+        stage.close();
+
+        //viewPage("...");
+    }
+
+    @FXML
+    private void handleSignInClick(MouseEvent evt) throws IOException{
+        Stage stage = (Stage) signInLabel.getScene().getWindow();
+        stage.close();
+
+        viewPage("../FXML/SignInPageFX.fxml");
+    }
+
+
+    private void viewPage(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(path));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.show();
     }
 
 }

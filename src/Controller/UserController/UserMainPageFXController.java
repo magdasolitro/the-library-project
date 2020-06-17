@@ -1,11 +1,12 @@
 package Controller.UserController;
 
+import Controller.GeneralLoginController;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
-import View.UserMainPageView;
+import View.UserView.UserMainPageView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -26,7 +28,7 @@ import java.util.*;
 
 public class UserMainPageFXController implements Initializable {
     @FXML
-    ChoiceBox genresDropDown;
+    ChoiceBox genresChoiceBox;
 
     @FXML
     AnchorPane leftPane, rightPane;
@@ -37,13 +39,21 @@ public class UserMainPageFXController implements Initializable {
     @FXML
     RadioButton priceAscRB, priceDescRB, publYearRB, titleRB;
 
-    ScrollPane bookView;
+    @FXML
+    Button searchButton;
+
+    @FXML
+    ImageView profileIcon, cartIcon;
+
+    @FXML Label logoutLabel;
+
+    ScrollPane spBookView;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
         // set possible choices in drop down menu
-        genresDropDown.getItems().addAll("All", "Autobiography", "Crime Fiction",
+        genresChoiceBox.getItems().addAll("All", "Autobiography", "Crime Fiction",
                 "Fantasy", "History", "Narrative", "Philosophy of Science",
                 "Politics", "Science Fiction");
 
@@ -51,62 +61,40 @@ public class UserMainPageFXController implements Initializable {
         try {
             BookDAO bookDAO = new BookDaoImpl();
 
-            ArrayList<Book> fullCatalog = new ArrayList<>();
-            fullCatalog.addAll(bookDAO.getAllBooks());
+            ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
 
-            bookView = UserMainPageView.buildCatalogView(fullCatalog);
-            rightPane.getChildren().add(bookView);
-            rightPane.setTopAnchor(bookView, (double) 100);
+            spBookView = UserMainPageView.buildBooksView(fullCatalog);
+            rightPane.getChildren().add(spBookView);
+            AnchorPane.setTopAnchor(spBookView, (double) 100);
         } catch (InvalidStringException e) {
-            e.printStackTrace();
+            System.out.println("InvalidStringException: " + e.getMessage());
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("SQLException: " + e.getMessage());
         } catch (IllegalValueException e) {
-            e.printStackTrace();
+            System.out.println("IllegalValueException: " + e.getMessage());
         }
 
         // set toggle group for radio buttons
-        // (so that only one radio button can be selected at once!)
         ToggleGroup group = new ToggleGroup();
+
         priceAscRB.setToggleGroup(group);
         priceDescRB.setToggleGroup(group);
         publYearRB.setToggleGroup(group);
         titleRB.setToggleGroup(group);
 
+        // set search button image
+        searchButton.setStyle("-fx-background-image: url('../../images/searchIcon.png')");
+        Image searchIcon = new Image(getClass().getResourceAsStream("../../images/searchIcon.png"));
+        ImageView searchIconView = new ImageView(searchIcon);
+
+        //searchIconView.setFitWidth(searchButton.getWidth());
+        //searchIconView.setFitHeight(searchButton.getHeight());
+        //searchButton.setGraphic(searchIconView);
     }
 
-    public void handleProfileClick(MouseEvent evt) throws IOException {
-        //((Image) evt.getSource()).getScene().getWindow().hide();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/UserFXML/UserProfileFX.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    }
-
-    public void handleCartClick(MouseEvent evt) throws IOException {
-        //((Image) evt.getSource()).getScene().getWindow().hide();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/UserFXML/CartPageFX.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-
-    }
 
     public void handleLogOutRequest(MouseEvent evt) throws IOException {
+
         Alert confirmLogOut = new Alert(Alert.AlertType.CONFIRMATION);
 
         confirmLogOut.setTitle("Log Out");
@@ -115,20 +103,18 @@ public class UserMainPageFXController implements Initializable {
 
         Optional<ButtonType> response = confirmLogOut.showAndWait();
 
-        if(response.get() == ButtonType.OK) {
-            ((Label) evt.getSource()).getScene().getWindow().hide();
+        if(response.isPresent() && response.get() == ButtonType.OK) {
+            Stage stage = (Stage) logoutLabel.getScene().getWindow();
+            stage.close();
+
+            GeneralLoginController.logout();
+
+            viewPage("../../FXML/WelcomePageFX.fxml");
+        } else {
+            evt.consume();
+            confirmLogOut.close();
         }
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../../FXML/WelcomePageFX.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
     }
 
 
@@ -139,16 +125,12 @@ public class UserMainPageFXController implements Initializable {
 
         ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
 
-        Collections.sort(orderedBooks, Comparator.comparing(Book::getTitle));
+        orderedBooks.sort(Comparator.comparing(Book::getPrice));
 
         // clear rightPane
-        if(rightPane.getChildren() != null){
-            rightPane.getChildren().removeAll();
-        }
+        rightPane.getChildren().remove(spBookView);
 
-        bookView = UserMainPageView.buildCatalogView(orderedBooks);
-        rightPane.getChildren().add(bookView);
-        rightPane.setTopAnchor(bookView, (double) 100);
+        changeBookView(orderedBooks);
 
     }
 
@@ -159,16 +141,13 @@ public class UserMainPageFXController implements Initializable {
 
         ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
 
-        Collections.sort(orderedBooks, Comparator.comparing(Book::getPrice));
+        orderedBooks.sort(Comparator.comparing(Book::getPrice));
+        Collections.reverse(orderedBooks);
 
         // clear rightPane
-        if(rightPane.getChildren() != null){
-            rightPane.getChildren().removeAll();
-        }
+        rightPane.getChildren().remove(spBookView);
 
-        bookView = UserMainPageView.buildCatalogView(orderedBooks);
-        rightPane.getChildren().add(bookView);
-        rightPane.setTopAnchor(bookView, (double) 100);
+        changeBookView(orderedBooks);
     }
 
     public void handlePublYearFilter(MouseEvent evt) throws InvalidStringException,
@@ -178,72 +157,117 @@ public class UserMainPageFXController implements Initializable {
 
         ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
 
-        Collections.sort(orderedBooks, Comparator.comparing(Book::getPublishingYear));
+        orderedBooks.sort(Comparator.comparing(Book::getPublishingYear));
 
         // clear rightPane
-        if(rightPane.getChildren() != null){
-            rightPane.getChildren().removeAll();
-        }
+        rightPane.getChildren().remove(spBookView);
 
-        bookView = UserMainPageView.buildCatalogView(orderedBooks);
-        rightPane.getChildren().add(bookView);
-        rightPane.setTopAnchor(bookView, (double) 100);
+       changeBookView(orderedBooks);
     }
 
-    public void handleTitleFilter(MouseEvent mouseEvent) throws InvalidStringException,
+    public void handleTitleFilter(MouseEvent evt) throws InvalidStringException,
             SQLException, IllegalValueException {
 
         BookDAO bookDAO = new BookDaoImpl();
 
         ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
 
-        Collections.sort(orderedBooks, Comparator.comparing(Book::getTitle));
+        orderedBooks.sort(Comparator.comparing(Book::getTitle));
 
         // clear rightPane
-        if(rightPane.getChildren() != null){
-            rightPane.getChildren().removeAll();
-        }
+        rightPane.getChildren().remove(spBookView);
 
-        bookView = UserMainPageView.buildCatalogView(orderedBooks);
-        rightPane.getChildren().add(bookView);
-        rightPane.setTopAnchor(bookView, (double) 100);
+        changeBookView(orderedBooks);
 
     }
 
 
     public void goToProfilePage(MouseEvent mouseEvent) {
+        try{
+            Stage stage = (Stage) profileIcon.getScene().getWindow();
+            stage.close();
 
+            viewPage("../../FXML/UserFXML/UserProfileFX.fxml");
+        } catch (IOException ioe){
+            System.out.println("IOException: " + ioe.getMessage());
+        }
     }
 
     public void goToCartPage(MouseEvent mouseEvent) {
+        try{
+            Stage stage = (Stage) cartIcon.getScene().getWindow();
+            stage.close();
+
+            viewPage("../../FXML/UserFXML/UserCartPageFX.fxml");
+        } catch (IOException ioe){
+            System.out.println("IOException" + ioe.getMessage());
+        }
 
     }
 
-    public void handleBookSearch(MouseEvent mouseEvent) throws InvalidStringException,
+    public void handleBookSearch(MouseEvent evt) throws InvalidStringException,
             SQLException, IllegalValueException {
 
         String bookTitle = bookSearchTextField.getText();
 
-        if(!bookTitle.equals(null)){
+        if (bookTitle.equals("")) {
 
-            // clear rightPane
-            if(rightPane.getChildren() != null){
-                rightPane.getChildren().removeAll();
+            // build full catalog view
+            try {
+                BookDAO bookDAO = new BookDaoImpl();
+
+                ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
+
+                changeBookView(fullCatalog);
+            } catch (InvalidStringException e) {
+                System.out.println("InvalidStringException: " + e.getMessage());
+            } catch (SQLException e) {
+                System.out.println("SQLException: " + e.getMessage());
+            } catch (IllegalValueException e) {
+                System.out.println("IllegalValueException: " + e.getMessage());
             }
+        } else {
 
+            // show only the selected book
             BookDAO bookDAO = new BookDaoImpl();
 
-            ArrayList<Book> books = new ArrayList<>();
+            ArrayList<Book> searchedBook = new ArrayList<>(bookDAO.getBookByTitle(bookTitle));
 
-            books.addAll(bookDAO.getBookByTitle(bookTitle));
+            if(searchedBook.isEmpty()){
+                Alert bookNotFound = new Alert(Alert.AlertType.WARNING);
 
-            bookView = UserMainPageView.buildCatalogView(books);
-            rightPane.getChildren().add(bookView);
-            rightPane.setTopAnchor(bookView, (double) 100);
-        } else {
-            /* DA IMPLEMENTARE: se si clicca il bottone di ricerca e
-            * il TextField è vuoto, visualizzare l'intero catalogo */
+                bookNotFound.setTitle("Book Not Found");
+                bookNotFound.setHeaderText("This book is not in sale");
+                bookNotFound.setContentText("Try with another title...");
+
+                bookNotFound.showAndWait();
+            } else {
+                rightPane.getChildren().remove(spBookView);
+                changeBookView(searchedBook);
+            }
         }
+    }
+
+
+    private void viewPage(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(path));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.show();
+    }
+
+    private void changeBookView(ArrayList<Book> bookList) throws InvalidStringException,
+            SQLException, IllegalValueException {
+
+        spBookView = UserMainPageView.buildBooksView(bookList);
+        rightPane.getChildren().add(spBookView);
+        AnchorPane.setTopAnchor(spBookView, (double) 100);
     }
 
 }

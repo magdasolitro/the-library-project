@@ -16,7 +16,7 @@
                                <Font name="Avenir Next Bold" size="20.0" />
                            </font>
                        </Label>
-                       <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="239.0" prefHeight="30.0" prefWidth="150.0"/>
+                       <ChoiceBox fx:id="genresChoiceBox" layoutX="35.0" layoutY="239.0" prefHeight="30.0" prefWidth="150.0" />
                        <Label layoutX="35.0" layoutY="412.0" text="Order by" textFill="WHITE">
                            <font>
                                <Font name="Avenir Next Bold" size="20.0" />
@@ -38,7 +38,7 @@
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <Button layoutX="35.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
+                       <Button fx:id="rankingsButton" layoutX="35.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font>
@@ -50,9 +50,9 @@
                   </ImageView>
                    </children>
                </AnchorPane>
-               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
+               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #ffffff;">
                    <children>
-                       <Label layoutX="646.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
+                       <Label fx:id="logoutLabel" layoutX="646.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
                            <font>
                                <Font name="Avenir Book" size="20.0" />
                            </font>
@@ -71,14 +71,21 @@
                   <ImageView fx:id="profileIcon" fitHeight="76.0" fitWidth="81.0" layoutX="808.0" layoutY="14.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/userIcon.png" />
-                     </image></ImageView>
+                     </image>
+                  </ImageView>
                   <ImageView fx:id="cartIcon" fitHeight="71.0" fitWidth="90.0" layoutX="922.0" layoutY="15.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/cartIcon.png" />
-                     </image></ImageView>
-                  <Separator layoutY="98.0" prefHeight="4.0" prefWidth="1034.0" />
-                  <Button fx:id="searchButton" layoutX="500.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0"
-                  onMouseClicked="#handleBookSearch"/>
+                     </image>
+                  </ImageView>
+                       <Separator layoutY="98.0" prefHeight="4.0" prefWidth="1034.0" />
+                  <Button fx:id="searchButton" layoutX="500.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleBookSearch" prefHeight="45.0" prefWidth="45.0">
+                       <ImageView fx:id="searchIcon" fitHeight="45.0" fitWidth="45.0" layoutX="808.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                               <Image url="@../../images/searchIcon.png" />
+                           </image>
+                       </ImageView>
+                  </Button>
                    </children>
                </AnchorPane>
            </items>

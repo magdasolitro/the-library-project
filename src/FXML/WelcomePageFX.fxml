@@ -8,12 +8,12 @@
     <children>
         <Pane id="StackPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;">
             <children>
-                <Label fx:id="WelcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="170.0" prefHeight="59.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Welcome!" textAlignment="CENTER">
+                <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="170.0" prefHeight="59.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Welcome!" textAlignment="CENTER">
                     <font>
                         <Font name="Avenir Next Bold" size="70.0" />
                     </font>
                 </Label>
-                <Button fx:id="UserButton" layoutX="430.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#handleUserBottonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="USER">
+                <Button fx:id="userButton" layoutX="430.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#handleUserButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="USER">
                     <font>
                         <Font name="Avenir Book" size="25.0" />
                     </font></Button>
@@ -22,17 +22,17 @@
                         <Font name="Avenir Book" size="25.0" />
                     </font>
                 </Label>
-                <Button fx:id="EmployeeButton" layoutX="719.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#handleEmployeeButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
+                <Button fx:id="employeeButton" layoutX="719.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#handleEmployeeButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
                     <font>
                         <Font name="Avenir Book" size="25.0" />
                     </font>
                 </Button>
-                <Label fx:id="ContinueAsGuest" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="520.0" onMouseClicked="#handleGuestClick" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Continue as guest" textAlignment="CENTER" underline="true">
+                <Label fx:id="continueAsGuest" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="520.0" onMouseClicked="#handleGuestClick" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Continue as guest" textAlignment="CENTER" underline="true">
                     <font>
                         <Font name="Avenir Book" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="SignIn" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="570.0" onMouseClicked="#handleSignInClick" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Sign in" textAlignment="CENTER" underline="true">
+                <Label fx:id="signInLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="570.0" onMouseClicked="#handleSignInClick" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Sign in" textAlignment="CENTER" underline="true">
                     <font>
                         <Font name="Avenir Book" size="20.0" />
                     </font>

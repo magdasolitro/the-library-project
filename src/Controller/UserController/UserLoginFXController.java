@@ -1,5 +1,6 @@
 package Controller.UserController;
 
+import Controller.GeneralLoginController;
 import Model.Exceptions.InvalidStringException;
 import Model.User;
 import Model.Utils.DAOs.UserDAO;
@@ -21,11 +22,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class UserLoginFXController {
-    @FXML
-    TextField userEmailField;
 
     @FXML
-    TextField userPasswordField;
+    TextField userEmailField, userPasswordField;
+
+    @FXML
+    Button loginButton;
+
+    //private static String loginInstance = null;
+
 
     @FXML
     public void handleLoginRequest(MouseEvent evt) throws SQLException,
@@ -56,27 +61,42 @@ public class UserLoginFXController {
                     "password is wrong!", ButtonType.OK);
             wrongPassword.show();
         } else {
-            ((Button) evt.getSource()).getScene().getWindow().hide();
+            GeneralLoginController.setLoginInstance(currentUser.getEmail());
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserMainPageFX.fxml"));
-            Parent root = loader.load();
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.close();
 
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-
-            stage.setScene(scene);
-            stage.setMaximized(true);
-            stage.show();
+            viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
         }
     }
+
 
     @FXML
     public void handleGoBackButtonClick(MouseEvent evt) throws IOException {
         ((Button) evt.getSource()).getScene().getWindow().hide();
 
+        viewPage("../../FXML/WelcomePageFX.fxml");
+    }
+
+/*
+    public boolean isLogged() { return loginInstance != null; }
+
+
+    public void logout(){
+        loginInstance = null;
+    }
+
+
+    public static String getLoginInstance(){
+        return loginInstance;
+    }
+
+ */
+
+
+    private void viewPage(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../../FXML/WelcomePageFX.fxml"));
+        loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

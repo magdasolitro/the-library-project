@@ -26,6 +26,9 @@ public class SignInPageFXController {
             passwordAgainField;
 
     @FXML
+    Button signInButton, goBackButton;
+
+    @FXML
     public void handleSignInButton(MouseEvent evt) throws InvalidStringException,
             UserNotInDatabaseException, SQLException, IOException {
 
@@ -83,26 +86,25 @@ public class SignInPageFXController {
 
         userDAO.addUser(newUser);
 
-        ((Button) evt.getSource()).getScene().getWindow().hide();
+        Stage stage = (Stage) signInButton.getScene().getWindow();
+        stage.close();
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../FXML/UserMainPageFX.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
+        viewPage("../FXML/UserMainPageFX.fxml");
     }
 
     @FXML
     public void handleGoBackButton(MouseEvent evt) throws IOException {
-        ((Button) evt.getSource()).getScene().getWindow().hide();
+        Stage stage = (Stage) goBackButton.getScene().getWindow();
+        stage.close();
 
+        viewPage("../FXML/WelcomePageFX.fxml");
+    }
+
+
+    private void viewPage(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../FXML/WelcomePageFX.fxml"));
+        loader.setLocation(getClass().getResource(path));
+
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

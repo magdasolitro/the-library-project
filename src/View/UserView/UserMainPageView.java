@@ -1,13 +1,15 @@
-package View;
+package View.UserView;
 
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
@@ -17,32 +19,37 @@ import java.util.ArrayList;
 
 public class UserMainPageView {
 
-    public static ScrollPane buildCatalogView(ArrayList<Book> booksToShow) throws InvalidStringException, SQLException,
-            IllegalValueException {
+    public static ScrollPane buildBooksView(ArrayList<Book> booksToShow) throws
+            InvalidStringException, SQLException, IllegalValueException {
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(1034, 700);
-        scrollPane.isResizable();
 
-        GridPane container = new GridPane();
-        container.setHgap(20);
+        scrollPane.setPrefHeight(700);
+        scrollPane.fitToWidthProperty();
+        scrollPane.isResizable();
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        GridPane bookContainer = new GridPane();
+        bookContainer.setHgap(20);
 
         int i = 0;
+
         for(Book b : booksToShow){
             GridPane currentBook = buildSingleBookView(b);
-            container.add(currentBook, 0, i);
-            container.setMargin(currentBook, new Insets(20, 0, 20, 30));
+            bookContainer.add(currentBook, 0, i);
+            GridPane.setMargin(currentBook, new Insets(20, 0, 20, 30));
             i++;
         }
 
-        scrollPane.setContent(container);
+        scrollPane.setContent(bookContainer);
 
         return scrollPane;
 
     }
 
     private static GridPane buildSingleBookView(Book book){
-        GridPane singleBook = new GridPane();
+        GridPane singleBook;
 
         Label titleLabel;
         Label authorLabel;
@@ -51,7 +58,6 @@ public class UserMainPageView {
 
         Label priceLabel;
         Label discountLabel;
-
 
         Font bookTitleFont = new Font("Avenir Book Bold", 25);
         Font genericLabelFont = new Font("Avenir Book", 20);
@@ -129,6 +135,14 @@ public class UserMainPageView {
         RowConstraints discountRow = new RowConstraints();
         discountRow.setValignment(VPos.CENTER);
         discountRow.setPercentHeight(100.0 / 2);
+
+        // add column separator
+        Separator sep = new Separator(Orientation.VERTICAL);
+        sep.setPrefHeight(100);
+
+        singleBook = new GridPane();
+        singleBook.isResizable();
+        singleBook.setHgap(20);
 
         singleBook.add(titleLabel, 0, 0);
         singleBook.add(authorLabel, 0, 1);

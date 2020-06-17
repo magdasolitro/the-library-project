@@ -111,12 +111,12 @@
             <Font name="Avenir Book" size="17.0" />
          </font>
       </PasswordField>
-      <Button fx:id="GoBackButton" onMouseClicked="#handleGoBackButton" mnemonicParsing="false" text="Go Back">
+      <Button fx:id="goBackButton" onMouseClicked="#handleGoBackButton" mnemonicParsing="false" text="Go Back">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="SignInButton" layoutX="573.0" layoutY="615.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="155.0"
+      <Button fx:id="signInButton" layoutX="573.0" layoutY="615.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="155.0"
               style="-fx-background-color: #3CB371;" text="Sign In" textFill="WHITE"
               onMouseClicked="#handleSignInButton">
          <font>
