@@ -15,10 +15,11 @@ import javafx.scene.text.Font;
 
 public class UserProfileView {
 
-    public static GridPane buildUserInfos(String email){
+    public static GridPane buildUserInfosGrid(String email){
         User user;
 
         Label homeAddressLabel;
+        Label streetNumberLabel;
         Label ZIPCodeLabel;
         Label homeCityLabel;
         Label phoneLabel;
@@ -38,6 +39,7 @@ public class UserProfileView {
             }
 
             homeAddressLabel = new Label(user.getHomeAddress());
+            streetNumberLabel = new Label(user.getStreetNumber());
             ZIPCodeLabel = new Label(user.getZIPCode());
             homeCityLabel = new Label(user.getHomeCity());
             phoneLabel = new Label(user.getPhone());
@@ -48,35 +50,43 @@ public class UserProfileView {
 
             RowConstraints homeAddressRow = new RowConstraints();
             homeAddressRow.setValignment(VPos.CENTER);
-            homeAddressRow.setPercentHeight(100.0 / 5);     // ci sono 5 righe
+            homeAddressRow.setPercentHeight(100.0 / 6);     // ci sono 6 righe
+
+            RowConstraints streetNumberRow = new RowConstraints();
+            streetNumberRow.setValignment(VPos.CENTER);
+            streetNumberRow.setPercentHeight(100.0 / 6);
 
             RowConstraints ZIPCodeRow = new RowConstraints();
             ZIPCodeRow.setValignment(VPos.CENTER);
-            ZIPCodeRow.setPercentHeight(100.0 / 5);
+            ZIPCodeRow.setPercentHeight(100.0 / 6);
 
             RowConstraints homeCityRow = new RowConstraints();
             homeCityRow.setValignment(VPos.CENTER);
-            homeCityRow.setPercentHeight(100.0 / 5);
+            homeCityRow.setPercentHeight(100.0 / 6);
 
             RowConstraints phoneRow = new RowConstraints();
             phoneRow.setValignment(VPos.CENTER);
-            phoneRow.setPercentHeight(100.0 / 5);
+            phoneRow.setPercentHeight(100.0 / 6);
 
             RowConstraints emailRow = new RowConstraints();
             emailRow.setValignment(VPos.CENTER);
-            emailRow.setPercentHeight(100.0 / 5);
+            emailRow.setPercentHeight(100.0 / 6);
 
             homeAddressLabel.setFont(otherInfosFont);
+            streetNumberLabel.setFont(otherInfosFont);
             ZIPCodeLabel.setFont(otherInfosFont);
             homeCityLabel.setFont(otherInfosFont);
             phoneLabel.setFont(otherInfosFont);
             emailLabel.setFont(otherInfosFont);
 
             infosContainer.add(homeAddressLabel, 0, 0);
-            infosContainer.add(ZIPCodeLabel, 0, 1);
-            infosContainer.add(homeAddressLabel, 0, 2);
-            infosContainer.add(phoneLabel, 0, 3);
-            infosContainer.add(emailLabel, 0, 4);
+            infosContainer.add(streetNumberLabel, 0,1);
+            infosContainer.add(ZIPCodeLabel, 0, 2);
+            infosContainer.add(homeCityLabel, 0, 3);
+            infosContainer.add(phoneLabel, 0, 4);
+            infosContainer.add(emailLabel, 0, 5);
+
+            infosContainer.setVgap(20);
 
         } catch(InvalidStringException ise){
             System.out.println("InvalidStringException: " + ise.getMessage());

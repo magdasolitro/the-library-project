@@ -27,9 +27,7 @@ public class UserLoginFXController {
     TextField userEmailField, userPasswordField;
 
     @FXML
-    Button loginButton;
-
-    //private static String loginInstance = null;
+    Button loginButton, goBackButton;
 
 
     @FXML
@@ -61,7 +59,7 @@ public class UserLoginFXController {
                     "password is wrong!", ButtonType.OK);
             wrongPassword.show();
         } else {
-            GeneralLoginController.setLoginInstance(currentUser.getEmail());
+            GeneralLoginController.setLoginInstance(userEmail);
 
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
@@ -73,25 +71,11 @@ public class UserLoginFXController {
 
     @FXML
     public void handleGoBackButtonClick(MouseEvent evt) throws IOException {
-        ((Button) evt.getSource()).getScene().getWindow().hide();
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.close();
 
         viewPage("../../FXML/WelcomePageFX.fxml");
     }
-
-/*
-    public boolean isLogged() { return loginInstance != null; }
-
-
-    public void logout(){
-        loginInstance = null;
-    }
-
-
-    public static String getLoginInstance(){
-        return loginInstance;
-    }
-
- */
 
 
     private void viewPage(String path) throws IOException {

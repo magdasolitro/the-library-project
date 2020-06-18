@@ -1,6 +1,8 @@
 package Controller.UserController;
 
 import Controller.GeneralLoginController;
+import Model.Utils.DAOs.UserDAO;
+import Model.Utils.DaoImpl.UserDaoImpl;
 import View.UserView.UserProfileView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -35,16 +38,16 @@ public class UserProfileFXController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        gpUserInfos = UserProfileView.buildUserInfos(GeneralLoginController.getLoginInstance());
+        gpUserInfos = UserProfileView.buildUserInfosGrid(GeneralLoginController.getLoginInstance());
         userNameSurnameLabel = UserProfileView.buildUserNameSurnameLabel((GeneralLoginController.getLoginInstance()));
 
         anchorPane.getChildren().addAll(gpUserInfos, userNameSurnameLabel);
 
-        AnchorPane.setLeftAnchor(gpUserInfos, (double) 150);
-        AnchorPane.setTopAnchor(gpUserInfos, (double) 290);
+        AnchorPane.setLeftAnchor(gpUserInfos, (double) 260);
+        AnchorPane.setTopAnchor(gpUserInfos, (double) 250);
 
         AnchorPane.setLeftAnchor(userNameSurnameLabel, (double) 90);
-        AnchorPane.setTopAnchor(userNameSurnameLabel, (double) 125);
+        AnchorPane.setTopAnchor(userNameSurnameLabel, (double) 100);
 
     }
 
@@ -69,13 +72,20 @@ public class UserProfileFXController implements Initializable {
 
             viewPage("../../FXML/UserFXML/OrdersPageFX.fxml");
         } catch(IOException ioe){
-            System.out.println("IOException: " + ioe.getMessage());
+            ioe.getStackTrace();
         }
     }
 
 
     public void handleModificationRequest(MouseEvent mouseEvent) {
+        try{
+            Stage stage = (Stage) modifyDataButton.getScene().getWindow();
+            stage.close();
 
+            viewPage("../../FXML/UserFXML/DataModificationPageFX.fxml");
+        } catch(IOException ioe){
+            ioe.getStackTrace();
+        }
     }
 
 
@@ -89,15 +99,16 @@ public class UserProfileFXController implements Initializable {
         Optional<ButtonType> response = confirmLogOut.showAndWait();
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
-            Stage stage = (Stage) logoutButton.getScene().getWindow();
-            stage.close();
 
             GeneralLoginController.logout();
 
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.close();
+
             try {
                 viewPage("../../FXML/WelcomePageFX.fxml");
-            } catch(IOException ioe){
-                System.out.println("IOException: " + ioe.getMessage());
+            } catch (IOException ioe) {
+                ioe.getStackTrace();
             }
         } else {
             mouseEvent.consume();
@@ -117,19 +128,24 @@ public class UserProfileFXController implements Initializable {
         Optional<ButtonType> response = confirmLogOut.showAndWait();
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
-            ((Button) mouseEvent.getSource()).getScene().getWindow().hide();
-
-            GeneralLoginController.logout();
-
             try {
-                Stage stage = (Stage) deleteAccountButton.getScene().getWindow();
-                stage.close();
+                UserDAO userDAO = new UserDaoImpl();
 
-                viewPage("../../FXML/WelcomePageFX.fxml");
-            } catch(IOException ioe){
-                System.out.println("IOException: " + ioe.getMessage());
+                userDAO.deleteUser(GeneralLoginController.getLoginInstance());
+
+                GeneralLoginController.logout();
+
+                try {
+                    Stage stage = (Stage) deleteAccountButton.getScene().getWindow();
+                    stage.close();
+
+                    viewPage("../../FXML/WelcomePageFX.fxml");
+                } catch (IOException ioe) {
+                    System.out.println("IOException: " + ioe.getMessage());
+                }
+            } catch(SQLException sqle){
+                sqle.getStackTrace();
             }
-
         } else {
             mouseEvent.consume();
             confirmLogOut.close();

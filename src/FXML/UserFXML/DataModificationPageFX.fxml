@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.DataModificationPageFXController">
+    <children>
+        <Label layoutX="90.0" layoutY="270.0" text="Address:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="90.0" layoutY="330.0" text="Street Number:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="90.0" layoutY="390.0" text="ZIP Code:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="90.0" layoutY="450.0" text="City:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="700.0" layoutY="270.0" text="New password:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="700.0" layoutY="330.0" text="Re-type Password:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="newAddressField" layoutX="275.0" layoutY="268.0" prefHeight="35.0" prefWidth="275.0" promptText="New Address">
+             <font>
+                <Font name="Avenir Book" size="13.0" />
+             </font>
+        </TextField>
+        <TextField fx:id="newZIPCodeField" layoutX="275.0" layoutY="388.0" prefHeight="35.0" prefWidth="275.0" promptText="New ZIPCode">
+            <font>
+                <Font name="Avenir Book" size="13.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="newCityField" layoutX="275.0" layoutY="448.0" prefHeight="35.0" prefWidth="275.0" promptText="New City">
+            <font>
+                <Font name="Avenir Book" size="13.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="newPhoneField" layoutX="275.0" layoutY="505.0" prefHeight="35.0" prefWidth="275.0" promptText="New Phone">
+            <font>
+                <Font name="Avenir Book" size="13.0" />
+            </font>
+        </TextField>
+        <PasswordField fx:id="newPasswordField" layoutX="930.0" layoutY="268.0" prefHeight="35.0" prefWidth="275.0" />
+        <PasswordField fx:id="retypePasswordField" layoutX="930.0" layoutY="328.0" prefHeight="35.0" prefWidth="275.0" />
+        <Button fx:id="confirmChangesButton" layoutX="90.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#confirmChanges" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #3CB371;" text="Confirm changes" textFill="WHITE">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="cancelChangesButton" layoutX="350.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#cancelChanges" prefHeight="50.0" prefWidth="200.0" text="Cancel">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Button>
+      <Label layoutX="90.0" layoutY="182.0" text="Fill only the fields you want to change:">
+          <font>
+              <Font name="Avenir Book" size="25.0" />
+          </font>
+      </Label>
+      <Label layoutX="90.0" layoutY="510.0" text="Phone:">
+         <font>
+            <Font name="Avenir Next Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="newStreetNumberField" layoutX="275.0" layoutY="328.0" prefHeight="35.0" prefWidth="275.0" promptText="New Street Number">
+         <font>
+            <Font name="Avenir Book" size="13.0" />
+         </font>
+      </TextField>
+      <Label layoutX="700.0" layoutY="182.0" text="Change your password:">
+         <font>
+            <Font name="Avenir Book" size="25.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

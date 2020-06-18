@@ -4,72 +4,68 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="1300.0"
-            xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Controller.UserController.UserProfileFXController">
+<AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserProfileFXController">
     <children>
-        <Label layoutX="90.0" layoutY="290.0" text="Address:">
+        <Label layoutX="90.0" layoutY="250.0" text="Address:">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Label>
-        <Label layoutX="90.0" layoutY="340.0" text="ZIP Code:">
+        <Label layoutX="90.0" layoutY="300.0" text="Street Number:">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Label>
-        <Label layoutX="90.0" layoutY="390.0" text="City:">
+        <Label layoutX="90.0" layoutY="350.0" text="ZIP Code:">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Label>
-        <Label layoutX="90.0" layoutY="440.0" text="Phone:">
+        <Label layoutX="90.0" layoutY="400.0" text="City:">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Label>
-        <Label layoutX="90.0" layoutY="490.0" text="e-mail:">
+        <Label layoutX="90.0" layoutY="450.0" text="Phone:">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Label>
-        <Button fx:id="myLibroCardButton" layoutX="895.0" layoutY="345.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0" text="My LibroCard"
-                onMouseClicked="#goToLibroCardPage">
+        <Label layoutX="90.0" layoutY="500.0" text="e-mail:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="myLibroCardButton" layoutX="895.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#goToLibroCardPage" prefHeight="50.0" prefWidth="185.0" text="My LibroCard">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="myOrdersButton" layoutX="895.0" layoutY="420.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0" text="My Orders"
-                onMouseClicked="#goToOrdersPage">
+        <Button fx:id="myOrdersButton" layoutX="895.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#goToOrdersPage" prefHeight="50.0" prefWidth="185.0" text="My Orders">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="modifyDataButton" layoutX="490.0" layoutY="595.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0" text="Modify your data"
-                onMouseClicked="#handleModificationRequest">
+        <Button fx:id="modifyDataButton" layoutX="524.0" layoutY="595.0" mnemonicParsing="false" onMouseClicked="#handleModificationRequest" prefHeight="50.0" prefWidth="185.0" text="Modify your data">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="logoutButton" layoutX="287.0" layoutY="595.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0" text="Log Out"
-                onMouseClicked="#handleLogOutRequest">
+        <Button fx:id="logoutButton" layoutX="310.0" layoutY="595.0" mnemonicParsing="false" onMouseClicked="#handleLogOutRequest" prefHeight="50.0" prefWidth="185.0" text="Log Out">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="deleteAccountButton" layoutX="93.0" layoutY="595.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0"
-                style="-fx-background-color: #FF0000;" text="Delete account" textFill="WHITE"
-                onMouseClicked="#handleDeleteAccountRequest">
+        <Button fx:id="deleteAccountButton" layoutX="93.0" layoutY="595.0" mnemonicParsing="false" onMouseClicked="#handleDeleteAccountRequest" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #FF0000;" text="Delete account" textFill="WHITE">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Button>
-        <Label layoutX="895.0" layoutY="290.0" text="Go to ...">
+        <Label layoutX="895.0" layoutY="247.0" text="Go to ...">
             <font>
                 <Font name="Avenir Book" size="25.0" />
             </font>
         </Label>
-      <Separator layoutX="780.0" layoutY="0.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="15.0" />
+        <Separator layoutX="780.0" layoutY="0.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="15.0" />
     </children>
 </AnchorPane>

@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -83,13 +82,15 @@ public class UserMainPageFXController implements Initializable {
         titleRB.setToggleGroup(group);
 
         // set search button image
+        /*
         searchButton.setStyle("-fx-background-image: url('../../images/searchIcon.png')");
         Image searchIcon = new Image(getClass().getResourceAsStream("../../images/searchIcon.png"));
         ImageView searchIconView = new ImageView(searchIcon);
 
-        //searchIconView.setFitWidth(searchButton.getWidth());
-        //searchIconView.setFitHeight(searchButton.getHeight());
-        //searchButton.setGraphic(searchIconView);
+        searchIconView.setFitWidth(searchButton.getWidth());
+        searchIconView.setFitHeight(searchButton.getHeight());
+        searchButton.setGraphic(searchIconView);
+        */
     }
 
 
@@ -189,7 +190,7 @@ public class UserMainPageFXController implements Initializable {
 
             viewPage("../../FXML/UserFXML/UserProfileFX.fxml");
         } catch (IOException ioe){
-            System.out.println("IOException: " + ioe.getMessage());
+            ioe.printStackTrace();
         }
     }
 

@@ -21,6 +21,15 @@ public interface UserDAO {
     public void updatePassword(String email, String newPassword) throws
             SQLException;
 
-    public void updateAddress(String email, String addressField, String newValue)
+    public void updateHomeAddress(String email, String newAddress)
+            throws SQLException;
+
+    public void updateStreetNumber(String email, String newStreetNumber)
+            throws SQLException;
+
+    public void updateZIPCode(String email, String newZIPCode)
+            throws SQLException;
+
+    public void updateHomeCity(String email, String newHomeCity)
             throws SQLException;
 }

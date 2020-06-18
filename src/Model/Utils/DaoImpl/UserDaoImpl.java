@@ -162,22 +162,72 @@ public class UserDaoImpl implements UserDAO {
         connection.closeConnection();
     }
 
-    public void updateAddress(String email, String addressField, String newValue)
-            throws SQLException {
-
-        String sql = "UPDATE user SET ? = ? WHERE email = ?";
+    @Override
+    public void updateHomeAddress(String email, String newAddress) throws SQLException {
+        String sql = "UPDATE user SET homeAddress = ? WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, addressField);
-        connection.pstmt.setString(2, newValue);
-        connection.pstmt.setString(3, email);
+        connection.pstmt.setString(1, newAddress);
+        connection.pstmt.setString(2, email);
 
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
     }
+
+    @Override
+    public void updateStreetNumber(String email, String newStreetNumber) throws SQLException {
+        String sql = "UPDATE user SET streetNumber = ? WHERE email = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, newStreetNumber);
+        connection.pstmt.setString(2, email);
+
+        connection.pstmt.executeUpdate();
+
+        connection.closeConnection();
+    }
+
+    @Override
+    public void updateZIPCode(String email, String newZIPCode) throws SQLException {
+        String sql = "UPDATE user SET ZIPCode = ? WHERE email = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, newZIPCode);
+        connection.pstmt.setString(2, email);
+
+        connection.pstmt.executeUpdate();
+
+        connection.closeConnection();
+    }
+
+    @Override
+    public void updateHomeCity(String email, String newHomeCity) throws SQLException {
+        String sql = "UPDATE user SET homeCity = ? WHERE email = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, newHomeCity);
+        connection.pstmt.setString(2, email);
+
+        connection.pstmt.executeUpdate();
+
+        connection.closeConnection();
+    }
+
 }
