@@ -42,7 +42,7 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
         connection.rs = connection.pstmt.executeQuery();
 
-        return connection.rs.getString("user");
+        return connection.rs.getString("email");
     }
 
     @Override
@@ -58,7 +58,7 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         connection.rs = connection.pstmt.executeQuery();
 
         LibroCard libroCard = new LibroCard(connection.rs.getString("cardID"),
-                connection.rs.getString("user"),
+                connection.rs.getString("email"),
                 connection.rs.getInt("points"),
                 connection.rs.getString("issueDate"));
 
@@ -79,7 +79,7 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         connection.rs = connection.pstmt.executeQuery();
 
         LibroCard libroCard = new LibroCard(connection.rs.getString("cardID"),
-                connection.rs.getString("user"),
+                connection.rs.getString("email"),
                 connection.rs.getInt("points"),
                 connection.rs.getString("issueDate"));
 

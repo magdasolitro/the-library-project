@@ -8,6 +8,8 @@ import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import View.UserView.UserMainPageView;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -63,6 +66,9 @@ public class UserMainPageFXController implements Initializable {
             ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
 
             spBookView = UserMainPageView.buildBooksView(fullCatalog);
+            spBookView.setFitToHeight(true);
+            spBookView.setFitToWidth(true);
+
             rightPane.getChildren().add(spBookView);
             AnchorPane.setTopAnchor(spBookView, (double) 100);
         } catch (InvalidStringException e) {
@@ -83,14 +89,20 @@ public class UserMainPageFXController implements Initializable {
 
         // set search button image
         /*
-        searchButton.setStyle("-fx-background-image: url('../../images/searchIcon.png')");
         Image searchIcon = new Image(getClass().getResourceAsStream("../../images/searchIcon.png"));
         ImageView searchIconView = new ImageView(searchIcon);
 
         searchIconView.setFitWidth(searchButton.getWidth());
         searchIconView.setFitHeight(searchButton.getHeight());
+
         searchButton.setGraphic(searchIconView);
         */
+
+        Image image = new Image(getClass().getResourceAsStream("../../images/searchIcon.png"));
+        searchButton.setOnAction(e -> {
+            Button button = (Button) e.getSource();
+            button.setGraphic(new ImageView(image));
+        });
     }
 
 
@@ -166,7 +178,7 @@ public class UserMainPageFXController implements Initializable {
        changeBookView(orderedBooks);
     }
 
-    public void handleTitleFilter(MouseEvent evt) throws InvalidStringException,
+    public void handleTitleFilter() throws InvalidStringException,
             SQLException, IllegalValueException {
 
         BookDAO bookDAO = new BookDaoImpl();
@@ -183,7 +195,7 @@ public class UserMainPageFXController implements Initializable {
     }
 
 
-    public void goToProfilePage(MouseEvent mouseEvent) {
+    public void goToProfilePage() {
         try{
             Stage stage = (Stage) profileIcon.getScene().getWindow();
             stage.close();
@@ -194,7 +206,7 @@ public class UserMainPageFXController implements Initializable {
         }
     }
 
-    public void goToCartPage(MouseEvent mouseEvent) {
+    public void goToCartPage() {
         try{
             Stage stage = (Stage) cartIcon.getScene().getWindow();
             stage.close();
@@ -220,12 +232,12 @@ public class UserMainPageFXController implements Initializable {
                 ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
 
                 changeBookView(fullCatalog);
-            } catch (InvalidStringException e) {
-                System.out.println("InvalidStringException: " + e.getMessage());
-            } catch (SQLException e) {
-                System.out.println("SQLException: " + e.getMessage());
-            } catch (IllegalValueException e) {
-                System.out.println("IllegalValueException: " + e.getMessage());
+            } catch (InvalidStringException ise) {
+                ise.printStackTrace();
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            } catch (IllegalValueException ive) {
+                ive.printStackTrace();
             }
         } else {
 
@@ -263,10 +275,11 @@ public class UserMainPageFXController implements Initializable {
         stage.show();
     }
 
-    private void changeBookView(ArrayList<Book> bookList) throws InvalidStringException,
-            SQLException, IllegalValueException {
-
+    private void changeBookView(ArrayList<Book> bookList) {
         spBookView = UserMainPageView.buildBooksView(bookList);
+        spBookView.setFitToHeight(true);
+        spBookView.setFitToWidth(true);
+
         rightPane.getChildren().add(spBookView);
         AnchorPane.setTopAnchor(spBookView, (double) 100);
     }

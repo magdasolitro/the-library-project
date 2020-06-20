@@ -2,8 +2,11 @@ package Controller;
 
 import Model.Exceptions.InvalidStringException;
 import Model.Exceptions.UserNotInDatabaseException;
+import Model.LibroCard;
 import Model.User;
+import Model.Utils.DAOs.LibroCardDAO;
 import Model.Utils.DAOs.UserDAO;
+import Model.Utils.DaoImpl.LibroCardDaoImpl;
 import Model.Utils.DaoImpl.UserDaoImpl;
 
 import javafx.fxml.FXML;
@@ -79,12 +82,19 @@ public class SignInPageFXController {
             return;
         }
 
+        // add new user
         User newUser = new User(nameField.getText(), surnameField.getText(),
                 phoneField.getText(), emailField.getText(), passwordField.getText(),
                 addressField.getText(), streetNumber.getText(),
                 ZIPCodeField.getText(), cityField.getText());
 
         userDAO.addUser(newUser);
+
+        // add new LibroCard associated with this user
+        LibroCard newLibroCard = new LibroCard(emailField.getText());
+
+        LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+        libroCardDAO.addLibroCard(newLibroCard);
 
         Stage stage = (Stage) signInButton.getScene().getWindow();
         stage.close();

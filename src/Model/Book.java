@@ -6,7 +6,6 @@ import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.Comparator;
 import java.util.regex.Pattern;
 
 // possibili eccezioni: InvalidISBNException, NullStringException
@@ -33,7 +32,7 @@ public class Book implements Comparable<Book>{
             throw new InvalidStringException();
         }
 
-        if(title.length() == 0 || authors.length() == 0 || genre.toString().length() == 0
+        if(title.length() == 0 || authors.length() == 0 || genre.length() == 0
             || description.length() < 0 || publishingHouse.length() == 0){
             throw new InvalidStringException();
         }
