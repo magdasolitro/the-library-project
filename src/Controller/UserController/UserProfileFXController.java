@@ -30,7 +30,7 @@ public class UserProfileFXController implements Initializable {
 
     @FXML
     Button deleteAccountButton, logoutButton, modifyDataButton, myOrdersButton,
-            myLibroCardButton;
+            myLibroCardButton, goBackButton;
 
     GridPane gpUserInfos;
 
@@ -148,6 +148,16 @@ public class UserProfileFXController implements Initializable {
         } else {
             mouseEvent.consume();
             confirmLogOut.close();
+        }
+    }
+
+    public void handleGoBackButton(MouseEvent mouseEvent) {
+        Stage stage = (Stage) goBackButton.getScene().getWindow();
+        stage.close();
+        try{
+            viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+        } catch(IOException ioe){
+            ioe.printStackTrace();
         }
     }
 

@@ -41,6 +41,26 @@ public class CartDaoImpl implements CartDAO {
     }
 
     @Override
+    public BigDecimal totalCost(String email) throws SQLException {
+        String sql = "SELECT SUM(price*quantity) " +
+                     "FROM cart JOIN book ON cart.book = book.ISBN " +
+                     "WHERE user = ?";
+
+        connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, email);
+
+        connection.pstmt.executeQuery();
+
+        connection.closeConnection();
+
+        return connection.rs.getBigDecimal(1);
+    }
+
+    @Override
     public void increaseQuantity(String ISBN, String email) throws SQLException {
         String sql = "UPDATE cart SET quantity = quantity + 1 WHERE book = ?" +
                 "AND user = ?";
@@ -75,11 +95,14 @@ public class CartDaoImpl implements CartDAO {
     }
 
     @Override
-    public ArrayList<Book> showCartContent(String email) throws SQLException,
+    public ArrayList<Book> cartContent(String email) throws SQLException,
             InvalidStringException, IllegalValueException {
         String sql = "SELECT ISBN, title, authors, genre, price, description," +
-                "publishingHouse, publishingYear, discount, availableCopies," +
-                "quantity FROM cart JOIN book ON ISBN = book WHERE user = ?";
+                        "publishingHouse, publishingYear, discount, availableCopies, " +
+                        "libroCardPoints, quantity " +
+                     "FROM cart " +
+                     "   JOIN book ON book.ISBN = cart.book " +
+                     "WHERE user = ?";
 
         connection = new DatabaseConnection();
         connection.openConnection();
@@ -142,8 +165,7 @@ public class CartDaoImpl implements CartDAO {
             newComposition.addBookToOrder(currentBook, orderID, currentQuantity);
         }
 
-        // calculate total price and points
-        BigDecimal totalPrice = getOrderPrice(connection, booksInCartAttributes, email);
+        BigDecimal totalCost = totalCost(email);
 
         if(!Pattern.matches("NOTREG*", orderID) ){
             int totalPoints = getOrderPoints(connection, booksInCartAttributes);
@@ -153,7 +175,7 @@ public class CartDaoImpl implements CartDAO {
 
             orderDAO.addOrder(orderID, getCurrentDate(),
                     OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
-                    paymentMethod, totalPrice, totalPoints, shippingAddress,
+                    paymentMethod, totalCost, totalPoints, shippingAddress,
                     email, null);
 
             // add points to user's LibroCard
@@ -175,7 +197,7 @@ public class CartDaoImpl implements CartDAO {
 
             orderDAO.addOrder(orderID, getCurrentDate(),
                     OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
-                    paymentMethod, totalPrice, null, shippingAddress,
+                    paymentMethod, totalCost, null, shippingAddress,
                     null, email);
         }
 
@@ -240,6 +262,7 @@ public class CartDaoImpl implements CartDAO {
         }
     }
 
+    /*
     // costo totale dell'ordine: prezzo libro * quantità
     private BigDecimal getOrderPrice(DatabaseConnection connection, ArrayList<Book> bookArray,
                                      String email) throws SQLException {
@@ -262,6 +285,8 @@ public class CartDaoImpl implements CartDAO {
 
         return totalPrice;
     }
+
+     */
 
     private int getOrderPoints(DatabaseConnection connection, ArrayList<Book> bookArray) {
         int totalPoints = 0;

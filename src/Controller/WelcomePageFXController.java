@@ -29,7 +29,6 @@ public class WelcomePageFXController implements Initializable {
 
     @FXML
     private void handleUserButtonClick(MouseEvent evt) throws IOException {
-        //((Button) evt.getSource()).getScene().getWindow().hide();
         Stage stage = (Stage) userButton.getScene().getWindow();
         stage.close();
 

@@ -6,11 +6,11 @@ import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
 
 import java.sql.SQLException;
@@ -18,102 +18,95 @@ import java.sql.SQLException;
 public class SingleBookPageView {
 
     public static GridPane showBookInfos(String ISBN){
-        GridPane gpBookInfos = new GridPane();
+        GridPane gpBook = new GridPane();
 
-        Label authorLabel;
-        Label priceLabel;
-        Label genreLable;
-        Label publishingHouseLabel;
-        Label publishingYearLabel;
-        Label discountLabel;
-        Label libroCardPointsLabel;
-        Label ISBNLabel;
+        Label authorInfo, authorLabel;
+        Label priceInfo, priceLabel;
+        Label genreInfo, genreLabel;
+        Label publishingHouseInfo, publishingHouseLabel;
+        Label publishingYearInfo, publishingYearLabel;
+        Label discountInfo, discountLabel;
+        Label libroCardPointsInfo, libroCardPointsLabel;
+        Label ISBNInfo, ISBNLabel;
 
         Font infoFont = new Font("Avenir Book", 20);
+        Font labelsFont = new Font("Avenir Next Bold", 20);
+
+        authorLabel = new Label("Author(s):");
+        priceLabel = new Label("Price:");
+        genreLabel = new Label("Genre:");
+        publishingHouseLabel = new Label("Publishing House:");
+        publishingYearLabel = new Label("Publishing Year:");
+        discountLabel = new Label("Discount:");
+        libroCardPointsLabel = new Label("Libro Card Points:");
+        ISBNLabel = new Label("ISBN:");
+
+        gpBook.add(authorLabel, 0, 0);
+        gpBook.add(priceLabel, 0, 1);
+        gpBook.add(genreLabel, 0, 2);
+        gpBook.add(publishingHouseLabel, 0, 3);
+        gpBook.add(publishingYearLabel, 0, 4);
+        gpBook.add(discountLabel, 0, 5);
+        gpBook.add(libroCardPointsLabel, 0, 6);
+        gpBook.add(ISBNLabel, 0, 7);
 
         try{
             BookDAO bookDAO = new BookDaoImpl();
 
             Book book = bookDAO.getBook(ISBN);
 
-            authorLabel = new Label(book.getAuthors());
-            priceLabel = new Label(book.getPrice().setScale(2).toString());
-            genreLable = new Label(book.getGenre());
-            publishingHouseLabel = new Label(book.getPublishingHouse());
-            publishingYearLabel = new Label("" + book.getPublishingYear());
-            discountLabel = new Label(book.getDiscount().toString());
-            libroCardPointsLabel = new Label("" + book.getLibroCardPoints());
-            ISBNLabel = new Label(book.getISBN());
+            authorInfo = new Label(book.getAuthors());
+            priceInfo = new Label("$ " + book.getPrice().setScale(2).toString());
+            genreInfo = new Label(book.getGenre());
+            publishingHouseInfo = new Label(book.getPublishingHouse());
+            publishingYearInfo = new Label("" + book.getPublishingYear());
+            discountInfo = new Label(book.getDiscount().toString() + " %");
+            libroCardPointsInfo = new Label("" + book.getLibroCardPoints());
+            ISBNInfo = new Label(book.getISBN());
 
-            ColumnConstraints column = new ColumnConstraints();
-            column.setHalignment(HPos.LEFT);
+            gpBook.add(authorInfo, 1, 0);
+            gpBook.add(priceInfo, 1, 1);
+            gpBook.add(genreInfo, 1, 2);
+            gpBook.add(publishingHouseInfo, 1, 3);
+            gpBook.add(publishingYearInfo, 1, 4);
+            gpBook.add(discountInfo, 1, 5);
+            gpBook.add(libroCardPointsInfo, 1, 6);
+            gpBook.add(ISBNInfo, 1, 7);
 
-            RowConstraints authorRow = new RowConstraints();
-            authorRow.setValignment(VPos.CENTER);
-            authorRow.setPercentHeight(100.0 / 8);
+            authorLabel.setFont(labelsFont);
+            priceLabel.setFont(labelsFont);
+            genreLabel.setFont(labelsFont);
+            publishingHouseLabel.setFont(labelsFont);
+            publishingYearLabel.setFont(labelsFont);
+            discountLabel.setFont(labelsFont);
+            libroCardPointsLabel.setFont(labelsFont);
+            ISBNLabel.setFont(labelsFont);
 
-            RowConstraints priceRow = new RowConstraints();
-            priceRow.setValignment(VPos.CENTER);
-            priceRow.setPercentHeight(100.0 / 8);
+            authorInfo.setFont(infoFont);
+            priceInfo.setFont(infoFont);
+            genreInfo.setFont(infoFont);
+            publishingHouseInfo.setFont(infoFont);
+            publishingYearInfo.setFont(infoFont);
+            discountInfo.setFont(infoFont);
+            libroCardPointsInfo.setFont(infoFont);
+            ISBNInfo.setFont(infoFont);
 
-            RowConstraints genreRow = new RowConstraints();
-            genreRow.setValignment(VPos.CENTER);
-            genreRow.setPercentHeight(100.0 / 8);
 
-            RowConstraints publishingHouseRow = new RowConstraints();
-            publishingHouseRow.setValignment(VPos.CENTER);
-            publishingHouseRow.setPercentHeight(100.0 / 8);
+            ColumnConstraints labelsColumn = new ColumnConstraints();
+            labelsColumn.setHalignment(HPos.LEFT);
 
-            RowConstraints publishingYearRow = new RowConstraints();
-            publishingYearRow.setValignment(VPos.CENTER);
-            publishingYearRow.setPercentHeight(100.0 / 8);
+            ColumnConstraints infoColumn = new ColumnConstraints();
+            infoColumn.setHalignment(HPos.LEFT);
 
-            RowConstraints discountRow = new RowConstraints();
-            discountRow.setValignment(VPos.CENTER);
-            discountRow.setPercentHeight(100.0 / 8);
+            gpBook.setVgap(20);
+            gpBook.setHgap(40);
 
-            RowConstraints libroCardPointsRow = new RowConstraints();
-            libroCardPointsRow.setValignment(VPos.CENTER);
-            libroCardPointsRow.setPercentHeight(100.0 / 8);
+            gpBook.getColumnConstraints().addAll(labelsColumn, infoColumn);
 
-            RowConstraints ISBNRow = new RowConstraints();
-            ISBNRow.setValignment(VPos.CENTER);
-            ISBNRow.setPercentHeight(100.0 / 8);
-
-            authorLabel.setFont(infoFont);
-            priceLabel.setFont(infoFont);
-            genreLable.setFont(infoFont);
-            publishingHouseLabel.setFont(infoFont);
-            publishingYearLabel.setFont(infoFont);
-            discountLabel.setFont(infoFont);
-            libroCardPointsLabel.setFont(infoFont);
-            ISBNLabel.setFont(infoFont);
-
-            gpBookInfos.add(authorLabel, 0, 0);
-            gpBookInfos.add(priceLabel, 0, 1);
-            gpBookInfos.add(genreLable, 0, 2);
-            gpBookInfos.add(publishingHouseLabel, 0, 3);
-            gpBookInfos.add(publishingYearLabel, 0, 4);
-            gpBookInfos.add(discountLabel, 0, 5);
-            gpBookInfos.add(libroCardPointsLabel, 0, 6);
-            gpBookInfos.add(ISBNLabel, 0, 7);
-
-            gpBookInfos.setVgap(20);
-
-            gpBookInfos.getRowConstraints().addAll(authorRow, priceRow, genreRow,
-                    publishingHouseRow, publishingYearRow, discountRow, libroCardPointsRow,
-                    ISBNRow);
-
-            gpBookInfos.getColumnConstraints().add(column);
-
-        } catch (InvalidStringException ise) {
-            ise.printStackTrace();
-        } catch (IllegalValueException ive) {
-            ive.printStackTrace();
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
+        } catch (InvalidStringException | IllegalValueException | SQLException e) {
+            e.printStackTrace();
         }
 
-        return gpBookInfos;
+        return gpBook;
     }
 }

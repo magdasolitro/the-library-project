@@ -1,34 +1,29 @@
 package View.UserView;
 
-import Controller.BookInstanceController;
 import Model.Book;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserMainPageView {
+public class CartPageView {
 
     public static ScrollPane buildBooksView(ArrayList<Book> booksToShow){
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefHeight(600);
-        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(500);
+        scrollPane.setPrefWidth(836);
         scrollPane.isResizable();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -53,8 +48,7 @@ public class UserMainPageView {
 
     private static GridPane buildSingleBookView(Book book){
         GridPane singleBook = new GridPane();
-
-        // this id will be used in the css file
+        singleBook.isResizable();
 
         Label titleLabel;
         Label authorLabel;
@@ -63,7 +57,6 @@ public class UserMainPageView {
 
         Label priceLabel;
         Label discountLabel;
-        Label notAvailableLabel;
 
         Font bookTitleFont = new Font("Avenir Book Bold", 25);
         Font genericLabelFont = new Font("Avenir Book", 20);
@@ -124,25 +117,12 @@ public class UserMainPageView {
 
         RowConstraints priceRow = new RowConstraints();
         RowConstraints discountRow = new RowConstraints();
-        RowConstraints notAvailableRow = new RowConstraints();
 
         priceRow.setValignment(VPos.CENTER);
         priceRow.setPercentHeight(100.0/3);
 
         discountRow.setValignment(VPos.CENTER);
         priceRow.setPercentHeight(100.0/3);
-
-        try{
-            if(!bookDAO.isAvailable(book.getISBN())){
-                notAvailableLabel = new Label("Not Available");
-                notAvailableLabel.setFont(new Font("Avenir Book", 20));
-                notAvailableLabel.setTextFill(Color.RED);
-
-                singleBook.add(notAvailableLabel, 1,2);
-            }
-        } catch(SQLException sqle){
-            sqle.printStackTrace();
-        }
 
         singleBook.isResizable();
 
@@ -157,37 +137,9 @@ public class UserMainPageView {
         // adds contraints to grid pane
         singleBook.getColumnConstraints().addAll(column1, column2);
         singleBook.getRowConstraints().addAll(titleRow, authorRow, publishingYearRow,
-                priceRow, discountRow, notAvailableRow);
-
-        singleBook.setOnMouseClicked(e -> {
-            BookInstanceController.setCurrentBookISBN(book.getISBN());
-
-            try{
-                Stage stage = (Stage) singleBook.getScene().getWindow();
-                stage.close();
-
-                viewPage("../../FXML/UserFXML/SingleBookPageFX.fxml");
-            } catch (IOException ioe){
-                System.out.println("IOException" + ioe.getMessage());
-            }
-        });
+                priceRow, discountRow);
 
         return singleBook;
     }
-
-
-    private static void viewPage(String path) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(UserMainPageView.class.getResource(path));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    }
-
 
 }

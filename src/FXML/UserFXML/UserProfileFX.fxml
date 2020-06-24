@@ -67,5 +67,10 @@
             </font>
         </Label>
         <Separator layoutX="780.0" layoutY="0.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="15.0" />
+        <Button fx:id="goBackButton" onMouseClicked="#handleGoBackButton" mnemonicParsing="false" text="Go Back">
+            <font>
+                <Font name="Avenir Book" size="17.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

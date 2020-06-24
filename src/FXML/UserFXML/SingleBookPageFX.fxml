@@ -1,61 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.SingleBookPageFXController">
-   <children>
-       <Label layoutX="130.0" layoutY="200.0" text="Author(s):">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Label>
-       <Label layoutX="130.0" layoutY="250.0" text="Price:">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Label>
-       <Label layoutX="130.0" layoutY="300.0" text="Genre:">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Label>
-       <Label layoutX="130.0" layoutY="350.0" text="Publishing House:">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Label>
-       <Label layoutX="130.0" layoutY="400.0" text="Publishing Year:">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Label>
-       <Label layoutX="130.0" layoutY="450.0" text="Discount:">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Label>
-       <Label layoutX="130.0" layoutY="500.0" text="LibroCard Points:">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Label>
-       <Label layoutX="130.0" layoutY="550.0" text="ISBN:">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Label>
-       <Separator layoutX="819.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="15.0" />
-       <Button fx:id="addToCart" layoutX="968.0" layoutY="325.0" mnemonicParsing="false" onMouseClicked="#addToCart" prefHeight="50.0" prefWidth="185.0" text="Add To Cart">
-           <font>
-               <Font name="Avenir Next Bold" size="20.0" />
-           </font>
-       </Button>
-      <Button layoutX="968.0" layoutY="425.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Check Out" textFill="WHITE">
-         <font>
-            <Font name="Avenir Next Bold" size="20.0" />
-         </font>
-      </Button>
-   </children>
+<AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.SingleBookPageFXController">
+    <children>
+        <Button fx:id="addToCartButton" layoutX="970.0" layoutY="415.0" mnemonicParsing="false" onMouseClicked="#addToCart" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Add To Cart" textFill="WHITE">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Button>
+        <Label layoutX="1012.0" layoutY="269.0" text="Quantity:">
+            <font>
+                <Font name="Avenir Book" size="20.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="profileIcon" fitHeight="76.0" fitWidth="81.0" layoutX="1053.0" layoutY="14.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../images/userIcon.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="cartIcon" fitHeight="71.0" fitWidth="90.0" layoutX="1159.0" layoutY="14.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../images/cartIcon.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="logoutLabel" layoutX="893.0" layoutY="41.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
+            <font>
+                <Font name="Avenir Book" size="20.0" />
+            </font>
+        </Label>
+        <Separator layoutX="819.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="5.0" />
+        <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" text="Go Back">
+            <font>
+                <Font name="Avenir Book" size="17.0" />
+            </font>
+        </Button>
+      <Separator layoutX="821.0" layoutY="100.0" prefHeight="5.0" prefWidth="480.0" />
+    </children>
 </AnchorPane>
