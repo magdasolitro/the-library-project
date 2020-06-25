@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserMainPageFXController">
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserMainPageFXController">
    <children>
-       <SplitPane dividerPositions="0.2" prefHeight="800.0" prefWidth="1300.0">
+       <SplitPane dividerPositions="0.2" prefHeight="800.0">
            <items>
-               <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #688EB5;">
+               <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefWidth="260.0" style="-fx-background-color: #688EB5;">
                    <children>
                        <Label layoutX="35.0" layoutY="198.0" text="Genres:" textFill="WHITE">
                            <font>
@@ -50,7 +50,7 @@
                        </ImageView>
                    </children>
                </AnchorPane>
-               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #ffffff;">
+               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1050.0" style="-fx-background-color: #ffffff;">
                    <children>
                        <Label fx:id="logoutLabel" layoutX="646.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
                            <font>
@@ -78,7 +78,7 @@
                                <Image url="@../../images/cartIcon.png" />
                            </image>
                        </ImageView>
-                       <Separator layoutY="100.0" prefHeight="4.0" prefWidth="1034.0" />
+                       <Separator layoutY="100.0" prefHeight="4.0" prefWidth="1050.0" />
                        <Button fx:id="searchButton" layoutX="500.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleBookSearch" prefHeight="45.0" prefWidth="45.0">
                        <ImageView fx:id="searchIcon" fitHeight="45.0" fitWidth="45.0" layoutX="808.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>

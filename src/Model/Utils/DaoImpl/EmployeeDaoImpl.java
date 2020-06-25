@@ -30,6 +30,8 @@ public class EmployeeDaoImpl implements EmployeeDAO {
                 (EmployeeRoleEnum) connection.rs.getObject("role"),
                 connection.rs.getString("employedSince"));
 
+        connection.closeConnection();
+
         return employee;
     }
 

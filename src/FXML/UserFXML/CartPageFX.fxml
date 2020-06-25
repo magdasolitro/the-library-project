@@ -4,15 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserCartPageFXController">
+<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserCartPageFXController">
    <children>
-      <Separator layoutX="920.0" layoutY="0.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="15.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="926.0" layoutY="303.0" prefHeight="35.0" prefWidth="375.0" text="TOTAL: ">
+      <Separator layoutX="920.0" layoutY="0.0" orientation="VERTICAL" prefHeight="700.0" prefWidth="15.0" />
+      <!--<Label alignment="CENTER" contentDisplay="CENTER" layoutX="1020.0" layoutY="310.0" prefHeight="27.0" prefWidth="130.0" text="TOTAL: ">
          <font>
-            <Font name="Avenir Next Bold" size="23.0" />
+            <Font name="Avenir Next Bold" size="30.0" />
          </font>
-      </Label>
-      <Button layoutX="1021.0" layoutY="454.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Check Out" textFill="WHITE">
+      </Label>-->
+      <Button layoutX="1020.0" layoutY="454.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Check Out" textFill="WHITE">
          <font>
             <Font name="Avenir Next Bold" size="20.0" />
          </font>
@@ -22,5 +22,10 @@
             <Font name="Avenir Next Bold" size="70.0" />
          </font>
       </Label>
+      <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" text="Back to Main Page">
+         <font>
+            <Font name="Avenir Book" size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

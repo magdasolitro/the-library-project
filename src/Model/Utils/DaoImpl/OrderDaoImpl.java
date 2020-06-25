@@ -45,6 +45,7 @@ public class OrderDaoImpl implements OrderDAO {
     @Override
     public String getUserEmail(String orderID) throws SQLException{
         String sql = "SELECT user, userNotReg FROM orders WHERE orderID = ?";
+        String user;
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -53,10 +54,19 @@ public class OrderDaoImpl implements OrderDAO {
 
         connection.pstmt.setString(1, orderID);
 
+        connection.rs = connection.pstmt.executeQuery();
+
         if(connection.rs.getString("user") != null){
-            return connection.rs.getString("user");
+            user = connection.rs.getString("user");
+            connection.closeConnection();
+            return user;
         }
-            return connection.rs.getString("userNotReg");
+
+        user = connection.rs.getString("userNotReg");
+        connection.closeConnection();
+
+        return user;
+
     }
 
     @Override
@@ -84,6 +94,8 @@ public class OrderDaoImpl implements OrderDAO {
                     connection.rs.getString("user"),
                     connection.rs.getString("user_notReg")));
         }
+
+        connection.closeConnection();
 
         return ordersList;
     }
@@ -114,6 +126,8 @@ public class OrderDaoImpl implements OrderDAO {
                     connection.rs.getString("user"),
                     connection.rs.getString("user_notReg")));
         }
+
+        connection.closeConnection();
 
         return ordersListPerUser;
     }

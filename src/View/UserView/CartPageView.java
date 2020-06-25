@@ -29,12 +29,11 @@ public class CartPageView {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         GridPane bookContainer = new GridPane();
-        bookContainer.setHgap(30);
 
         int i = 0;
 
         for (Book b : booksToShow) {
-            GridPane currentBook = buildSingleBookView(b);
+            GridPane currentBook = buildCartBookView(b);
             bookContainer.add(currentBook, 0, i);
             GridPane.setMargin(currentBook, new Insets(20, 0, 20, 30));
             i++;
@@ -42,11 +41,14 @@ public class CartPageView {
 
         scrollPane.setContent(bookContainer);
 
+        bookContainer.prefWidthProperty().bind(scrollPane.widthProperty());
+        bookContainer.prefHeightProperty().bind(scrollPane.heightProperty());
+
         return scrollPane;
 
     }
 
-    private static GridPane buildSingleBookView(Book book){
+    private static GridPane buildCartBookView(Book book){
         GridPane singleBook = new GridPane();
         singleBook.isResizable();
 
@@ -54,6 +56,7 @@ public class CartPageView {
         Label authorLabel;
         Label publishingYearLabel;
         Label genreLabel;
+        Label quantityLabel;
 
         Label priceLabel;
         Label discountLabel;
@@ -74,6 +77,8 @@ public class CartPageView {
         genreLabel = new Label(book.getGenre());
         genreLabel.setFont(genericLabelFont);
 
+        quantityLabel = new Label("Quantity:");
+
         priceLabel = new Label("$ " + book.getPrice().setScale(2));
         priceLabel.setFont(genericLabelFont);
 
@@ -90,9 +95,8 @@ public class CartPageView {
         column1.setPercentWidth(50);
 
         ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
+        column2.setHalignment(HPos.CENTER);
         column2.setPercentWidth(50);
-
 
         // set rows constraints
         RowConstraints titleRow = new RowConstraints();

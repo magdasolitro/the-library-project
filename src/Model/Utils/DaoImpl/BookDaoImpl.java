@@ -106,6 +106,8 @@ public class BookDaoImpl implements BookDAO {
                     connection.rs.getInt("libroCardPoints")));
         }
 
+        connection.closeConnection();
+
         return books;
     }
 
@@ -137,6 +139,8 @@ public class BookDaoImpl implements BookDAO {
                     connection.rs.getInt("libroCardPoints")));
         }
 
+        connection.closeConnection();
+
         return allBooks;
     }
 
@@ -149,6 +153,8 @@ public class BookDaoImpl implements BookDAO {
         connection.pstmt = connection.conn.prepareStatement(sql);
 
         connection.rs = connection.pstmt.executeQuery();
+
+        connection.closeConnection();
 
         return connection.rs.getInt(1);
     }
@@ -181,6 +187,8 @@ public class BookDaoImpl implements BookDAO {
                     connection.rs.getInt("availableCopies"),
                     connection.rs.getInt("libroCardPoints")));
         }
+
+        connection.closeConnection();
 
         return allBooksByGenre;
     }
@@ -218,7 +226,6 @@ public class BookDaoImpl implements BookDAO {
         connection.pstmt.executeUpdate();
 
         connection.closeConnection();
-
     }
 
     @Override

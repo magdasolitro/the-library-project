@@ -2,7 +2,6 @@ package Controller.UserController;
 
 import Controller.BookInstanceController;
 import Controller.GeneralLoginController;
-import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.BookDAO;
@@ -16,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -35,11 +35,14 @@ public class SingleBookPageFXController implements Initializable {
     @FXML
     Button goBackButton;
 
+    @FXML
+    ImageView profileIcon, cartIcon;
+
     Spinner<Integer> quantitySpinner;
 
     GridPane gpBookInfos;
 
-    Label bookTitle;
+    Label bookTitle, logoutLabel;
 
     String ISBN, bookTitleString;
 
@@ -80,33 +83,66 @@ public class SingleBookPageFXController implements Initializable {
 
     public void addToCart(MouseEvent mouseEvent) {
         CartDAO cartDAO = new CartDaoImpl();
+        BookDAO bookDAO = new BookDaoImpl();
 
-        try {
-            cartDAO.addBookToCart(ISBN, GeneralLoginController.getLoginInstance(),
-                    quantitySpinner.getValue());
+        try{
+            if(!bookDAO.isAvailable(ISBN)){
+                Alert bookAddedToCart = new Alert(Alert.AlertType.ERROR);
 
-            Alert bookAddedToCart = new Alert(Alert.AlertType.INFORMATION);
+                bookAddedToCart.setTitle("Book Not Available");
+                bookAddedToCart.setHeaderText("This book is currently out of stock.");
+                bookAddedToCart.setContentText("... but we have many more books " +
+                        "you can choose!");
 
-            bookAddedToCart.setTitle("Book Added To Cart");
-            bookAddedToCart.setHeaderText("We added this book to your cart!");
-            bookAddedToCart.setContentText("Press \"OK\" to continue your shopping.");
+                bookAddedToCart.showAndWait();
+            } else {
+                cartDAO.addBookToCart(ISBN, GeneralLoginController.getLoginInstance(),
+                        quantitySpinner.getValue());
 
-            bookAddedToCart.showAndWait();
+                Alert bookAddedToCart = new Alert(Alert.AlertType.INFORMATION);
+
+                bookAddedToCart.setTitle("Book Added To Cart");
+                bookAddedToCart.setHeaderText("We added this book to your cart!");
+                bookAddedToCart.setContentText("Press \"OK\" to continue your shopping.");
+
+                bookAddedToCart.showAndWait();
+            }
         } catch (SQLException sqle){
             sqle.printStackTrace();
         }
     }
 
     public void goToProfilePage(MouseEvent mouseEvent) {
+        Stage stage = (Stage) profileIcon.getScene().getWindow();
+        stage.close();
 
+        try {
+            viewPage("../../FXML/UserFXML/UserProfileFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void goToCartPage(MouseEvent mouseEvent) {
+        Stage stage = (Stage) cartIcon.getScene().getWindow();
+        stage.close();
 
+        try {
+            viewPage("../../FXML/UserFXML/CartPageFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleLogOutRequest(MouseEvent mouseEvent) {
+        Stage stage = (Stage) logoutLabel.getScene().getWindow();
+        stage.close();
 
+        try {
+            viewPage("../../FXML/UserFXML/CartPageFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleGoBackButton(MouseEvent mouseEvent) {

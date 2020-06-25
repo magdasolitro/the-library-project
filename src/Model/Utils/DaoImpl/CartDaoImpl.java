@@ -9,8 +9,10 @@ import Model.Exceptions.UserNotInDatabaseException;
 import Model.OrderStatusEnum;
 import Model.Utils.DAOs.*;
 import Model.Utils.DatabaseConnection;
+import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
 import java.math.BigDecimal;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -24,6 +26,7 @@ public class CartDaoImpl implements CartDAO {
 
     @Override
     public void addBookToCart(String ISBN, String email, int quantity) throws SQLException {
+
         String sql = "INSERT INTO cart(user, book, quantity) VALUES (?,?,?)";
 
         connection = new DatabaseConnection();
@@ -41,10 +44,13 @@ public class CartDaoImpl implements CartDAO {
     }
 
     @Override
-    public BigDecimal totalCost(String email) throws SQLException {
-        String sql = "SELECT SUM(price*quantity) " +
-                     "FROM cart JOIN book ON cart.book = book.ISBN " +
+    public BigDecimal totalCost(String email) throws SQLException, InvalidStringException, IllegalValueException {
+        // obtain all books with their prices and discount in user cart
+        String sql = "SELECT * " +
+                     "FROM book JOIN cart ON book.ISBN = cart.book " +
                      "WHERE user = ?";
+
+        ArrayList<Book> booksInCart = new ArrayList<>();
 
         connection = new DatabaseConnection();
         connection.openConnection();
@@ -53,17 +59,50 @@ public class CartDaoImpl implements CartDAO {
 
         connection.pstmt.setString(1, email);
 
-        connection.pstmt.executeQuery();
+        connection.rs = connection.pstmt.executeQuery();
+
+        while(connection.rs.next()){
+            booksInCart.add(new Book(connection.rs.getString("ISBN"),
+                    connection.rs.getString("title"),
+                    connection.rs.getString("authors"),
+                    connection.rs.getString("genre"),
+                    connection.rs.getBigDecimal("price"),
+                    connection.rs.getString("description"),
+                    connection.rs.getString("publishingHouse"),
+                    connection.rs.getInt("publishingYear"),
+                    connection.rs.getBigDecimal("discount"),
+                    connection.rs.getInt("availableCopies"),
+                    connection.rs.getInt("libroCardPoints")));
+        }
 
         connection.closeConnection();
 
-        return connection.rs.getBigDecimal(1);
+        BigDecimal totalCost = new BigDecimal(0);
+        BigDecimal effectiveBookPrice = new BigDecimal(0);
+
+        for(Book b : booksInCart){
+            effectiveBookPrice = b.getPrice();
+
+            // apply discount if present
+            if(b.getDiscount().compareTo(new BigDecimal(0)) > 0) {
+                effectiveBookPrice = (b.getDiscount().multiply(effectiveBookPrice)).divide(new BigDecimal(100));
+            }
+
+            // multiply price by quantity
+            // method getQuantity() is defined in Book class
+            effectiveBookPrice = effectiveBookPrice.multiply(new BigDecimal(b.getQuantity(email)));
+
+            totalCost = totalCost.add(effectiveBookPrice);
+        }
+
+        return totalCost;
     }
 
     @Override
     public void increaseQuantity(String ISBN, String email) throws SQLException {
-        String sql = "UPDATE cart SET quantity = quantity + 1 WHERE book = ?" +
-                "AND user = ?";
+        String sql = "UPDATE cart SET quantity = quantity + 1 " +
+                     "WHERE book = ?" +
+                     "AND user = ?";
 
         connection = new DatabaseConnection();
         connection.openConnection();
@@ -80,7 +119,7 @@ public class CartDaoImpl implements CartDAO {
     @Override
     public void decreaseQuantity(String ISBN, String email) throws SQLException {
         String sql = "UPDATE cart SET quantity = quantity - 1 WHERE book = ?" +
-                "AND user = ?";
+                     "AND user = ?";
 
         connection = new DatabaseConnection();
         connection.openConnection();
@@ -130,6 +169,8 @@ public class CartDaoImpl implements CartDAO {
                     connection.rs.getInt("libroCardPoints")));
         }
 
+        connection.closeConnection();
+
         return cartContent;
     }
 
@@ -144,7 +185,9 @@ public class CartDaoImpl implements CartDAO {
         String orderID = generateOrderID(connection, email);
 
         // select all the books and relative quantities from the user cart
-        String booksInCartQuery = "SELECT book, quantity FROM cart WHERE user = ?";
+        String booksInCartQuery = "SELECT book, quantity " +
+                                  "FROM cart " +
+                                  "WHERE user = ?";
 
         connection.pstmt = connection.conn.prepareStatement(booksInCartQuery);
         connection.pstmt.setString(1, email);
@@ -181,7 +224,9 @@ public class CartDaoImpl implements CartDAO {
             // add points to user's LibroCard
             LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
 
-            String cardIDQuery = "SELECT cardID FROM LibroCard WHERE email = ?";
+            String cardIDQuery = "SELECT cardID " +
+                                 "FROM LibroCard " +
+                                 "WHERE email = ?";
 
             connection.pstmt = connection.conn.prepareStatement(cardIDQuery);
 
@@ -219,8 +264,8 @@ public class CartDaoImpl implements CartDAO {
         boolean isRegistred = true;
 
         String userNameSurnameQuery = "SELECT name, surname " +
-                "FROM user JOIN cart ON user.email = cart.user " +
-                "WHERE user.email = ?";
+                                      "FROM user JOIN cart ON user.email = cart.user " +
+                                      "WHERE user.email = ?";
 
         connection.pstmt = connection.conn.prepareStatement(userNameSurnameQuery);
         connection.pstmt.setString(1, email);
@@ -232,8 +277,8 @@ public class CartDaoImpl implements CartDAO {
             isRegistred = false;
 
             userNameSurnameQuery = "SELECT name, surname " +
-                    "FROM userNotReg JOIN cart ON userNotReg.email = cart.user " +
-                    "WHERE userNotReg.email = ?";
+                                   "FROM userNotReg JOIN cart ON userNotReg.email = cart.user " +
+                                   "WHERE userNotReg.email = ?";
 
             connection.pstmt = connection.conn.prepareStatement(userNameSurnameQuery);
             connection.pstmt.setString(1, email);

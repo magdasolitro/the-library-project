@@ -63,15 +63,15 @@ public class UserDaoImpl implements UserDAO {
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(2, user.getName());
-        connection.pstmt.setString(3, user.getSurname());
-        connection.pstmt.setString(4, user.getPhone());
-        connection.pstmt.setString(5, user.getEmail());
-        connection.pstmt.setString(6, user.getPassword());
-        connection.pstmt.setString(7, user.getHomeAddress());
-        connection.pstmt.setString(8, user.getStreetNumber());
-        connection.pstmt.setString(9, user.getZIPCode());
-        connection.pstmt.setString(10, user.getHomeCity());
+        connection.pstmt.setString(1, user.getName());
+        connection.pstmt.setString(2, user.getSurname());
+        connection.pstmt.setString(3, user.getPhone());
+        connection.pstmt.setString(4, user.getEmail());
+        connection.pstmt.setString(5, user.getPassword());
+        connection.pstmt.setString(6, user.getHomeAddress());
+        connection.pstmt.setString(7, user.getStreetNumber());
+        connection.pstmt.setString(8, user.getZIPCode());
+        connection.pstmt.setString(9, user.getHomeCity());
 
         connection.pstmt.executeUpdate();
 

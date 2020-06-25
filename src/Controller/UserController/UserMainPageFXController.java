@@ -27,26 +27,27 @@ import java.util.*;
 
 public class UserMainPageFXController implements Initializable {
     @FXML
-    ChoiceBox genresChoiceBox;
+    private ChoiceBox genresChoiceBox;
 
     @FXML
-    AnchorPane leftPane, rightPane;
+    private AnchorPane leftPane, rightPane;
 
     @FXML
-    TextField bookSearchTextField;
+    private TextField bookSearchTextField;
 
     @FXML
-    RadioButton priceAscRB, priceDescRB, publYearRB, titleRB;
+    private RadioButton priceAscRB, priceDescRB, publYearRB, titleRB;
 
     @FXML
-    Button searchButton;
+    private Button searchButton;
 
     @FXML
-    ImageView profileIcon, cartIcon;
+    private ImageView profileIcon, cartIcon;
 
-    @FXML Label logoutLabel;
+    @FXML
+    private Label logoutLabel;
 
-    ScrollPane spBookView;
+    private ScrollPane scrollPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -62,10 +63,10 @@ public class UserMainPageFXController implements Initializable {
 
             ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
 
-            spBookView = UserMainPageView.buildBooksView(fullCatalog);
+            scrollPane = UserMainPageView.buildBooksView(fullCatalog);
 
-            rightPane.getChildren().add(spBookView);
-            AnchorPane.setTopAnchor(spBookView, (double) 100);
+            rightPane.getChildren().add(scrollPane);
+            AnchorPane.setTopAnchor(scrollPane, (double) 100);
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
         }
@@ -116,7 +117,7 @@ public class UserMainPageFXController implements Initializable {
         orderedBooks.sort(Comparator.comparing(Book::getPrice));
 
         // clear rightPane
-        rightPane.getChildren().remove(spBookView);
+        rightPane.getChildren().remove(scrollPane);
 
         changeBookView(orderedBooks);
 
@@ -133,7 +134,7 @@ public class UserMainPageFXController implements Initializable {
         Collections.reverse(orderedBooks);
 
         // clear rightPane
-        rightPane.getChildren().remove(spBookView);
+        rightPane.getChildren().remove(scrollPane);
 
         changeBookView(orderedBooks);
     }
@@ -148,7 +149,7 @@ public class UserMainPageFXController implements Initializable {
         orderedBooks.sort(Comparator.comparing(Book::getPublishingYear));
 
         // clear rightPane
-        rightPane.getChildren().remove(spBookView);
+        rightPane.getChildren().remove(scrollPane);
 
        changeBookView(orderedBooks);
     }
@@ -163,7 +164,7 @@ public class UserMainPageFXController implements Initializable {
         orderedBooks.sort(Comparator.comparing(Book::getTitle));
 
         // clear rightPane
-        rightPane.getChildren().remove(spBookView);
+        rightPane.getChildren().remove(scrollPane);
 
         changeBookView(orderedBooks);
 
@@ -229,7 +230,7 @@ public class UserMainPageFXController implements Initializable {
 
                 bookNotFound.showAndWait();
             } else {
-                rightPane.getChildren().remove(spBookView);
+                rightPane.getChildren().remove(scrollPane);
                 changeBookView(searchedBook);
             }
         }
@@ -250,10 +251,10 @@ public class UserMainPageFXController implements Initializable {
     }
 
     private void changeBookView(ArrayList<Book> bookList) {
-        spBookView = UserMainPageView.buildBooksView(bookList);
+        scrollPane = UserMainPageView.buildBooksView(bookList);
 
-        rightPane.getChildren().add(spBookView);
-        AnchorPane.setTopAnchor(spBookView, (double) 100);
+        rightPane.getChildren().add(scrollPane);
+        AnchorPane.setTopAnchor(scrollPane, (double) 100);
     }
 
 }

@@ -76,7 +76,7 @@ public class LibroCard {
         connection.pstmt = connection.conn.prepareStatement(sql);
         connection.pstmt.setString(1, email);
 
-        connection.pstmt.executeQuery();
+        connection.rs = connection.pstmt.executeQuery();
 
         String surname = connection.rs.getString("surname");
 

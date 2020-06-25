@@ -27,14 +27,13 @@ public class UserMainPageView {
     public static ScrollPane buildBooksView(ArrayList<Book> booksToShow){
 
         ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setPrefWidth(1050);
         scrollPane.setPrefHeight(600);
-        scrollPane.setFitToWidth(true);
         scrollPane.isResizable();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         GridPane bookContainer = new GridPane();
-        bookContainer.setHgap(30);
 
         int i = 0;
 
@@ -47,6 +46,9 @@ public class UserMainPageView {
 
         scrollPane.setContent(bookContainer);
 
+        bookContainer.prefWidthProperty().bind(scrollPane.widthProperty());
+        bookContainer.prefHeightProperty().bind(scrollPane.heightProperty());
+
         return scrollPane;
 
     }
@@ -55,7 +57,6 @@ public class UserMainPageView {
         GridPane singleBook = new GridPane();
 
         // this id will be used in the css file
-
         Label titleLabel;
         Label authorLabel;
         Label publishingYearLabel;
@@ -100,7 +101,6 @@ public class UserMainPageView {
         column2.setHalignment(HPos.LEFT);
         column2.setPercentWidth(50);
 
-
         // set rows constraints
         RowConstraints titleRow = new RowConstraints();
         titleRow.setValignment(VPos.CENTER);
@@ -118,10 +118,6 @@ public class UserMainPageView {
         genreRow.setValignment(VPos.CENTER);
         genreRow.setPercentHeight(100.0 / 4);
 
-
-        // check if book is available: if not, display a message
-        BookDAO bookDAO = new BookDaoImpl();
-
         RowConstraints priceRow = new RowConstraints();
         RowConstraints discountRow = new RowConstraints();
         RowConstraints notAvailableRow = new RowConstraints();
@@ -132,9 +128,12 @@ public class UserMainPageView {
         discountRow.setValignment(VPos.CENTER);
         priceRow.setPercentHeight(100.0/3);
 
+        // check if book is available: if not, display a message
+        BookDAO bookDAO = new BookDaoImpl();
+
         try{
             if(!bookDAO.isAvailable(book.getISBN())){
-                notAvailableLabel = new Label("Not Available");
+                notAvailableLabel = new Label("Out of stock");
                 notAvailableLabel.setFont(new Font("Avenir Book", 20));
                 notAvailableLabel.setTextFill(Color.RED);
 

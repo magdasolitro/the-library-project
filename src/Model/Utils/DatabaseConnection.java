@@ -1,13 +1,12 @@
 package Model.Utils;
 
+import org.sqlite.javax.SQLiteConnectionPoolDataSource;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
-
-// questa classe fornisce i metodi per interagire correttamente con il database
-// in particolare, fornisce i metodi per inserire i dati nelle tabelle
 
 public class DatabaseConnection {
     /* a connection to a specific database */
@@ -19,10 +18,18 @@ public class DatabaseConnection {
     /* will store the table of data representing the result of a query on the database */
     public ResultSet rs;
 
+
     /**
      * Connection to library.db database
      */
     public void openConnection(){
+        /*
+        dataSource = new SQLiteConnectionPoolDataSource();
+
+        dataSource.setUrl("jdbc:sqlite:src/Database/library2.db");
+
+         */
+
         try {
             // load JDBC driver for SQLite
             Class.forName("org.sqlite.JDBC");
@@ -37,6 +44,7 @@ public class DatabaseConnection {
         } catch (ClassNotFoundException e){
             System.out.println(e.getMessage());
         }
+
     }
 
     /**
