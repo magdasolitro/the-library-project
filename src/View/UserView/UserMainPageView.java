@@ -27,7 +27,7 @@ public class UserMainPageView {
     public static ScrollPane buildBooksView(ArrayList<Book> booksToShow){
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefWidth(1050);
+
         scrollPane.setPrefHeight(600);
         scrollPane.isResizable();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -39,6 +39,7 @@ public class UserMainPageView {
 
         for (Book b : booksToShow) {
             GridPane currentBook = buildSingleBookView(b);
+            //Pane currentBook = buildSingleBookView(b);
             bookContainer.add(currentBook, 0, i);
             GridPane.setMargin(currentBook, new Insets(20, 0, 20, 30));
             i++;
@@ -46,8 +47,12 @@ public class UserMainPageView {
 
         scrollPane.setContent(bookContainer);
 
-        bookContainer.prefWidthProperty().bind(scrollPane.widthProperty());
+        //bookContainer.prefWidthProperty().bind(scrollPane.widthProperty());
+        bookContainer.setPrefWidth(1000);   // no horizontal scroll
         bookContainer.prefHeightProperty().bind(scrollPane.heightProperty());
+
+        bookContainer.setId("mainpage-gridpane");
+        bookContainer.getStylesheets().add("/CSS/style.css");
 
         return scrollPane;
 
@@ -55,6 +60,7 @@ public class UserMainPageView {
 
     private static GridPane buildSingleBookView(Book book){
         GridPane singleBook = new GridPane();
+        //Pane backgroundPane = new Pane();
 
         // this id will be used in the css file
         Label titleLabel;
@@ -170,6 +176,12 @@ public class UserMainPageView {
                 System.out.println("IOException" + ioe.getMessage());
             }
         });
+        /*
+        backgroundPane.getChildren().add(singleBook);
+        backgroundPane.setPadding(new Insets(10, 20, 10, 20));
+        backgroundPane.setId("background-pane");
+        backgroundPane.getStylesheets().add("/CSS/style.css");
+        */
 
         return singleBook;
     }

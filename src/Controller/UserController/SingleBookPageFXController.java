@@ -15,13 +15,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -40,37 +44,29 @@ public class SingleBookPageFXController implements Initializable {
 
     Spinner<Integer> quantitySpinner;
 
-    GridPane gpBookInfos;
+    ScrollPane spBookInfos;
 
-    Label bookTitle, logoutLabel;
+    @FXML
+    Label logoutLabel;
 
-    String ISBN, bookTitleString;
+    VBox vbBook;
+
+    String ISBN;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         ISBN = BookInstanceController.getCurrentBookISBN();
 
-        BookDAO bookDAO = new BookDaoImpl();
+        spBookInfos = SingleBookPageView.buildBookInfos(ISBN);
 
-        try {
-            bookTitleString = bookDAO.getBook(ISBN).getTitle();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (InvalidStringException e) {
-            e.printStackTrace();
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
+        spBookInfos.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        spBookInfos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        gpBookInfos = SingleBookPageView.showBookInfos(ISBN);
-        AnchorPane.setTopAnchor(gpBookInfos, (double) 200);
-        AnchorPane.setLeftAnchor(gpBookInfos, (double) 90);
-
-        bookTitle = new Label("\"" + bookTitleString + "\"");
-        bookTitle.setFont(new Font("Avenir Next", 50));
-        bookTitle.setMaxWidth(650);
-        AnchorPane.setTopAnchor(bookTitle, (double) 70);
-        AnchorPane.setLeftAnchor(bookTitle, (double) 90);
+        AnchorPane.setTopAnchor(spBookInfos, (double) 130);
+        AnchorPane.setRightAnchor(spBookInfos, (double) 500);
+        AnchorPane.setBottomAnchor(spBookInfos, (double) 60);
+        AnchorPane.setRightAnchor(spBookInfos, (double) 70);
 
         quantitySpinner = new Spinner<>(1, 10, 1, 1);
         quantitySpinner.setPrefHeight(45);
@@ -78,7 +74,8 @@ public class SingleBookPageFXController implements Initializable {
         AnchorPane.setTopAnchor(quantitySpinner, (double) 310);
         AnchorPane.setLeftAnchor(quantitySpinner, (double) 1020);
 
-        anchorPane.getChildren().addAll(gpBookInfos, bookTitle, quantitySpinner);
+        anchorPane.getChildren().addAll(spBookInfos, quantitySpinner);
+
     }
 
     public void addToCart(MouseEvent mouseEvent) {

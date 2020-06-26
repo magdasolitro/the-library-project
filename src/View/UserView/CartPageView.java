@@ -1,13 +1,13 @@
 package View.UserView;
 
 import Model.Book;
-import Model.Utils.DAOs.BookDAO;
-import Model.Utils.DaoImpl.BookDaoImpl;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -22,6 +22,7 @@ public class CartPageView {
     public static ScrollPane buildBooksView(ArrayList<Book> booksToShow){
 
         ScrollPane scrollPane = new ScrollPane();
+
         scrollPane.setPrefHeight(500);
         scrollPane.setPrefWidth(836);
         scrollPane.isResizable();
@@ -56,10 +57,14 @@ public class CartPageView {
         Label authorLabel;
         Label publishingYearLabel;
         Label genreLabel;
-        Label quantityLabel;
 
+        Label quantityLabel;
         Label priceLabel;
         Label discountLabel;
+
+        Spinner quantitySpinner;
+
+        Button removeFromCartButton;
 
         Font bookTitleFont = new Font("Avenir Book Bold", 25);
         Font genericLabelFont = new Font("Avenir Book", 20);
@@ -95,7 +100,11 @@ public class CartPageView {
         column1.setPercentWidth(50);
 
         ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.CENTER);
+        column2.setHalignment(HPos.LEFT);
+        column2.setPercentWidth(50);
+
+        ColumnConstraints column3 = new ColumnConstraints();
+        column3.setHalignment(HPos.LEFT);
         column2.setPercentWidth(50);
 
         // set rows constraints
@@ -115,20 +124,22 @@ public class CartPageView {
         genreRow.setValignment(VPos.CENTER);
         genreRow.setPercentHeight(100.0 / 4);
 
+        quantitySpinner = new Spinner<>(1, 10, 1, 1);
+        quantitySpinner.setPrefHeight(45);
+        quantitySpinner.setPrefWidth(80);
 
-        // check if book is available: if not, display a message
-        BookDAO bookDAO = new BookDaoImpl();
+        Label removeFromCartLabel = new Label("Remove from cart");
+        removeFromCartLabel.setFont(new Font("Avenir Book Bold", 20));
+        removeFromCartButton = new Button();
 
         RowConstraints priceRow = new RowConstraints();
         RowConstraints discountRow = new RowConstraints();
 
         priceRow.setValignment(VPos.CENTER);
-        priceRow.setPercentHeight(100.0/3);
+        priceRow.setPercentHeight(100.0/2);
 
         discountRow.setValignment(VPos.CENTER);
-        priceRow.setPercentHeight(100.0/3);
-
-        singleBook.isResizable();
+        priceRow.setPercentHeight(100.0/2);
 
         singleBook.add(titleLabel, 0, 0);
         singleBook.add(authorLabel, 0, 1);
@@ -137,6 +148,12 @@ public class CartPageView {
 
         singleBook.add(priceLabel, 1, 0);
         singleBook.add(discountLabel, 1 ,1);
+
+        singleBook.add(quantitySpinner, 2, 0);
+        singleBook.add(removeFromCartButton, 2, 1);
+
+
+        singleBook.isResizable();
 
         // adds contraints to grid pane
         singleBook.getColumnConstraints().addAll(column1, column2);

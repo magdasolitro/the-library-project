@@ -48,7 +48,7 @@ public class UserCartPageFXController implements Initializable {
 
             scrollPane = UserMainPageView.buildBooksView(booksInCart);
             scrollPane.setPrefHeight(500);
-            scrollPane.setPrefWidth(836);
+            scrollPane.setPrefWidth(926);
 
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
@@ -72,7 +72,7 @@ public class UserCartPageFXController implements Initializable {
         anchorPane.getChildren().addAll(scrollPane, totalLabel, totalCostLabel);
 
         AnchorPane.setTopAnchor(scrollPane, (double) 200);
-        AnchorPane.setLeftAnchor(scrollPane, (double) 90);
+        AnchorPane.setLeftAnchor(scrollPane, (double) 0);
 
         AnchorPane.setTopAnchor(totalLabel, (double) 320);
         AnchorPane.setLeftAnchor(totalLabel, (double) 1000);

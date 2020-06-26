@@ -1,0 +1,28 @@
+#search-button {
+    -fx-background-image: url('../images/searchIcon.png');
+    -fx-background-size: 45px;
+    -fx-background-position: center;
+}
+
+#pane{
+    -fx-background-color: grey;
+}
+
+#single-book-gridpane{
+    -fx-background-color: white;
+    -fx-border-radius: 30px;
+}
+
+#mainpage-gridpane{
+    -fx-background-color: white;
+}
+
+#signle-book-scrollpane{
+    -fx-background-color: white;
+    -fx-border-radius: 30px;
+}
+
+#single-book-vbox{
+    -fx-background-color: white;
+    -fx-border-radius: 30px;
+}

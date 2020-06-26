@@ -7,12 +7,12 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.SingleBookPageFXController">
     <children>
-        <Button fx:id="addToCartButton" layoutX="970.0" layoutY="415.0" mnemonicParsing="false" onMouseClicked="#addToCart" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Add To Cart" textFill="WHITE">
+        <Button fx:id="addToCartButton" layoutX="993.0" layoutY="416.0" mnemonicParsing="false" onMouseClicked="#addToCart" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Add To Cart" textFill="WHITE">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Button>
-        <Label layoutX="1012.0" layoutY="269.0" text="Quantity:">
+        <Label layoutX="1035.0" layoutY="269.0" text="Quantity:">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
@@ -32,12 +32,21 @@
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Label>
-        <Separator layoutX="819.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="5.0" />
-        <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" text="Go Back">
-            <font>
-                <Font name="Avenir Book" size="17.0" />
-            </font>
-        </Button>
-      <Separator layoutX="821.0" layoutY="100.0" prefHeight="5.0" prefWidth="480.0" />
+        <Separator layoutX="867.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="5.0" />
+        <Separator layoutX="870.0" layoutY="97.0" prefHeight="5.0" prefWidth="430.0" />
+        <Pane prefHeight="800.0" prefWidth="868.0" style="-fx-background-color: #9DC4ED;">
+            <children>
+                <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" text="Go Back">
+                    <font>
+                        <Font name="Avenir Book" size="17.0" />
+                    </font>
+                </Button>
+            <ScrollPane layoutX="70.0" layoutY="130.0" prefHeight="600.0" prefWidth="720.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+            </children>
+        </Pane>
     </children>
 </AnchorPane>

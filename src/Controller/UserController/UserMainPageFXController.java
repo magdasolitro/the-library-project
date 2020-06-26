@@ -30,7 +30,7 @@ public class UserMainPageFXController implements Initializable {
     private ChoiceBox genresChoiceBox;
 
     @FXML
-    private AnchorPane leftPane, rightPane;
+    private AnchorPane rightPane;
 
     @FXML
     private TextField bookSearchTextField;
@@ -66,18 +66,26 @@ public class UserMainPageFXController implements Initializable {
             scrollPane = UserMainPageView.buildBooksView(fullCatalog);
 
             rightPane.getChildren().add(scrollPane);
+            scrollPane.prefWidthProperty().bind(rightPane.widthProperty());
+
             AnchorPane.setTopAnchor(scrollPane, (double) 100);
+            AnchorPane.setBottomAnchor(scrollPane, (double) 0);
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
         }
 
-        // set toggle group for radio buttons
+        // set toggle group for radio buttons, so that only one button can be
+        // selected at once
         ToggleGroup group = new ToggleGroup();
 
         priceAscRB.setToggleGroup(group);
         priceDescRB.setToggleGroup(group);
         publYearRB.setToggleGroup(group);
         titleRB.setToggleGroup(group);
+
+        // set style for search button
+        searchButton.setId("search-button");
+        searchButton.getStylesheets().add("/CSS/style.css");
 
     }
 
@@ -254,7 +262,10 @@ public class UserMainPageFXController implements Initializable {
         scrollPane = UserMainPageView.buildBooksView(bookList);
 
         rightPane.getChildren().add(scrollPane);
+        scrollPane.prefWidthProperty().bind(rightPane.widthProperty());
+
         AnchorPane.setTopAnchor(scrollPane, (double) 100);
+        AnchorPane.setBottomAnchor(scrollPane, (double) 0);
     }
 
 }
