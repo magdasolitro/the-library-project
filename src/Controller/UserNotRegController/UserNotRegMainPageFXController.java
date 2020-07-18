@@ -1,4 +1,4 @@
-package Controller.UserController;
+package Controller.UserNotRegController;
 
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
@@ -26,7 +26,10 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
-public class UserMainPageFXController implements Initializable {
+public class UserNotRegMainPageFXController implements Initializable {
+    @FXML
+    public Button rankingsButton;
+
     @FXML
     private ChoiceBox genresChoiceBox;
 
@@ -43,10 +46,10 @@ public class UserMainPageFXController implements Initializable {
     private Button searchButton;
 
     @FXML
-    private ImageView profileIcon, cartIcon;
+    private ImageView cartIcon;
 
     @FXML
-    private Label logoutLabel;
+    private Label loginLabel, signinLabel;
 
     private ScrollPane scrollPane;
 
@@ -91,28 +94,23 @@ public class UserMainPageFXController implements Initializable {
     }
 
 
-    public void handleLogOutRequest(MouseEvent evt) throws IOException {
+    public void handleLogInRequest(MouseEvent evt) throws IOException {
 
-        Alert confirmLogOut = new Alert(Alert.AlertType.CONFIRMATION);
+        Stage stage = (Stage) loginLabel.getScene().getWindow();
+        stage.close();
 
-        confirmLogOut.setTitle("Log Out");
-        confirmLogOut.setHeaderText("You will exit the program");
-        confirmLogOut.setContentText("Are you sure you want to log out?");
+        viewPage("../../FXML/WelcomePageFX.fxml");
+    }
 
-        Optional<ButtonType> response = confirmLogOut.showAndWait();
+    public void handleSignInRequest() {
+        Stage stage = (Stage) signinLabel.getScene().getWindow();
+        stage.close();
 
-        if(response.isPresent() && response.get() == ButtonType.OK) {
-            Stage stage = (Stage) logoutLabel.getScene().getWindow();
-            stage.close();
-
-            GeneralLoginController.logout();
-
-            viewPage("../../FXML/WelcomePageFX.fxml");
-        } else {
-            evt.consume();
-            confirmLogOut.close();
+        try {
+            viewPage("../../FXML/SignInPageFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
 
 
@@ -160,7 +158,7 @@ public class UserMainPageFXController implements Initializable {
         // clear rightPane
         rightPane.getChildren().remove(scrollPane);
 
-       changeBookView(orderedBooks);
+        changeBookView(orderedBooks);
     }
 
     public void handleTitleFilter() throws InvalidStringException,
@@ -180,17 +178,6 @@ public class UserMainPageFXController implements Initializable {
     }
 
 
-    public void goToProfilePage() {
-        try{
-            Stage stage = (Stage) profileIcon.getScene().getWindow();
-            stage.close();
-
-            viewPage("../../FXML/UserFXML/UserProfileFX.fxml");
-        } catch (IOException ioe){
-            ioe.printStackTrace();
-        }
-    }
-
     public void goToCartPage() {
         try{
             Stage stage = (Stage) cartIcon.getScene().getWindow();
@@ -203,7 +190,7 @@ public class UserMainPageFXController implements Initializable {
 
     }
 
-    public void handleBookSearch(MouseEvent evt) throws InvalidStringException,
+    public void handleBookSearch() throws InvalidStringException,
             SQLException, IllegalValueException {
 
         String bookTitle = bookSearchTextField.getText();
@@ -247,7 +234,7 @@ public class UserMainPageFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+        LastOpenedPageController.setLastOpenedPage("../../FXML/UserNotRegFXML/UserNotRegMainPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

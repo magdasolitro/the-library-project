@@ -1,10 +1,12 @@
 package Controller.UserController;
 
 import Controller.GeneralLoginController;
+import Controller.LastOpenedPageController;
 import Model.Utils.DAOs.UserDAO;
 import Model.Utils.DaoImpl.UserDaoImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -15,17 +17,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class DataModificationPageFXController {
+public class DataModificationPageFXController implements Initializable {
 
     @FXML
-    Button confirmChangesButton, cancelChangesButton;
+    Button confirmChangesButton, cancelChangesButton, goBackButton;
 
     @FXML
     TextField newAddressField, newStreetNumberField, newZIPCodeField, newCityField,
             newPhoneField, newPasswordField, retypePasswordField;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        goBackButton.setId("goback-button");
+        goBackButton.getStylesheets().add("/CSS/style.css");
+    }
 
     public void confirmChanges(MouseEvent mouseEvent) {
 
@@ -142,10 +152,23 @@ public class DataModificationPageFXController {
         }
     }
 
+    public void handleGoBackButtonClick() {
+        Stage stage = (Stage) goBackButton.getScene().getWindow();
+        stage.close();
+
+        try {
+            viewPage("../../FXML/UserFXML/UserProfileFX.fxml");
+        } catch (IOException ioe){
+            ioe.getStackTrace();
+        }
+    }
+
     private void viewPage(String path) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
+
+        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -155,4 +178,5 @@ public class DataModificationPageFXController {
         stage.show();
 
     }
+
 }

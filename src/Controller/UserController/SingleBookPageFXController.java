@@ -2,8 +2,7 @@ package Controller.UserController;
 
 import Controller.BookInstanceController;
 import Controller.GeneralLoginController;
-import Model.Exceptions.IllegalValueException;
-import Model.Exceptions.InvalidStringException;
+import Controller.LastOpenedPageController;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DAOs.CartDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
@@ -19,19 +18,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SingleBookPageFXController implements Initializable {
+
+    @FXML
+    Button addToCartButton;
 
     @FXML
     AnchorPane anchorPane;
@@ -49,51 +47,49 @@ public class SingleBookPageFXController implements Initializable {
     @FXML
     Label logoutLabel;
 
-    VBox vbBook;
-
-    String ISBN;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ISBN = BookInstanceController.getCurrentBookISBN();
-
-        spBookInfos = SingleBookPageView.buildBookInfos(ISBN);
+        spBookInfos = SingleBookPageView.buildBookInfos(BookInstanceController.getCurrentBookISBN());
 
         spBookInfos.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         spBookInfos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        AnchorPane.setTopAnchor(spBookInfos, (double) 130);
-        AnchorPane.setRightAnchor(spBookInfos, (double) 500);
-        AnchorPane.setBottomAnchor(spBookInfos, (double) 60);
-        AnchorPane.setRightAnchor(spBookInfos, (double) 70);
+        AnchorPane.setTopAnchor(spBookInfos, (double) 80);
+        AnchorPane.setRightAnchor(spBookInfos, (double) 480);
+        AnchorPane.setBottomAnchor(spBookInfos, (double) 40);
+        AnchorPane.setLeftAnchor(spBookInfos, (double) 60);
 
         quantitySpinner = new Spinner<>(1, 10, 1, 1);
         quantitySpinner.setPrefHeight(45);
         quantitySpinner.setPrefWidth(80);
-        AnchorPane.setTopAnchor(quantitySpinner, (double) 310);
-        AnchorPane.setLeftAnchor(quantitySpinner, (double) 1020);
+        AnchorPane.setTopAnchor(quantitySpinner, (double) 314);
+        AnchorPane.setLeftAnchor(quantitySpinner, (double) 1037);
 
         anchorPane.getChildren().addAll(spBookInfos, quantitySpinner);
 
+        goBackButton.setId("goback-button");
+        goBackButton.getStylesheets().add("/CSS/style.css");
     }
 
-    public void addToCart(MouseEvent mouseEvent) {
+    public void addToCart() {
         CartDAO cartDAO = new CartDaoImpl();
         BookDAO bookDAO = new BookDaoImpl();
 
+        String ISBN = BookInstanceController.getCurrentBookISBN();
+
         try{
             if(!bookDAO.isAvailable(ISBN)){
-                Alert bookAddedToCart = new Alert(Alert.AlertType.ERROR);
+                Alert bookNotAvailable = new Alert(Alert.AlertType.ERROR);
 
-                bookAddedToCart.setTitle("Book Not Available");
-                bookAddedToCart.setHeaderText("This book is currently out of stock.");
-                bookAddedToCart.setContentText("... but we have many more books " +
+                bookNotAvailable.setTitle("Book Not Available");
+                bookNotAvailable.setHeaderText("This book is currently out of stock.");
+                bookNotAvailable.setContentText("... but we have many more books " +
                         "you can choose!");
 
-                bookAddedToCart.showAndWait();
+                bookNotAvailable.showAndWait();
             } else {
-                cartDAO.addBookToCart(ISBN, GeneralLoginController.getLoginInstance(),
+                cartDAO.addBookToCart(BookInstanceController.getCurrentBookISBN(), GeneralLoginController.getLoginInstance(),
                         quantitySpinner.getValue());
 
                 Alert bookAddedToCart = new Alert(Alert.AlertType.INFORMATION);
@@ -109,7 +105,7 @@ public class SingleBookPageFXController implements Initializable {
         }
     }
 
-    public void goToProfilePage(MouseEvent mouseEvent) {
+    public void goToProfilePage() {
         Stage stage = (Stage) profileIcon.getScene().getWindow();
         stage.close();
 
@@ -120,7 +116,7 @@ public class SingleBookPageFXController implements Initializable {
         }
     }
 
-    public void goToCartPage(MouseEvent mouseEvent) {
+    public void goToCartPage() {
         Stage stage = (Stage) cartIcon.getScene().getWindow();
         stage.close();
 
@@ -131,7 +127,7 @@ public class SingleBookPageFXController implements Initializable {
         }
     }
 
-    public void handleLogOutRequest(MouseEvent mouseEvent) {
+    public void handleLogOutRequest() {
         Stage stage = (Stage) logoutLabel.getScene().getWindow();
         stage.close();
 
@@ -142,7 +138,7 @@ public class SingleBookPageFXController implements Initializable {
         }
     }
 
-    public void handleGoBackButton(MouseEvent mouseEvent) {
+    public void handleGoBackButton() {
         Stage stage = (Stage) goBackButton.getScene().getWindow();
         stage.close();
 
@@ -157,8 +153,9 @@ public class SingleBookPageFXController implements Initializable {
     private void viewPage(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
-
         Parent root = loader.load();
+
+        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/SingleBookPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

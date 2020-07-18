@@ -14,6 +14,9 @@ import java.util.ArrayList;
 
 public class BookDaoImpl implements BookDAO {
 
+    /**
+     * Adds a new book to the store
+     */
     @Override
     public void addBook(String ISBN, String title, String authors, GenresEnum genre,
                         BigDecimal price, String description, String publishingHouse,
@@ -46,6 +49,9 @@ public class BookDaoImpl implements BookDAO {
         connection.closeConnection();
     }
 
+    /**
+     * Returns the Book that has the specified ISBN
+     */
     @Override
     public Book getBook(String ISBN) throws SQLException, InvalidStringException,
             IllegalValueException {
@@ -76,6 +82,13 @@ public class BookDaoImpl implements BookDAO {
         return book;
     }
 
+
+    /**
+     * List of books that have a specified title.
+     * The store might have multiple books with the same title
+     * @param title book title
+     * @return a list of Book
+     */
     @Override
     public ArrayList<Book> getBookByTitle(String title) throws SQLException,
             InvalidStringException, IllegalValueException {
@@ -110,7 +123,7 @@ public class BookDaoImpl implements BookDAO {
 
         return books;
     }
-
+    
     public ArrayList<Book> getAllBooks() throws SQLException, InvalidStringException,
             IllegalValueException {
 

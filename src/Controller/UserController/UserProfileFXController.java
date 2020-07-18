@@ -1,21 +1,24 @@
 package Controller.UserController;
 
 import Controller.GeneralLoginController;
+import Controller.LastOpenedPageController;
 import Model.Utils.DAOs.UserDAO;
 import Model.Utils.DaoImpl.UserDaoImpl;
+import View.UserView.LibroCardPageView;
 import View.UserView.UserProfileView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,8 +32,14 @@ public class UserProfileFXController implements Initializable {
     AnchorPane anchorPane;
 
     @FXML
-    Button deleteAccountButton, logoutButton, modifyDataButton, myOrdersButton,
+    Button deleteAccountButton, modifyDataButton, myOrdersButton,
             myLibroCardButton, goBackButton;
+
+    @FXML
+    ImageView cartIcon;
+
+    @FXML
+    Label logoutLabel;
 
     GridPane gpUserInfos;
 
@@ -38,6 +47,7 @@ public class UserProfileFXController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         gpUserInfos = UserProfileView.buildUserInfosGrid(GeneralLoginController.getLoginInstance());
         userNameSurnameLabel = UserProfileView.buildUserNameSurnameLabel((GeneralLoginController.getLoginInstance()));
 
@@ -49,23 +59,40 @@ public class UserProfileFXController implements Initializable {
         AnchorPane.setLeftAnchor(userNameSurnameLabel, (double) 90);
         AnchorPane.setTopAnchor(userNameSurnameLabel, (double) 100);
 
-    }
-
-
-    public void goToLibroCardPage(MouseEvent mouseEvent) {
-        try{
-            Stage stage = (Stage) myLibroCardButton.getScene().getWindow();
-            stage.close();
-
-            viewPage("../../FXML/UserFXML/LibroCardPageFX.fxml");
-        } catch(IOException ioe){
-            System.out.println("IOException: " + ioe.getMessage());
-        }
+        goBackButton.setId("goback-button");
+        goBackButton.getStylesheets().add("/CSS/style.css");
 
     }
 
 
-    public void goToOrdersPage(MouseEvent mouseEvent) {
+    public void viewLibroCard() {
+        //TODO: this page honestly sucks. Try to figure out properly how to use a DialogPane
+        DialogPane libroCardDialog = new DialogPane();
+
+        Pane libroCardPane = LibroCardPageView.buildLibroCardView(GeneralLoginController.getLoginInstance());
+
+        Label headerText = new Label("Your LibroCard");
+        headerText.setFont(new Font("Avenir Next Bold", 50));
+
+        libroCardDialog.setHeader(headerText);
+        libroCardDialog.setContent(libroCardPane);
+
+        libroCardDialog.setPadding(new Insets(40, 0, 0, 70));
+
+        libroCardDialog.isResizable();
+
+        Scene scene = new Scene(libroCardDialog);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setHeight(400);
+        stage.setWidth(600);
+        stage.show();
+
+    }
+
+
+    public void goToOrdersPage() {
         try{
             Stage stage = (Stage) myOrdersButton.getScene().getWindow();
             stage.close();
@@ -76,8 +103,19 @@ public class UserProfileFXController implements Initializable {
         }
     }
 
+    public void goToCartPage() {
+        try{
+            Stage stage = (Stage) cartIcon.getScene().getWindow();
+            stage.close();
 
-    public void handleModificationRequest(MouseEvent mouseEvent) {
+            viewPage("../../FXML/UserFXML/CartPageFX.fxml");
+        } catch(IOException ioe){
+            ioe.getStackTrace();
+        }
+    }
+
+
+    public void handleModificationRequest() {
         try{
             Stage stage = (Stage) modifyDataButton.getScene().getWindow();
             stage.close();
@@ -102,7 +140,7 @@ public class UserProfileFXController implements Initializable {
 
             GeneralLoginController.logout();
 
-            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            Stage stage = (Stage) logoutLabel.getScene().getWindow();
             stage.close();
 
             try {
@@ -151,11 +189,12 @@ public class UserProfileFXController implements Initializable {
         }
     }
 
-    public void handleGoBackButton(MouseEvent mouseEvent) {
+    public void handleGoBackButton() {
         Stage stage = (Stage) goBackButton.getScene().getWindow();
         stage.close();
+
         try{
-            viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+            viewPage(LastOpenedPageController.getLastOpenedPage());
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
@@ -166,6 +205,8 @@ public class UserProfileFXController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
+
+        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserProfileFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

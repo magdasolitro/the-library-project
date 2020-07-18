@@ -12,6 +12,7 @@ import Model.Utils.DatabaseConnection;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Array;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -43,6 +44,31 @@ public class CartDaoImpl implements CartDAO {
         connection.closeConnection();
     }
 
+    @Override
+    public void removeBookFromCart(String ISBN, String email) throws SQLException {
+        String sql = "DELETE FROM cart WHERE book = ? AND user = ?";
+
+        connection = new DatabaseConnection();
+        connection.openConnection();
+
+        connection.pstmt = connection.conn.prepareStatement(sql);
+
+        connection.pstmt.setString(1, ISBN);
+        connection.pstmt.setString(2, email);
+
+        connection.pstmt.executeUpdate();
+
+        connection.closeConnection();
+    }
+
+    /**
+     * Calculates the total price of all the books in cart, discount included
+     * @param email user cart's email
+     * @return total cost
+     * @throws SQLException
+     * @throws InvalidStringException
+     * @throws IllegalValueException
+     */
     @Override
     public BigDecimal totalCost(String email) throws SQLException, InvalidStringException, IllegalValueException {
         // obtain all books with their prices and discount in user cart
@@ -78,24 +104,28 @@ public class CartDaoImpl implements CartDAO {
         connection.closeConnection();
 
         BigDecimal totalCost = new BigDecimal(0);
-        BigDecimal effectiveBookPrice = new BigDecimal(0);
+        BigDecimal currentBookPrice;
 
         for(Book b : booksInCart){
-            effectiveBookPrice = b.getPrice();
+            currentBookPrice = b.getPrice();
 
             // apply discount if present
             if(b.getDiscount().compareTo(new BigDecimal(0)) > 0) {
-                effectiveBookPrice = (b.getDiscount().multiply(effectiveBookPrice)).divide(new BigDecimal(100));
+                BigDecimal effectiveBookPrice = currentBookPrice.subtract(currentBookPrice.multiply(b.getDiscount().divide(new BigDecimal(100))));
+
+                // multiply price by quantity
+                // method getQuantity() is defined in Book class
+                effectiveBookPrice = effectiveBookPrice.multiply(new BigDecimal(b.getQuantity(email)));
+
+                totalCost = totalCost.add(effectiveBookPrice);
+            } else {
+                currentBookPrice = currentBookPrice.multiply(new BigDecimal(b.getQuantity(email)));
+
+                totalCost = totalCost.add(currentBookPrice);
             }
-
-            // multiply price by quantity
-            // method getQuantity() is defined in Book class
-            effectiveBookPrice = effectiveBookPrice.multiply(new BigDecimal(b.getQuantity(email)));
-
-            totalCost = totalCost.add(effectiveBookPrice);
         }
 
-        return totalCost;
+        return totalCost.setScale(2);
     }
 
     @Override
@@ -293,6 +323,8 @@ public class CartDaoImpl implements CartDAO {
         name = connection.rs.getString("name");
         surname = connection.rs.getString("surname");
 
+        connection.closeConnection();
+
         String firstToken = name.substring(0,3).toUpperCase() +
                 surname.substring(0,3).toUpperCase();
 
@@ -307,31 +339,6 @@ public class CartDaoImpl implements CartDAO {
         }
     }
 
-    /*
-    // costo totale dell'ordine: prezzo libro * quantità
-    private BigDecimal getOrderPrice(DatabaseConnection connection, ArrayList<Book> bookArray,
-                                     String email) throws SQLException {
-        BigDecimal totalPrice = new BigDecimal(0);
-
-        for(Book b : bookArray){
-            BigDecimal effectiveBookPrice = b.getPrice();
-
-            // apply discount if present
-            if(b.getDiscount().compareTo(new BigDecimal(0)) == 0) {
-                 effectiveBookPrice =
-                         (effectiveBookPrice.multiply(b.getDiscount()).divide(new BigDecimal(100)));
-            }
-
-            // multiply price by quantity
-            effectiveBookPrice.multiply(new BigDecimal(b.getQuantity(email)));
-
-            totalPrice.add(effectiveBookPrice);
-        }
-
-        return totalPrice;
-    }
-
-     */
 
     private int getOrderPoints(DatabaseConnection connection, ArrayList<Book> bookArray) {
         int totalPoints = 0;

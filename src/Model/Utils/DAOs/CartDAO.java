@@ -15,6 +15,8 @@ public interface CartDAO {
     public void addBookToCart(String ISBN, String email, int quantity)
             throws SQLException;
 
+    public void removeBookFromCart(String ISBN, String email) throws SQLException;
+
     public BigDecimal totalCost(String email) throws SQLException, InvalidStringException, IllegalValueException;
 
     public void increaseQuantity(String ISBN, String email) throws SQLException;

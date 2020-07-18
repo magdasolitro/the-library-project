@@ -111,7 +111,7 @@
             <Font name="Avenir Book" size="17.0" />
          </font>
       </PasswordField>
-      <Button fx:id="goBackButton" onMouseClicked="#handleGoBackButton" mnemonicParsing="false" text="Go Back">
+      <Button fx:id="goBackButton" onMouseClicked="#handleGoBackButton" mnemonicParsing="false">
          <font>
             <Font name="Avenir Book" size="17.0" />
          </font>

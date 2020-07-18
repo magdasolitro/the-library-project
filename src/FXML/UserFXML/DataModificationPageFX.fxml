@@ -68,30 +68,35 @@
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Button>
-      <Label layoutX="90.0" layoutY="182.0" text="Fill only the fields you want to change:">
-          <font>
-              <Font name="Avenir Book" size="25.0" />
-          </font>
-      </Label>
-      <Label layoutX="90.0" layoutY="510.0" text="Phone:">
-         <font>
-            <Font name="Avenir Next Bold" size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="newStreetNumberField" layoutX="275.0" layoutY="328.0" prefHeight="35.0" prefWidth="275.0" promptText="New Street Number">
-         <font>
-            <Font name="Avenir Book" size="13.0" />
-         </font>
-      </TextField>
-      <Label layoutX="700.0" layoutY="182.0" text="Change your password:">
-         <font>
-            <Font name="Avenir Book" size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="90.0" layoutY="50.0" text="Change your data">
-         <font>
-            <Font name="Avenir Next Bold" size="70.0" />
-         </font>
-      </Label>
+        <Label layoutX="90.0" layoutY="182.0" text="Fill only the fields you want to change:">
+            <font>
+                <Font name="Avenir Book" size="25.0" />
+            </font>
+        </Label>
+        <Label layoutX="90.0" layoutY="510.0" text="Phone:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="newStreetNumberField" layoutX="275.0" layoutY="328.0" prefHeight="35.0" prefWidth="275.0" promptText="New Street Number">
+            <font>
+                <Font name="Avenir Book" size="13.0" />
+            </font>
+        </TextField>
+        <Label layoutX="700.0" layoutY="182.0" text="Change your password:">
+            <font>
+                <Font name="Avenir Book" size="25.0" />
+            </font>
+        </Label>
+        <Label layoutX="90.0" layoutY="50.0" text="Change your data">
+            <font>
+                <Font name="Avenir Next Bold" size="70.0" />
+            </font>
+        </Label>
+        <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButtonClick" prefHeight="40.0" prefWidth="70.0">
+            <font>
+                <Font name="Avenir Book" size="17.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

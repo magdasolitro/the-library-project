@@ -1,3 +1,4 @@
+import Controller.LastOpenedPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,11 +15,14 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("FXML/WelcomePageFX.fxml"));
         Parent root = loader.load();
 
+        LastOpenedPageController.setLastOpenedPage("../../FXML/WelcomePageFX.fxml");
+
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
+
     }
 
     public static void main(String[] args){

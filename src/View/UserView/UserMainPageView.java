@@ -39,7 +39,6 @@ public class UserMainPageView {
 
         for (Book b : booksToShow) {
             GridPane currentBook = buildSingleBookView(b);
-            //Pane currentBook = buildSingleBookView(b);
             bookContainer.add(currentBook, 0, i);
             GridPane.setMargin(currentBook, new Insets(20, 0, 20, 30));
             i++;
@@ -47,7 +46,6 @@ public class UserMainPageView {
 
         scrollPane.setContent(bookContainer);
 
-        //bookContainer.prefWidthProperty().bind(scrollPane.widthProperty());
         bookContainer.setPrefWidth(1000);   // no horizontal scroll
         bookContainer.prefHeightProperty().bind(scrollPane.heightProperty());
 
@@ -58,7 +56,7 @@ public class UserMainPageView {
 
     }
 
-    private static GridPane buildSingleBookView(Book book){
+    public static GridPane buildSingleBookView(Book book){
         GridPane singleBook = new GridPane();
         //Pane backgroundPane = new Pane();
 
@@ -176,12 +174,6 @@ public class UserMainPageView {
                 System.out.println("IOException" + ioe.getMessage());
             }
         });
-        /*
-        backgroundPane.getChildren().add(singleBook);
-        backgroundPane.setPadding(new Insets(10, 20, 10, 20));
-        backgroundPane.setId("background-pane");
-        backgroundPane.getStylesheets().add("/CSS/style.css");
-        */
 
         return singleBook;
     }

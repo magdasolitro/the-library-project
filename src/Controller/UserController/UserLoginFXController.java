@@ -1,6 +1,7 @@
 package Controller.UserController;
 
 import Controller.GeneralLoginController;
+import Controller.LastOpenedPageController;
 import Model.Exceptions.InvalidStringException;
 import Model.User;
 import Model.Utils.DAOs.UserDAO;
@@ -9,6 +10,7 @@ import Model.Utils.DaoImpl.UserDaoImpl;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,15 +21,23 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class UserLoginFXController {
+public class UserLoginFXController implements Initializable {
 
     @FXML
     TextField userEmailField, userPasswordField;
 
     @FXML
     Button loginButton, goBackButton;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        goBackButton.setId("goback-button");
+        goBackButton.getStylesheets().add("/CSS/style.css");
+    }
 
 
     @FXML
@@ -70,11 +80,11 @@ public class UserLoginFXController {
 
 
     @FXML
-    public void handleGoBackButtonClick(MouseEvent evt) throws IOException {
+    public void handleGoBackButtonClick() throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
 
-        viewPage("../../FXML/WelcomePageFX.fxml");
+        viewPage(LastOpenedPageController.getLastOpenedPage());
     }
 
 
@@ -83,6 +93,8 @@ public class UserLoginFXController {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
+        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserLoginFX.fxml");
+
         Scene scene = new Scene(root);
         Stage stage = new Stage();
 
@@ -90,5 +102,4 @@ public class UserLoginFXController {
         stage.setMaximized(true);
         stage.show();
     }
-
 }

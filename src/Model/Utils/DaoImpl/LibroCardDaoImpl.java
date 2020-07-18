@@ -42,6 +42,8 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
         connection.rs = connection.pstmt.executeQuery();
 
+        connection.closeConnection();
+
         return connection.rs.getString("email");
     }
 

@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
     <children>
-        <Pane id="StackPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;">
-            <children>
-                <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="170.0" prefHeight="59.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Welcome!" textAlignment="CENTER">
+      <Pane id="pane" layoutX="318.0" layoutY="186.0" prefHeight="485.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30;" stylesheets="@../CSS/style.css">
+         <children>
+                <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="28.0" prefHeight="102.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF;" text="Welcome!" textAlignment="CENTER">
                     <font>
                         <Font name="Avenir Next Bold" size="70.0" />
                     </font>
                 </Label>
-                <Button fx:id="userButton" layoutX="430.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#handleUserButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="USER">
+                <Button fx:id="userButton" layoutX="115.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#handleUserButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="USER">
                     <font>
                         <Font name="Avenir Book" size="25.0" />
-                    </font></Button>
-                <Label fx:id="logInChoiceLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="306.0" prefHeight="24.0" prefWidth="1300.0" text="You can log in as:">
+                    </font>
+            </Button>
+                <Label fx:id="logInChoiceLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="160.0" prefHeight="36.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF;" text="You can log in as:">
                     <font>
                         <Font name="Avenir Book" size="25.0" />
                     </font>
                 </Label>
-                <Button fx:id="employeeButton" layoutX="719.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#handleEmployeeButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
+                <Button fx:id="employeeButton" layoutX="384.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#handleEmployeeButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
                     <font>
                         <Font name="Avenir Book" size="25.0" />
                     </font>
                 </Button>
-                <Label fx:id="continueAsGuest" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="520.0" onMouseClicked="#handleGuestClick" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Continue as guest" textAlignment="CENTER" underline="true">
+                <Label fx:id="continueAsGuest" alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="360.0" onMouseClicked="#handleGuestClick" prefHeight="30.0" prefWidth="203.0" style="-fx-background-color: #ffffff;" text="Continue as guest" textAlignment="CENTER" underline="true">
                     <font>
                         <Font name="Avenir Book" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="signInLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="570.0" onMouseClicked="#handleSignInClick" prefHeight="24.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" text="Sign in" textAlignment="CENTER" underline="true">
+                <Label fx:id="signInLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="418.0" onMouseClicked="#handleSignInClick" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #ffffff;" text="Sign in" textAlignment="CENTER" underline="true">
                     <font>
                         <Font name="Avenir Book" size="20.0" />
                     </font>
                 </Label>
-            </children>
-        </Pane>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Pane>
+      <ImageView fitHeight="168.0" fitWidth="317.0" layoutX="506.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../images/MindTravelsLogo.png" />
+          </image>
+      </ImageView>
     </children>
 </AnchorPane>

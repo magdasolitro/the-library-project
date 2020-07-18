@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class WelcomePageFXController implements Initializable {
     }
 
     @FXML
-    private void handleUserButtonClick(MouseEvent evt) throws IOException {
+    private void handleUserButtonClick() throws IOException {
         Stage stage = (Stage) userButton.getScene().getWindow();
         stage.close();
 
@@ -36,7 +35,7 @@ public class WelcomePageFXController implements Initializable {
     }
 
     @FXML
-    private void handleEmployeeButtonClick(MouseEvent evt) throws IOException {
+    private void handleEmployeeButtonClick() throws IOException {
         Stage stage = (Stage) employeeButton.getScene().getWindow();
         stage.close();
 
@@ -44,15 +43,19 @@ public class WelcomePageFXController implements Initializable {
     }
 
     @FXML
-    private void handleGuestClick(MouseEvent evt) throws IOException {
+    private void handleGuestClick() throws IOException {
         Stage stage = (Stage) continueAsGuest.getScene().getWindow();
         stage.close();
 
-        //viewPage("...");
+        // create unique identifier for non registered user
+        String userNotRegIdentifier = "NOTREG";
+        GeneralLoginController.setLoginInstance(userNotRegIdentifier);
+
+        viewPage("../FXML/UserNotRegFXML/UserNotRegMainPageFX.fxml");
     }
 
     @FXML
-    private void handleSignInClick(MouseEvent evt) throws IOException{
+    private void handleSignInClick() throws IOException{
         Stage stage = (Stage) signInLabel.getScene().getWindow();
         stage.close();
 

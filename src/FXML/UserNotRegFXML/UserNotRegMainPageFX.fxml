@@ -1,61 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.UserNotRegFXML.UserNotRegMainPageFX">
-
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserNotRegController.UserNotRegMainPageFXController">
     <children>
-        <SplitPane dividerPositions="0.2" prefHeight="800.0" prefWidth="1300.0">
+        <SplitPane dividerPositions="0.2" prefHeight="700.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="260.0" style="-fx-background-color: #ffffff;">
+                <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefWidth="260.0" style="-fx-background-color: #BBA5E1;">
                     <children>
-                        <Label layoutX="35.0" layoutY="233.0" text="Genres:">
-                            <font>
-                                <Font name="Avenir Book" size="20.0" />
-                            </font>
-                        </Label>
-                        <ChoiceBox fx:id="genresDropDown" layoutX="35.0" layoutY="275.0" prefHeight="30.0" prefWidth="150.0" />
-                        <Label layoutX="35.0" layoutY="456.0" text="Filters">
+                        <Label layoutX="35.0" layoutY="198.0" text="Genres:" textFill="WHITE">
                             <font>
                                 <Font name="Avenir Next Bold" size="20.0" />
                             </font>
                         </Label>
-                        <RadioButton fx:id="priceRB1" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" text="Price (low to high)">
+                        <ChoiceBox fx:id="genresChoiceBox" layoutX="35.0" layoutY="239.0" prefHeight="30.0" prefWidth="150.0" />
+                        <Label layoutX="35.0" layoutY="412.0" text="Order by" textFill="WHITE">
+                            <font>
+                                <Font name="Avenir Next Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <RadioButton fx:id="priceAscRB" layoutX="35.0" layoutY="455.0" mnemonicParsing="false" onMouseClicked="#handlePriceAscFilter" text="Price (low to high)" textFill="WHITE">
                             <font>
                                 <Font name="Avenir Book" size="17.0" />
                             </font></RadioButton>
-                        <RadioButton fx:id="priceRB2" layoutX="35.0" layoutY="540.0" mnemonicParsing="false" text="Price (high to low)">
+                        <RadioButton fx:id="priceDescRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handlePriceDescFilter" text="Price (high to low)" textFill="WHITE">
                             <font>
                                 <Font name="Avenir Book" size="17.0" />
                             </font></RadioButton>
-                        <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="580.0" mnemonicParsing="false" text="Publication Year">
+                        <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="545.0" mnemonicParsing="false" onMouseClicked="#handlePublYearFilter" text="Publication Year" textFill="WHITE">
                             <font>
                                 <Font name="Avenir Book" size="17.0" />
                             </font></RadioButton>
-                        <Button layoutX="35.0" layoutY="356.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
+                        <RadioButton fx:id="titleRB" layoutX="35.0" layoutY="590.0" mnemonicParsing="false" onMouseClicked="#handleTitleFilter" text="Title" textFill="WHITE">
+                            <font>
+                                <Font name="Avenir Book" size="17.0" />
+                            </font></RadioButton>
+                        <Button fx:id="rankingsButton" layoutX="35.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
                             <font>
                                 <Font name="Avenir Book" size="17.0" />
                             </font>
                         </Button>
-                    </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1040.0" style="-fx-background-color: #ffffff;">
+                        <ImageView fitHeight="130.0" fitWidth="240.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/MindTravelsLogo.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefWidth="1010.0" style="-fx-background-color: #ffffff;">
                     <children>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="100.0" prefHeight="700.0" prefWidth="1034.0">
-                        </ScrollPane>
-                        <Label layoutX="738.0" layoutY="35.0" text="SIGN IN" underline="true">
-                            <font>
-                                <Font name="Avenir Book" size="20.0" />
-                             </font>
-                        </Label>
-                        <Separator layoutX="840.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
-                        <Label layoutX="618.0" layoutY="37.0" text="LOG IN" underline="true">
+                        <Label fx:id="loginLabel" layoutX="674.0" layoutY="36.0" onMouseClicked="#handleLogInRequest" text="LOG IN" underline="true">
                             <font>
                                 <Font name="Avenir Book" size="20.0" />
                             </font>
                         </Label>
-                        <TextField layoutX="191.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Book Title">
+                        <Label fx:id="signinLabel" layoutX="779.0" layoutY="35.0" onMouseClicked="#handleSignInRequest" text="SIGN IN" underline="true">
+                            <font>
+                                <Font name="Avenir Book" size="20.0" />
+                            </font>
+                        </Label>
+                        <Separator layoutX="900.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
+                        <TextField fx:id="bookSearchTextField" layoutX="191.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Enter book title">
                             <font>
                                 <Font name="Avenir Book" size="14.0" />
                             </font>
@@ -65,6 +73,13 @@
                                 <Font name="Avenir Book" size="17.0" />
                             </font>
                         </Label>
+                        <ImageView fx:id="cartIcon" fitHeight="71.0" fitWidth="90.0" layoutX="922.0" layoutY="15.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/cartIcon.png" />
+                            </image>
+                        </ImageView>
+                        <Separator layoutY="100.0" prefHeight="3.0" prefWidth="1018.0" />
+                        <Button fx:id="searchButton" layoutX="500.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleBookSearch" prefHeight="45.0" prefWidth="45.0" />
                     </children>
                 </AnchorPane>
             </items>

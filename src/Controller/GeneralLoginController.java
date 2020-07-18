@@ -4,7 +4,6 @@ public class GeneralLoginController {
 
     private static String loginInstance = null;
 
-
     public static void setLoginInstance(String email){ loginInstance = email; }
 
     public static String getLoginInstance(){

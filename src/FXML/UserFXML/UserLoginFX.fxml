@@ -15,20 +15,17 @@
             <font>
                 <Font name="Avenir Book" size="15.0" />
             </font></TextField>
-        <PasswordField fx:id="userPasswordField" layoutX="500.0" layoutY="430.0" promptText="password"
-                       AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0">
+        <PasswordField fx:id="userPasswordField" layoutX="500.0" layoutY="430.0" promptText="password" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0">
             <font>
                 <Font name="Avenir Book" size="15.0" />
             </font>
         </PasswordField>
-        <Button fx:id="goBackButton" mnemonicParsing="false" text="Go Back" onMouseClicked="#handleGoBackButtonClick">
+        <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButtonClick" prefHeight="40.0" prefWidth="70.0">
             <font>
                 <Font name="Avenir Book" size="17.0" />
             </font>
         </Button>
-        <Button fx:id="loginButton" layoutX="573.0" layoutY="517.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="155.0"
-                style="-fx-background-color: #3CB371;" text="Log In" textFill="WHITE"
-                onMouseClicked="#handleLoginRequest">
+        <Button fx:id="loginButton" layoutX="573.0" layoutY="517.0" mnemonicParsing="false" onMouseClicked="#handleLoginRequest" prefHeight="44.0" prefWidth="155.0" style="-fx-background-color: #3CB371;" text="Log In" textFill="WHITE">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>

@@ -13,8 +13,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public class SingleBookPageView {
 
@@ -118,7 +116,7 @@ public class SingleBookPageView {
 
             ColumnConstraints infoColumn = new ColumnConstraints();
             infoColumn.setHalignment(HPos.LEFT);
-            infoColumn.setPrefWidth(300);
+            infoColumn.setPrefWidth(415);
 
             gpBook.setVgap(20);
 
@@ -147,8 +145,6 @@ public class SingleBookPageView {
         scrollPane.getStylesheets().add("/CSS/style.css");
 
         scrollPane.setContent(vbBook);
-        /*scrollPane.setPrefWidth(750);
-        scrollPane.setPrefHeight(600);*/
         scrollPane.setPadding(new Insets(25, 0, 0, 25));
 
         return scrollPane;
@@ -169,7 +165,7 @@ public class SingleBookPageView {
             book = bookDAO.getBook(ISBN);
 
             // split description
-            bookDescriptionString = splitString(book.getDescription(), 65);
+            bookDescriptionString = splitString(book.getDescription(), 80);
 
             bookDescription = new Label(bookDescriptionString);
             bookDescription.setFont(new Font("Avenir Book", 20));
@@ -182,7 +178,7 @@ public class SingleBookPageView {
     }
 
     private static String splitString(String string, int maxLength){
-        ArrayList<Integer> blankSpaceIndex = new ArrayList<>();
+        //ArrayList<Integer> blankSpaceIndex = new ArrayList<>();
         String remainingString = string;
         String resultString = "";
 
@@ -191,10 +187,15 @@ public class SingleBookPageView {
             if(string.charAt(i) == ' '){
                 blankSpaceIndex.add(i);
             }
-        }*/
+        }
+        */
 
         while(remainingString.length() >= maxLength){
-            resultString += remainingString.substring(0, maxLength) + "\n";
+            if(string.charAt(maxLength) == ' ') {
+                resultString += remainingString.substring(0, maxLength) + "\n";
+            } else {
+                resultString += remainingString.substring(0, maxLength) + "-\n";
+            }
             remainingString = remainingString.substring(maxLength);
         }
 

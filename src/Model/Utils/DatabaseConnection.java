@@ -23,13 +23,6 @@ public class DatabaseConnection {
      * Connection to library.db database
      */
     public void openConnection(){
-        /*
-        dataSource = new SQLiteConnectionPoolDataSource();
-
-        dataSource.setUrl("jdbc:sqlite:src/Database/library2.db");
-
-         */
-
         try {
             // load JDBC driver for SQLite
             Class.forName("org.sqlite.JDBC");
