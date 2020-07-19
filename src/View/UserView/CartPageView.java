@@ -151,11 +151,6 @@ public class CartPageView {
         quantitySpinner.setPrefWidth(80);
 
         removeFromCartButton = new Button("Remove from cart");
-        /*
-        removeFromCartButton.setId("remove-from-cart");
-        removeFromCartButton.getStylesheets().add("/CSS/style.css");
-
-         */
 
         removeFromCartButton.setOnMouseClicked(e -> {
             Alert removalAlert = new Alert(Alert.AlertType.WARNING);
@@ -193,7 +188,7 @@ public class CartPageView {
         buttonRow.setValignment(VPos.CENTER);
 
         singleBook.add(quantitySpinner, 2, 0);
-        singleBook.add(removeFromCartButton, 2, 1);
+        singleBook.add(removeFromCartButton, 2, 2);
 
         singleBook.setPrefWidth(750);
         singleBook.isResizable();

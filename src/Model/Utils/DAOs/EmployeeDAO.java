@@ -12,6 +12,7 @@ public interface EmployeeDAO {
             InvalidStringException;
 
     public void addEmployee(String employeeID, String name, String surname,
-                            String birthDate, EmployeeRoleEnum role, String employedSince)
+                            String birthDate, EmployeeRoleEnum role, String employedSince,
+                            String password)
             throws SQLException;
 }

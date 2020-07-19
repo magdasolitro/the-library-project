@@ -145,18 +145,14 @@ public class SingleBookPageView {
         scrollPane.getStylesheets().add("/CSS/style.css");
 
         scrollPane.setContent(vbBook);
-        scrollPane.setPadding(new Insets(25, 0, 0, 25));
+        scrollPane.setPadding(new Insets(30, 0, 30, 30));
 
         return scrollPane;
     }
 
     public static Label buildDescription(String ISBN){
-        //Label descriptionLabel;
         Label bookDescription = new Label();
-        String bookDescriptionString, remainingDescrString;
-
-        //descriptionLabel = new Label("Description: \n");
-        //descriptionLabel.setFont(new Font("Avenir Next Bold", 20));
+        String bookDescriptionString;
 
         BookDAO bookDAO = new BookDaoImpl();
 
@@ -165,7 +161,7 @@ public class SingleBookPageView {
             book = bookDAO.getBook(ISBN);
 
             // split description
-            bookDescriptionString = splitString(book.getDescription(), 80);
+            bookDescriptionString = splitString(book.getDescription(), 60);
 
             bookDescription = new Label(bookDescriptionString);
             bookDescription.setFont(new Font("Avenir Book", 20));
@@ -178,20 +174,11 @@ public class SingleBookPageView {
     }
 
     private static String splitString(String string, int maxLength){
-        //ArrayList<Integer> blankSpaceIndex = new ArrayList<>();
         String remainingString = string;
         String resultString = "";
 
-        /*
-        for(int i = 0; i < string.length(); i++){
-            if(string.charAt(i) == ' '){
-                blankSpaceIndex.add(i);
-            }
-        }
-        */
-
         while(remainingString.length() >= maxLength){
-            if(string.charAt(maxLength) == ' ') {
+            if(string.charAt(maxLength) == ' ' || string.charAt(maxLength) == '\n') {
                 resultString += remainingString.substring(0, maxLength) + "\n";
             } else {
                 resultString += remainingString.substring(0, maxLength) + "-\n";

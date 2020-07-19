@@ -21,7 +21,8 @@
 
 #single-book-scrollpane{
     -fx-background-color: white;
-    -fx-border-radius: 30px;
+    -fx-border-radius: 30 30 30 30;
+    -fx-background-radius: 30 30 30 30;
 }
 
 #single-book-vbox{

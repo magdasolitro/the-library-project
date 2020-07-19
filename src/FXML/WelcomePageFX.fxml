@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
     <children>
-      <Pane id="pane" layoutX="318.0" layoutY="186.0" prefHeight="485.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30;" stylesheets="@../CSS/style.css">
+      <Pane id="pane" layoutX="319.0" layoutY="167.0" prefHeight="485.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;">
          <children>
-                <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="28.0" prefHeight="102.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF;" text="Welcome!" textAlignment="CENTER">
+                <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="28.0" prefHeight="102.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" text="Welcome!" textAlignment="CENTER">
                     <font>
                         <Font name="Avenir Next Bold" size="70.0" />
                     </font>
@@ -45,7 +45,7 @@
             <Insets />
          </opaqueInsets>
       </Pane>
-      <ImageView fitHeight="168.0" fitWidth="317.0" layoutX="506.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="166.0" fitWidth="297.0" layoutX="502.0" pickOnBounds="true" preserveRatio="true">
           <image>
               <Image url="@../images/MindTravelsLogo.png" />
           </image>

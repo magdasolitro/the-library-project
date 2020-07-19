@@ -22,22 +22,20 @@ public class DatabaseConnection {
     /**
      * Connection to library.db database
      */
-    public void openConnection(){
+    public void openConnection() {
         try {
             // load JDBC driver for SQLite
             Class.forName("org.sqlite.JDBC");
 
             // establish connection providing the database URL
             conn = DriverManager.getConnection("jdbc:sqlite:src/Database/library2.db");
-
             System.out.println("Database connection successful");
+
         } catch (SQLException e) {
-            System.out.println("An error occurred trying to establish a " +
-                    "connection with the database: " + e.getMessage());
-        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     /**

@@ -84,8 +84,37 @@ public class UserCartPageFXController implements Initializable {
         Stage stage = (Stage) goBackButton.getScene().getWindow();
         stage.close();
 
-        try {
-            viewPage(LastOpenedPageController.getLastOpenedPage());
+        try{
+            if(LastOpenedPageController.getLastOpenedPage().equals("../../FXML/UserFXML/UserProfileFX.fxml")) {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserProfileFX.fxml"));
+                Parent root = loader.load();
+
+                LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+
+                Scene scene = new Scene(root);
+                Stage newStage = new Stage();
+
+                newStage.setScene(scene);
+                newStage.setMaximized(true);
+                newStage.show();
+
+            } else if(LastOpenedPageController.getLastOpenedPage().equals("../../FXML/UserFXML/SingleBookPageFX.fxml")){
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("../../FXML/UserFXML/SingleBookPageFX.fxml"));
+                Parent root = loader.load();
+
+                LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+
+                Scene scene = new Scene(root);
+                Stage newStage = new Stage();
+
+                newStage.setScene(scene);
+                newStage.setMaximized(true);
+                newStage.show();
+            } else if (LastOpenedPageController.getLastOpenedPage().equals("../../FXML/UserFXML/UserMainPageFX.fxml")){
+                viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,6 +131,8 @@ public class UserCartPageFXController implements Initializable {
         Optional<ButtonType> response = checkOutAlert.showAndWait();
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
+            LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/CartPageFX.fxml");
+
             CompositionDAO compositionDAO = new CompositionDaoImpl();
 
             //TODO: complete checkout operation
@@ -117,8 +148,6 @@ public class UserCartPageFXController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
-
-        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/CartPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

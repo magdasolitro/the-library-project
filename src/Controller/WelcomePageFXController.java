@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class WelcomePageFXController implements Initializable {
+public class WelcomePageFXController {
 
     @FXML
     Button userButton, employeeButton;
@@ -21,10 +21,6 @@ public class WelcomePageFXController implements Initializable {
     @FXML
     Label continueAsGuest, signInLabel;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb){
-
-    }
 
     @FXML
     private void handleUserButtonClick() throws IOException {

@@ -55,10 +55,13 @@ public class SingleBookPageFXController implements Initializable {
         spBookInfos.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         spBookInfos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
+        spBookInfos.setId("single-book-scrollpane");
+        spBookInfos.getStylesheets().add("/CSS/style.css");
+
         AnchorPane.setTopAnchor(spBookInfos, (double) 80);
         AnchorPane.setRightAnchor(spBookInfos, (double) 480);
         AnchorPane.setBottomAnchor(spBookInfos, (double) 40);
-        AnchorPane.setLeftAnchor(spBookInfos, (double) 60);
+        AnchorPane.setLeftAnchor(spBookInfos, (double) 80);
 
         quantitySpinner = new Spinner<>(1, 10, 1, 1);
         quantitySpinner.setPrefHeight(45);

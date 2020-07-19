@@ -37,10 +37,11 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 
     @Override
     public void addEmployee(String employeeID, String name, String surname,
-                            String birthDate, EmployeeRoleEnum role, String employedSince)
+                            String birthDate, EmployeeRoleEnum role, String employedSince,
+                            String password)
             throws SQLException {
         String sql = "INSERT INTO employee(employeeID, name, surname, birthDate," +
-                "role, employedSince) VALUES (?, ?, ?, ?, ?, ?)";
+                "role, employedSince, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -53,6 +54,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
         connection.pstmt.setString(4, birthDate);
         connection.pstmt.setString(5, role.toString());
         connection.pstmt.setString(6, employedSince);
+        connection.pstmt.setString(7, password);
 
         connection.pstmt.executeUpdate();
 

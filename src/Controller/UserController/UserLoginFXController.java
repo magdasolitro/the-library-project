@@ -61,12 +61,20 @@ public class UserLoginFXController implements Initializable {
         User currentUser = userDAO.getUser(userEmail);
 
         if(currentUser == null){
-            Alert userNotRegistred = new Alert(Alert.AlertType.ERROR, "It looks " +
-                    "like you are not registred!", ButtonType.OK);
+            Alert userNotRegistred = new Alert(Alert.AlertType.ERROR);
+
+            userNotRegistred.setTitle("User Not Registered");
+            userNotRegistred.setHeaderText("It looks like you are not registered!");
+            userNotRegistred.setContentText("Try to sign in instead.");
+
             userNotRegistred.show();
         } else if(!userPassword.equals(currentUser.getPassword())){
-            Alert wrongPassword = new Alert(Alert.AlertType.ERROR, "Your " +
-                    "password is wrong!", ButtonType.OK);
+            Alert wrongPassword = new Alert(Alert.AlertType.ERROR);
+
+            wrongPassword.setTitle("Wrong Password");
+            wrongPassword.setHeaderText("Your password is wrong!");
+            wrongPassword.setContentText("Try to re-type it.");
+
             wrongPassword.show();
         } else {
             GeneralLoginController.setLoginInstance(userEmail);
@@ -84,7 +92,7 @@ public class UserLoginFXController implements Initializable {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
 
-        viewPage(LastOpenedPageController.getLastOpenedPage());
+        viewPage("../../FXML/WelcomePageFX.fxml");
     }
 
 

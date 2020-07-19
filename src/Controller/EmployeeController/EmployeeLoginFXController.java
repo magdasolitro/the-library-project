@@ -2,6 +2,7 @@ package Controller.EmployeeController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,8 +10,22 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class EmployeeLoginFXController {
+public class EmployeeLoginFXController implements Initializable {
+
+    @FXML
+    public Button LoginButton;
+
+    @FXML
+    public Button goBackButton;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        goBackButton.setId("goback-button");
+        goBackButton.getStylesheets().add("/CSS/style.css");
+    }
 
     @FXML
     public void handleGoBackButtonClick(MouseEvent evt) throws IOException {
@@ -26,5 +41,10 @@ public class EmployeeLoginFXController {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
+    }
+
+
+    public void handleLogInRequest(MouseEvent mouseEvent) {
+
     }
 }
