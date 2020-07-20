@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public interface EmployeeDAO {
 
-    public Employee getEmployee(String employeeID) throws SQLException,
+    public Employee getEmployee(String employeeEmail) throws SQLException,
             InvalidStringException;
 
     public void addEmployee(String employeeID, String name, String surname,

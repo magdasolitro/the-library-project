@@ -2,13 +2,48 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.EmployeeMainPageFXController">
    <children>
-      <Pane layoutX="109.0" layoutY="97.0" prefHeight="385.0" prefWidth="503.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20 20 20 20; -fx-border-radius: 20 20 20 20;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
+      <AnchorPane fx:id="mainPane" layoutX="110.0" layoutY="97.0" prefHeight="385.0" prefWidth="503.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20 20 20 20; -fx-border-radius: 20 20 20 20;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
          <children>
-            <ListView layoutX="50.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" />
+            <Label layoutX="80.0" layoutY="160.0" text="You can select one of the following:">
+               <font>
+                  <Font name="Avenir Book" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="checkOrdersButton" layoutX="80.0" layoutY="230.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="243.0" text="Check orders' status">
+               <font>
+                  <Font name="Avenir Book" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="checkLibroCardsButton" layoutX="80.0" layoutY="280.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Check LibroCards' points">
+               <font>
+                  <Font name="Avenir Book" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="addBookButton" layoutX="80.0" layoutY="330.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Add a new book">
+               <font>
+                  <Font name="Avenir Book" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="registerEmployeeButton" layoutX="80.0" layoutY="380.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Register a new employee">
+               <font>
+                  <Font name="Avenir Book" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="updateRankingsButton" layoutX="80.0" layoutY="430.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Update books rankings">
+               <font>
+                  <Font name="Avenir Book" size="17.0" />
+               </font>
+            </Button>
+            <Label layoutX="355.0" layoutY="387.0" text="* General/Local Directors only!" textFill="RED">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font>
+            </Label>
          </children>
-      </Pane>
+      </AnchorPane>
    </children>
 </AnchorPane>

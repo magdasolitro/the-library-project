@@ -65,7 +65,7 @@ public class LibroCard {
         // date + time
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime now = LocalDateTime.now();
-        String dateTimeToken  = dtf.format(now);
+        String dateTimeToken = dtf.format(now);
 
         // user's surname
         String sql = "SELECT surname FROM user WHERE email = ?";

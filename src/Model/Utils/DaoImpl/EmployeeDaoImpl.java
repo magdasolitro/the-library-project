@@ -11,24 +11,27 @@ import java.sql.SQLException;
 public class EmployeeDaoImpl implements EmployeeDAO {
 
     @Override
-    public Employee getEmployee(String employeeID) throws SQLException,
+    public Employee getEmployee(String employeeEmail) throws SQLException,
             InvalidStringException {
-        String sql = "SELECT * FROM employee WHERE employeeID = ?";
+        String sql = "SELECT * FROM employee WHERE email = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, employeeID);
+        connection.pstmt.setString(1, employeeEmail);
 
         connection.rs = connection.pstmt.executeQuery();
 
-        Employee employee = new Employee(connection.rs.getString("employeeID"),
+
+
+        Employee employee = new Employee(connection.rs.getString("email"),
                 connection.rs.getString("name"),
                 connection.rs.getString("surname"),
                 connection.rs.getString("birthDate"),
-                (EmployeeRoleEnum) connection.rs.getObject("role"),
-                connection.rs.getString("employedSince"));
+                connection.rs.getString("role"),
+                connection.rs.getString("employedSince"),
+                connection.rs.getString("password"));
 
         connection.closeConnection();
 
@@ -36,11 +39,11 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     }
 
     @Override
-    public void addEmployee(String employeeID, String name, String surname,
+    public void addEmployee(String email, String name, String surname,
                             String birthDate, EmployeeRoleEnum role, String employedSince,
                             String password)
             throws SQLException {
-        String sql = "INSERT INTO employee(employeeID, name, surname, birthDate," +
+        String sql = "INSERT INTO employee(email, name, surname, birthDate," +
                 "role, employedSince, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -48,7 +51,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 
         connection.pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, employeeID);
+        connection.pstmt.setString(1, email);
         connection.pstmt.setString(2, name);
         connection.pstmt.setString(3, surname);
         connection.pstmt.setString(4, birthDate);

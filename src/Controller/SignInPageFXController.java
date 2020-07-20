@@ -91,6 +91,8 @@ public class SignInPageFXController implements Initializable {
             return;
         }
 
+        //String userEmail = emailField.getText();
+
         // add new user
         User newUser = new User(nameField.getText(), surnameField.getText(),
                 phoneField.getText(), emailField.getText(), passwordField.getText(),
@@ -99,11 +101,13 @@ public class SignInPageFXController implements Initializable {
 
         userDAO.addUser(newUser);
 
-        // add new LibroCard associated with this user
+        /* // add new LibroCard associated with this user
         LibroCard newLibroCard = new LibroCard(emailField.getText());
 
         LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
         libroCardDAO.addLibroCard(newLibroCard);
+
+         */
 
         Stage stage = (Stage) signInButton.getScene().getWindow();
         stage.close();

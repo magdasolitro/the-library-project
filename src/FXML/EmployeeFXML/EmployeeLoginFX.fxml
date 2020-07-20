@@ -11,16 +11,16 @@
                         <Font name="Avenir Next Bold" size="60.0" />
                     </font>
                 </Label>
-            <TextField id="EmployeeEmailField" layoutX="207.0" layoutY="200.0" prefHeight="33.0" prefWidth="250.0" promptText="e-mail" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="238.0800018310547">
+            <TextField fx:id="employeeEmailField" layoutX="207.0" layoutY="200.0" prefHeight="33.0" prefWidth="250.0" promptText="e-mail" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="238.0800018310547">
                 <font>
                     <Font name="Avenir Book" size="15.0" />
                 </font></TextField>
-            <PasswordField id="EmployeePasswordField" layoutX="207.0" layoutY="262.0" prefHeight="33.0" prefWidth="250.0" promptText="password" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="247.0800018310547">
+            <PasswordField fx:id="employeePasswordField" layoutX="207.0" layoutY="262.0" prefHeight="33.0" prefWidth="250.0" promptText="password" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="247.0800018310547">
                 <font>
                     <Font name="Avenir Book" size="15.0" />
                 </font>
             </PasswordField>
-           <Button fx:id="LoginButton" mnemonicParsing="false" onMouseClicked="#handleLogInRequest" layoutX="255.0" layoutY="342.0" prefHeight="44.0" prefWidth="155.0" style="-fx-background-color: #3CB371;" text="Log In" textFill="WHITE">
+           <Button fx:id="loginButton" mnemonicParsing="false" onMouseClicked="#handleLogInRequest" layoutX="255.0" layoutY="342.0" prefHeight="44.0" prefWidth="155.0" style="-fx-background-color: #3CB371;" text="Log In" textFill="WHITE">
                <font>
                    <Font name="Avenir Next Bold" size="20.0" />
                </font>

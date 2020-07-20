@@ -45,8 +45,11 @@ public class UserLoginFXController implements Initializable {
             InvalidStringException, IOException {
 
         if(userEmailField.getText().isEmpty() || userPasswordField.getText().isEmpty()){
-            Alert missingFields = new Alert(Alert.AlertType.ERROR, "You " +
-                    "did not fill all the fields!", ButtonType.OK);
+            Alert missingFields = new Alert(Alert.AlertType.ERROR);
+
+            missingFields.setTitle("Missing Fields");
+            missingFields.setHeaderText("You did not fill all the fields!");
+            missingFields.setContentText("Your email and password are required in order to log in.");
 
             missingFields.showAndWait();
 

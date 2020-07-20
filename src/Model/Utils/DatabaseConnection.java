@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 
 public class DatabaseConnection {
     /* a connection to a specific database */
-    public Connection conn;
+    public Connection conn = null;
 
     /* will store a precompiled SQL statement. */
     public PreparedStatement pstmt;
@@ -24,11 +24,14 @@ public class DatabaseConnection {
      */
     public void openConnection() {
         try {
-            // load JDBC driver for SQLite
-            Class.forName("org.sqlite.JDBC");
+            if(conn == null) {
+                // load JDBC driver for SQLite
+                Class.forName("org.sqlite.JDBC");
 
-            // establish connection providing the database URL
-            conn = DriverManager.getConnection("jdbc:sqlite:src/Database/library2.db");
+                // establish connection providing the database URL
+                conn = DriverManager.getConnection("jdbc:sqlite:src/Database/library2.db");
+            }
+
             System.out.println("Database connection successful");
 
         } catch (SQLException e) {
@@ -43,6 +46,12 @@ public class DatabaseConnection {
      */
     public void closeConnection(){
         try{
+            /*if(rs != null){
+                rs.close();
+            }
+            if(pstmt != null){
+                pstmt.close();
+            }*/
             conn.close();
             System.out.println("Database connection closed");
         } catch (SQLException e){

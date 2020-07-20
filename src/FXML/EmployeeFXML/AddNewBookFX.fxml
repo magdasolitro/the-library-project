@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.AddNewBookFXController">
+    <children>
+        <AnchorPane fx:id="mainPane" layoutX="110.0" layoutY="97.0" prefHeight="385.0" prefWidth="503.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20 20 20 20; -fx-border-radius: 20 20 20 20;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
+         <children>
+             <Label layoutX="80.0" layoutY="40.0" text="Add a New Book">
+                 <font>
+                     <Font name="Avenir Next Bold" size="60.0" />
+                 </font>
+             </Label>
+             <Label layoutX="80.0" layoutY="180.0" text="Title:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="80.0" layoutY="240.0" text="Authors:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="80.0" layoutY="300.0" text="Price:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="80.0" layoutY="360.0" text="Publishing House:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="80.0" layoutY="420.0" text="Publishing Year:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="80.0" layoutY="480.0" text="Discount (%):">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <TextField layoutX="280.0" layoutY="180.0" prefHeight="27.0" prefWidth="200.0" />
+             <TextField layoutX="280.0" layoutY="240.0" prefHeight="27.0" prefWidth="200.0" />
+             <TextField layoutX="280.0" layoutY="300.0" prefHeight="27.0" prefWidth="200.0" />
+             <TextField layoutX="280.0" layoutY="360.0" prefHeight="27.0" prefWidth="200.0" />
+             <TextField layoutX="280.0" layoutY="420.0" prefHeight="27.0" prefWidth="200.0" />
+             <TextField layoutX="280.0" layoutY="480.0" prefHeight="27.0" prefWidth="200.0" />
+         </children></AnchorPane>
+      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" />
+    </children>
+</AnchorPane>

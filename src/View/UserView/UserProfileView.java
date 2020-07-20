@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
+import java.sql.SQLException;
+
 public class UserProfileView {
 
     public static GridPane buildUserInfosGrid(String email){
@@ -92,6 +94,8 @@ public class UserProfileView {
             System.out.println("InvalidStringException: " + ise.getMessage());
         } catch(UserNotInDatabaseException unidbe){
             System.out.println("UserNotInDatabaseException: " + unidbe.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return infosContainer;
@@ -122,6 +126,8 @@ public class UserProfileView {
             System.out.println("InvalidStringException: " + ise.getMessage());
         } catch(UserNotInDatabaseException unidbe){
             System.out.println("UserNotInDatabaseException: " + unidbe.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return null;
