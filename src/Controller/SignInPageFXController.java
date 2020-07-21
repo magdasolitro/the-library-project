@@ -91,9 +91,7 @@ public class SignInPageFXController implements Initializable {
             return;
         }
 
-        //String userEmail = emailField.getText();
-
-        // add new user
+        // add new user (LibroCard is added automatically inside addUser method)
         User newUser = new User(nameField.getText(), surnameField.getText(),
                 phoneField.getText(), emailField.getText(), passwordField.getText(),
                 addressField.getText(), streetNumber.getText(),

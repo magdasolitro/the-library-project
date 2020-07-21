@@ -2,22 +2,33 @@ package Controller.EmployeeController;
 
 import Controller.GeneralLoginController;
 import Model.Employee;
+import Model.EmployeeRoleEnum;
 import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.EmployeeDAO;
 import Model.Utils.DaoImpl.EmployeeDaoImpl;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class EmployeeMainPageFXController implements Initializable {
+
+    @FXML Button checkOrdersButton, checkLibroCardsButton, addBookButton,
+            registerEmployeeButton, updateRankingsButton;
 
     @FXML
     public AnchorPane mainPane;
@@ -31,6 +42,58 @@ public class EmployeeMainPageFXController implements Initializable {
         AnchorPane.setTopAnchor(greetingMessageLabel, (double) 40);
         AnchorPane.setLeftAnchor(greetingMessageLabel, (double) 80);
     }
+
+
+    public void handleCheckOrdersRequest(MouseEvent mouseEvent) {
+    }
+
+
+    public void handleCheckLibroCardsRequest(MouseEvent mouseEvent) {
+    }
+
+
+    public void handleAddBookRequest() {
+        Stage stage = (Stage) addBookButton.getScene().getWindow();
+        stage.close();
+
+        try {
+            viewPage("../../FXML/EmployeeFXML/AddNewBookFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void handleRegisterEmployeeRequest() {
+        Stage stage = (Stage) registerEmployeeButton.getScene().getWindow();
+        stage.close();
+
+        try {
+            // check if current employee has the neccessary privilegies to add a new employee
+            EmployeeDAO employeeDAO = new EmployeeDaoImpl();
+
+            Employee currentEmployee = employeeDAO.getEmployee(GeneralLoginController.getLoginInstance());
+
+            if(!currentEmployee.getRole().equals(EmployeeRoleEnum.GENERAL_DIRECTOR.toString())
+                    && !currentEmployee.getRole().equals(EmployeeRoleEnum.LOCAL_DIRECTOR.toString())){
+                Alert notDirectorAlert = new Alert(Alert.AlertType.ERROR);
+
+                notDirectorAlert.setTitle("Not A Director");
+                notDirectorAlert.setHeaderText("You can't access this option!");
+                notDirectorAlert.setContentText("In order to add a new employee," +
+                        "you must be either a General Director or a Local Director");
+            } else {
+                viewPage("../../FXML/EmployeeFXML/AddNewEmployeeFX.fxml");
+            }
+        } catch (SQLException | InvalidStringException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void handleUpdateRankingsRequest(MouseEvent mouseEvent) {
+    }
+
 
     private Label buildGreetingLabel(){
         // add greeting message customised on the employee
@@ -57,4 +120,19 @@ public class EmployeeMainPageFXController implements Initializable {
 
         return greetingMessageLabel;
     }
+
+    private void viewPage(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(path));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.show();
+
+    }
+
 }

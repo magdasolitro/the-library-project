@@ -18,10 +18,10 @@ public class BookDaoImpl implements BookDAO {
      * Adds a new book to the store
      */
     @Override
-    public void addBook(String ISBN, String title, String authors, GenresEnum genre,
+    public void addBook(String ISBN, String title, String authors, String genre,
                         BigDecimal price, String description, String publishingHouse,
                         int publishingYear, BigDecimal discount, int availableCopies,
-                        int libroCardPoints) throws SQLException, InvalidStringException {
+                        int libroCardPoints) throws SQLException {
 
         String sql = "INSERT INTO book(ISBN, title, authors, genre, price, " +
                 "description, publishingHouse, publishingYear, discount, " +
@@ -35,7 +35,7 @@ public class BookDaoImpl implements BookDAO {
         connection.pstmt.setString(1, ISBN);
         connection.pstmt.setString(2, title);
         connection.pstmt.setString(3, authors);
-        connection.pstmt.setString(4, genre.toString());
+        connection.pstmt.setString(4, genre);
         connection.pstmt.setBigDecimal(5, price);
         connection.pstmt.setString(6, description);
         connection.pstmt.setString(7, publishingHouse);

@@ -28,7 +28,7 @@ import java.util.*;
 
 public class UserMainPageFXController implements Initializable {
     @FXML
-    private ChoiceBox genresChoiceBox;
+    private ChoiceBox<String> genresChoiceBox;
 
     @FXML
     private AnchorPane rightPane;

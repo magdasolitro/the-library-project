@@ -18,4 +18,5 @@ public enum EmployeeRoleEnum {
                 return "Cashier";
         }
     }
+
 }

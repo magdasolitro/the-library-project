@@ -8,48 +8,117 @@
     <children>
         <AnchorPane fx:id="mainPane" layoutX="110.0" layoutY="97.0" prefHeight="385.0" prefWidth="503.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20 20 20 20; -fx-border-radius: 20 20 20 20;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
          <children>
-             <Label layoutX="80.0" layoutY="40.0" text="Add a New Book">
+             <Label layoutX="70.0" layoutY="40.0" text="Add a New Book">
                  <font>
                      <Font name="Avenir Next Bold" size="60.0" />
                  </font>
              </Label>
-             <Label layoutX="80.0" layoutY="180.0" text="Title:">
+             <Label layoutX="70.0" layoutY="180.0" text="Title:">
                  <font>
                      <Font name="Avenir Book" size="20.0" />
                  </font>
              </Label>
-             <Label layoutX="80.0" layoutY="240.0" text="Authors:">
+             <Label layoutX="70.0" layoutY="235.0" text="Authors:">
                  <font>
                      <Font name="Avenir Book" size="20.0" />
                  </font>
              </Label>
-             <Label layoutX="80.0" layoutY="300.0" text="Price:">
+             <Label layoutX="70.0" layoutY="295.0" text="Price:">
                  <font>
                      <Font name="Avenir Book" size="20.0" />
                  </font>
              </Label>
-             <Label layoutX="80.0" layoutY="360.0" text="Publishing House:">
+             <Label layoutX="70.0" layoutY="355.0" text="Publishing House:">
                  <font>
                      <Font name="Avenir Book" size="20.0" />
                  </font>
              </Label>
-             <Label layoutX="80.0" layoutY="420.0" text="Publishing Year:">
+             <Label layoutX="70.0" layoutY="415.0" text="Publishing Year:">
                  <font>
                      <Font name="Avenir Book" size="20.0" />
                  </font>
              </Label>
-             <Label layoutX="80.0" layoutY="480.0" text="Discount (%):">
+             <Label layoutX="70.0" layoutY="475.0" text="Discount (%):">
                  <font>
                      <Font name="Avenir Book" size="20.0" />
                  </font>
              </Label>
-             <TextField layoutX="280.0" layoutY="180.0" prefHeight="27.0" prefWidth="200.0" />
-             <TextField layoutX="280.0" layoutY="240.0" prefHeight="27.0" prefWidth="200.0" />
-             <TextField layoutX="280.0" layoutY="300.0" prefHeight="27.0" prefWidth="200.0" />
-             <TextField layoutX="280.0" layoutY="360.0" prefHeight="27.0" prefWidth="200.0" />
-             <TextField layoutX="280.0" layoutY="420.0" prefHeight="27.0" prefWidth="200.0" />
-             <TextField layoutX="280.0" layoutY="480.0" prefHeight="27.0" prefWidth="200.0" />
+             <TextField fx:id="titleField" layoutX="260.0" layoutY="180.0" prefHeight="27.0" prefWidth="200.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <TextField fx:id="authorsField" layoutX="260.0" layoutY="235.0" prefHeight="27.0" prefWidth="200.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <TextField fx:id="priceField" layoutX="260.0" layoutY="295.0" prefHeight="27.0" prefWidth="200.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <TextField fx:id="publishingHouseField" layoutX="260.0" layoutY="355.0" prefHeight="27.0" prefWidth="200.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <TextField fx:id="publishingYearField" layoutX="260.0" layoutY="415.0" prefHeight="27.0" prefWidth="200.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <TextField fx:id="discountField" layoutX="260.0" layoutY="475.0" prefHeight="27.0" prefWidth="200.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <Label layoutX="580.0" layoutY="180.0" text="ISBN:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="580.0" layoutY="235.0" text="Number of Copies:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="580.0" layoutY="295.0" text="LibroCard Points:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="580.0" layoutY="355.0" text="Genre:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <Label layoutX="580.0" layoutY="415.0" text="Description:">
+                 <font>
+                     <Font name="Avenir Book" size="20.0" />
+                 </font>
+             </Label>
+             <TextField fx:id="ISBNField" layoutX="775.0" layoutY="180.0" prefHeight="27.0" prefWidth="200.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <TextField fx:id="copiesField" layoutX="775.0" layoutY="235.0" prefHeight="27.0" prefWidth="60.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <TextField fx:id="libroCardPointsField" layoutX="775.0" layoutY="295.0" prefHeight="27.0" prefWidth="60.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextField>
+             <TextArea fx:id="descriptionField" layoutX="580.0" layoutY="455.0" prefHeight="130.0" prefWidth="375.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="585.0" AnchorPane.rightAnchor="40.0">
+               <font>
+                  <Font name="Avenir Book" size="15.0" />
+               </font></TextArea>
+             <Button fx:id="addBookButton" layoutX="820.0" layoutY="60.0" mnemonicParsing="false" onMouseClicked="#handleAddBookRequest" style="-fx-background-color: #3CB371;" text="Add Book!" textFill="WHITE">
+                 <font>
+                     <Font name="Avenir Next Bold" size="20.0" />
+                 </font>
+             </Button>
+            <ChoiceBox fx:id="genresChoiceBox" layoutX="775.0" layoutY="355.0" prefWidth="150.0" />
          </children></AnchorPane>
-      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" />
+        <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0">
+            <font>
+                <Font name="Avenir Book" size="17.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

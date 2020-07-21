@@ -23,8 +23,6 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 
         connection.rs = connection.pstmt.executeQuery();
 
-
-
         Employee employee = new Employee(connection.rs.getString("email"),
                 connection.rs.getString("name"),
                 connection.rs.getString("surname"),

@@ -23,17 +23,29 @@ public class Book implements Comparable<Book>{
     private int availableCopies;
     private int libroCardPoints;
 
+    // to be used when adding a new book
     public Book (String ISBN, String title, String authors, String genre, BigDecimal price,
                  String description, String publishingHouse, int publishingYear,
                  BigDecimal discount, int availableCopies, int libroCardPoints) throws
             InvalidStringException, IllegalValueException {
 
-        if(!Pattern.matches("[0-9]{3}-[0-9]{2}-[0-9]{5}-[0-9]{2}-[0-9]{1}", ISBN)){
+        if(!Pattern.matches("[0-9]{3}-[0-9]{2}-[0-9]{5}-[0-9]{2}-[0-9]", ISBN)){
             throw new InvalidStringException();
         }
 
-        if(title.length() == 0 || authors.length() == 0 || genre.length() == 0
-            || description.length() < 0 || publishingHouse.length() == 0){
+        if(!genre.equals(GenresEnum.AUTOBIOGRAPHY.toString())
+                && !genre.equals(GenresEnum.CRIME_FICTION.toString())
+                && !genre.equals(GenresEnum.FANTASY.toString())
+                && !genre.equals(GenresEnum.HISTORY.toString())
+                && !genre.equals(GenresEnum.NARRATIVE.toString())
+                && !genre.equals(GenresEnum.PHILOSOPHY_OF_SCIENCE.toString())
+                && !genre.equals(GenresEnum.POLITICS.toString())
+                && !genre.equals((GenresEnum.SCIENCE_FICTION.toString()))){
+            throw new InvalidStringException();
+        }
+
+        if(title.length() == 0 || authors.length() == 0 || genre.toString().length() == 0
+            || description.length() == 0 || publishingHouse.length() == 0){
             throw new InvalidStringException();
         }
 
@@ -46,7 +58,7 @@ public class Book implements Comparable<Book>{
         this.ISBN = ISBN;
         this.title = title;
         this.authors = authors;
-        this.genre = genre;
+        this.genre = genre.toString();
         this.price = price;
         this.publishingHouse = publishingHouse;
         this.publishingYear = publishingYear;
@@ -55,6 +67,7 @@ public class Book implements Comparable<Book>{
         this.availableCopies = availableCopies;
         this.libroCardPoints = libroCardPoints;
     }
+
 
     public String getISBN(){
         return ISBN;
