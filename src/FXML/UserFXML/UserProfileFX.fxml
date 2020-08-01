@@ -78,6 +78,6 @@
                 <Image url="@../../images/cartIcon.png" />
             </image>
         </ImageView>
-      <Separator layoutX="788.0" layoutY="100.0" prefHeight="6.0" prefWidth="512.0" />
+        <Separator layoutX="788.0" layoutY="100.0" prefHeight="6.0" prefWidth="512.0" />
     </children>
 </AnchorPane>

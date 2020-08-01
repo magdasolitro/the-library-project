@@ -1,11 +1,16 @@
 package Model.Utils.DaoImpl;
 
+import Model.Book;
 import Model.Exceptions.NotSameUserException;
 import Model.LibroCard;
 import Model.Utils.DAOs.LibroCardDAO;
 import Model.Utils.DatabaseConnection;
 
+import javax.xml.transform.Result;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class LibroCardDaoImpl implements LibroCardDAO {
     @Override
@@ -17,14 +22,16 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newLibroCard.getCardID());
-        connection.pstmt.setString(2, newLibroCard.getIssueDate());
-        connection.pstmt.setInt(3, newLibroCard.getPoints());
-        connection.pstmt.setString(4, newLibroCard.getUser());
+        pstmt.setString(1, newLibroCard.getCardID());
+        pstmt.setString(2, newLibroCard.getIssueDate());
+        pstmt.setInt(3, newLibroCard.getPoints());
+        pstmt.setString(4, newLibroCard.getUser());
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -36,15 +43,20 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, cardID);
+        pstmt.setString(1, cardID);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
+
+        String userEmail = rs.getString("email");
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
-        return connection.rs.getString("email");
+        return userEmail;
     }
 
     @Override
@@ -54,19 +66,53 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, cardID);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, cardID);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        LibroCard libroCard = new LibroCard(connection.rs.getString("cardID"),
-                connection.rs.getString("email"),
-                connection.rs.getInt("points"),
-                connection.rs.getString("issueDate"));
+        LibroCard libroCard = new LibroCard(rs.getString("cardID"),
+                rs.getString("email"),
+                rs.getInt("points"),
+                rs.getString("issueDate"));
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
         return libroCard;
+    }
+
+    @Override
+    public ArrayList<LibroCard> getAllLibroCards() throws SQLException {
+        String sql = "SELECT * " +
+                "FROM LibroCard";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        ResultSet rs = pstmt.executeQuery();
+
+        // store the result of the query in a list
+        ArrayList<LibroCard> allLibroCards = new ArrayList<>();
+
+        while(rs.next()) {
+            allLibroCards.add(new LibroCard(rs.getString("cardID"),
+                    rs.getString("issueDate"),
+                    rs.getInt("points"),
+                    rs.getString("email")));
+        }
+
+        rs.close();
+        pstmt.close();
+
+        connection.closeConnection();
+
+        return allLibroCards;
+
     }
 
     public LibroCard getUserLibroCard(String email) throws SQLException{
@@ -75,15 +121,18 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, email);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        LibroCard libroCard = new LibroCard(connection.rs.getString("cardID"),
-                connection.rs.getString("email"),
-                connection.rs.getInt("points"),
-                connection.rs.getString("issueDate"));
+        LibroCard libroCard = new LibroCard(rs.getString("cardID"),
+                rs.getString("email"),
+                rs.getInt("points"),
+                rs.getString("issueDate"));
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -97,10 +146,12 @@ public class LibroCardDaoImpl implements LibroCardDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, cardID);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, cardID);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -117,12 +168,15 @@ public class LibroCardDaoImpl implements LibroCardDAO {
                     "WHERE orderID = ?)" +
                     "WHERE cardID = ?";
 
-            connection.pstmt = connection.conn.prepareStatement(sql);
+            PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-            connection.pstmt.setString(1, orderID);
-            connection.pstmt.setString(2, cardID);
+            pstmt.setString(1, orderID);
+            pstmt.setString(2, cardID);
 
-            connection.pstmt.executeUpdate();
+            pstmt.executeUpdate();
+
+            pstmt.close();
+
         } catch(SQLException sqle){
             System.out.println(sqle.getMessage());
         } /*catch(NotSameUserException nsue){

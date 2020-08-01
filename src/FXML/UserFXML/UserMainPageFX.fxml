@@ -17,7 +17,7 @@
                            </font>
                        </Label>
                        <ChoiceBox fx:id="genresChoiceBox" layoutX="35.0" layoutY="239.0" prefHeight="30.0" prefWidth="150.0" />
-                       <Label layoutX="35.0" layoutY="412.0" text="Order by" textFill="WHITE">
+                       <Label layoutX="35.0" layoutY="412.0" text="Order by:" textFill="WHITE">
                            <font>
                                <Font name="Avenir Next Bold" size="20.0" />
                            </font>

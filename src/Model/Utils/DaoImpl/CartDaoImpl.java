@@ -6,15 +6,17 @@ import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Exceptions.NotSameUserException;
 import Model.Exceptions.UserNotInDatabaseException;
+import Model.Order;
 import Model.OrderStatusEnum;
 import Model.Utils.DAOs.*;
 import Model.Utils.DatabaseConnection;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
+import javax.xml.crypto.Data;
+import javax.xml.transform.Result;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Array;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,23 +25,24 @@ import java.util.Calendar;
 import java.util.regex.Pattern;
 
 public class CartDaoImpl implements CartDAO {
-    DatabaseConnection connection;
 
     @Override
     public void addBookToCart(String ISBN, String email, int quantity) throws SQLException {
 
         String sql = "INSERT INTO cart(user, book, quantity) VALUES (?,?,?)";
 
-        connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
         
-        connection.pstmt.setString(1, email);
-        connection.pstmt.setString(2, ISBN);
-        connection.pstmt.setInt(3, quantity);
+        pstmt.setString(1, email);
+        pstmt.setString(2, ISBN);
+        pstmt.setInt(3, quantity);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -48,15 +51,17 @@ public class CartDaoImpl implements CartDAO {
     public void removeBookFromCart(String ISBN, String email) throws SQLException {
         String sql = "DELETE FROM cart WHERE book = ? AND user = ?";
 
-        connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, ISBN);
-        connection.pstmt.setString(2, email);
+        pstmt.setString(1, ISBN);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -76,30 +81,33 @@ public class CartDaoImpl implements CartDAO {
                      "FROM book JOIN cart ON book.ISBN = cart.book " +
                      "WHERE user = ?";
 
-        ArrayList<Book> booksInCart = new ArrayList<>();
-
-        connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        ArrayList<Book> booksInCart = new ArrayList<>();
 
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.rs = connection.pstmt.executeQuery();
+        pstmt.setString(1, email);
 
-        while(connection.rs.next()){
-            booksInCart.add(new Book(connection.rs.getString("ISBN"),
-                    connection.rs.getString("title"),
-                    connection.rs.getString("authors"),
-                    connection.rs.getString("genre"),
-                    connection.rs.getBigDecimal("price"),
-                    connection.rs.getString("description"),
-                    connection.rs.getString("publishingHouse"),
-                    connection.rs.getInt("publishingYear"),
-                    connection.rs.getBigDecimal("discount"),
-                    connection.rs.getInt("availableCopies"),
-                    connection.rs.getInt("libroCardPoints")));
+        ResultSet rs = pstmt.executeQuery();
+
+        while(rs.next()){
+            booksInCart.add(new Book(rs.getString("ISBN"),
+                    rs.getString("title"),
+                    rs.getString("authors"),
+                    rs.getString("genre"),
+                    rs.getBigDecimal("price"),
+                    rs.getString("description"),
+                    rs.getString("publishingHouse"),
+                    rs.getInt("publishingYear"),
+                    rs.getBigDecimal("discount"),
+                    rs.getInt("availableCopies"),
+                    rs.getInt("libroCardPoints")));
         }
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -134,14 +142,16 @@ public class CartDaoImpl implements CartDAO {
                      "WHERE book = ?" +
                      "AND user = ?";
 
-        connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, ISBN);
-        connection.pstmt.setString(2, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, ISBN);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -151,14 +161,16 @@ public class CartDaoImpl implements CartDAO {
         String sql = "UPDATE cart SET quantity = quantity - 1 WHERE book = ?" +
                      "AND user = ?";
 
-        connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, ISBN);
-        connection.pstmt.setString(2, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, ISBN);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -173,31 +185,34 @@ public class CartDaoImpl implements CartDAO {
                      "   JOIN book ON book.ISBN = cart.book " +
                      "WHERE user = ?";
 
-        connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, email);
+        pstmt.setString(1, email);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
         // store the result of the query in a list
         ArrayList<Book> cartContent = new ArrayList<>();
 
-        while(connection.rs.next()) {
-            cartContent.add(new Book(connection.rs.getString("ISBN"),
-                    connection.rs.getString("title"),
-                    connection.rs.getString("authors"),
-                    connection.rs.getString("genre"),
-                    connection.rs.getBigDecimal("price"),
-                    connection.rs.getString("description"),
-                    connection.rs.getString("publishingHouse"),
-                    connection.rs.getInt("publishingYear"),
-                    connection.rs.getBigDecimal("discount"),
-                    connection.rs.getInt("availableCopies"),
-                    connection.rs.getInt("libroCardPoints")));
+        while(rs.next()) {
+            cartContent.add(new Book(rs.getString("ISBN"),
+                    rs.getString("title"),
+                    rs.getString("authors"),
+                    rs.getString("genre"),
+                    rs.getBigDecimal("price"),
+                    rs.getString("description"),
+                    rs.getString("publishingHouse"),
+                    rs.getInt("publishingYear"),
+                    rs.getBigDecimal("discount"),
+                    rs.getInt("availableCopies"),
+                    rs.getInt("libroCardPoints")));
         }
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -209,7 +224,7 @@ public class CartDaoImpl implements CartDAO {
             throws SQLException, UserNotInDatabaseException, NotSameUserException,
             InvalidStringException, IllegalValueException {
 
-        connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
         String orderID = generateOrderID(connection, email);
@@ -219,18 +234,18 @@ public class CartDaoImpl implements CartDAO {
                                   "FROM cart " +
                                   "WHERE user = ?";
 
-        connection.pstmt = connection.conn.prepareStatement(booksInCartQuery);
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt1 = connection.conn.prepareStatement(booksInCartQuery);
+        pstmt1.setString(1, email);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs1 = pstmt1.executeQuery();
 
         ArrayList<Book> booksInCartAttributes = new ArrayList<>();
         BookDAO bookDao = new BookDaoImpl();
 
         // for each book in cart, add a new row in table Composition
-        while(connection.rs.next()){
-            String currentBook = connection.rs.getString("book");
-            int currentQuantity = connection.rs.getInt("quantity");
+        while(rs1.next()){
+            String currentBook = rs1.getString("book");
+            int currentQuantity = rs1.getInt("quantity");
 
             booksInCartAttributes.add(bookDao.getBook(currentBook));
 
@@ -238,7 +253,12 @@ public class CartDaoImpl implements CartDAO {
             newComposition.addBookToOrder(currentBook, orderID, currentQuantity);
         }
 
+        rs1.close();
+        pstmt1.close();
+
         BigDecimal totalCost = totalCost(email);
+
+        Order newOrder;
 
         if(!Pattern.matches("NOTREG*", orderID) ){
             int totalPoints = getOrderPoints(connection, booksInCartAttributes);
@@ -246,10 +266,12 @@ public class CartDaoImpl implements CartDAO {
             // add new row in Order table
             OrderDAO orderDAO = new OrderDaoImpl();
 
-            orderDAO.addOrder(orderID, getCurrentDate(),
+            newOrder = new Order(orderID, getCurrentDate(),
                     OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
                     paymentMethod, totalCost, totalPoints, shippingAddress,
                     email, null);
+
+            orderDAO.addOrder(newOrder);
 
             // add points to user's LibroCard
             LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
@@ -258,22 +280,27 @@ public class CartDaoImpl implements CartDAO {
                                  "FROM LibroCard " +
                                  "WHERE email = ?";
 
-            connection.pstmt = connection.conn.prepareStatement(cardIDQuery);
+            PreparedStatement pstmt2 = connection.conn.prepareStatement(cardIDQuery);
 
-            connection.pstmt.setString(1, email);
+            pstmt2.setString(1, email);
 
-            connection.rs = connection.pstmt.executeQuery();
+            ResultSet rs2 = pstmt2.executeQuery();
 
-            libroCardDAO.addPoints(connection.rs.getString("cardID"), orderID);
+            libroCardDAO.addPoints(rs2.getString("cardID"), orderID);
+
+            rs2.close();
+            pstmt2.close();
 
         } else {
             // add new row in Order table
             OrderDAO orderDAO = new OrderDaoImpl();
 
-            orderDAO.addOrder(orderID, getCurrentDate(),
+            newOrder = new Order(orderID, getCurrentDate(),
                     OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
                     paymentMethod, totalCost, null, shippingAddress,
                     null, email);
+
+            orderDAO.addOrder(newOrder);
         }
 
         connection.closeConnection();
@@ -291,51 +318,66 @@ public class CartDaoImpl implements CartDAO {
             throws SQLException, UserNotInDatabaseException{
 
         String name, surname;
-        boolean isRegistred = true;
 
         String userNameSurnameQuery = "SELECT name, surname " +
                                       "FROM user JOIN cart ON user.email = cart.user " +
                                       "WHERE user.email = ?";
 
-        connection.pstmt = connection.conn.prepareStatement(userNameSurnameQuery);
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt1 = connection.conn.prepareStatement(userNameSurnameQuery);
+        pstmt1.setString(1, email);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs1 = pstmt1.executeQuery();
 
         // if ResultSet is empty, try to find user in userNotReg table
-        if(!connection.rs.next()){
-            isRegistred = false;
+        if(!rs1.next()){
 
             userNameSurnameQuery = "SELECT name, surname " +
                                    "FROM userNotReg JOIN cart ON userNotReg.email = cart.user " +
                                    "WHERE userNotReg.email = ?";
 
-            connection.pstmt = connection.conn.prepareStatement(userNameSurnameQuery);
-            connection.pstmt.setString(1, email);
+            PreparedStatement pstmt2 = connection.conn.prepareStatement(userNameSurnameQuery);
+            pstmt2.setString(1, email);
 
-            connection.rs = connection.pstmt.executeQuery();
+            ResultSet rs2 = pstmt2.executeQuery();
 
-            if(!connection.rs.next()){
+            if(!rs2.next()){
                 throw new UserNotInDatabaseException();
+            } else {
+                name = rs2.getString("name");
+                surname = rs2.getString("surname");
+
+                rs1.close();
+                pstmt1.close();
+                pstmt2.close();
+
+                connection.closeConnection();
+
+                String firstToken = name.substring(0, 3).toUpperCase() +
+                        surname.substring(0, 3).toUpperCase();
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+                LocalDateTime now = LocalDateTime.now();
+                String dateTimeToken = dtf.format(now);
+
+                return "NOTREG" + firstToken + dateTimeToken;
             }
-        }
+        } else {
+            name = rs1.getString("name");
+            surname = rs1.getString("surname");
 
-        name = connection.rs.getString("name");
-        surname = connection.rs.getString("surname");
+            rs1.close();
+            pstmt1.close();
 
-        connection.closeConnection();
+            connection.closeConnection();
 
-        String firstToken = name.substring(0,3).toUpperCase() +
-                surname.substring(0,3).toUpperCase();
+            String firstToken = name.substring(0,3).toUpperCase() +
+                    surname.substring(0,3).toUpperCase();
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDateTime now = LocalDateTime.now();
-        String dateTimeToken  = dtf.format(now);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            LocalDateTime now = LocalDateTime.now();
+            String dateTimeToken  = dtf.format(now);
 
-        if(isRegistred) {
             return firstToken + dateTimeToken;
-        } else{
-            return "NOTREG" + firstToken + dateTimeToken;
         }
     }
 

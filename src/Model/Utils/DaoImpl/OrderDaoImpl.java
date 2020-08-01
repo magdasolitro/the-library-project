@@ -8,8 +8,11 @@ import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class OrderDaoImpl implements OrderDAO {
 
@@ -21,21 +24,24 @@ public class OrderDaoImpl implements OrderDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, orderID);
+        pstmt.setString(1, orderID);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        Order order = new Order(connection.rs.getString("orderID"),
-                connection.rs.getString("date"),
-                connection.rs.getString("status"),
-                connection.rs.getString("paymentMethod"),
-                connection.rs.getBigDecimal("price"),
-                connection.rs.getInt("points"),
-                connection.rs.getString("shippingAddress"),
-                connection.rs.getString("user"),
-                connection.rs.getString("userNotReg"));
+        Order order = new Order(rs.getString("orderID"),
+                rs.getString("date"),
+                rs.getString("status"),
+                rs.getString("paymentMethod"),
+                rs.getBigDecimal("price"),
+                rs.getInt("points"),
+                rs.getString("shippingAddress"),
+                rs.getString("user"),
+                rs.getString("userNotReg"));
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -50,19 +56,23 @@ public class OrderDaoImpl implements OrderDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, orderID);
+        pstmt.setString(1, orderID);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        if(connection.rs.getString("user") != null){
-            user = connection.rs.getString("user");
+        if(rs.getString("user") != null){
+            user = rs.getString("user");
             connection.closeConnection();
             return user;
         }
 
-        user = connection.rs.getString("userNotReg");
+        user = rs.getString("userNotReg");
+
+        rs.close();
+        pstmt.close();
+
         connection.closeConnection();
 
         return user;
@@ -77,23 +87,26 @@ public class OrderDaoImpl implements OrderDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
         ArrayList<Order> ordersList = new ArrayList<>();
 
-        while(connection.rs.next()){
-            ordersList.add(new Order(connection.rs.getString("orderID"),
-                    connection.rs.getString("date"),
-                    connection.rs.getString("status"),
-                    connection.rs.getString("paymentMethod"),
-                    connection.rs.getBigDecimal("price"),
-                    connection.rs.getInt("points"),
-                    connection.rs.getString("shippingAddress"),
-                    connection.rs.getString("user"),
-                    connection.rs.getString("user_notReg")));
+        while(rs.next()){
+            ordersList.add(new Order(rs.getString("orderID"),
+                    rs.getString("date"),
+                    rs.getString("status"),
+                    rs.getString("paymentMethod"),
+                    rs.getBigDecimal("price"),
+                    rs.getInt("points"),
+                    rs.getString("shippingAddress"),
+                    rs.getString("user"),
+                    rs.getString("user_notReg")));
         }
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -108,24 +121,27 @@ public class OrderDaoImpl implements OrderDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, email);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
         ArrayList<Order> ordersListPerUser = new ArrayList<>();
 
-        while(connection.rs.next()){
-            ordersListPerUser.add(new Order(connection.rs.getString("orderID"),
-                    connection.rs.getString("date"),
-                    connection.rs.getString("status"),
-                    connection.rs.getString("paymentMethod"),
-                    connection.rs.getBigDecimal("price"),
-                    connection.rs.getInt("points"),
-                    connection.rs.getString("shippingAddress"),
-                    connection.rs.getString("user"),
-                    connection.rs.getString("user_notReg")));
+        while(rs.next()){
+            ordersListPerUser.add(new Order(rs.getString("orderID"),
+                    rs.getString("date"),
+                    rs.getString("status"),
+                    rs.getString("paymentMethod"),
+                    rs.getBigDecimal("price"),
+                    rs.getInt("points"),
+                    rs.getString("shippingAddress"),
+                    rs.getString("user"),
+                    rs.getString("user_notReg")));
         }
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -133,9 +149,7 @@ public class OrderDaoImpl implements OrderDAO {
     }
 
     @Override
-    public void addOrder(String orderID, String date, String status,
-                         String paymentMethod, BigDecimal price, Integer points,
-                         String shippingAddress, String user, String userNotReg)
+    public void addOrder(Order order)
             throws SQLException {
 
         String sql = "INSERT INTO orders(orderID, date, status, paymentMethod," +
@@ -145,19 +159,28 @@ public class OrderDaoImpl implements OrderDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, orderID);
-        connection.pstmt.setString(2, date);
-        connection.pstmt.setString(3, status);
-        connection.pstmt.setString(4, paymentMethod);
-        connection.pstmt.setBigDecimal(5, price);
-        connection.pstmt.setInt(6, points);
-        connection.pstmt.setString(7, shippingAddress);
-        connection.pstmt.setString(8, user);
-        connection.pstmt.setString(9, userNotReg);
+        pstmt.setString(1, order.getOrderID());
+        pstmt.setString(2, order.getDate());
+        pstmt.setString(3, order.getStatus());
+        pstmt.setString(4, order.getPaymentMethod());
+        pstmt.setBigDecimal(5, order.getPrice());
+        pstmt.setInt(6, order.getPoints());
+        pstmt.setString(7, order.getShippingAddress());
 
-        connection.pstmt.executeUpdate();
+        // STABILIRE CODICE UTENTE NON REGISTRATO!! modificare la regex di conseguenza
+        if(!Pattern.matches("NOTREG[0-9]", order.getUser())){
+            pstmt.setString(8, order.getUser());
+            pstmt.setString(9, null);
+        } else {
+            pstmt.setString(8, null);
+            pstmt.setString(9, order.getUser());
+        }
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -169,12 +192,14 @@ public class OrderDaoImpl implements OrderDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newStatus.toString());
-        connection.pstmt.setString(2, order.getOrderID());
+        pstmt.setString(1, newStatus.toString());
+        pstmt.setString(2, order.getOrderID());
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }

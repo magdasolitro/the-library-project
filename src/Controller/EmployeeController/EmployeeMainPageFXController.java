@@ -44,11 +44,19 @@ public class EmployeeMainPageFXController implements Initializable {
     }
 
 
-    public void handleCheckOrdersRequest(MouseEvent mouseEvent) {
+    public void handleCheckOrdersRequest() {
     }
 
 
-    public void handleCheckLibroCardsRequest(MouseEvent mouseEvent) {
+    public void handleCheckLibroCardsRequest() {
+        Stage stage = (Stage) checkLibroCardsButton.getScene().getWindow();
+        stage.close();
+
+        try {
+            viewPage("../../FXML/EmployeeFXML/AllLibroCardsFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -65,9 +73,6 @@ public class EmployeeMainPageFXController implements Initializable {
 
 
     public void handleRegisterEmployeeRequest() {
-        Stage stage = (Stage) registerEmployeeButton.getScene().getWindow();
-        stage.close();
-
         try {
             // check if current employee has the neccessary privilegies to add a new employee
             EmployeeDAO employeeDAO = new EmployeeDaoImpl();
@@ -80,8 +85,10 @@ public class EmployeeMainPageFXController implements Initializable {
 
                 notDirectorAlert.setTitle("Not A Director");
                 notDirectorAlert.setHeaderText("You can't access this option!");
-                notDirectorAlert.setContentText("In order to add a new employee," +
+                notDirectorAlert.setContentText("In order to add a new employee, " +
                         "you must be either a General Director or a Local Director");
+
+                notDirectorAlert.showAndWait();
             } else {
                 viewPage("../../FXML/EmployeeFXML/AddNewEmployeeFX.fxml");
             }
@@ -110,16 +117,27 @@ public class EmployeeMainPageFXController implements Initializable {
             e.printStackTrace();
         } finally{
             if(LocalTime.now().compareTo(LocalTime.NOON) < 0){
-                greetingMessageLabel = new Label("Good Morning, " + employeeName);
+                greetingMessageLabel = new Label("Good Morning, " + employeeName + "!");
                 greetingMessageLabel.setFont(new Font("Avenir Next Bold", 60));
             } else {
-                greetingMessageLabel = new Label("Good Afternoon, " + employeeName);
+                greetingMessageLabel = new Label("Good Afternoon, " + employeeName + "!");
                 greetingMessageLabel.setFont(new Font("Avenir Next Bold", 60));
             }
         }
 
         return greetingMessageLabel;
     }
+
+
+    public void handleLogOutRequest() {
+
+    }
+
+
+    public void goToProfilePage() {
+
+    }
+
 
     private void viewPage(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -134,5 +152,4 @@ public class EmployeeMainPageFXController implements Initializable {
         stage.show();
 
     }
-
 }

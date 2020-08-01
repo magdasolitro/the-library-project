@@ -10,7 +10,6 @@ public enum GenresEnum {
     POLITICS,
     SCIENCE_FICTION;
 
-
     @Override
     public String toString(){
         switch(this){

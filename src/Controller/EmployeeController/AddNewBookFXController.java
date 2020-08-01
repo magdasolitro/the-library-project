@@ -1,5 +1,7 @@
 package Controller.EmployeeController;
 
+import Model.Book;
+import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
@@ -47,6 +49,9 @@ public class AddNewBookFXController implements Initializable {
 
 
     public void handleGoBackButton() {
+        Stage stage = (Stage) goBackButton.getScene().getWindow();
+        stage.close();
+
         try {
             viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
         } catch (IOException e) {
@@ -56,8 +61,11 @@ public class AddNewBookFXController implements Initializable {
 
 
     public void handleAddBookRequest() {
-        BigDecimal price = new BigDecimal(0), discount = new BigDecimal(0);
-        int publishingYear = 0, copies = 0, libroCardPoints = 0;
+        BigDecimal price, discount;
+
+        int publishingYear, copies, libroCardPoints;
+
+        Book newBook = null;
 
         // check if all the fields have been filled
         if(titleField.getText().isEmpty() || authorsField.getText().isEmpty()
@@ -65,14 +73,14 @@ public class AddNewBookFXController implements Initializable {
                 || publishingYearField.getText().isEmpty() || discountField.getText().isEmpty()
                 || ISBNField.getText().isEmpty() || copiesField.getText().isEmpty()
                 || libroCardPointsField.getText().isEmpty() || genresChoiceBox.getValue().isEmpty()){
-            Alert missingField = new Alert(Alert.AlertType.ERROR);
+            Alert missingFields = new Alert(Alert.AlertType.ERROR);
 
-            missingField.setTitle("Fields Error");
-            missingField.setHeaderText("You did not fill all the fields!");
-            missingField.setContentText("To register a new book successfully, " +
-                    "please provide all the requested informations");
+            missingFields.setTitle("Fields Error");
+            missingFields.setHeaderText("You did not fill all the fields!");
+            missingFields.setContentText("To register a new book successfully, " +
+                    "you must provide all the requested informations");
 
-            missingField.showAndWait();
+            missingFields.showAndWait();
         }
 
         // check validity of numeric fields
@@ -89,6 +97,11 @@ public class AddNewBookFXController implements Initializable {
             copies = Integer.parseInt(copiesStr);
             libroCardPoints = Integer.parseInt(libroCardPointsStr);
 
+            newBook = new Book(ISBNField.getText(), titleField.getText(),
+                    authorsField.getText(), genresChoiceBox.getValue(), price,
+                    descriptionField.getText(), publishingHouseField.getText(),
+                    publishingYear, discount, copies, libroCardPoints);
+
         } catch(NumberFormatException nfe){
             Alert nonValidNumericFieldsAlert = new Alert(Alert.AlertType.ERROR);
 
@@ -98,19 +111,24 @@ public class AddNewBookFXController implements Initializable {
             nonValidNumericFieldsAlert.setContentText("Note that the fields Price, " +
                     "Publishing Year, Discount, Number of Copies and LibroCard " +
                     "Points should contain numeric values.");
+        } catch (InvalidStringException | IllegalValueException e) {
+            e.printStackTrace();
         } finally {
             BookDAO bookDAO = new BookDaoImpl();
 
             try {
-                bookDAO.addBook(ISBNField.getText(), titleField.getText(),
-                        authorsField.getText(), genresChoiceBox.getValue(), price,
-                        descriptionField.getText(), publishingHouseField.getText(),
-                        publishingYear, discount, copies, libroCardPoints);
-
+                bookDAO.addBook(newBook);
             } catch (SQLException | InvalidStringException e) {
                 e.printStackTrace();
             }
-            System.out.println(genresChoiceBox.getValue());
+
+            Alert bookSuccessfullyAddedAlert = new Alert(Alert.AlertType.INFORMATION);
+
+            bookSuccessfullyAddedAlert.setTitle("Book Added");
+            bookSuccessfullyAddedAlert.setHeaderText("Book successfully added!");
+            bookSuccessfullyAddedAlert.setContentText("Congratulations! Now the library is more full of culture than ever.");
+
+            bookSuccessfullyAddedAlert.showAndWait();
         }
     }
 

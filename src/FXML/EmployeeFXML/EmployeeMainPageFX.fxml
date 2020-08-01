@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.EmployeeMainPageFXController">
    <children>
-      <AnchorPane fx:id="mainPane" layoutX="110.0" layoutY="97.0" prefHeight="385.0" prefWidth="503.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20 20 20 20; -fx-border-radius: 20 20 20 20;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
+      <AnchorPane fx:id="mainPane" layoutX="110.0" layoutY="97.0" prefHeight="600.0" prefWidth="1005.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20 20 20 20; -fx-border-radius: 20 20 20 20;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="50.0">
          <children>
             <Label layoutX="80.0" layoutY="160.0" text="You can select one of the following:">
                <font>
@@ -43,6 +44,16 @@
                   <Font name="Avenir Book" size="15.0" />
                </font>
             </Label>
+            <Label fx:id="logoutLabel" layoutX="726.0" layoutY="39.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
+               <font>
+                  <Font name="Avenir Book" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="cartIcon" fitHeight="70.0" fitWidth="90.0" layoutX="881.0" layoutY="19.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/userIcon.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

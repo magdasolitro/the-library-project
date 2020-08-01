@@ -44,12 +44,19 @@ public class UserCartPageFXController implements Initializable {
         try {
             CartDAO cartDAO = new CartDaoImpl();
 
-            ArrayList<Book> booksInCart = new ArrayList<>(cartDAO.cartContent(GeneralLoginController.getLoginInstance()));
+            ArrayList<Book> booksInCart = cartDAO.cartContent(GeneralLoginController.getLoginInstance());
 
             scrollPane = CartPageView.buildCartView(booksInCart);
 
             scrollPane.setId("cart-scrollpane");
             scrollPane.getStylesheets().add("/CSS/style.css");
+
+            leftPane.getChildren().add(scrollPane);
+            AnchorPane.setTopAnchor(scrollPane, (double) 200);
+            AnchorPane.setLeftAnchor(scrollPane, (double) 90);
+            AnchorPane.setRightAnchor(scrollPane, (double) 0);
+            AnchorPane.setBottomAnchor(scrollPane, (double)40);
+
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
         }
@@ -65,12 +72,6 @@ public class UserCartPageFXController implements Initializable {
 
         Label totalCostLabel = new Label("$ " + totalCost.toString());
         totalCostLabel.setFont(new Font("Avenir Next", 30));
-
-        leftPane.getChildren().add(scrollPane);
-        AnchorPane.setTopAnchor(scrollPane, (double) 200);
-        AnchorPane.setLeftAnchor(scrollPane, (double) 90);
-        AnchorPane.setRightAnchor(scrollPane, (double) 0);
-        AnchorPane.setBottomAnchor(scrollPane, (double)40);
 
         rightPane.getChildren().add(totalCostLabel);
         AnchorPane.setTopAnchor(totalCostLabel, (double) 320);

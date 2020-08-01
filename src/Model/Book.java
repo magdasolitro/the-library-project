@@ -5,6 +5,8 @@ import Model.Exceptions.InvalidStringException;
 import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
@@ -44,7 +46,7 @@ public class Book implements Comparable<Book>{
             throw new InvalidStringException();
         }
 
-        if(title.length() == 0 || authors.length() == 0 || genre.toString().length() == 0
+        if(title.length() == 0 || authors.length() == 0 || genre.length() == 0
             || description.length() == 0 || publishingHouse.length() == 0){
             throw new InvalidStringException();
         }
@@ -58,7 +60,7 @@ public class Book implements Comparable<Book>{
         this.ISBN = ISBN;
         this.title = title;
         this.authors = authors;
-        this.genre = genre.toString();
+        this.genre = genre;
         this.price = price;
         this.publishingHouse = publishingHouse;
         this.publishingYear = publishingYear;
@@ -119,13 +121,15 @@ public class Book implements Comparable<Book>{
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, email);
-        connection.pstmt.setString(2, this.ISBN);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, email);
+        pstmt.setString(2, this.ISBN);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        return connection.rs.getInt("quantity");
+        int quantity = rs.getInt("quantity");
+
+        return quantity;
     }
 
 

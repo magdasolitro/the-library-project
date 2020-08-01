@@ -5,9 +5,12 @@ import Model.UserNotReg;
 import Model.Utils.DAOs.UserNotRegDAO;
 import Model.Utils.DatabaseConnection;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserNotRegDaoImpl implements UserNotRegDAO {
+
     @Override
     public UserNotReg getUserNotReg(String email) throws SQLException,
             InvalidStringException {
@@ -16,15 +19,18 @@ public class UserNotRegDaoImpl implements UserNotRegDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, email);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        UserNotReg user = new UserNotReg(connection.rs.getString("name"),
-                connection.rs.getString("surname"),
-                connection.rs.getString("phone"),
-                connection.rs.getString("email"));
+        UserNotReg user = new UserNotReg(rs.getString("name"),
+                rs.getString("surname"),
+                rs.getString("phone"),
+                rs.getString("email"));
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -40,14 +46,16 @@ public class UserNotRegDaoImpl implements UserNotRegDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, name);
-        connection.pstmt.setString(2, surname);
-        connection.pstmt.setString(3, phone);
-        connection.pstmt.setString(4, email);
+        pstmt.setString(1, name);
+        pstmt.setString(2, surname);
+        pstmt.setString(3, phone);
+        pstmt.setString(4, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -59,10 +67,12 @@ public class UserNotRegDaoImpl implements UserNotRegDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }

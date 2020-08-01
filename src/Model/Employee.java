@@ -11,7 +11,8 @@ public class Employee {
     private final String employedSince;
     private String password;
 
-    // to be used when retrieving an employee
+
+    // to be used when creating new employee
     public Employee(String email, String name, String surname,
                     String birthDate, String role, String employedSince,
                     String password)
@@ -35,27 +36,6 @@ public class Employee {
         this.surname = surname;
         this.birthDate = birthDate;
         this.role = role;
-        this.employedSince = employedSince;
-        this.password = password;
-    }
-
-    // to be used when creating new employee
-    public Employee(String email, String name, String surname,
-                    String birthDate, EmployeeRoleEnum role, String employedSince,
-                    String password)
-            throws InvalidStringException {
-
-        if(email.length() == 0 || name.length() == 0 || surname.length() == 0
-                || birthDate.length() == 0 || role.toString().length() == 0
-                || employedSince.length() == 0 || password.length() == 0){
-            throw new InvalidStringException();
-        }
-
-        this.email = email;
-        this.name = name;
-        this.surname = surname;
-        this.birthDate = birthDate;
-        this.role = role.toString();
         this.employedSince = employedSince;
         this.password = password;
     }

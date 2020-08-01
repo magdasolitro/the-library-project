@@ -23,9 +23,7 @@ public interface OrderDAO {
     public ArrayList<Order> getOrdersByUser(String email) throws SQLException,
             InvalidStringException, IllegalValueException;
 
-    public void addOrder(String orderID, String date, String status,
-                         String paymentMethod, BigDecimal price, Integer points,
-                         String shippingAddress, String user, String userNotReg)
+    public void addOrder(Order order)
             throws SQLException;
 
     public void updateStatus(Order order, OrderStatusEnum newStatus)

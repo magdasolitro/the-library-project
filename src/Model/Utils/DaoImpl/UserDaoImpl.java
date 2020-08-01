@@ -23,28 +23,15 @@ public class UserDaoImpl implements UserDAO {
         connection.openConnection();
 
         PreparedStatement pstmt = connection.conn.prepareStatement(sql);
-        //connection.pstmt = connection.conn.prepareStatement(sql);
+        //pstmt = connection.conn.prepareStatement(sql);
 
         pstmt.setString(1, email);
 
         // fill the parameters in the SQL statement
-        //connection.pstmt.setString(1, email);
+        //pstmt.setString(1, email);
         ResultSet rs = pstmt.executeQuery();
 
         // execute query
-        //connection.rs = connection.pstmt.executeQuery();
-/*
-        user = new User(connection.rs.getString("name"),
-                connection.rs.getString("surname"),
-                connection.rs.getString("phone"),
-                connection.rs.getString("email"),
-                connection.rs.getString("password"),
-                connection.rs.getString("homeAddress"),
-                connection.rs.getString("streetNumber"),
-                connection.rs.getString("ZIPcode"),
-                connection.rs.getString("homeCity"));
-
- */
         if(rs.next()) {
             user = new User(rs.getString("name"),
                     rs.getString("surname"),
@@ -76,24 +63,7 @@ public class UserDaoImpl implements UserDAO {
         connection.openConnection();
 
         PreparedStatement pstmt = connection.conn.prepareStatement(sql);
-
-        //connection.pstmt = connection.conn.prepareStatement(sql);
-
-        /*
-        connection.pstmt.setString(1, user.getName());
-        connection.pstmt.setString(2, user.getSurname());
-        connection.pstmt.setString(3, user.getPhone());
-        connection.pstmt.setString(4, user.getEmail());
-        connection.pstmt.setString(5, user.getPassword());
-        connection.pstmt.setString(6, user.getHomeAddress());
-        connection.pstmt.setString(7, user.getStreetNumber());
-        connection.pstmt.setString(8, user.getZIPCode());
-        connection.pstmt.setString(9, user.getHomeCity());
-
-        connection.pstmt.executeUpdate();
-
-         */
-
+        
         pstmt.setString(1, user.getName());
         pstmt.setString(2, user.getSurname());
         pstmt.setString(3, user.getPhone());
@@ -105,6 +75,8 @@ public class UserDaoImpl implements UserDAO {
         pstmt.setString(9, user.getHomeCity());
 
         pstmt.executeUpdate();
+
+        pstmt.close();
 
         // add LibroCard for user
         try {
@@ -126,21 +98,24 @@ public class UserDaoImpl implements UserDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
 
         // delete LibroCard associated to user
         String cardIDQuery = "SELECT cardID FROM LibroCard WHERE email = ?";
 
-        connection.pstmt = connection.conn.prepareStatement(cardIDQuery);
-        connection.pstmt.setString(1, email);
+        pstmt = connection.conn.prepareStatement(cardIDQuery);
+        pstmt.setString(1, email);
 
-        connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
         LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
-        libroCardDAO.deleteLibroCard(connection.rs.getString("cardID"));
+        libroCardDAO.deleteLibroCard(rs.getString("cardID"));
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -152,12 +127,14 @@ public class UserDaoImpl implements UserDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newPhone);
-        connection.pstmt.setString(2, email);
+        pstmt.setString(1, newPhone);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -169,12 +146,14 @@ public class UserDaoImpl implements UserDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newPassword);
-        connection.pstmt.setString(2, email);
+        pstmt.setString(1, newPassword);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -186,12 +165,14 @@ public class UserDaoImpl implements UserDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newAddress);
-        connection.pstmt.setString(2, email);
+        pstmt.setString(1, newAddress);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -203,12 +184,14 @@ public class UserDaoImpl implements UserDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newStreetNumber);
-        connection.pstmt.setString(2, email);
+        pstmt.setString(1, newStreetNumber);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -220,12 +203,14 @@ public class UserDaoImpl implements UserDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newZIPCode);
-        connection.pstmt.setString(2, email);
+        pstmt.setString(1, newZIPCode);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -237,12 +222,14 @@ public class UserDaoImpl implements UserDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newHomeCity);
-        connection.pstmt.setString(2, email);
+        pstmt.setString(1, newHomeCity);
+        pstmt.setString(2, email);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }

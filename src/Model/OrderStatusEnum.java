@@ -24,4 +24,22 @@ public enum OrderStatusEnum {
                 return "Your order has been lost";
         }
     }
+
+    @Override
+    public String toString(){
+        switch (this) {
+            case ORDER_REQUEST_RECEIVED:
+                return "Order Request Received";
+            case IN_PREPARATION:
+                return "In Preparation";
+            case SHIPPED:
+                return "Shipped";
+            case DELIVERED:
+                return "Delivered";
+            case UNABLE_TO_DELIVER:
+                return "Unable To Deliver";
+            default:
+                return "Lost";
+        }
+    }
 }

@@ -60,7 +60,6 @@ public class SignInPageFXController implements Initializable {
 
             missingField.showAndWait();
 
-            return;
         }
 
         // check if password matches in both password fields
@@ -73,7 +72,6 @@ public class SignInPageFXController implements Initializable {
 
             notMatchingFields.showAndWait();
 
-            return;
         }
 
         UserDAO userDAO = new UserDaoImpl();
@@ -87,8 +85,6 @@ public class SignInPageFXController implements Initializable {
             alreadyRegistred.setContentText("Please, try to log in.");
 
             alreadyRegistred.showAndWait();
-
-            return;
         }
 
         // add new user (LibroCard is added automatically inside addUser method)
@@ -99,22 +95,14 @@ public class SignInPageFXController implements Initializable {
 
         userDAO.addUser(newUser);
 
-        /* // add new LibroCard associated with this user
-        LibroCard newLibroCard = new LibroCard(emailField.getText());
-
-        LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
-        libroCardDAO.addLibroCard(newLibroCard);
-
-         */
-
         Stage stage = (Stage) signInButton.getScene().getWindow();
         stage.close();
 
-        viewPage("../FXML/UserMainPageFX.fxml");
+        viewPage("../FXML/UserFXML/UserMainPageFX.fxml");
     }
 
     @FXML
-    public void handleGoBackButton(MouseEvent evt) throws IOException {
+    public void handleGoBackButton() throws IOException {
         Stage stage = (Stage) goBackButton.getScene().getWindow();
         stage.close();
 

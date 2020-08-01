@@ -6,6 +6,7 @@ import Model.Order;
 import Model.User;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface LibroCardDAO {
 
@@ -16,6 +17,8 @@ public interface LibroCardDAO {
     public String getUserEmail(String cardID) throws SQLException;
 
     public LibroCard getLibroCard(String cardID) throws SQLException;
+
+    public ArrayList<LibroCard> getAllLibroCards() throws SQLException;
 
     public LibroCard getUserLibroCard(String email) throws SQLException;
 

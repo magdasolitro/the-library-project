@@ -6,6 +6,8 @@ import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.EmployeeDAO;
 import Model.Utils.DatabaseConnection;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class EmployeeDaoImpl implements EmployeeDAO {
@@ -18,28 +20,33 @@ public class EmployeeDaoImpl implements EmployeeDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, employeeEmail);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, employeeEmail);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        Employee employee = new Employee(connection.rs.getString("email"),
-                connection.rs.getString("name"),
-                connection.rs.getString("surname"),
-                connection.rs.getString("birthDate"),
-                connection.rs.getString("role"),
-                connection.rs.getString("employedSince"),
-                connection.rs.getString("password"));
+        if(rs.next()) {
+            Employee employee = new Employee(rs.getString("email"),
+                    rs.getString("name"),
+                    rs.getString("surname"),
+                    rs.getString("birthDate"),
+                    rs.getString("role"),
+                    rs.getString("employedSince"),
+                    rs.getString("password"));
 
-        connection.closeConnection();
+            rs.close();
+            pstmt.close();
 
-        return employee;
+            connection.closeConnection();
+
+            return employee;
+        }
+
+        return null;
     }
 
     @Override
-    public void addEmployee(String email, String name, String surname,
-                            String birthDate, EmployeeRoleEnum role, String employedSince,
-                            String password)
+    public void addEmployee(Employee employee)
             throws SQLException {
         String sql = "INSERT INTO employee(email, name, surname, birthDate," +
                 "role, employedSince, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -47,17 +54,19 @@ public class EmployeeDaoImpl implements EmployeeDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, email);
-        connection.pstmt.setString(2, name);
-        connection.pstmt.setString(3, surname);
-        connection.pstmt.setString(4, birthDate);
-        connection.pstmt.setString(5, role.toString());
-        connection.pstmt.setString(6, employedSince);
-        connection.pstmt.setString(7, password);
+        pstmt.setString(1, employee.getEmail());
+        pstmt.setString(2, employee.getName());
+        pstmt.setString(3, employee.getSurname());
+        pstmt.setString(4, employee.getBirthDate());
+        pstmt.setString(5, employee.getRole());
+        pstmt.setString(6, employee.getEmployedSince());
+        pstmt.setString(7, employee.getPassword());
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }

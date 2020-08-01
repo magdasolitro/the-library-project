@@ -11,10 +11,7 @@ import java.util.ArrayList;
 
 public interface BookDAO {
 
-    public void addBook(String ISBN, String title, String authors, String genre,
-                        BigDecimal price, String description, String publishingHouse,
-                        int publishingYear, BigDecimal discount, int availableCopies,
-                        int libroCardPoints) throws SQLException, InvalidStringException;
+    public void addBook(Book book) throws SQLException, InvalidStringException;
 
     public Book getBook(String ISBN) throws SQLException, InvalidStringException,
             IllegalValueException;

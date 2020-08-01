@@ -6,6 +6,8 @@ import Model.Utils.DAOs.UserDAO;
 import Model.Utils.DaoImpl.UserDaoImpl;
 import Model.Utils.DatabaseConnection;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -73,12 +75,12 @@ public class LibroCard {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, email);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        pstmt.setString(1, email);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        String surname = connection.rs.getString("surname");
+        String surname = rs.getString("surname");
 
         connection.closeConnection();
 

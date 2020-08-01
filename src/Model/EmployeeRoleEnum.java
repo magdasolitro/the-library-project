@@ -6,7 +6,8 @@ public enum EmployeeRoleEnum {
     BOOK_SELLER,
     CASHIER;
 
-    public String getEmployeeRole() {
+    @Override
+    public String toString() {
         switch (this) {
             case GENERAL_DIRECTOR:
                 return "General Director";

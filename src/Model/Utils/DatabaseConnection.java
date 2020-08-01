@@ -5,19 +5,11 @@ import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
+
 
 public class DatabaseConnection {
     /* a connection to a specific database */
     public Connection conn = null;
-
-    /* will store a precompiled SQL statement. */
-    public PreparedStatement pstmt;
-
-    /* will store the table of data representing the result of a query on the database */
-    public ResultSet rs;
-
 
     /**
      * Connection to library.db database
@@ -46,12 +38,6 @@ public class DatabaseConnection {
      */
     public void closeConnection(){
         try{
-            /*if(rs != null){
-                rs.close();
-            }
-            if(pstmt != null){
-                pstmt.close();
-            }*/
             conn.close();
             System.out.println("Database connection closed");
         } catch (SQLException e){

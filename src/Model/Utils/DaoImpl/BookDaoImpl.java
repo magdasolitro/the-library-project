@@ -8,7 +8,8 @@ import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
-import java.sql.Array;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -18,10 +19,7 @@ public class BookDaoImpl implements BookDAO {
      * Adds a new book to the store
      */
     @Override
-    public void addBook(String ISBN, String title, String authors, String genre,
-                        BigDecimal price, String description, String publishingHouse,
-                        int publishingYear, BigDecimal discount, int availableCopies,
-                        int libroCardPoints) throws SQLException {
+    public void addBook(Book book) throws SQLException {
 
         String sql = "INSERT INTO book(ISBN, title, authors, genre, price, " +
                 "description, publishingHouse, publishingYear, discount, " +
@@ -30,21 +28,23 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, ISBN);
-        connection.pstmt.setString(2, title);
-        connection.pstmt.setString(3, authors);
-        connection.pstmt.setString(4, genre);
-        connection.pstmt.setBigDecimal(5, price);
-        connection.pstmt.setString(6, description);
-        connection.pstmt.setString(7, publishingHouse);
-        connection.pstmt.setInt(8, publishingYear);
-        connection.pstmt.setBigDecimal(9, discount);
-        connection.pstmt.setInt(10, availableCopies);
-        connection.pstmt.setInt(11, libroCardPoints);
+        pstmt.setString(1, book.getISBN());
+        pstmt.setString(2, book.getTitle());
+        pstmt.setString(3, book.getAuthors());
+        pstmt.setString(4, book.getGenre());
+        pstmt.setBigDecimal(5, book.getPrice());
+        pstmt.setString(6, book.getDescription());
+        pstmt.setString(7, book.getPublishingHouse());
+        pstmt.setInt(8, book.getPublishingYear());
+        pstmt.setBigDecimal(9, book.getDiscount());
+        pstmt.setInt(10, book.getAvailableCopies());
+        pstmt.setInt(11, book.getLibroCardPoints());
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -60,22 +60,26 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, ISBN);
+        pstmt.setString(1, ISBN);
 
-        connection.rs = connection.pstmt.executeQuery();
-        Book book  = new Book(connection.rs.getString("ISBN"),
-                connection.rs.getString("title"),
-                connection.rs.getString("authors"),
-                connection.rs.getString("genre"),
-                connection.rs.getBigDecimal("price"),
-                connection.rs.getString("description"),
-                connection.rs.getString("publishingHouse"),
-                connection.rs.getInt("publishingYear"),
-                connection.rs.getBigDecimal("discount"),
-                connection.rs.getInt("availableCopies"),
-                connection.rs.getInt("libroCardPoints"));
+        ResultSet rs = pstmt.executeQuery();
+        
+        Book book  = new Book(rs.getString("ISBN"),
+                rs.getString("title"),
+                rs.getString("authors"),
+                rs.getString("genre"),
+                rs.getBigDecimal("price"),
+                rs.getString("description"),
+                rs.getString("publishingHouse"),
+                rs.getInt("publishingYear"),
+                rs.getBigDecimal("discount"),
+                rs.getInt("availableCopies"),
+                rs.getInt("libroCardPoints"));
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -97,27 +101,30 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, title);
+        pstmt.setString(1, title);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
         ArrayList<Book> books = new ArrayList<>();
 
-        while(connection.rs.next()){
-            books.add(new Book(connection.rs.getString("ISBN"),
-                    connection.rs.getString("title"),
-                    connection.rs.getString("authors"),
-                    connection.rs.getString("genre"),
-                    connection.rs.getBigDecimal("price"),
-                    connection.rs.getString("description"),
-                    connection.rs.getString("publishingHouse"),
-                    connection.rs.getInt("publishingYear"),
-                    connection.rs.getBigDecimal("discount"),
-                    connection.rs.getInt("availableCopies"),
-                    connection.rs.getInt("libroCardPoints")));
+        while(rs.next()){
+            books.add(new Book(rs.getString("ISBN"),
+                    rs.getString("title"),
+                    rs.getString("authors"),
+                    rs.getString("genre"),
+                    rs.getBigDecimal("price"),
+                    rs.getString("description"),
+                    rs.getString("publishingHouse"),
+                    rs.getInt("publishingYear"),
+                    rs.getBigDecimal("discount"),
+                    rs.getInt("availableCopies"),
+                    rs.getInt("libroCardPoints")));
         }
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -132,25 +139,28 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
         ArrayList<Book> allBooks = new ArrayList<>();
 
-        while(connection.rs.next()){
-            allBooks.add(new Book(connection.rs.getString("ISBN"),
-                    connection.rs.getString("title"),
-                    connection.rs.getString("authors"),
-                    connection.rs.getString("genre"),
-                    connection.rs.getBigDecimal("price"),
-                    connection.rs.getString("description"),
-                    connection.rs.getString("publishingHouse"),
-                    connection.rs.getInt("publishingYear"),
-                    connection.rs.getBigDecimal("discount"),
-                    connection.rs.getInt("availableCopies"),
-                    connection.rs.getInt("libroCardPoints")));
+        while(rs.next()){
+            allBooks.add(new Book(rs.getString("ISBN"),
+                    rs.getString("title"),
+                    rs.getString("authors"),
+                    rs.getString("genre"),
+                    rs.getBigDecimal("price"),
+                    rs.getString("description"),
+                    rs.getString("publishingHouse"),
+                    rs.getInt("publishingYear"),
+                    rs.getBigDecimal("discount"),
+                    rs.getInt("availableCopies"),
+                    rs.getInt("libroCardPoints")));
         }
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -163,13 +173,18 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
+
+        int titlesInCatalog = rs.getInt(1);
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
-        return connection.rs.getInt(1);
+        return titlesInCatalog;
     }
 
     public ArrayList<Book> getBooksByGenre(GenresEnum genre) throws SQLException,
@@ -180,26 +195,30 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, genre.toString());
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        
+        pstmt.setString(1, genre.toString());
 
-        connection.rs = connection.pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
         ArrayList<Book> allBooksByGenre = new ArrayList<>();
 
-        while(connection.rs.next()){
-            allBooksByGenre.add(new Book(connection.rs.getString("ISBN"),
-                    connection.rs.getString("title"),
-                    connection.rs.getString("authors"),
-                    connection.rs.getString("genre"),
-                    connection.rs.getBigDecimal("price"),
-                    connection.rs.getString("description"),
-                    connection.rs.getString("publishingHouse"),
-                    connection.rs.getInt("publishingYear"),
-                    connection.rs.getBigDecimal("discount"),
-                    connection.rs.getInt("availableCopies"),
-                    connection.rs.getInt("libroCardPoints")));
+        while(rs.next()){
+            allBooksByGenre.add(new Book(rs.getString("ISBN"),
+                    rs.getString("title"),
+                    rs.getString("authors"),
+                    rs.getString("genre"),
+                    rs.getBigDecimal("price"),
+                    rs.getString("description"),
+                    rs.getString("publishingHouse"),
+                    rs.getInt("publishingYear"),
+                    rs.getBigDecimal("discount"),
+                    rs.getInt("availableCopies"),
+                    rs.getInt("libroCardPoints")));
         }
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -213,11 +232,16 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
-        connection.pstmt.setString(1, ISBN);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+        
+        pstmt.setString(1, ISBN);
 
-        connection.rs = connection.pstmt.executeQuery();
-        int availableCopies = connection.rs.getInt("availableCopies");
+        ResultSet rs = pstmt.executeQuery();
+
+        int availableCopies = rs.getInt("availableCopies");
+
+        rs.close();
+        pstmt.close();
 
         connection.closeConnection();
 
@@ -231,12 +255,14 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setBigDecimal(1, discount);
-        connection.pstmt.setString(2, ISBN);
+        pstmt.setBigDecimal(1, discount);
+        pstmt.setString(2, ISBN);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();
     }
@@ -249,12 +275,14 @@ public class BookDaoImpl implements BookDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        connection.pstmt = connection.conn.prepareStatement(sql);
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        connection.pstmt.setString(1, newDescription);
-        connection.pstmt.setString(2, ISBN);
+        pstmt.setString(1, newDescription);
+        pstmt.setString(2, ISBN);
 
-        connection.pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+        pstmt.close();
 
         connection.closeConnection();;
     }
