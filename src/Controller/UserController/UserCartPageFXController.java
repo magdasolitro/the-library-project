@@ -13,16 +13,19 @@ import View.UserView.CartPageView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,12 +34,13 @@ import java.util.ResourceBundle;
 
 public class UserCartPageFXController implements Initializable {
     @FXML
-    AnchorPane leftPane, rightPane;
+    private AnchorPane rightPane;
 
     @FXML
-    Button goBackButton, checkOutButton;
+    private Button goBackButton, checkOutButton;
 
-    ScrollPane scrollPane;
+    @FXML
+    private Pane cartPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,16 +50,13 @@ public class UserCartPageFXController implements Initializable {
 
             ArrayList<Book> booksInCart = cartDAO.cartContent(GeneralLoginController.getLoginInstance());
 
-            scrollPane = CartPageView.buildCartView(booksInCart);
+            ScrollPane scrollPane = CartPageView.buildCartView(booksInCart);
 
             scrollPane.setId("cart-scrollpane");
             scrollPane.getStylesheets().add("/CSS/style.css");
 
-            leftPane.getChildren().add(scrollPane);
-            AnchorPane.setTopAnchor(scrollPane, (double) 200);
-            AnchorPane.setLeftAnchor(scrollPane, (double) 90);
-            AnchorPane.setRightAnchor(scrollPane, (double) 0);
-            AnchorPane.setBottomAnchor(scrollPane, (double)40);
+            cartPane.getChildren().add(scrollPane);
+            cartPane.setPadding(new Insets(120, 0, 0, 50));
 
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
@@ -65,7 +66,7 @@ public class UserCartPageFXController implements Initializable {
         BigDecimal totalCost = new BigDecimal(0);
 
         try {
-            totalCost = cartDAO.totalCost(GeneralLoginController.getLoginInstance()).setScale(2);
+            totalCost = cartDAO.totalCost(GeneralLoginController.getLoginInstance()).setScale(2, RoundingMode.FLOOR);
         } catch (SQLException | IllegalValueException | InvalidStringException e) {
             e.printStackTrace();
         }
@@ -74,6 +75,7 @@ public class UserCartPageFXController implements Initializable {
         totalCostLabel.setFont(new Font("Avenir Next", 30));
 
         rightPane.getChildren().add(totalCostLabel);
+        totalCostLabel.relocate(0,0);
         AnchorPane.setTopAnchor(totalCostLabel, (double) 320);
         AnchorPane.setLeftAnchor(totalCostLabel, (double) 1130);
 
@@ -86,35 +88,42 @@ public class UserCartPageFXController implements Initializable {
         stage.close();
 
         try{
-            if(LastOpenedPageController.getLastOpenedPage().equals("../../FXML/UserFXML/UserProfileFX.fxml")) {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserProfileFX.fxml"));
-                Parent root = loader.load();
+            switch (LastOpenedPageController.getLastOpenedPage()) {
+                case "../../FXML/UserFXML/UserProfileFX.fxml": {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserProfileFX.fxml"));
+                    Parent root = loader.load();
 
-                LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
 
-                Scene scene = new Scene(root);
-                Stage newStage = new Stage();
+                    Scene scene = new Scene(root);
+                    Stage newStage = new Stage();
 
-                newStage.setScene(scene);
-                newStage.setMaximized(true);
-                newStage.show();
+                    newStage.setScene(scene);
+                    newStage.setMaximized(true);
+                    newStage.show();
 
-            } else if(LastOpenedPageController.getLastOpenedPage().equals("../../FXML/UserFXML/SingleBookPageFX.fxml")){
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../../FXML/UserFXML/SingleBookPageFX.fxml"));
-                Parent root = loader.load();
+                    break;
+                }
+                case "../../FXML/UserFXML/SingleBookPageFX.fxml": {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("../../FXML/UserFXML/SingleBookPageFX.fxml"));
+                    Parent root = loader.load();
 
-                LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
 
-                Scene scene = new Scene(root);
-                Stage newStage = new Stage();
+                    Scene scene = new Scene(root);
+                    Stage newStage = new Stage();
 
-                newStage.setScene(scene);
-                newStage.setMaximized(true);
-                newStage.show();
-            } else if (LastOpenedPageController.getLastOpenedPage().equals("../../FXML/UserFXML/UserMainPageFX.fxml")){
-                viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    newStage.setScene(scene);
+                    newStage.setMaximized(true);
+                    newStage.show();
+                    break;
+                }
+                case "../../FXML/UserFXML/UserMainPageFX.fxml": {
+                    viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    break;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -32,7 +32,10 @@
 
 #cart-scrollpane{
     -fx-background-color: white;
-    -fx-border-color: white;
+}
+
+#cart-gridpane{
+    -fx-background-color: white;
 }
 
 #librocards-scrollpane{

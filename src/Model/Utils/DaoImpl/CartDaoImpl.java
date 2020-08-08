@@ -133,7 +133,7 @@ public class CartDaoImpl implements CartDAO {
             }
         }
 
-        return totalCost.setScale(2);
+        return totalCost.setScale(2, RoundingMode.FLOOR);
     }
 
     @Override
@@ -187,6 +187,7 @@ public class CartDaoImpl implements CartDAO {
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
+        System.out.println("cartContent connection!");
 
         PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 

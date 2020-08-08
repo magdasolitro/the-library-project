@@ -14,6 +14,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -29,6 +30,9 @@ public class CartPageView {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         GridPane bookContainer = new GridPane();
+
+        bookContainer.setId("cart-gridpane");
+        bookContainer.getStylesheets().add("/CSS/style.css");
 
         int i = 0;
 
@@ -56,7 +60,6 @@ public class CartPageView {
         Label publishingYearLabel;
         Label genreLabel;
 
-        Label quantityLabel;
         Label priceLabel;
         Label discountLabel;
 
@@ -105,7 +108,7 @@ public class CartPageView {
 
 
         // SECOND COLUMN
-        priceLabel = new Label("$ " + book.getPrice().setScale(2));
+        priceLabel = new Label("$ " + book.getPrice().setScale(2, RoundingMode.FLOOR));
         priceLabel.setFont(genericLabelFont);
 
         if(book.getDiscount().compareTo(new BigDecimal(0)) > 0) {
@@ -115,13 +118,6 @@ public class CartPageView {
             discountLabel = new Label();
         }
 
-        try {
-            quantityLabel = new Label("Qty: " +
-                    book.getQuantity(GeneralLoginController.getLoginInstance()));
-            quantityLabel.setFont(genericLabelFont);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         // set constraints
         ColumnConstraints column2 = new ColumnConstraints();
@@ -146,9 +142,17 @@ public class CartPageView {
 
 
         // THIRD COLUMN
-        quantitySpinner = new Spinner<>(1, 10, 1, 1);
-        quantitySpinner.setPrefHeight(45);
-        quantitySpinner.setPrefWidth(80);
+        try {
+            int initialValue = book.getQuantity(GeneralLoginController.getLoginInstance());
+
+            quantitySpinner = new Spinner<>(1, 10, initialValue, 1);
+            quantitySpinner.setPrefHeight(45);
+            quantitySpinner.setPrefWidth(80);
+
+            singleBook.add(quantitySpinner, 2, 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         removeFromCartButton = new Button("Remove from cart");
 
@@ -174,6 +178,7 @@ public class CartPageView {
             }
         });
 
+
         // set constraints
         ColumnConstraints column3 = new ColumnConstraints();
         column3.setHalignment(HPos.CENTER);
@@ -187,7 +192,6 @@ public class CartPageView {
         buttonRow.setPercentHeight(50);
         buttonRow.setValignment(VPos.CENTER);
 
-        singleBook.add(quantitySpinner, 2, 0);
         singleBook.add(removeFromCartButton, 2, 2);
 
         singleBook.setPrefWidth(750);

@@ -129,6 +129,8 @@ public class Book implements Comparable<Book>{
 
         int quantity = rs.getInt("quantity");
 
+        connection.closeConnection();
+
         return quantity;
     }
 

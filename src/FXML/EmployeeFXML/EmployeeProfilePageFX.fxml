@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.EmployeeController.EmployeeProfilePageFXController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.EmployeeProfilePageFXController">
+    <children>
+        <Label layoutX="90.0" layoutY="250.0" text="e-mail:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="90.0" layoutY="300.0" text="Birth date:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="90.0" layoutY="350.0" text="Role:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="90.0" layoutY="400.0" text="Employed since:">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="deleteAccountButton" layoutX="90.0" layoutY="550.0" mnemonicParsing="false" onMouseClicked="#handleDeleteAccountRequest" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #FF0000;" text="Delete account" textFill="WHITE">
+            <font>
+                <Font name="Avenir Next Bold" size="20.0" />
+            </font>
+        </Button>
+        <Separator layoutX="918.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="6.0" />
+        <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0">
+            <font>
+                <Font name="Avenir Book" size="17.0" />
+            </font>
+        </Button>
+        <Label fx:id="logoutLabel" layoutX="1025.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
+            <font>
+                <Font name="Avenir Book" size="20.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="userIcon" fitHeight="70.0" fitWidth="90.0" layoutX="1183.0" layoutY="15.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../images/userIcon.png" />
+            </image>
+        </ImageView>
+        <Separator layoutX="921.0" layoutY="98.0" prefHeight="6.0" prefWidth="379.0" />
+        <Separator layoutX="1144.0" orientation="VERTICAL" prefHeight="101.0" />
+    </children>
 </AnchorPane>

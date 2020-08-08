@@ -35,6 +35,7 @@
         <Separator layoutX="867.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="5.0" />
         <Separator layoutX="870.0" layoutY="97.0" prefHeight="5.0" prefWidth="430.0" />
         <Region prefHeight="800.0" prefWidth="868.0" style="-fx-background-color: #BBA5E1;" />
-        <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0"/>
+        <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0" />
+      <Separator layoutX="1010.0" orientation="VERTICAL" prefHeight="98.0" />
     </children>
 </AnchorPane>

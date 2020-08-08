@@ -13,7 +13,7 @@
             <Font name="Avenir Book" size="17.0"/>
         </font>
     </Button>
-    <Pane layoutX="318.0" layoutY="127.0" prefHeight="485.0" prefWidth="664.0"
+    <Pane fx:id="pane" layoutX="318.0" layoutY="127.0" prefHeight="485.0" prefWidth="664.0"
           style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;">
         <Label id="LoginAsUserText" alignment="CENTER" contentDisplay="CENTER" layoutY="48.0" prefHeight="87.0"
                prefWidth="664.0" style="-fx-background-color: #ffffff;" text="Login as User" textAlignment="RIGHT">

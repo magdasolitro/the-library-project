@@ -8,18 +8,22 @@
    <children>
       <SplitPane dividerPositions="0.7" prefHeight="700.0" prefWidth="1300.0">
          <items>
-            <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;">
+            <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #BBA5E1;">
                <children>
-                  <Label layoutX="90.0" layoutY="50.0" text="Your cart">
-                     <font>
-                        <Font name="Avenir Next Bold" size="70.0" />
-                     </font>
-                  </Label>
                   <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0">
                      <font>
                         <Font name="Avenir Book" size="17.0" />
                      </font>
                   </Button>
+                  <Pane fx:id="cartPane" layoutX="70.0" layoutY="70.0" prefHeight="381.0" prefWidth="616.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="70.0">
+                     <children>
+                        <Label layoutX="50.0" layoutY="30.0" text="Your cart">
+                           <font>
+                              <Font name="Avenir Next Bold" size="70.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="777.0" style="-fx-background-color: #FFFFFF;">

@@ -13,9 +13,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EmployeeMainPageFXController implements Initializable {
@@ -31,16 +34,21 @@ public class EmployeeMainPageFXController implements Initializable {
             registerEmployeeButton, updateRankingsButton;
 
     @FXML
-    public AnchorPane mainPane;
+    private Pane simplePane;
+
+    @FXML
+    private Label logoutLabel;
+
+    @FXML
+    private ImageView profileIcon;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // add greeting message customised on the employee
         Label greetingMessageLabel = buildGreetingLabel();
 
-        mainPane.getChildren().add(greetingMessageLabel);
-        AnchorPane.setTopAnchor(greetingMessageLabel, (double) 40);
-        AnchorPane.setLeftAnchor(greetingMessageLabel, (double) 80);
+        simplePane.getChildren().add(greetingMessageLabel);
+        greetingMessageLabel.relocate(60, 40);
     }
 
 
@@ -129,13 +137,42 @@ public class EmployeeMainPageFXController implements Initializable {
     }
 
 
-    public void handleLogOutRequest() {
+    public void handleLogOutRequest(MouseEvent evt) {
+        Alert confirmLogOut = new Alert(Alert.AlertType.CONFIRMATION);
 
+        confirmLogOut.setTitle("Log Out");
+        confirmLogOut.setHeaderText("You will exit the program");
+        confirmLogOut.setContentText("Are you sure you want to log out?");
+
+        Optional<ButtonType> response = confirmLogOut.showAndWait();
+
+        if(response.isPresent() && response.get() == ButtonType.OK) {
+            Stage stage = (Stage) logoutLabel.getScene().getWindow();
+            stage.close();
+
+            GeneralLoginController.logout();
+
+            try {
+                viewPage("../../FXML/WelcomePageFX.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            evt.consume();
+            confirmLogOut.close();
+        }
     }
 
 
     public void goToProfilePage() {
+        try{
+            Stage stage = (Stage) profileIcon.getScene().getWindow();
+            stage.close();
 
+            viewPage("../../FXML/EmployeeFXML/EmployeeProfilePageFX.fxml");
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
 

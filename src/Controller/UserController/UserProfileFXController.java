@@ -39,15 +39,13 @@ public class UserProfileFXController implements Initializable {
     ImageView cartIcon;
 
     @FXML
-    Label logoutLabel;
+    Label logoutLabel, userNameSurnameLabel;
 
     GridPane gpUserInfos;
 
-    Label userNameSurnameLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         gpUserInfos = UserProfileView.buildUserInfosGrid(GeneralLoginController.getLoginInstance());
         userNameSurnameLabel = UserProfileView.buildUserNameSurnameLabel((GeneralLoginController.getLoginInstance()));
 

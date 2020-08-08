@@ -68,16 +68,17 @@
                 <Font name="Avenir Book" size="17.0" />
             </font>
         </Button>
-        <Label fx:id="logoutLabel" layoutX="1000.0" layoutY="37.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
+        <Label fx:id="logoutLabel" layoutX="1025.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Label>
-        <ImageView fx:id="cartIcon" fitHeight="71.0" fitWidth="90.0" layoutX="1160.0" layoutY="16.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="cartIcon" fitHeight="70.0" fitWidth="90.0" layoutX="1183.0" layoutY="15.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../images/cartIcon.png" />
             </image>
         </ImageView>
         <Separator layoutX="788.0" layoutY="100.0" prefHeight="6.0" prefWidth="512.0" />
+        <Separator layoutX="1144.0" orientation="VERTICAL" prefHeight="101.0" />
     </children>
 </AnchorPane>
