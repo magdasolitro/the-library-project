@@ -13,13 +13,11 @@ import View.UserView.CartPageView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -29,7 +27,6 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class UserCartPageFXController implements Initializable {
@@ -40,7 +37,7 @@ public class UserCartPageFXController implements Initializable {
     private Button goBackButton, checkOutButton;
 
     @FXML
-    private Pane cartPane;
+    private AnchorPane cartPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,7 +53,11 @@ public class UserCartPageFXController implements Initializable {
             scrollPane.getStylesheets().add("/CSS/style.css");
 
             cartPane.getChildren().add(scrollPane);
-            cartPane.setPadding(new Insets(120, 0, 0, 50));
+
+            AnchorPane.setTopAnchor(scrollPane, (double) 120);
+            AnchorPane.setRightAnchor(scrollPane, (double) 0);
+            AnchorPane.setBottomAnchor(scrollPane, (double) 30);
+            AnchorPane.setLeftAnchor(scrollPane, (double) 0);
 
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
@@ -67,17 +68,16 @@ public class UserCartPageFXController implements Initializable {
 
         try {
             totalCost = cartDAO.totalCost(GeneralLoginController.getLoginInstance()).setScale(2, RoundingMode.FLOOR);
+            System.out.println(totalCost);
         } catch (SQLException | IllegalValueException | InvalidStringException e) {
             e.printStackTrace();
         }
 
-        Label totalCostLabel = new Label("$ " + totalCost.toString());
-        totalCostLabel.setFont(new Font("Avenir Next", 30));
+        Label totalCostLabel = new Label("$ " + totalCost);
+        totalCostLabel.setFont(new Font("Avenir Next", 25));
 
         rightPane.getChildren().add(totalCostLabel);
-        totalCostLabel.relocate(0,0);
-        AnchorPane.setTopAnchor(totalCostLabel, (double) 320);
-        AnchorPane.setLeftAnchor(totalCostLabel, (double) 1130);
+        totalCostLabel.relocate(215,324);
 
         goBackButton.setId("goback-button");
         goBackButton.getStylesheets().add("/CSS/style.css");
@@ -134,7 +134,7 @@ public class UserCartPageFXController implements Initializable {
     public void handleCheckOut(MouseEvent mouseEvent) {
         Alert checkOutAlert = new Alert(Alert.AlertType.CONFIRMATION);
 
-        checkOutAlert.setTitle("Check Out");
+        /*checkOutAlert.setTitle("Check Out");
         checkOutAlert.setHeaderText("Do you want confirm this order");
         checkOutAlert.setContentText("Press \"OK\" to confirm");
 
@@ -150,6 +150,17 @@ public class UserCartPageFXController implements Initializable {
         } else {
             mouseEvent.consume();
             checkOutAlert.close();
+        }
+
+         */
+
+        Stage stage = (Stage) checkOutButton.getScene().getWindow();
+        stage.close();
+
+        try {
+            viewPage("../../FXML/UserFXML/UserOrderConfirmationPageFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -14,7 +14,7 @@ public class CompositionDaoImpl implements CompositionDAO {
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
 
-        String newComposition = "INSERT INTO composition(book, order, quantity)" +
+        String newComposition = "INSERT INTO composition(book, orderID, quantity)" +
                 "VALUES (?,?,?)";
 
         PreparedStatement pstmt = connection.conn.prepareStatement(newComposition);

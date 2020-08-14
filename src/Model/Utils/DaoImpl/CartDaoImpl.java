@@ -119,7 +119,7 @@ public class CartDaoImpl implements CartDAO {
 
             // apply discount if present
             if(b.getDiscount().compareTo(new BigDecimal(0)) > 0) {
-                BigDecimal effectiveBookPrice = currentBookPrice.subtract(currentBookPrice.multiply(b.getDiscount().divide(new BigDecimal(100))));
+                BigDecimal effectiveBookPrice = currentBookPrice.subtract(currentBookPrice.multiply(b.getDiscount().divide(new BigDecimal(100), RoundingMode.FLOOR)));
 
                 // multiply price by quantity
                 // method getQuantity() is defined in Book class
@@ -187,7 +187,6 @@ public class CartDaoImpl implements CartDAO {
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
-        System.out.println("cartContent connection!");
 
         PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
@@ -220,15 +219,13 @@ public class CartDaoImpl implements CartDAO {
         return cartContent;
     }
 
-    public String checkout(String email, String paymentMethod,
-                           String shippingAddress)
-            throws SQLException, UserNotInDatabaseException, NotSameUserException,
+    public String checkout(String email, String paymentMethod, String shippingAddress,
+                           String orderID, BigDecimal totalCost)
+            throws SQLException, NotSameUserException,
             InvalidStringException, IllegalValueException {
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
-
-        String orderID = generateOrderID(connection, email);
 
         // select all the books and relative quantities from the user cart
         String booksInCartQuery = "SELECT book, quantity " +
@@ -241,14 +238,14 @@ public class CartDaoImpl implements CartDAO {
         ResultSet rs1 = pstmt1.executeQuery();
 
         ArrayList<Book> booksInCartAttributes = new ArrayList<>();
-        BookDAO bookDao = new BookDaoImpl();
+        BookDAO bookDAO = new BookDaoImpl();
 
         // for each book in cart, add a new row in table Composition
         while(rs1.next()){
             String currentBook = rs1.getString("book");
             int currentQuantity = rs1.getInt("quantity");
 
-            booksInCartAttributes.add(bookDao.getBook(currentBook));
+            booksInCartAttributes.add(bookDAO.getBook(currentBook));
 
             CompositionDAO newComposition = new CompositionDaoImpl();
             newComposition.addBookToOrder(currentBook, orderID, currentQuantity);
@@ -257,12 +254,10 @@ public class CartDaoImpl implements CartDAO {
         rs1.close();
         pstmt1.close();
 
-        BigDecimal totalCost = totalCost(email);
-
         Order newOrder;
 
         if(!Pattern.matches("NOTREG*", orderID) ){
-            int totalPoints = getOrderPoints(connection, booksInCartAttributes);
+            int totalPoints = getOrderPoints(booksInCartAttributes);
 
             // add new row in Order table
             OrderDAO orderDAO = new OrderDaoImpl();
@@ -315,7 +310,7 @@ public class CartDaoImpl implements CartDAO {
        3 letter of the name + integer timestamp (es. the orderID is generated
        on 15 May 2020, at 09:26:22 --> integer timestamp = 15052020092622
     */
-    private String generateOrderID(DatabaseConnection connection, String email)
+    public String generateOrderID(String email)
             throws SQLException, UserNotInDatabaseException{
 
         String name, surname;
@@ -323,6 +318,9 @@ public class CartDaoImpl implements CartDAO {
         String userNameSurnameQuery = "SELECT name, surname " +
                                       "FROM user JOIN cart ON user.email = cart.user " +
                                       "WHERE user.email = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
 
         PreparedStatement pstmt1 = connection.conn.prepareStatement(userNameSurnameQuery);
         pstmt1.setString(1, email);
@@ -347,8 +345,7 @@ public class CartDaoImpl implements CartDAO {
                 name = rs2.getString("name");
                 surname = rs2.getString("surname");
 
-                rs1.close();
-                pstmt1.close();
+                rs2.close();
                 pstmt2.close();
 
                 connection.closeConnection();
@@ -383,7 +380,7 @@ public class CartDaoImpl implements CartDAO {
     }
 
 
-    private int getOrderPoints(DatabaseConnection connection, ArrayList<Book> bookArray) {
+    private int getOrderPoints(ArrayList<Book> bookArray) {
         int totalPoints = 0;
 
         for (Book b : bookArray){

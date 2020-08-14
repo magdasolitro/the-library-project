@@ -27,7 +27,10 @@ public interface CartDAO {
             InvalidStringException, IllegalValueException;
 
     // returns orderID
-    public String checkout(String email, String paymentMethod, String shippingAddress)
-            throws SQLException, UserNotInDatabaseException, NotSameUserException,
-            InvalidStringException, IllegalValueException;
+    public String checkout(String email, String paymentMethod, String shippingAddress,
+                           String orderID, BigDecimal totalCost) throws SQLException,
+            NotSameUserException, InvalidStringException, IllegalValueException;
+
+    public String generateOrderID(String email)
+            throws SQLException, UserNotInDatabaseException;
 }

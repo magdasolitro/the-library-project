@@ -16,6 +16,7 @@
 
 #single-book-gridpane{
     -fx-background-color: white;
+    -fx-border-color: white;
     -fx-border-radius: 30px;
 }
 
@@ -27,18 +28,43 @@
 
 #single-book-vbox{
     -fx-background-color: white;
+    -fx-border-color: white;
     -fx-border-radius: 30px;
 }
 
 #cart-scrollpane{
     -fx-background-color: white;
+    -fx-border-color: white;
 }
 
 #cart-gridpane{
     -fx-background-color: white;
+    -fx-border-color: white;
 }
 
 #librocards-scrollpane{
+    -fx-background-color: white;
+    -fx-border-color: white;
+}
+
+#removefromcart-button{
+    -fx-background-color: red;
+    -fx-font-size: 15;
+    -fx-text-fill: white;
+}
+
+#checkout-button{
+    -fx-background-color: #3CB371;
+    -fx-text-fill: white;
+    -fx-font-size: 25;
+}
+
+#ordersummary-scrollpane{
+    -fx-background-color: white;
+    -fx-border-color: white;
+}
+
+#booksincart-scrollpane{
     -fx-background-color: white;
     -fx-border-color: white;
 }

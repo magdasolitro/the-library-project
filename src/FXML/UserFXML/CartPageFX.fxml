@@ -15,20 +15,20 @@
                         <Font name="Avenir Book" size="17.0" />
                      </font>
                   </Button>
-                  <Pane fx:id="cartPane" layoutX="70.0" layoutY="70.0" prefHeight="381.0" prefWidth="616.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="70.0">
+                  <AnchorPane fx:id="cartPane" layoutX="70.0" layoutY="70.0" prefHeight="381.0" prefWidth="616.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="70.0">
                      <children>
-                        <Label layoutX="50.0" layoutY="30.0" text="Your cart">
+                        <Label layoutX="50.0" layoutY="20.0" text="Your cart">
                            <font>
                               <Font name="Avenir Next Bold" size="70.0" />
                            </font>
                         </Label>
                      </children>
-                  </Pane>
+                  </AnchorPane>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="777.0" style="-fx-background-color: #FFFFFF;">
                <children>
-                  <Button fx:id="checkOutButton" layoutX="100.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#handleCheckOut" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Check Out" textFill="WHITE">
+                  <Button fx:id="checkOutButton" layoutX="100.0" layoutY="397.0" mnemonicParsing="false" onMouseClicked="#handleCheckOut" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Check Out" textFill="WHITE">
                      <font>
                         <Font name="Avenir Next Bold" size="20.0" />
                      </font>

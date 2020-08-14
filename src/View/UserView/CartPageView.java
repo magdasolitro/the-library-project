@@ -6,11 +6,9 @@ import Model.Utils.DAOs.CartDAO;
 import Model.Utils.DaoImpl.CartDaoImpl;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
 import java.math.BigDecimal;
@@ -47,6 +45,7 @@ public class CartPageView {
         bookContainer.setHgap(20);
 
         scrollPane.setContent(bookContainer);
+        scrollPane.isResizable();
 
         return scrollPane;
 
@@ -62,10 +61,9 @@ public class CartPageView {
 
         Label priceLabel;
         Label discountLabel;
-
-        Spinner<Integer> quantitySpinner;
-
+        Label quantityLabel;
         Button removeFromCartButton;
+
 
         // FIRST COLUMN
         Font bookTitleFont = new Font("Avenir Book Bold", 25);
@@ -83,22 +81,6 @@ public class CartPageView {
         genreLabel = new Label(book.getGenre());
         genreLabel.setFont(genericLabelFont);
 
-        // costraints
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.LEFT);
-        column1.setPercentWidth(70);
-
-        RowConstraints titleRow = new RowConstraints();
-        titleRow.setValignment(VPos.CENTER);
-
-        RowConstraints authorRow = new RowConstraints();
-        authorRow.setValignment(VPos.CENTER);
-
-        RowConstraints publishingYearRow = new RowConstraints();
-        publishingYearRow.setValignment(VPos.CENTER);
-
-        RowConstraints genreRow = new RowConstraints();
-        genreRow.setValignment(VPos.CENTER);
 
         // add title, author, publishing year and genre to gridpane
         singleBook.add(titleLabel, 0, 0);
@@ -118,43 +100,16 @@ public class CartPageView {
             discountLabel = new Label();
         }
 
-
-        // set constraints
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        column2.setPercentWidth(30);
-
-        RowConstraints priceRow = new RowConstraints();
-        priceRow.setPercentHeight(50);
-        priceRow.setValignment(VPos.CENTER);
-
-        RowConstraints discountRow = new RowConstraints();
-        discountRow.setPercentHeight(50);
-        discountRow.setValignment(VPos.CENTER);
-
-        RowConstraints quantityRow = new RowConstraints();
-        quantityRow.setPercentHeight(50);
-        quantityRow.setValignment(VPos.CENTER);
-
-        // add price and discount to gridpane
-        singleBook.add(priceLabel, 1, 0);
-        singleBook.add(discountLabel, 1 ,1);
-
-
-        // THIRD COLUMN
         try {
-            int initialValue = book.getQuantity(GeneralLoginController.getLoginInstance());
-
-            quantitySpinner = new Spinner<>(1, 10, initialValue, 1);
-            quantitySpinner.setPrefHeight(45);
-            quantitySpinner.setPrefWidth(80);
-
-            singleBook.add(quantitySpinner, 2, 0);
+            quantityLabel = new Label("Qty: " + book.getQuantity(GeneralLoginController.getLoginInstance()));
+            quantityLabel.setFont(genericLabelFont);
         } catch (SQLException e) {
-            e.printStackTrace();
+            quantityLabel = new Label();
         }
 
         removeFromCartButton = new Button("Remove from cart");
+        removeFromCartButton.setId("removefromcart-button");
+        removeFromCartButton.getStylesheets().add("/CSS/style.css");
 
         removeFromCartButton.setOnMouseClicked(e -> {
             Alert removalAlert = new Alert(Alert.AlertType.WARNING);
@@ -179,28 +134,29 @@ public class CartPageView {
         });
 
 
-        // set constraints
-        ColumnConstraints column3 = new ColumnConstraints();
-        column3.setHalignment(HPos.CENTER);
-        column3.setPercentWidth(30);
+        // add price, discount, quantity, remove button to gridpane
+        singleBook.add(priceLabel, 1, 0);
+        singleBook.add(discountLabel, 1 ,1);
+        singleBook.add(quantityLabel, 1, 2);
+        singleBook.add(removeFromCartButton, 1, 3);
 
-        RowConstraints spinnerRow = new RowConstraints();
-        spinnerRow.setPercentHeight(50);
-        spinnerRow.setValignment(VPos.CENTER);
 
-        RowConstraints buttonRow = new RowConstraints();
-        buttonRow.setPercentHeight(50);
-        buttonRow.setValignment(VPos.CENTER);
+        // set column constraints
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setHalignment(HPos.LEFT);
+        column1.setPercentWidth(70);
 
-        singleBook.add(removeFromCartButton, 2, 2);
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setHalignment(HPos.LEFT);
+        column2.setPercentWidth(30);
+
 
         singleBook.setPrefWidth(750);
         singleBook.isResizable();
+        singleBook.setVgap(10);
 
         // adds contraints to grid pane
-        singleBook.getColumnConstraints().addAll(column1, column2, column3);
-        singleBook.getRowConstraints().addAll(titleRow, authorRow, publishingYearRow,
-                priceRow, discountRow, quantityRow, spinnerRow, buttonRow);
+        singleBook.getColumnConstraints().addAll(column1, column2);
 
         return singleBook;
     }

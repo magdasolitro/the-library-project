@@ -154,7 +154,7 @@ public class OrderDaoImpl implements OrderDAO {
 
         String sql = "INSERT INTO orders(orderID, date, status, paymentMethod," +
                 " price, points, shippingAddress, user, userNotReg) " +
-                "VALUES(?,?,?,?,?,?,?,?,?,?)";
+                "VALUES(?,?,?,?,?,?,?,?,?)";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
