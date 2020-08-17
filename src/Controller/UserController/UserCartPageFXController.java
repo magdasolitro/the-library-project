@@ -141,7 +141,7 @@ public class UserCartPageFXController implements Initializable {
         Optional<ButtonType> response = checkOutAlert.showAndWait();
 
         if(response.isPresent() && response.get() == ButtonType.OK) {
-            LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/CartPageFX.fxml");
+            LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserCartPageFX.fxml");
 
             CompositionDAO compositionDAO = new CompositionDaoImpl();
 

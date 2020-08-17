@@ -183,7 +183,7 @@ public class UserNotRegMainPageFXController implements Initializable {
             Stage stage = (Stage) cartIcon.getScene().getWindow();
             stage.close();
 
-            viewPage("../../FXML/UserFXML/CartPageFX.fxml");
+            viewPage("../../FXML/UserFXML/UserCartPageFX.fxml");
         } catch (IOException ioe){
             System.out.println("IOException" + ioe.getMessage());
         }

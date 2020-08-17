@@ -124,7 +124,7 @@ public class SingleBookPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/CartPageFX.fxml");
+            viewPage("../../FXML/UserFXML/UserCartPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -135,7 +135,7 @@ public class SingleBookPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/CartPageFX.fxml");
+            viewPage("../../FXML/UserFXML/UserCartPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -30,7 +30,6 @@ public class UserOrderConfirmationPageFXController implements Initializable {
         goBackButton.setId("goback-button");
         goBackButton.getStylesheets().add("/CSS/style.css");
 
-        //VBox vbox = UserOrderConfirmationPageView.buildOrderConfirmationPageView();
         GridPane gridPane = UserOrderConfirmationPageView.buildOrderConfirmationPageView();
 
         ScrollPane scrollPane = new ScrollPane(gridPane);

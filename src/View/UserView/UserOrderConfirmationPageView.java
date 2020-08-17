@@ -217,6 +217,19 @@ public class UserOrderConfirmationPageView {
                             // add points to user's LibroCard
                             libroCardDAO.addPoints(cardID, orderID);
 
+                            DatabaseConnection connection2 = new DatabaseConnection();
+                            connection2.openConnection();
+
+                            String clearCartQuery = "DELETE FROM cart " +
+                                                    "WHERE user = ?";
+
+                            PreparedStatement pstmt3 = connection2.conn.prepareStatement(clearCartQuery);
+
+                            pstmt3.setString(1, currentUserEmail);
+
+                            pstmt3.executeUpdate();
+
+                            connection2.closeConnection();
 
                         } else {
                             // add new row in Order table
@@ -228,9 +241,9 @@ public class UserOrderConfirmationPageView {
                                     shippingAddressTF.getText(), null, currentUserEmail);
 
                             orderDAO.addOrder(newOrder);
-                        }
 
-                        // TODO: clear cart
+                            // TODO: clear cart
+                        }
 
 
                     } catch (SQLException | UserNotInDatabaseException | InvalidStringException |
