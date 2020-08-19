@@ -33,4 +33,11 @@ public interface BookDAO {
     public void setDiscount(String ISBN, BigDecimal discount) throws SQLException;
 
     public void editDescription(String ISBN, String newDescription) throws SQLException;
+
+    public void decreaseAvailableCopies(String ISBN, int removedUnits) throws SQLException;
+
+    public void increaseAvailableCopies(String ISBN, int addedUnits) throws SQLException;
+
+    public void setAvailableCopies(String ISBN, int availableCopies) throws SQLException;
+
 }

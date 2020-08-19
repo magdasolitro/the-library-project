@@ -1,6 +1,7 @@
 package View.UserView;
 
 import Controller.GeneralLoginController;
+import Controller.LastOpenedPageController;
 import Model.*;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
@@ -9,7 +10,10 @@ import Model.Exceptions.UserNotInDatabaseException;
 import Model.Utils.DAOs.*;
 import Model.Utils.DaoImpl.*;
 import Model.Utils.DatabaseConnection;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +21,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,7 +65,7 @@ public class UserOrderConfirmationPageView {
         }
 
         try {
-            booksInCartSP = CartPageView.buildCartView(cartDAO.cartContent(currentUserEmail));
+            booksInCartSP = CartPageView.buildCartView(cartDAO.cartContent(currentUserEmail), false);
             booksInCartSP.setId("booksInCart-scrollpane");
             booksInCartSP.getStylesheets().add("/CSS/style.css");
         } catch (SQLException | InvalidStringException | IllegalValueException e) {
@@ -160,7 +166,7 @@ public class UserOrderConfirmationPageView {
                             booksInCartAttributes.add(bookDAO.getBook(bookISBN));
 
                             compositionDAO.addBookToOrder(bookISBN, orderID, bookAndQuantities.get(bookISBN));
-
+                            bookDAO.decreaseAvailableCopies(bookISBN, bookAndQuantities.get(bookISBN));
                         }
 
 
@@ -214,6 +220,7 @@ public class UserOrderConfirmationPageView {
 
                             connection1.closeConnection();
 
+
                             // add points to user's LibroCard
                             libroCardDAO.addPoints(cardID, orderID);
 
@@ -242,19 +249,34 @@ public class UserOrderConfirmationPageView {
 
                             orderDAO.addOrder(newOrder);
 
-                            // TODO: clear cart
+                            // TODO: clear cart + decrease amout of books in stock
                         }
 
+                        Stage closingStage = (Stage) checkOutButton.getScene().getWindow();
+                        closingStage.close();
+
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(UserOrderConfirmationPageView.class.getResource("../../FXML/UserFXML/UserOrderSuccessfulPageFX.fxml"));
+                        Parent root = loader.load();
+
+                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+
+                        stage.setScene(scene);
+                        stage.setMaximized(true);
+                        stage.show();
 
                     } catch (SQLException | UserNotInDatabaseException | InvalidStringException |
-                            IllegalValueException | NotSameUserException ex) {
-                        /*Alert orderFailure = new Alert(Alert.AlertType.ERROR);
+                            IllegalValueException | NotSameUserException | IOException ex) {
+                        Alert orderFailure = new Alert(Alert.AlertType.ERROR);
 
                         orderFailure.setTitle("Order Failure");
                         orderFailure.setHeaderText("Something went wrong: ");
                         orderFailure.setContentText("ERROR MESSAGE: " + ex.getMessage());
 
-                        orderFailure.showAndWait();*/
+                        orderFailure.showAndWait();
                         ex.printStackTrace();
 
                     }
@@ -273,7 +295,7 @@ public class UserOrderConfirmationPageView {
         gridPane.add(checkOutButton, 0,5);
 
 
-        Insets insets = new Insets(0, 0, 20, 20);
+        Insets insets = new Insets(0, 0, 40, 20);
 
         GridPane.setMargin(orderConfirmationLabel, insets);
         GridPane.setMargin(booksInCartSP, insets);
@@ -284,6 +306,5 @@ public class UserOrderConfirmationPageView {
 
         return gridPane;
     }
-
 
 }

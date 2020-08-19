@@ -21,7 +21,7 @@ import javafx.scene.text.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserOrderSummaryPageView {
+public class UserOrderSuccessfulPageView {
 
     public static GridPane buildOrderSummaryPageView(String orderID) {
         GridPane gridPane = new GridPane();
@@ -50,7 +50,8 @@ public class UserOrderSummaryPageView {
             for(String isbn : booksISBN){
                 booksInOrder.add(bookDAO.getBook(isbn));
             }
-            orderedBooksSP = CartPageView.buildCartView(booksInOrder);
+
+            orderedBooksSP = CartPageView.buildCartView(booksInOrder, false);
             orderedBooksSP.setId("booksInCart-scrollpane");
             orderedBooksSP.getStylesheets().add("/CSS/style.css");
 

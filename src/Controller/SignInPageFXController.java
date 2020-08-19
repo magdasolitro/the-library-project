@@ -43,6 +43,7 @@ public class SignInPageFXController implements Initializable {
     @FXML
     public void handleSignInButton(MouseEvent evt) throws InvalidStringException,
             UserNotInDatabaseException, SQLException, IOException {
+        UserDAO userDAO = new UserDaoImpl();
 
         // check if all the fields have been filled
         if(nameField.getText().isEmpty() || surnameField.getText().isEmpty() ||
@@ -63,7 +64,7 @@ public class SignInPageFXController implements Initializable {
         }
 
         // check if password matches in both password fields
-        if(!passwordField.getText().equals(passwordAgainField.getText())){
+        else if(!passwordField.getText().equals(passwordAgainField.getText())){
             Alert notMatchingFields = new Alert(Alert.AlertType.ERROR);
 
             notMatchingFields.setTitle("Fields Error");
@@ -74,10 +75,8 @@ public class SignInPageFXController implements Initializable {
 
         }
 
-        UserDAO userDAO = new UserDaoImpl();
-
         // check if user is already in db
-        if(userDAO.getUser(emailField.getText()) != null ){
+        else if(userDAO.getUser(emailField.getText()) != null ){
             Alert alreadyRegistred = new Alert(Alert.AlertType.ERROR);
 
             alreadyRegistred.setTitle("Registration Error");
@@ -87,18 +86,29 @@ public class SignInPageFXController implements Initializable {
             alreadyRegistred.showAndWait();
         }
 
-        // add new user (LibroCard is added automatically inside addUser method)
-        User newUser = new User(nameField.getText(), surnameField.getText(),
-                phoneField.getText(), emailField.getText(), passwordField.getText(),
-                addressField.getText(), streetNumber.getText(),
-                ZIPCodeField.getText(), cityField.getText());
+        // everything is ok, i can add the user
+        else {
 
-        userDAO.addUser(newUser);
+            // add new user (LibroCard is added automatically inside addUser method)
+            User newUser = new User(nameField.getText(), surnameField.getText(),
+                    phoneField.getText(), emailField.getText(), passwordField.getText(),
+                    addressField.getText(), streetNumber.getText(),
+                    ZIPCodeField.getText(), cityField.getText());
 
-        Stage stage = (Stage) signInButton.getScene().getWindow();
-        stage.close();
+            userDAO.addUser(newUser);
 
-        viewPage("../FXML/UserFXML/UserMainPageFX.fxml");
+            LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+
+            LibroCard userLibroCard = new LibroCard(emailField.getText());
+            libroCardDAO.addLibroCard(userLibroCard);
+
+            GeneralLoginController.setLoginInstance(emailField.getText());
+
+            Stage stage = (Stage) signInButton.getScene().getWindow();
+            stage.close();
+
+            viewPage("../FXML/UserFXML/UserMainPageFX.fxml");
+        }
     }
 
     @FXML

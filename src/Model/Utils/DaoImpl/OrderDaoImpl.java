@@ -1,5 +1,6 @@
 package Model.Utils.DaoImpl;
 
+import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Order;
@@ -102,7 +103,7 @@ public class OrderDaoImpl implements OrderDAO {
                     rs.getInt("points"),
                     rs.getString("shippingAddress"),
                     rs.getString("user"),
-                    rs.getString("user_notReg")));
+                    rs.getString("userNotReg")));
         }
 
         rs.close();
@@ -137,7 +138,7 @@ public class OrderDaoImpl implements OrderDAO {
                     rs.getInt("points"),
                     rs.getString("shippingAddress"),
                     rs.getString("user"),
-                    rs.getString("user_notReg")));
+                    rs.getString("userNotReg")));
         }
 
         rs.close();
@@ -203,4 +204,6 @@ public class OrderDaoImpl implements OrderDAO {
 
         connection.closeConnection();
     }
+
+
 }

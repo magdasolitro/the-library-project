@@ -179,9 +179,7 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
         } catch(SQLException sqle){
             System.out.println(sqle.getMessage());
-        } /*catch(NotSameUserException nsue){
-            System.out.println(nsue.getMessage());
-        }*/
+        }
 
         connection.closeConnection();
     }

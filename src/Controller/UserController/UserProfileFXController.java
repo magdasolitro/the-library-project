@@ -2,7 +2,10 @@ package Controller.UserController;
 
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
+import Model.LibroCard;
+import Model.Utils.DAOs.LibroCardDAO;
 import Model.Utils.DAOs.UserDAO;
+import Model.Utils.DaoImpl.LibroCardDaoImpl;
 import Model.Utils.DaoImpl.UserDaoImpl;
 import View.UserView.LibroCardPageView;
 import View.UserView.UserProfileView;
@@ -95,7 +98,7 @@ public class UserProfileFXController implements Initializable {
             Stage stage = (Stage) myOrdersButton.getScene().getWindow();
             stage.close();
 
-            viewPage("../../FXML/UserFXML/OrdersPageFX.fxml");
+            viewPage("../../FXML/UserFXML/UserAllOrdersPageFX.fxml");
         } catch(IOException ioe){
             ioe.getStackTrace();
         }
@@ -165,21 +168,23 @@ public class UserProfileFXController implements Initializable {
         if(response.isPresent() && response.get() == ButtonType.OK) {
             try {
                 UserDAO userDAO = new UserDaoImpl();
+                LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+                String currentUser = GeneralLoginController.getLoginInstance();
 
-                userDAO.deleteUser(GeneralLoginController.getLoginInstance());
+                LibroCard userLibroCard = libroCardDAO.getUserLibroCard(currentUser);
+
+                userDAO.deleteUser(currentUser);
+                libroCardDAO.deleteLibroCard(userLibroCard.getCardID());
 
                 GeneralLoginController.logout();
 
-                try {
-                    Stage stage = (Stage) deleteAccountButton.getScene().getWindow();
-                    stage.close();
+                Stage stage = (Stage) deleteAccountButton.getScene().getWindow();
+                stage.close();
 
-                    viewPage("../../FXML/WelcomePageFX.fxml");
-                } catch (IOException ioe) {
-                    System.out.println("IOException: " + ioe.getMessage());
-                }
-            } catch(SQLException sqle){
-                sqle.getStackTrace();
+                viewPage("../../FXML/WelcomePageFX.fxml");
+
+            } catch(SQLException | IOException e){
+                e.getStackTrace();
             }
         } else {
             mouseEvent.consume();

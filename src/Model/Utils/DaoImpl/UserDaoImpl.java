@@ -78,16 +78,6 @@ public class UserDaoImpl implements UserDAO {
 
         pstmt.close();
 
-        // add LibroCard for user
-        try {
-            LibroCard newLibroCard = new LibroCard(user.getEmail());
-
-            LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
-            libroCardDAO.addLibroCard(newLibroCard);
-        } catch (UserNotInDatabaseException unidb){
-            unidb.printStackTrace();
-        }
-
         connection.closeConnection();
     }
 
@@ -103,18 +93,6 @@ public class UserDaoImpl implements UserDAO {
 
         pstmt.executeUpdate();
 
-        // delete LibroCard associated to user
-        String cardIDQuery = "SELECT cardID FROM LibroCard WHERE email = ?";
-
-        pstmt = connection.conn.prepareStatement(cardIDQuery);
-        pstmt.setString(1, email);
-
-        ResultSet rs = pstmt.executeQuery();
-
-        LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
-        libroCardDAO.deleteLibroCard(rs.getString("cardID"));
-
-        rs.close();
         pstmt.close();
 
         connection.closeConnection();

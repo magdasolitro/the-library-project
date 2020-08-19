@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public class CartPageView {
 
-    public static ScrollPane buildCartView(ArrayList<Book> booksToShow){
+    public static ScrollPane buildCartView(ArrayList<Book> booksToShow, boolean canBeRemoved){
 
         ScrollPane scrollPane = new ScrollPane();
 
@@ -35,7 +35,7 @@ public class CartPageView {
         int i = 0;
 
         for (Book b : booksToShow) {
-            GridPane currentBook = buildCartBookView(b);
+            GridPane currentBook = buildCartBookView(b, canBeRemoved);
             bookContainer.add(currentBook, 0, i);
             GridPane.setMargin(currentBook, new Insets(20, 0, 20, 30));
             i++;
@@ -51,7 +51,7 @@ public class CartPageView {
 
     }
 
-    private static GridPane buildCartBookView(Book book){
+    private static GridPane buildCartBookView(Book book, boolean canBeRemoved){
         GridPane singleBook = new GridPane();
 
         Label titleLabel;
@@ -107,38 +107,42 @@ public class CartPageView {
             quantityLabel = new Label();
         }
 
-        removeFromCartButton = new Button("Remove from cart");
-        removeFromCartButton.setId("removefromcart-button");
-        removeFromCartButton.getStylesheets().add("/CSS/style.css");
+        if(canBeRemoved){
+            removeFromCartButton = new Button("Remove from cart");
 
-        removeFromCartButton.setOnMouseClicked(e -> {
-            Alert removalAlert = new Alert(Alert.AlertType.WARNING);
+            removeFromCartButton.setId("removefromcart-button");
+            removeFromCartButton.getStylesheets().add("/CSS/style.css");
 
-            removalAlert.setTitle("Book Removal");
-            removalAlert.setHeaderText("This book will be removed from your cart");
-            removalAlert.setContentText("Are you sure you want to proceed?");
+            removeFromCartButton.setOnMouseClicked(e -> {
+                Alert removalAlert = new Alert(Alert.AlertType.WARNING);
 
-            Optional<ButtonType> response = removalAlert.showAndWait();
+                removalAlert.setTitle("Book Removal");
+                removalAlert.setHeaderText("This book will be removed from your cart");
+                removalAlert.setContentText("Are you sure you want to proceed?");
 
-            if(response.isPresent() && response.get() == ButtonType.OK) {
-                CartDAO cartDAO = new CartDaoImpl();
-                try {
-                    cartDAO.removeBookFromCart(book.getISBN(), GeneralLoginController.getLoginInstance());
-                } catch (SQLException sqle) {
-                    sqle.printStackTrace();
+                Optional<ButtonType> response = removalAlert.showAndWait();
+
+                if(response.isPresent() && response.get() == ButtonType.OK) {
+                    CartDAO cartDAO = new CartDaoImpl();
+                    try {
+                        cartDAO.removeBookFromCart(book.getISBN(), GeneralLoginController.getLoginInstance());
+                    } catch (SQLException sqle) {
+                        sqle.printStackTrace();
+                    }
+                } else {
+                    e.consume();
+                    removalAlert.close();
                 }
-            } else {
-                e.consume();
-                removalAlert.close();
-            }
-        });
+            });
+
+            singleBook.add(removeFromCartButton, 1, 3);
+        }
 
 
         // add price, discount, quantity, remove button to gridpane
         singleBook.add(priceLabel, 1, 0);
         singleBook.add(discountLabel, 1 ,1);
         singleBook.add(quantityLabel, 1, 2);
-        singleBook.add(removeFromCartButton, 1, 3);
 
 
         // set column constraints

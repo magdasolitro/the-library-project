@@ -47,17 +47,30 @@ public class UserCartPageFXController implements Initializable {
 
             ArrayList<Book> booksInCart = cartDAO.cartContent(GeneralLoginController.getLoginInstance());
 
-            ScrollPane scrollPane = CartPageView.buildCartView(booksInCart);
+            if(booksInCart.size() == 0){
+                Label emptyCartLabel = new Label("Your cart is empty :(");
+                emptyCartLabel.setFont(new Font("Avenir Book", 25));
 
-            scrollPane.setId("cart-scrollpane");
-            scrollPane.getStylesheets().add("/CSS/style.css");
+                cartPane.getChildren().add(emptyCartLabel);
 
-            cartPane.getChildren().add(scrollPane);
+                AnchorPane.setTopAnchor(emptyCartLabel, (double) 120);
+                AnchorPane.setRightAnchor(emptyCartLabel, (double) 0);
+                AnchorPane.setBottomAnchor(emptyCartLabel, (double) 0);
+                AnchorPane.setLeftAnchor(emptyCartLabel, (double) 50);
 
-            AnchorPane.setTopAnchor(scrollPane, (double) 120);
-            AnchorPane.setRightAnchor(scrollPane, (double) 0);
-            AnchorPane.setBottomAnchor(scrollPane, (double) 30);
-            AnchorPane.setLeftAnchor(scrollPane, (double) 0);
+            } else {
+                ScrollPane scrollPane = CartPageView.buildCartView(booksInCart, true);
+
+                scrollPane.setId("cart-scrollpane");
+                scrollPane.getStylesheets().add("/CSS/style.css");
+
+                cartPane.getChildren().add(scrollPane);
+
+                AnchorPane.setTopAnchor(scrollPane, (double) 120);
+                AnchorPane.setRightAnchor(scrollPane, (double) 0);
+                AnchorPane.setBottomAnchor(scrollPane, (double) 30);
+                AnchorPane.setLeftAnchor(scrollPane, (double) 0);
+            }
 
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
@@ -132,28 +145,6 @@ public class UserCartPageFXController implements Initializable {
 
 
     public void handleCheckOut(MouseEvent mouseEvent) {
-        Alert checkOutAlert = new Alert(Alert.AlertType.CONFIRMATION);
-
-        /*checkOutAlert.setTitle("Check Out");
-        checkOutAlert.setHeaderText("Do you want confirm this order");
-        checkOutAlert.setContentText("Press \"OK\" to confirm");
-
-        Optional<ButtonType> response = checkOutAlert.showAndWait();
-
-        if(response.isPresent() && response.get() == ButtonType.OK) {
-            LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserCartPageFX.fxml");
-
-            CompositionDAO compositionDAO = new CompositionDaoImpl();
-
-            //TODO: complete checkout operation
-
-        } else {
-            mouseEvent.consume();
-            checkOutAlert.close();
-        }
-
-         */
-
         Stage stage = (Stage) checkOutButton.getScene().getWindow();
         stage.close();
 

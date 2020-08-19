@@ -1,11 +1,13 @@
 package Model.Utils.DAOs;
 
+import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Order;
 import Model.OrderStatusEnum;
 
 import java.math.BigDecimal;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

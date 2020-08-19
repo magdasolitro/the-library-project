@@ -60,7 +60,6 @@ public class UserMainPageView {
         GridPane singleBook = new GridPane();
         //Pane backgroundPane = new Pane();
 
-        // this id will be used in the css file
         Label titleLabel;
         Label authorLabel;
         Label publishingYearLabel;

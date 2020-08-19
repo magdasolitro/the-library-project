@@ -284,6 +284,63 @@ public class BookDaoImpl implements BookDAO {
 
         pstmt.close();
 
-        connection.closeConnection();;
+        connection.closeConnection();
+    }
+
+    @Override
+    public void decreaseAvailableCopies(String ISBN, int removedUnits) throws SQLException {
+        String sql = "UPDATE book SET availableCopies = availableCopies - ? WHERE ISBN = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setInt(1, removedUnits);
+        pstmt.setString(2, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
+    }
+
+    @Override
+    public void increaseAvailableCopies(String ISBN, int addedUnits) throws SQLException {
+        String sql = "UPDATE book SET availableCopies = availableCopies + ? WHERE ISBN = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setInt(1, addedUnits);
+        pstmt.setString(2, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
+    }
+
+    @Override
+    public void setAvailableCopies(String ISBN, int availableCopies) throws SQLException {
+        String sql = "UPDATE book SET availableCopies = ? WHERE ISBN = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setInt(1, availableCopies);
+        pstmt.setString(2, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
     }
 }

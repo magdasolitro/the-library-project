@@ -2,8 +2,55 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserOrderConfirmationPageFXController">
-    <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0" />
-    <Pane fx:id="pane" layoutX="80.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="70.0" />
+<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserOrderSuccessfulPageFXController">
+    <Pane fx:id="pane" layoutX="80.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="70.0">
+        <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="50.0" prefHeight="102.0" prefWidth="1100.0" text="Thank you for your order!">
+                <font>
+                    <Font name="Avenir Next Bold" size="50.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="192.0" text="Your order has been confirmed and is now on its way to reach its destination.">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="260.0" text="It usually takes no more than 2-3 days to deliver the articles, but times may vary">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="290.0" text="based on the location you specified. If the articles do not arrive within a week,">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="320.0" text="please contact us by sending an e-mail to">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Label layoutX="605.0" layoutY="325.0" text="mindtravels@custormerservice.com" underline="true">
+                <font>
+                    <Font name="Menlo Regular" size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="390.0" text="Meanwhile, you can monitor your order status from your Orders Page:">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Button fx:id="goToOrdersButton" layoutX="367.0" layoutY="450.0" mnemonicParsing="false" onAction="#goToAllOrdersPage" style="-fx-background-color: #3CB371;" text="Go to my orders" textFill="WHITE">
+                <font>
+                    <Font name="Avenir Next Bold" size="17.0" />
+                </font>
+            </Button>
+            <Button fx:id="backToMainPageButton" layoutX="652.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleGoBackToMainPage" text="Back to main page">
+                <font>
+                    <Font name="Avenir Book" size="17.0" />
+                </font>
+            </Button>
+        </children></Pane>
 </AnchorPane>
