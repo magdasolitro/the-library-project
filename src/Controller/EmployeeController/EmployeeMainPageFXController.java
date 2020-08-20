@@ -53,6 +53,14 @@ public class EmployeeMainPageFXController implements Initializable {
 
 
     public void handleCheckOrdersRequest() {
+        Stage stage = (Stage) checkOrdersButton.getScene().getWindow();
+        stage.close();
+
+        try {
+            viewPage("../../FXML/EmployeeFXML/AllOrdersPageFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

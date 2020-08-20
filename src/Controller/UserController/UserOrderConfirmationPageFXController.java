@@ -34,6 +34,9 @@ public class UserOrderConfirmationPageFXController implements Initializable {
         scrollPane.setId("ordersummary-scrollpane");
         scrollPane.getStylesheets().add("/CSS/style.css");
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.fitToWidthProperty();
+
+        gridPane.prefWidthProperty().bind(whiteAnchorPane.widthProperty());
 
         whiteAnchorPane.getChildren().add(scrollPane);
 

@@ -234,7 +234,7 @@ public class UserNotRegMainPageFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../FXML/UserNotRegFXML/UserNotRegMainPageFX.fxml");
+        LastOpenedPageController.setLastOpenedPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

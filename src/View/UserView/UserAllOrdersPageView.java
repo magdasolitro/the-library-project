@@ -7,8 +7,10 @@ import Model.Order;
 import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DaoImpl.OrderDaoImpl;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
@@ -45,8 +47,11 @@ public class UserAllOrdersPageView {
 
             for(Order o : allOrders){
                 GridPane singleOrderGP = singleOrderView(o);
+                //Separator separator = new Separator(Orientation.HORIZONTAL);
+
                 ordersGP.add(singleOrderGP, 0, i);
-                i++;
+                //ordersGP.add(separator, 0, i+1);
+                i += 2;
             }
 
             scrollPane.setContent(ordersGP);
@@ -65,7 +70,7 @@ public class UserAllOrdersPageView {
         return scrollPane;
     }
 
-    private static GridPane singleOrderView(Order order){
+    public static GridPane singleOrderView(Order order){
         GridPane ordersGridPane = new GridPane();
 
         Label orderIDLabel;
@@ -146,9 +151,9 @@ public class UserAllOrdersPageView {
         ordersGridPane.add(shippingAddress, 1,6);
 
         ordersGridPane.setHgap(40);
-        ordersGridPane.setVgap(10);
+        ordersGridPane.setVgap(40);
 
-        ordersGridPane.setId("singleorder-ordersGridPane");
+        ordersGridPane.setId("singleorder-gridpane");
         ordersGridPane.getStylesheets().add("/CSS/style.css");
 
         return ordersGridPane;

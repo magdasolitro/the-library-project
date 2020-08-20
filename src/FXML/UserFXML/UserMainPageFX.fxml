@@ -50,7 +50,7 @@
                        </ImageView>
                    </children>
                </AnchorPane>
-               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefWidth="1010.0" style="-fx-background-color: #ffffff;">
+               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefWidth="1010.0" style="-fx-background-color: #FFFFFF;">
                    <children>
                        <Label fx:id="logoutLabel" layoutX="646.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
                            <font>

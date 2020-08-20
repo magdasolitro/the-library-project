@@ -6,9 +6,11 @@ import Model.Utils.DAOs.CartDAO;
 import Model.Utils.DaoImpl.CartDaoImpl;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
 import java.math.BigDecimal;
@@ -38,11 +40,21 @@ public class CartPageView {
             GridPane currentBook = buildCartBookView(b, canBeRemoved);
             bookContainer.add(currentBook, 0, i);
             GridPane.setMargin(currentBook, new Insets(20, 0, 20, 30));
+
             i++;
         }
 
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setHalignment(HPos.LEFT);
+        column1.setPercentWidth(50);
+
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setHalignment(HPos.LEFT);
+        column2.setPercentWidth(50);
+
+        bookContainer.getColumnConstraints().addAll(column1, column2);
+
         bookContainer.setVgap(20);
-        bookContainer.setHgap(20);
 
         scrollPane.setContent(bookContainer);
         scrollPane.isResizable();

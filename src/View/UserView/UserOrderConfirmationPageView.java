@@ -81,6 +81,8 @@ public class UserOrderConfirmationPageView {
         paymentMethodCB = new ChoiceBox<>();
 
         paymentMethodCB.getItems().addAll("Credit Card", "Paypal", "Cash in delivery");
+        paymentMethodCB.setPrefWidth(170);
+        paymentMethodCB.setPrefHeight(33);
 
         paymentMethodGP.add(paymentMethodLabel, 0,0);
         paymentMethodGP.add(paymentMethodCB, 0, 1);
@@ -303,6 +305,9 @@ public class UserOrderConfirmationPageView {
         GridPane.setMargin(shippingAddressGP, insets);
         GridPane.setMargin(totalCostLabel, insets);
         GridPane.setMargin(checkOutButton, insets);
+
+        gridPane.setId("allorders-gridpane");
+        gridPane.getStylesheets().add("/CSS/style.css");
 
         return gridPane;
     }

@@ -45,7 +45,7 @@ public class WelcomePageFXController {
         String userNotRegIdentifier = "NOTREG";
         GeneralLoginController.setLoginInstance(userNotRegIdentifier);
 
-        viewPage("../FXML/UserNotRegFXML/UserNotRegMainPageFX.fxml");
+        viewPage("../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
     }
 
     @FXML
