@@ -5,13 +5,16 @@ import Controller.LastOpenedPageController;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.GenresEnum;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import View.UserView.UserMainPageView;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,11 +31,9 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class UserMainPageFXController implements Initializable {
-    @FXML
-    private ChoiceBox<String> genresChoiceBox;
 
     @FXML
-    private AnchorPane rightPane;
+    private AnchorPane rightPane, leftPane;
 
     @FXML
     private TextField bookSearchTextField;
@@ -53,10 +55,25 @@ public class UserMainPageFXController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
-        // set possible choices in drop down menu
-        genresChoiceBox.getItems().addAll("All", "Autobiography", "Crime Fiction",
+        ChoiceBox<Object> genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("Autobiography", "Crime Fiction",
                 "Fantasy", "History", "Narrative", "Philosophy of Science",
-                "Politics", "Science Fiction");
+                "Politics", "Science Fiction"));
+
+        // if the item of the list has changed
+        genresChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
+            BookDAO bookDAO = new BookDaoImpl();
+            try {
+                ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue()]));
+                changeBookView(booksByGenre);
+            } catch (SQLException | InvalidStringException | IllegalValueException e) {
+                e.printStackTrace();
+            }
+        });
+
+        leftPane.getChildren().add(genresChoiceBox);
+        genresChoiceBox.relocate(35, 240);
+        genresChoiceBox.setPrefWidth(175);
+        genresChoiceBox.setPrefHeight(37);
 
         // build full catalog view
         try {

@@ -46,23 +46,15 @@ public class AllOrdersPageFXController implements Initializable {
         //statusCB.getSelectionModel().selectedIndexProperty().addListener();
         GridPane allOrdersGP = AllOrdersPageView.buildAllOrdersView();
 
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.LEFT);
-        column1.setPercentWidth(30);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        column2.setPercentWidth(70);
-
         allOrdersGP.setVgap(70);
-
-        allOrdersGP.getColumnConstraints().addAll(column1, column2);
 
         scrollPane.setContent(allOrdersGP);
         scrollPane.setId("ordersummary-scrollpane");
         scrollPane.getStylesheets().add("/CSS/style.css");
 
         scrollPane.prefWidthProperty().bind(rightPane.widthProperty());
+        allOrdersGP.prefWidthProperty().bind(scrollPane.widthProperty());
+
         scrollPane.setPadding(new Insets(20, 0, 0, 20));
         AnchorPane.setTopAnchor(scrollPane, (double) 0);
         AnchorPane.setBottomAnchor(scrollPane, (double) 0);

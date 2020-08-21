@@ -1,6 +1,5 @@
 package Controller.UserNotRegController;
 
-import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
@@ -26,12 +25,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
-public class UserNotRegMainPageFXController implements Initializable {
+public class UserNRMainPageFXController implements Initializable {
     @FXML
     public Button rankingsButton;
 
     @FXML
-    private ChoiceBox genresChoiceBox;
+    private ChoiceBox<String> genresChoiceBox;
 
     @FXML
     private AnchorPane rightPane;

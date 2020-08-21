@@ -51,10 +51,10 @@ public class UserCartPageFXController implements Initializable {
 
                 cartPane.getChildren().add(emptyCartLabel);
 
-                AnchorPane.setTopAnchor(emptyCartLabel, (double) 120);
-                AnchorPane.setRightAnchor(emptyCartLabel, (double) 0);
-                AnchorPane.setBottomAnchor(emptyCartLabel, (double) 0);
-                AnchorPane.setLeftAnchor(emptyCartLabel, (double) 50);
+                AnchorPane.setTopAnchor(emptyCartLabel, (double) 80);
+                AnchorPane.setRightAnchor(emptyCartLabel, (double) 80);
+                AnchorPane.setBottomAnchor(emptyCartLabel, (double) 80);
+                AnchorPane.setLeftAnchor(emptyCartLabel, (double) 80);
 
             } else {
                 ScrollPane scrollPane = CartPageView.buildCartView(booksInCart, true);
@@ -79,7 +79,6 @@ public class UserCartPageFXController implements Initializable {
 
         try {
             totalCost = cartDAO.totalCost(GeneralLoginController.getLoginInstance()).setScale(2, RoundingMode.FLOOR);
-            System.out.println(totalCost);
         } catch (SQLException | IllegalValueException | InvalidStringException e) {
             e.printStackTrace();
         }

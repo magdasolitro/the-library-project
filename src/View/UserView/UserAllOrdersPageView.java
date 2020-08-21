@@ -6,14 +6,15 @@ import Model.Exceptions.InvalidStringException;
 import Model.Order;
 import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DaoImpl.OrderDaoImpl;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -47,17 +48,14 @@ public class UserAllOrdersPageView {
 
             for(Order o : allOrders){
                 GridPane singleOrderGP = singleOrderView(o);
-                //Separator separator = new Separator(Orientation.HORIZONTAL);
-
                 ordersGP.add(singleOrderGP, 0, i);
-                //ordersGP.add(separator, 0, i+1);
                 i += 2;
             }
 
             scrollPane.setContent(ordersGP);
             scrollPane.setPadding(new Insets(20, 0, 20, 20));
 
-            ordersGP.setVgap(60);
+            ordersGP.setVgap(40);
             ordersGP.setId("mainpage-gridpane");
             ordersGP.getStylesheets().add("/CSS/style.css");
         } catch (SQLException | InvalidStringException | IllegalValueException e) {
@@ -119,7 +117,7 @@ public class UserAllOrdersPageView {
         priceLabel = new Label("Price:");
         priceLabel.setFont(labelFont);
 
-        price = new Label("$ " + order.getPrice());
+        price = new Label("$ " + order.getPrice().setScale(2, RoundingMode.FLOOR));
         price.setFont(stdFont);
 
         pointsLabel = new Label("LibroCard points:");
@@ -150,8 +148,8 @@ public class UserAllOrdersPageView {
         ordersGridPane.add(points, 1,5);
         ordersGridPane.add(shippingAddress, 1,6);
 
+        ordersGridPane.setVgap(10);
         ordersGridPane.setHgap(40);
-        ordersGridPane.setVgap(40);
 
         ordersGridPane.setId("singleorder-gridpane");
         ordersGridPane.getStylesheets().add("/CSS/style.css");

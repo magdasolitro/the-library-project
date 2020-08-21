@@ -22,9 +22,6 @@ public interface BookDAO {
     public ArrayList<Book> getAllBooks() throws SQLException, InvalidStringException,
             IllegalValueException;
 
-    // questo metodo serve?? era stato creato per UserMainPageView
-    public int titlesInCatalog() throws SQLException;
-
     public ArrayList<Book> getBooksByGenre(GenresEnum genre) throws SQLException,
             InvalidStringException, IllegalValueException;
 

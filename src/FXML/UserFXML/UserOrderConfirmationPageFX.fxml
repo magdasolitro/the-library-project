@@ -2,8 +2,52 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="violetAnchorPane" prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserOrderConfirmationPageFXController">
     <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0" />
-    <AnchorPane fx:id="whiteAnchorPane" layoutX="80.0" layoutY="120.0" prefHeight="600.0" prefWidth="1088.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="70.0" />
+    <AnchorPane fx:id="whiteAnchorPane" layoutX="80.0" layoutY="120.0" prefHeight="600.0" prefWidth="1088.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="70.0">
+        <children>
+            <Label layoutX="70.0" layoutY="40.0" text="Order Confirmation">
+                <font>
+                   <Font name="Avenir Next Bold" size="60.0" />
+                </font>
+            </Label>
+            <Label layoutX="70.0" layoutY="170.0" text="Payment method:">
+                <font>
+                   <Font name="Avenir Book" size="20.0" />
+                </font></Label>
+            <ChoiceBox fx:id="paymentMethodCB" layoutX="70.0" layoutY="215.0" prefHeight="30.0" prefWidth="200.0" />
+            <Label layoutX="70.0" layoutY="300.0" text="Shipping address:">
+                <font>
+                   <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <RadioButton fx:id="homeAddressRB" layoutX="110.0" layoutY="350.0" mnemonicParsing="false" text="home address">
+                <font>
+                   <Font name="Avenir Book" size="17.0" />
+                </font>
+            </RadioButton>
+            <RadioButton fx:id="otherRB" layoutX="110.0" layoutY="400.0" mnemonicParsing="false" text="other:">
+                <font>
+                   <Font name="Avenir Book" size="17.0" />
+                </font>
+            </RadioButton>
+            <Label layoutX="600.0" layoutY="170.0" prefHeight="36.0" prefWidth="170.0" text="Total price:" AnchorPane.bottomAnchor="394.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="370.0" AnchorPane.topAnchor="170.0">
+                <font>
+                   <Font name="Avenir Next Bold" size="25.0" />
+                </font>
+            </Label>
+            <Button fx:id="checkOutButton" layoutX="600.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleCheckOutRequest" prefHeight="44.0" prefWidth="180.0" style="-fx-background-color: #3CB371;" text="Check Out!" textFill="WHITE">
+                <font>
+                   <Font name="Avenir Next Bold" size="20.0" />
+                </font>
+            </Button>
+            <TextField fx:id="alternativeAddressTF" layoutX="140.0" layoutY="440.0" prefHeight="33.0" prefWidth="250.0" promptText="insert alternative address">
+                <font>
+                   <Font name="Avenir Book" size="15.0" />
+                </font>
+            </TextField>
+            <!--<TextField layoutX="70.0" layoutY="450.0" />-->
+          </children></AnchorPane>
 </AnchorPane>

@@ -30,7 +30,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class UserOrderConfirmationPageView {
 
@@ -39,7 +38,6 @@ public class UserOrderConfirmationPageView {
 
         Label orderConfirmationLabel;
         Label totalCostLabel;
-        ScrollPane booksInCartSP;
         Button checkOutButton;
 
         Label paymentMethodLabel;
@@ -62,14 +60,6 @@ public class UserOrderConfirmationPageView {
         } catch (SQLException | InvalidStringException | IllegalValueException e) {
             totalCostLabel = new Label("ERROR: Unable to retrieve price");
             totalCostLabel.setFont(new Font("Avenir Book", 25));
-        }
-
-        try {
-            booksInCartSP = CartPageView.buildCartView(cartDAO.cartContent(currentUserEmail), false);
-            booksInCartSP.setId("booksInCart-scrollpane");
-            booksInCartSP.getStylesheets().add("/CSS/style.css");
-        } catch (SQLException | InvalidStringException | IllegalValueException e) {
-            booksInCartSP = new ScrollPane();
         }
 
 
@@ -106,191 +96,8 @@ public class UserOrderConfirmationPageView {
         checkOutButton.setId("checkout-button");
         checkOutButton.getStylesheets().add("/CSS/style.css");
 
-        checkOutButton.setOnMouseClicked(e -> {
-            if(shippingAddressTF.getText().isEmpty() || paymentMethodCB.getValue().isEmpty()){
-                Alert missingFields = new Alert(Alert.AlertType.ERROR);
-
-                missingFields.setTitle("Fields Error");
-                missingFields.setHeaderText("You did not fill all the fields!");
-                missingFields.setContentText("To complete the order successfully, " +
-                        "please provide all the requested informations");
-
-                missingFields.showAndWait();
-
-            } else {
-                Alert checkOutAlert = new Alert(Alert.AlertType.CONFIRMATION);
-
-                checkOutAlert.setTitle("Check Out Confirmation");
-                checkOutAlert.setHeaderText("Your order will be confirmed.");
-                checkOutAlert.setContentText("Are you sure you want to proceed with the check out?");
-
-                Optional<ButtonType> response = checkOutAlert.showAndWait();
-
-                if (response.isPresent() && response.get() == ButtonType.OK) {
-                    try {
-                        // calculate all parameters needed to checkout
-                        String orderID = cartDAO.generateOrderID(currentUserEmail);
-
-                        BigDecimal orderPrice = cartDAO.totalCost(currentUserEmail);
-
-
-                        DatabaseConnection connection = new DatabaseConnection();
-                        connection.openConnection();
-
-                        // select all the books and relative quantities from the user cart
-                        String booksInCartQuery = "SELECT book, quantity " +
-                                "FROM cart " +
-                                "WHERE user = ?";
-
-                        PreparedStatement pstmt1 = connection.conn.prepareStatement(booksInCartQuery);
-                        pstmt1.setString(1, currentUserEmail);
-
-                        ResultSet rs1 = pstmt1.executeQuery();
-
-                        Map<String, Integer> bookAndQuantities = new HashMap<>();
-
-                        while(rs1.next()){
-                            bookAndQuantities.put(rs1.getString("book"), rs1.getInt("quantity"));
-                        }
-
-                        rs1.close();
-                        pstmt1.close();
-
-                        connection.closeConnection();
-
-
-                        ArrayList<Book> booksInCartAttributes = new ArrayList<>();
-
-                        BookDAO bookDAO = new BookDaoImpl();
-                        CompositionDAO compositionDAO = new CompositionDaoImpl();
-
-                        for(String bookISBN : bookAndQuantities.keySet()){
-                            booksInCartAttributes.add(bookDAO.getBook(bookISBN));
-
-                            compositionDAO.addBookToOrder(bookISBN, orderID, bookAndQuantities.get(bookISBN));
-                            bookDAO.decreaseAvailableCopies(bookISBN, bookAndQuantities.get(bookISBN));
-                        }
-
-
-                        // current date
-                        Calendar calendar = Calendar.getInstance();
-
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                        String currentDate = formatter.format(calendar.getTime());
-
-                        // perform different action if the user is registered
-                        if(!Pattern.matches("NOTREG*", orderID) ){
-
-                            // calculate total libroCard points
-                            int totalPoints = 0;
-
-                            for (Book b : booksInCartAttributes){
-                                totalPoints += b.getLibroCardPoints();
-                            }
-
-                            // add new row in Order table
-                            OrderDAO orderDAO = new OrderDaoImpl();
-
-                            Order newOrder = new Order(orderID, currentDate,
-                                    OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
-                                    paymentMethodCB.getValue(), orderPrice, totalPoints,
-                                    shippingAddressTF.getText(), currentUserEmail, null);
-
-                            orderDAO.addOrder(newOrder);
-
-
-                            DatabaseConnection connection1 = new DatabaseConnection();
-                            connection1.openConnection();
-
-                            // retrieve user's LibroCard ID
-                            LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
-
-                            String cardIDQuery = "SELECT cardID " +
-                                    "FROM LibroCard " +
-                                    "WHERE email = ?";
-
-                            PreparedStatement pstmt2 = connection1.conn.prepareStatement(cardIDQuery);
-
-                            pstmt2.setString(1, currentUserEmail);
-
-                            ResultSet rs2 = pstmt2.executeQuery();
-
-                            String cardID = rs2.getString("cardID");
-
-                            rs2.close();
-                            pstmt2.close();
-
-                            connection1.closeConnection();
-
-
-                            // add points to user's LibroCard
-                            libroCardDAO.addPoints(cardID, orderID);
-
-                            DatabaseConnection connection2 = new DatabaseConnection();
-                            connection2.openConnection();
-
-                            String clearCartQuery = "DELETE FROM cart " +
-                                                    "WHERE user = ?";
-
-                            PreparedStatement pstmt3 = connection2.conn.prepareStatement(clearCartQuery);
-
-                            pstmt3.setString(1, currentUserEmail);
-
-                            pstmt3.executeUpdate();
-
-                            connection2.closeConnection();
-
-                        } else {
-                            // add new row in Order table
-                            OrderDAO orderDAO = new OrderDaoImpl();
-
-                            Order newOrder = new Order(orderID, currentDate,
-                                    OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
-                                    paymentMethodCB.getValue(), orderPrice, null,
-                                    shippingAddressTF.getText(), null, currentUserEmail);
-
-                            orderDAO.addOrder(newOrder);
-
-                            // TODO: clear cart + decrease amout of books in stock
-                        }
-
-                        Stage closingStage = (Stage) checkOutButton.getScene().getWindow();
-                        closingStage.close();
-
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(UserOrderConfirmationPageView.class.getResource("../../FXML/UserFXML/UserOrderSuccessfulPageFX.fxml"));
-                        Parent root = loader.load();
-
-                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
-
-                        Scene scene = new Scene(root);
-                        Stage stage = new Stage();
-
-                        stage.setScene(scene);
-                        stage.setMaximized(true);
-                        stage.show();
-
-                    } catch (SQLException | UserNotInDatabaseException | InvalidStringException |
-                            IllegalValueException | NotSameUserException | IOException ex) {
-                        Alert orderFailure = new Alert(Alert.AlertType.ERROR);
-
-                        orderFailure.setTitle("Order Failure");
-                        orderFailure.setHeaderText("Something went wrong: ");
-                        orderFailure.setContentText("ERROR MESSAGE: " + ex.getMessage());
-
-                        orderFailure.showAndWait();
-                        ex.printStackTrace();
-
-                    }
-                } else {
-                    e.consume();
-                    checkOutAlert.close();
-                }
-            }
-        });
 
         gridPane.add(orderConfirmationLabel, 0,0);
-        gridPane.add(booksInCartSP, 0,1);
         gridPane.add(paymentMethodGP, 0,2);
         gridPane.add(shippingAddressGP, 0,3);
         gridPane.add(totalCostLabel, 0,4);
@@ -300,7 +107,6 @@ public class UserOrderConfirmationPageView {
         Insets insets = new Insets(0, 0, 40, 20);
 
         GridPane.setMargin(orderConfirmationLabel, insets);
-        GridPane.setMargin(booksInCartSP, insets);
         GridPane.setMargin(paymentMethodGP, insets);
         GridPane.setMargin(shippingAddressGP, insets);
         GridPane.setMargin(totalCostLabel, insets);
