@@ -15,16 +15,6 @@
                     </font>
                 </Label>
                 <ChoiceBox fx:id="statusCB" layoutX="35.0" layoutY="245.0" prefHeight="36.0" prefWidth="250.0" />
-                <!--<Label layoutX="35.0" layoutY="350.0" text="Filter by user:" textFill="WHITE">
-                    <font>
-                        <Font name="Avenir Next Bold" size="20.0" />
-                    </font>
-                </Label>
-                <TextField layoutX="35.0" layoutY="400.0" prefHeight="36.0" prefWidth="250.0" promptText="e-mail">
-                   <font>
-                      <Font name="Avenir Book" size="17.0" />
-                   </font>
-                </TextField>-->
             </children>
         </AnchorPane>
         <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefWidth="1010.0" style="-fx-background-color: #FFFFFF;">

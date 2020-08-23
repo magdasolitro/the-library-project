@@ -38,7 +38,7 @@
                    <Font name="Avenir Next Bold" size="25.0" />
                 </font>
             </Label>
-            <Button fx:id="checkOutButton" layoutX="600.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleCheckOutRequest" prefHeight="44.0" prefWidth="180.0" style="-fx-background-color: #3CB371;" text="Check Out!" textFill="WHITE">
+            <Button fx:id="checkOutButton" layoutX="600.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleCheckOut" prefHeight="44.0" prefWidth="180.0" style="-fx-background-color: #3CB371;" text="Check Out!" textFill="WHITE">
                 <font>
                    <Font name="Avenir Next Bold" size="20.0" />
                 </font>

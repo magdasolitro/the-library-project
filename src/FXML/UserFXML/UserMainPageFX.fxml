@@ -16,7 +16,6 @@
                                <Font name="Avenir Next Bold" size="20.0" />
                            </font>
                        </Label>
-                       <!--<ChoiceBox fx:id="genresChoiceBox" layoutX="35.0" layoutY="240.0" prefHeight="30.0" prefWidth="150.0" -->
                        <Label layoutX="35.0" layoutY="412.0" text="Order by:" textFill="WHITE">
                            <font>
                                <Font name="Avenir Next Bold" size="20.0" />
@@ -58,12 +57,12 @@
                            </font>
                        </Label>
                        <Separator layoutX="769.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
-                       <TextField fx:id="bookSearchTextField" layoutX="191.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Enter book title">
+                       <TextField fx:id="bookSearchTextField" layoutX="190.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Enter book title">
                            <font>
                                <Font name="Avenir Book" size="14.0" />
                            </font>
                        </TextField>
-                       <Label layoutX="103.0" layoutY="40.0" text="Search:">
+                       <Label layoutX="100.0" layoutY="40.0" text="Search:">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font>

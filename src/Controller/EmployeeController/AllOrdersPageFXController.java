@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -70,7 +68,7 @@ public class AllOrdersPageFXController implements Initializable {
         stage.close();
 
         try{
-            viewPage(LastOpenedPageController.getLastOpenedPage());
+            viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
@@ -81,8 +79,6 @@ public class AllOrdersPageFXController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
-
-        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

@@ -12,6 +12,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
+import java.math.RoundingMode;
 import java.sql.SQLException;
 
 public class SingleBookPageView {
@@ -80,7 +81,7 @@ public class SingleBookPageView {
 
             // create information labels
             authorInfo = new Label(book.getAuthors());
-            priceInfo = new Label("$ " + book.getPrice().setScale(2).toString());
+            priceInfo = new Label("$ " + book.getPrice().setScale(2, RoundingMode.FLOOR).toString());
             genreInfo = new Label(book.getGenre());
             publishingHouseInfo = new Label(book.getPublishingHouse());
             publishingYearInfo = new Label("" + book.getPublishingYear());

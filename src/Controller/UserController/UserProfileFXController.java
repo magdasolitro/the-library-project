@@ -160,8 +160,8 @@ public class UserProfileFXController implements Initializable {
         Alert confirmLogOut = new Alert(Alert.AlertType.CONFIRMATION);
 
         confirmLogOut.setTitle("Delete Account");
-        confirmLogOut.setHeaderText("All you your informations will be deleted permanently");
-        confirmLogOut.setContentText("Are you sure you want to delete your account?");
+        confirmLogOut.setHeaderText("Are you sure you want to delete your account?");
+        confirmLogOut.setContentText("All of your informations will we deleted");
 
         Optional<ButtonType> response = confirmLogOut.showAndWait();
 

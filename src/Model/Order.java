@@ -21,8 +21,6 @@ public class Order {
                  BigDecimal price, Integer points, String shippingAddress, String user,
                  String userNotReg) throws InvalidStringException, IllegalValueException {
 
-        // TODO: use EmployeeRoleEnum to check validity of the role
-
         if(orderID.length() == 0 || date.length() == 0 || status.length() == 0
                 || paymentMethod.length() == 0 || shippingAddress.length() == 0){
             throw new InvalidStringException();

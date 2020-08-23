@@ -26,11 +26,6 @@ public interface CartDAO {
     public ArrayList<Book> cartContent(String email) throws SQLException,
             InvalidStringException, IllegalValueException;
 
-    // returns orderID
-    public String checkout(String email, String paymentMethod, String shippingAddress,
-                           String orderID, BigDecimal totalCost) throws SQLException,
-            NotSameUserException, InvalidStringException, IllegalValueException;
-
     public String generateOrderID(String email)
             throws SQLException, UserNotInDatabaseException;
 }

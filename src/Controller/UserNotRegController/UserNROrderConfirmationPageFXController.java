@@ -1,17 +1,21 @@
-package Controller.UserController;
+package Controller.UserNotRegController;
 
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
-import Model.Exceptions.NotSameUserException;
 import Model.Exceptions.UserNotInDatabaseException;
 import Model.Order;
 import Model.OrderStatusEnum;
-import Model.User;
-import Model.Utils.DAOs.*;
-import Model.Utils.DaoImpl.*;
+import Model.Utils.DAOs.BookDAO;
+import Model.Utils.DAOs.CartDAO;
+import Model.Utils.DAOs.CompositionDAO;
+import Model.Utils.DAOs.OrderDAO;
+import Model.Utils.DaoImpl.BookDaoImpl;
+import Model.Utils.DaoImpl.CartDaoImpl;
+import Model.Utils.DaoImpl.CompositionDaoImpl;
+import Model.Utils.DaoImpl.OrderDaoImpl;
 import Model.Utils.DatabaseConnection;
 import View.UserView.UserOrderConfirmationPageView;
 import javafx.event.ActionEvent;
@@ -21,16 +25,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,53 +37,21 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class UserOrderConfirmationPageFXController implements Initializable {
-    @FXML
-    private AnchorPane whiteAnchorPane;
+public class UserNROrderConfirmationPageFXController implements Initializable {
 
     @FXML
-    private Button goBackButton;
+    private Button goBackButton, checkOutButton;
 
     @FXML
-    ChoiceBox<String> paymentMethodCB;
+    private TextField nameTF, surnameTF, shippingAddressTF, phoneTF, emailTF;
 
     @FXML
-    RadioButton homeAddressRB, otherRB;
-
-    @FXML
-    Button checkOutButton;
-
-    @FXML
-    TextField alternativeAddressTF;
+    private ChoiceBox<String> paymentMethodCB;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         goBackButton.setId("goback-button");
         goBackButton.getStylesheets().add("/CSS/style.css");
-
-        ToggleGroup group = new ToggleGroup();
-
-        homeAddressRB.setToggleGroup(group);
-        homeAddressRB.setSelected(true);
-        otherRB.setToggleGroup(group);
-
-        paymentMethodCB.getItems().addAll("Credit Card", "PayPal", "Cash on delivery");
-
-        CartDAO cartDAO = new CartDaoImpl();
-        BigDecimal totalCost = new BigDecimal(0);
-
-        try {
-            totalCost = cartDAO.totalCost(GeneralLoginController.getLoginInstance()).setScale(2, RoundingMode.FLOOR);
-        } catch (SQLException | IllegalValueException | InvalidStringException e) {
-            e.printStackTrace();
-        }
-
-        Label totalCostLabel = new Label("$ " + totalCost);
-        totalCostLabel.setFont(new Font("Avenir Next", 25));
-
-        whiteAnchorPane.getChildren().add(totalCostLabel);
-        totalCostLabel.relocate(600,220);
-
     }
 
     public void handleGoBackButton() {
@@ -98,25 +65,16 @@ public class UserOrderConfirmationPageFXController implements Initializable {
         }
     }
 
-
-    public void handleCheckOut(ActionEvent event) {
-        if(paymentMethodCB.getSelectionModel().isEmpty()){
+    public void handleCheckOutRequest(MouseEvent event) {
+        if(nameTF.getText().isEmpty() || surnameTF.getText().isEmpty() ||
+                paymentMethodCB.getValue().isEmpty() || shippingAddressTF.getText().isEmpty() ||
+                phoneTF.getText().isEmpty() || emailTF.getText().isEmpty()){
             Alert missingFields = new Alert(Alert.AlertType.ERROR);
 
             missingFields.setTitle("Fields Error");
-            missingFields.setHeaderText("Please, select a payment method!");
+            missingFields.setHeaderText("Some fields are missing!");
             missingFields.setContentText("To complete the order successfully, " +
                     "please provide all the requested informations");
-
-            missingFields.showAndWait();
-
-        } else if (otherRB.isSelected() && alternativeAddressTF.getText().isEmpty()){
-            Alert missingFields = new Alert(Alert.AlertType.ERROR);
-
-            missingFields.setTitle("Fields Error");
-            missingFields.setHeaderText("Please, select an alternative address!");
-            missingFields.setContentText("To complete the order successfully, " +
-                    "please provide another address to which we can send your articles");
 
             missingFields.showAndWait();
         } else {
@@ -129,14 +87,14 @@ public class UserOrderConfirmationPageFXController implements Initializable {
             Optional<ButtonType> response = checkOutAlert.showAndWait();
 
             if (response.isPresent() && response.get() == ButtonType.OK) {
+                CartDAO cartDAO = new CartDaoImpl();
+
+                String currentUser = GeneralLoginController.getLoginInstance();
+
                 try {
-                    CartDAO cartDAO = new CartDaoImpl();
-                    String currentUserEmail = GeneralLoginController.getLoginInstance();
-
                     // calculate all parameters needed to checkout
-                    String orderID = cartDAO.generateOrderID(currentUserEmail);
-
-                    BigDecimal orderPrice = cartDAO.totalCost(currentUserEmail);
+                    String orderID = cartDAO.generateOrderID(currentUser);
+                    BigDecimal orderPrice = cartDAO.totalCost(currentUser);
 
                     DatabaseConnection connection = new DatabaseConnection();
                     connection.openConnection();
@@ -147,7 +105,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                             "WHERE user = ?";
 
                     PreparedStatement pstmt1 = connection.conn.prepareStatement(booksInCartQuery);
-                    pstmt1.setString(1, currentUserEmail);
+                    pstmt1.setString(1, currentUser);
 
                     ResultSet rs1 = pstmt1.executeQuery();
 
@@ -183,65 +141,19 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                     String currentDate = formatter.format(calendar.getTime());
 
 
-                    // calculate total libroCard points
-                    int totalPoints = 0;
-
-                    for (Book b : booksInCartAttributes) {
-                        totalPoints += b.getLibroCardPoints() ;//* bookAndQuantities.get(b);
-                    }
-
+                    // TODO: consider creating a separate table for non registred user's orders
                     // add new row in Order table
                     OrderDAO orderDAO = new OrderDaoImpl();
                     Order newOrder;
 
-                    if (otherRB.isSelected()) {
-                        newOrder = new Order(orderID, currentDate,
-                                OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
-                                paymentMethodCB.getValue(), orderPrice, totalPoints,
-                                alternativeAddressTF.getText(), currentUserEmail, null);
-                    } else {
-                        UserDAO userDAO = new UserDaoImpl();
-                        User currentUser = userDAO.getUser(currentUserEmail);
-
-                        newOrder = new Order(orderID, currentDate,
-                                OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
-                                paymentMethodCB.getValue(), orderPrice, totalPoints,
-                                currentUser.getHomeAddress() + currentUser.getStreetNumber(),
-                                currentUserEmail, null);
-                    }
+                    newOrder = new Order(orderID, currentDate,
+                            OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
+                            paymentMethodCB.getValue(), orderPrice, 0,
+                            shippingAddressTF.getText(), null, emailTF.getText());
 
                     orderDAO.addOrder(newOrder);
 
 
-                    DatabaseConnection connection1 = new DatabaseConnection();
-                    connection1.openConnection();
-
-                    // retrieve user's LibroCard ID
-                    LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
-
-                    String cardIDQuery = "SELECT cardID " +
-                            "FROM LibroCard " +
-                            "WHERE email = ?";
-
-                    PreparedStatement pstmt2 = connection1.conn.prepareStatement(cardIDQuery);
-
-                    pstmt2.setString(1, currentUserEmail);
-
-                    ResultSet rs2 = pstmt2.executeQuery();
-
-                    String cardID = rs2.getString("cardID");
-
-                    rs2.close();
-                    pstmt2.close();
-
-                    connection1.closeConnection();
-
-
-                    // add points to user's LibroCard
-                    libroCardDAO.addPoints(cardID, orderID);
-
-
-                    // remove the books from user's cart
                     DatabaseConnection connection2 = new DatabaseConnection();
                     connection2.openConnection();
 
@@ -250,7 +162,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
 
                     PreparedStatement pstmt3 = connection2.conn.prepareStatement(clearCartQuery);
 
-                    pstmt3.setString(1, currentUserEmail);
+                    pstmt3.setString(1, currentUser);
 
                     pstmt3.executeUpdate();
 
@@ -263,7 +175,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                     loader.setLocation(UserOrderConfirmationPageView.class.getResource("../../FXML/UserFXML/UserOrderSuccessfulPageFX.fxml"));
                     Parent root = loader.load();
 
-                    LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    LastOpenedPageController.setLastOpenedPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
 
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
@@ -273,21 +185,19 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                     stage.show();
 
                 } catch (SQLException | UserNotInDatabaseException | InvalidStringException |
-                        IllegalValueException | NotSameUserException | IOException ex) {
-                    Alert orderFailure = new Alert(Alert.AlertType.ERROR);
-
-                    orderFailure.setTitle("Order Failure");
-                    orderFailure.setHeaderText("Something went wrong: ");
-                    orderFailure.setContentText("ERROR MESSAGE: " + ex.getMessage());
-
-                    orderFailure.showAndWait();
-                    ex.printStackTrace();
+                        IllegalValueException | IOException e) {
+                    e.printStackTrace();
                 }
+
             } else {
                 event.consume();
-                checkOutAlert.close();
             }
         }
+    }
+
+
+    public void handleCheckOutRequest(ActionEvent actionEvent) {
+
     }
 
 
@@ -302,6 +212,6 @@ public class UserOrderConfirmationPageFXController implements Initializable {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
-    }
 
+    }
 }

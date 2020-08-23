@@ -146,7 +146,7 @@ public class SingleBookPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+            viewPage(LastOpenedPageController.getLastOpenedPage());
         } catch (IOException e) {
             e.printStackTrace();
         }

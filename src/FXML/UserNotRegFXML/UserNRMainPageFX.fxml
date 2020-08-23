@@ -16,7 +16,6 @@
                                 <Font name="Avenir Next Bold" size="20.0" />
                             </font>
                         </Label>
-                        <ChoiceBox fx:id="genresChoiceBox" layoutX="35.0" layoutY="239.0" prefHeight="30.0" prefWidth="150.0" />
                         <Label layoutX="35.0" layoutY="412.0" text="Order by" textFill="WHITE">
                             <font>
                                 <Font name="Avenir Next Bold" size="20.0" />
@@ -38,9 +37,9 @@
                             <font>
                                 <Font name="Avenir Book" size="17.0" />
                             </font></RadioButton>
-                        <Button fx:id="rankingsButton" layoutX="35.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Rankings">
+                        <Button fx:id="rankingsButton" layoutX="35.0" layoutY="300.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="175.0" text="Rankings">
                             <font>
-                                <Font name="Avenir Book" size="17.0" />
+                                <Font name="Avenir Book" size="20.0" />
                             </font>
                         </Button>
                         <ImageView fitHeight="130.0" fitWidth="240.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -52,23 +51,23 @@
                 </AnchorPane>
                 <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefWidth="1010.0" style="-fx-background-color: #ffffff;">
                     <children>
-                        <Label fx:id="loginLabel" layoutX="674.0" layoutY="36.0" onMouseClicked="#handleLogInRequest" text="LOG IN" underline="true">
+                        <Label fx:id="loginLabel" layoutX="560.0" layoutY="35.0" onMouseClicked="#handleLogInRequest" text="LOG IN" underline="true">
                             <font>
                                 <Font name="Avenir Book" size="20.0" />
                             </font>
                         </Label>
-                        <Label fx:id="signinLabel" layoutX="779.0" layoutY="35.0" onMouseClicked="#handleSignInRequest" text="SIGN IN" underline="true">
+                        <Label fx:id="signinLabel" layoutX="660.0" layoutY="35.0" onMouseClicked="#handleSignInRequest" text="SIGN IN" underline="true">
                             <font>
                                 <Font name="Avenir Book" size="20.0" />
                             </font>
                         </Label>
                         <Separator layoutX="900.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
-                        <TextField fx:id="bookSearchTextField" layoutX="191.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Enter book title">
+                        <TextField fx:id="bookSearchTextField" layoutX="130.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Enter book title">
                             <font>
                                 <Font name="Avenir Book" size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="103.0" layoutY="40.0" text="Search:">
+                        <Label layoutX="40.0" layoutY="40.0" text="Search:">
                             <font>
                                 <Font name="Avenir Book" size="17.0" />
                             </font>
@@ -79,7 +78,13 @@
                             </image>
                         </ImageView>
                         <Separator layoutY="100.0" prefHeight="3.0" prefWidth="1018.0" />
-                        <Button fx:id="searchButton" layoutX="500.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleBookSearch" prefHeight="45.0" prefWidth="45.0" />
+                        <Button fx:id="searchButton" layoutX="440.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleBookSearch" prefHeight="45.0" prefWidth="45.0" />
+                        <Label fx:id="myOrdersLabel" layoutX="764.0" layoutY="35.0" text="MY ORDERS" underline="true" onMouseClicked="#handleMyOrdersRequest">
+                            <font>
+                                <Font name="Avenir Book" size="20.0" />
+                            </font>
+                        </Label>
+                        <Separator layoutX="524.0" orientation="VERTICAL" prefHeight="100.0" />
                     </children>
                 </AnchorPane>
             </items>

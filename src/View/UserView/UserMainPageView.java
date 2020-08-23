@@ -1,6 +1,8 @@
 package View.UserView;
 
 import Controller.BookInstanceController;
+import Controller.GeneralLoginController;
+import Controller.LastOpenedPageController;
 import Model.Book;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
@@ -19,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -44,10 +47,24 @@ public class UserMainPageView {
             i++;
         }
 
-        scrollPane.setContent(bookContainer);
-
         bookContainer.setPrefWidth(1000);   // no horizontal scroll
         bookContainer.prefHeightProperty().bind(scrollPane.heightProperty());
+
+        /*
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setHalignment(HPos.LEFT);
+        column1.setPercentWidth(50);
+
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setHalignment(HPos.LEFT);
+        column2.setPercentWidth(50);
+
+        bookContainer.getColumnConstraints().addAll(column1, column2);
+        */
+
+        bookContainer.setHgap(20);
+
+        scrollPane.setContent(bookContainer);
 
         bookContainer.setId("mainpage-gridpane");
         bookContainer.getStylesheets().add("/CSS/style.css");
@@ -85,7 +102,7 @@ public class UserMainPageView {
         genreLabel = new Label(book.getGenre());
         genreLabel.setFont(genericLabelFont);
 
-        priceLabel = new Label("$ " + book.getPrice().setScale(2));
+        priceLabel = new Label("$ " + book.getPrice().setScale(2, RoundingMode.FLOOR));
         priceLabel.setFont(genericLabelFont);
 
         if(book.getDiscount().compareTo(new BigDecimal(0)) > 0) {
@@ -94,42 +111,6 @@ public class UserMainPageView {
         } else {
             discountLabel = new Label();
         }
-
-        // set columns costraints
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.LEFT);
-        column1.setPercentWidth(50);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        column2.setPercentWidth(50);
-
-        // set rows constraints
-        RowConstraints titleRow = new RowConstraints();
-        titleRow.setValignment(VPos.CENTER);
-        titleRow.setVgrow(Priority.SOMETIMES);
-
-        RowConstraints authorRow = new RowConstraints();
-        authorRow.setValignment(VPos.CENTER);
-        authorRow.setPercentHeight(100.0 / 4);
-
-        RowConstraints publishingYearRow = new RowConstraints();
-        publishingYearRow.setValignment(VPos.CENTER);
-        publishingYearRow.setPercentHeight(100.0 / 4);
-
-        RowConstraints genreRow = new RowConstraints();
-        genreRow.setValignment(VPos.CENTER);
-        genreRow.setPercentHeight(100.0 / 4);
-
-        RowConstraints priceRow = new RowConstraints();
-        RowConstraints discountRow = new RowConstraints();
-        RowConstraints notAvailableRow = new RowConstraints();
-
-        priceRow.setValignment(VPos.CENTER);
-        priceRow.setPercentHeight(100.0/3);
-
-        discountRow.setValignment(VPos.CENTER);
-        priceRow.setPercentHeight(100.0/3);
 
         // check if book is available: if not, display a message
         BookDAO bookDAO = new BookDaoImpl();
@@ -146,8 +127,6 @@ public class UserMainPageView {
             sqle.printStackTrace();
         }
 
-        singleBook.isResizable();
-
         singleBook.add(titleLabel, 0, 0);
         singleBook.add(authorLabel, 0, 1);
         singleBook.add(publishingYearLabel, 0, 2);
@@ -156,10 +135,17 @@ public class UserMainPageView {
         singleBook.add(priceLabel, 1, 0);
         singleBook.add(discountLabel, 1 ,1);
 
-        // adds contraints to grid pane
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setHalignment(HPos.LEFT);
+        column1.setPercentWidth(50);
+
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setHalignment(HPos.LEFT);
+        column2.setPercentWidth(50);
+
         singleBook.getColumnConstraints().addAll(column1, column2);
-        singleBook.getRowConstraints().addAll(titleRow, authorRow, publishingYearRow,
-                priceRow, discountRow, notAvailableRow);
+
+        singleBook.setVgap(10);
 
         singleBook.setOnMouseClicked(e -> {
             BookInstanceController.setCurrentBookISBN(book.getISBN());
@@ -183,6 +169,12 @@ public class UserMainPageView {
         loader.setLocation(UserMainPageView.class.getResource(path));
         Parent root = loader.load();
 
+        if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")){
+            LastOpenedPageController.setLastOpenedPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+        } else {
+            LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+        }
+
         Scene scene = new Scene(root);
         Stage stage = new Stage();
 
@@ -190,6 +182,5 @@ public class UserMainPageView {
         stage.setMaximized(true);
         stage.show();
     }
-
 
 }

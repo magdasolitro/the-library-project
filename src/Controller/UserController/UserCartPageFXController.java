@@ -26,6 +26,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class UserCartPageFXController implements Initializable {
     @FXML
@@ -120,7 +121,11 @@ public class UserCartPageFXController implements Initializable {
                     loader.setLocation(getClass().getResource("../../FXML/UserFXML/SingleBookPageFX.fxml"));
                     Parent root = loader.load();
 
-                    LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
+                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+                    } else {
+                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    }
 
                     Scene scene = new Scene(root);
                     Stage newStage = new Stage();
@@ -134,6 +139,10 @@ public class UserCartPageFXController implements Initializable {
                     viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
                     break;
                 }
+                case "../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml":{
+                    viewPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+                    break;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,7 +150,7 @@ public class UserCartPageFXController implements Initializable {
     }
 
 
-    public void handleCheckOut(MouseEvent mouseEvent) {
+    public void handleCheckOut() {
         Stage stage = (Stage) checkOutButton.getScene().getWindow();
         stage.close();
 

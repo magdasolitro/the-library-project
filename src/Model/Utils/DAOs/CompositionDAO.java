@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public interface CompositionDAO {
 
-    public void addBookToOrder(String ISBN, String orderID, int quantity)
+    void addBookToOrder(String ISBN, String orderID, int quantity)
             throws SQLException;
 
-    public ArrayList<String> getBooksInOrder(String orderID) throws SQLException;
+    ArrayList<String> getBooksInOrder(String orderID) throws SQLException;
 }

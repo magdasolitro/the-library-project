@@ -16,7 +16,7 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("FXML/WelcomePageFX.fxml"));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../FXML/WelcomePageFX.fxml");
+        //LastOpenedPageController.setLastOpenedPage("../../FXML/WelcomePageFX.fxml");
 
         Scene scene = new Scene(root);
 

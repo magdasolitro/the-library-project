@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Pattern;
 
 
 public class WelcomePageFXController {
@@ -42,7 +45,9 @@ public class WelcomePageFXController {
         stage.close();
 
         // create unique identifier for non registered user
-        String userNotRegIdentifier = "NOTREG";
+        int randomNumber = ThreadLocalRandom.current().nextInt(1000000, 10000000);
+
+        String userNotRegIdentifier = "NOTREG" + randomNumber;
         GeneralLoginController.setLoginInstance(userNotRegIdentifier);
 
         viewPage("../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");

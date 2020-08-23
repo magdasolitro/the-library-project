@@ -4,10 +4,12 @@ import Controller.LastOpenedPageController;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.GenresEnum;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import View.UserView.UserMainPageView;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,10 +32,7 @@ public class UserNRMainPageFXController implements Initializable {
     public Button rankingsButton;
 
     @FXML
-    private ChoiceBox<String> genresChoiceBox;
-
-    @FXML
-    private AnchorPane rightPane;
+    private AnchorPane rightPane, leftPane;
 
     @FXML
     private TextField bookSearchTextField;
@@ -48,17 +47,32 @@ public class UserNRMainPageFXController implements Initializable {
     private ImageView cartIcon;
 
     @FXML
-    private Label loginLabel, signinLabel;
+    private Label loginLabel, signinLabel, myOrdersLabel;
 
     private ScrollPane scrollPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
-        // set possible choices in drop down menu
-        genresChoiceBox.getItems().addAll("All", "Autobiography", "Crime Fiction",
-                "Fantasy", "History", "Narrative", "Philosophy of Science",
-                "Politics", "Science Fiction");
+        ChoiceBox<Object> genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("Autobiography",
+                "Crime Fiction", "Fantasy", "History", "Narrative", "Philosophy of Science",
+                "Politics", "Science Fiction"));
+
+        // if the item of the list has changed
+        genresChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
+            BookDAO bookDAO = new BookDaoImpl();
+            try {
+                ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue()]));
+                changeBookView(booksByGenre);
+            } catch (SQLException | InvalidStringException | IllegalValueException e) {
+                e.printStackTrace();
+            }
+        });
+
+        leftPane.getChildren().add(genresChoiceBox);
+        genresChoiceBox.relocate(35, 240);
+        genresChoiceBox.setPrefWidth(175);
+        genresChoiceBox.setPrefHeight(37);
 
         // build full catalog view
         try {
@@ -224,6 +238,18 @@ public class UserNRMainPageFXController implements Initializable {
                 rightPane.getChildren().remove(scrollPane);
                 changeBookView(searchedBook);
             }
+        }
+    }
+
+
+    public void handleMyOrdersRequest() {
+        try{
+            Stage stage = (Stage) myOrdersLabel.getScene().getWindow();
+            stage.close();
+
+            viewPage("../../FXML/UserNotRegFXML/UserNRAllOrdersPageFX.fxml");
+        } catch (IOException ioe){
+            System.out.println("IOException" + ioe.getMessage());
         }
     }
 

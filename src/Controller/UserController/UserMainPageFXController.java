@@ -14,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,13 +21,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
+
 
 public class UserMainPageFXController implements Initializable {
 
@@ -54,20 +53,25 @@ public class UserMainPageFXController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+        // set style for search button
+        searchButton.setId("search-button");
+        searchButton.getStylesheets().add("/CSS/style.css");
 
-        ChoiceBox<Object> genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("Autobiography", "Crime Fiction",
-                "Fantasy", "History", "Narrative", "Philosophy of Science",
+        ChoiceBox<Object> genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("All",
+                "Autobiography", "Crime Fiction", "Fantasy", "History", "Narrative", "Philosophy of Science",
                 "Politics", "Science Fiction"));
 
         // if the item of the list has changed
         genresChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
+
             BookDAO bookDAO = new BookDaoImpl();
             try {
-                ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue()]));
+                ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue() - 1]));
                 changeBookView(booksByGenre);
             } catch (SQLException | InvalidStringException | IllegalValueException e) {
                 e.printStackTrace();
             }
+
         });
 
         leftPane.getChildren().add(genresChoiceBox);
@@ -75,8 +79,8 @@ public class UserMainPageFXController implements Initializable {
         genresChoiceBox.setPrefWidth(175);
         genresChoiceBox.setPrefHeight(37);
 
-        // build full catalog view
-        try {
+        try{
+            // build full catalog view
             BookDAO bookDAO = new BookDaoImpl();
 
             ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
@@ -84,27 +88,25 @@ public class UserMainPageFXController implements Initializable {
             scrollPane = UserMainPageView.buildBooksView(fullCatalog);
 
             rightPane.getChildren().add(scrollPane);
+
             scrollPane.prefWidthProperty().bind(rightPane.widthProperty());
 
             AnchorPane.setTopAnchor(scrollPane, (double) 100);
             AnchorPane.setBottomAnchor(scrollPane, (double) 0);
+
+
+            // set toggle group for radio buttons, so that only one button can be
+            // selected at once
+            ToggleGroup group = new ToggleGroup();
+
+            priceAscRB.setToggleGroup(group);
+            priceDescRB.setToggleGroup(group);
+            publYearRB.setToggleGroup(group);
+            titleRB.setToggleGroup(group);
+
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
         }
-
-        // set toggle group for radio buttons, so that only one button can be
-        // selected at once
-        ToggleGroup group = new ToggleGroup();
-
-        priceAscRB.setToggleGroup(group);
-        priceDescRB.setToggleGroup(group);
-        publYearRB.setToggleGroup(group);
-        titleRB.setToggleGroup(group);
-
-        // set style for search button
-        searchButton.setId("search-button");
-        searchButton.getStylesheets().add("/CSS/style.css");
-
     }
 
 
