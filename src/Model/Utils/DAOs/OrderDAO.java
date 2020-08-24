@@ -15,7 +15,7 @@ public interface OrderDAO {
     public Order getOrder(String orderID) throws SQLException,
             InvalidStringException, IllegalValueException ;
 
-    public String getUserEmail(String orderID) throws SQLException;
+    public String getUser(String orderID) throws SQLException;
 
     // visualizza tutti gli ordini effettuati da tutti gli utenti
     public ArrayList<Order> getAllOrders() throws SQLException,

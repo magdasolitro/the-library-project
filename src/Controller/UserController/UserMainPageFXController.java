@@ -115,8 +115,8 @@ public class UserMainPageFXController implements Initializable {
         Alert confirmLogOut = new Alert(Alert.AlertType.CONFIRMATION);
 
         confirmLogOut.setTitle("Log Out");
-        confirmLogOut.setHeaderText("You will exit the program");
-        confirmLogOut.setContentText("Are you sure you want to log out?");
+        confirmLogOut.setHeaderText("Are you sure you want to log out?");
+        confirmLogOut.setContentText("You will be redirected to the Welcome Page.");
 
         Optional<ButtonType> response = confirmLogOut.showAndWait();
 

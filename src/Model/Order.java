@@ -14,19 +14,20 @@ public class Order {
     private final Integer points;
     private final String shippingAddress;
     private String user;
-    private String userNotReg;
+    private int isRegistred;
 
     // usato per memorizzare il risultato di una query
     public Order(String orderID, String date, String status, String paymentMethod,
                  BigDecimal price, Integer points, String shippingAddress, String user,
-                 String userNotReg) throws InvalidStringException, IllegalValueException {
+                 int isRegistred) throws InvalidStringException, IllegalValueException {
 
         if(orderID.length() == 0 || date.length() == 0 || status.length() == 0
                 || paymentMethod.length() == 0 || shippingAddress.length() == 0){
             throw new InvalidStringException();
         }
 
-        if(price.floatValue() < 0 || points < 0){
+        if(price.floatValue() < 0 || (points != null && points < 0) ||
+                (isRegistred != 0 && isRegistred != 1) ){
             throw new IllegalValueException();
         }
 
@@ -38,8 +39,9 @@ public class Order {
         this.points = points;
         this.shippingAddress = shippingAddress;
         this.user = user;
-        this.userNotReg = userNotReg;
+        this.isRegistred = isRegistred;
     }
+
 
     public String getOrderID(){ return orderID; }
 
@@ -55,11 +57,7 @@ public class Order {
 
     public String getShippingAddress(){ return shippingAddress; }
 
-    public String getUser(){
-        if(user != null) {
-            return user;
-        } else {
-            return userNotReg;
-        }
-    }
+    public String getUser(){ return user; }
+
+    public int getIsRegistred(){ return isRegistred; }
 }

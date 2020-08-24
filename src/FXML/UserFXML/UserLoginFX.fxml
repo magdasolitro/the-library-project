@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1;"
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #BBA5E1;"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="Controller.UserController.UserLoginFXController">
     <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButtonClick" prefHeight="40.0"

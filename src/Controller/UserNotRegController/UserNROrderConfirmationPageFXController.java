@@ -18,16 +18,17 @@ import Model.Utils.DaoImpl.CompositionDaoImpl;
 import Model.Utils.DaoImpl.OrderDaoImpl;
 import Model.Utils.DatabaseConnection;
 import View.UserView.UserOrderConfirmationPageView;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -40,6 +41,9 @@ import java.util.*;
 public class UserNROrderConfirmationPageFXController implements Initializable {
 
     @FXML
+    private AnchorPane whiteAnchorPane;
+
+    @FXML
     private Button goBackButton, checkOutButton;
 
     @FXML
@@ -48,10 +52,26 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
     @FXML
     private ChoiceBox<String> paymentMethodCB;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         goBackButton.setId("goback-button");
         goBackButton.getStylesheets().add("/CSS/style.css");
+
+        try {
+            CartDAO cartDAO = new CartDaoImpl();
+
+            Label totalPriceLabel = new Label("" + cartDAO.totalCost(GeneralLoginController.getLoginInstance()));
+            totalPriceLabel.setFont(new Font("Avenir Book", 25));
+
+            whiteAnchorPane.getChildren().add(totalPriceLabel);
+            totalPriceLabel.relocate(780, 370);
+
+        } catch (SQLException | InvalidStringException | IllegalValueException e) {
+            e.printStackTrace();
+        }
+
+        paymentMethodCB.getItems().addAll("Credit Card", "PayPal", "Cash on delivery");
     }
 
     public void handleGoBackButton() {
@@ -66,9 +86,11 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
     }
 
     public void handleCheckOutRequest(MouseEvent event) {
-        if(nameTF.getText().isEmpty() || surnameTF.getText().isEmpty() ||
-                paymentMethodCB.getValue().isEmpty() || shippingAddressTF.getText().isEmpty() ||
-                phoneTF.getText().isEmpty() || emailTF.getText().isEmpty()){
+        if(nameTF.getText().isEmpty() || surnameTF.getText().isEmpty()
+                || paymentMethodCB.getSelectionModel().isEmpty()
+                || shippingAddressTF.getText().isEmpty()
+                || phoneTF.getText().isEmpty() || emailTF.getText().isEmpty()) {
+
             Alert missingFields = new Alert(Alert.AlertType.ERROR);
 
             missingFields.setTitle("Fields Error");
@@ -121,14 +143,10 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
                     connection.closeConnection();
 
 
-                    ArrayList<Book> booksInCartAttributes = new ArrayList<>();
-
                     BookDAO bookDAO = new BookDaoImpl();
                     CompositionDAO compositionDAO = new CompositionDaoImpl();
 
                     for (String bookISBN : bookAndQuantities.keySet()) {
-                        booksInCartAttributes.add(bookDAO.getBook(bookISBN));
-
                         compositionDAO.addBookToOrder(bookISBN, orderID, bookAndQuantities.get(bookISBN));
                         bookDAO.decreaseAvailableCopies(bookISBN, bookAndQuantities.get(bookISBN));
                     }
@@ -136,20 +154,18 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
 
                     // current date
                     Calendar calendar = Calendar.getInstance();
-
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     String currentDate = formatter.format(calendar.getTime());
 
 
-                    // TODO: consider creating a separate table for non registred user's orders
                     // add new row in Order table
                     OrderDAO orderDAO = new OrderDaoImpl();
                     Order newOrder;
 
                     newOrder = new Order(orderID, currentDate,
                             OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
-                            paymentMethodCB.getValue(), orderPrice, 0,
-                            shippingAddressTF.getText(), null, emailTF.getText());
+                            paymentMethodCB.getValue(), orderPrice, null,
+                            shippingAddressTF.getText(), currentUser, 0);
 
                     orderDAO.addOrder(newOrder);
 
@@ -167,6 +183,7 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
                     pstmt3.executeUpdate();
 
                     connection2.closeConnection();
+
 
                     Stage closingStage = (Stage) checkOutButton.getScene().getWindow();
                     closingStage.close();
@@ -196,11 +213,6 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
     }
 
 
-    public void handleCheckOutRequest(ActionEvent actionEvent) {
-
-    }
-
-
     private void viewPage(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
@@ -214,4 +226,5 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
         stage.show();
 
     }
+
 }

@@ -155,7 +155,11 @@ public class UserCartPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/UserOrderConfirmationPageFX.fxml");
+            if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
+                viewPage("../../FXML/UserNotRegFXML/UserNROrderConfirmationPageFX.fxml");
+            } else {
+                viewPage("../../FXML/UserFXML/UserOrderConfirmationPageFX.fxml");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

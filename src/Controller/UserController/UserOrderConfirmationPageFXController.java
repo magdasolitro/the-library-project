@@ -198,7 +198,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                         newOrder = new Order(orderID, currentDate,
                                 OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
                                 paymentMethodCB.getValue(), orderPrice, totalPoints,
-                                alternativeAddressTF.getText(), currentUserEmail, null);
+                                alternativeAddressTF.getText(), currentUserEmail, 1);
                     } else {
                         UserDAO userDAO = new UserDaoImpl();
                         User currentUser = userDAO.getUser(currentUserEmail);
@@ -207,7 +207,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                                 OrderStatusEnum.ORDER_REQUEST_RECEIVED.toString(),
                                 paymentMethodCB.getValue(), orderPrice, totalPoints,
                                 currentUser.getHomeAddress() + currentUser.getStreetNumber(),
-                                currentUserEmail, null);
+                                currentUserEmail, 1);
                     }
 
                     orderDAO.addOrder(newOrder);

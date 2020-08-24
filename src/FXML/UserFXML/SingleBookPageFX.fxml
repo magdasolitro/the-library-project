@@ -17,25 +17,25 @@
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Label>
-        <ImageView fx:id="profileIcon" fitHeight="76.0" fitWidth="81.0" layoutX="1053.0" layoutY="14.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
+        <!--<ImageView fx:id="profileIcon" fitHeight="76.0" fitWidth="81.0" layoutX="1053.0" layoutY="14.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../images/userIcon.png" />
             </image>
-        </ImageView>
+        </ImageView>-->
         <ImageView fx:id="cartIcon" fitHeight="71.0" fitWidth="90.0" layoutX="1159.0" layoutY="14.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../images/cartIcon.png" />
             </image>
         </ImageView>
-        <Label fx:id="logoutLabel" layoutX="893.0" layoutY="41.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
+        <!--<Label fx:id="logoutLabel" layoutX="893.0" layoutY="41.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
-        </Label>
+        </Label>-->
         <Separator layoutX="867.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="5.0" />
-        <Separator layoutX="870.0" layoutY="97.0" prefHeight="5.0" prefWidth="430.0" />
+        <Separator layoutX="870.0" layoutY="100.0" prefHeight="5.0" prefWidth="430.0" />
         <Region prefHeight="800.0" prefWidth="868.0" style="-fx-background-color: #BBA5E1;" />
         <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0" />
-      <Separator layoutX="1010.0" orientation="VERTICAL" prefHeight="98.0" />
+        <!--<Separator layoutX="1010.0" orientation="VERTICAL" prefHeight="98.0" />-->
     </children>
 </AnchorPane>

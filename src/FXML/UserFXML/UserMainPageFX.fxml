@@ -5,11 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserMainPageFXController">
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.UserController.UserMainPageFXController"
+            prefHeight="700.0" prefWidth="1010.0">
    <children>
        <SplitPane dividerPositions="0.2" prefHeight="700.0">
            <items>
-               <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefWidth="260.0" style="-fx-background-color: #BBA5E1;">
+               <AnchorPane fx:id="leftPane" style="-fx-background-color: #BBA5E1;">
                    <children>
                        <Label layoutX="35.0" layoutY="198.0" text="Genres:" textFill="WHITE">
                            <font>
@@ -49,7 +52,7 @@
                        </ImageView>
                    </children>
                </AnchorPane>
-               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefWidth="1010.0" style="-fx-background-color: #FFFFFF;">
+               <AnchorPane fx:id="rightPane" style="-fx-background-color: #FFFFFF;">
                    <children>
                        <Label fx:id="logoutLabel" layoutX="646.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
                            <font>

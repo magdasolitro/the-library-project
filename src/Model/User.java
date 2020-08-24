@@ -2,7 +2,11 @@ package Model;
 
 import Model.Exceptions.InvalidStringException;
 
-public class User extends UserNotReg{
+public class User {
+    private String name;
+    private String surname;
+    private String phone;
+    private final String email;
     private String password;
     private String homeAddress;
     private String streetNumber;
@@ -13,20 +17,31 @@ public class User extends UserNotReg{
                 String password, String homeAddress, String streetNumber,
                 String ZIPCode, String homeCity) throws InvalidStringException {
 
-        super(name, surname, phone, email);
-
-        if(password.length() == 0 || homeAddress.length() == 0
+        if(name.length() == 0 || surname.length() == 0 || phone.length() == 0
+                || email.length() == 0 || password.length() == 0 || homeAddress.length() == 0
                 || streetNumber.length() == 0 || ZIPCode.length() == 0
                 || homeCity.length() == 0){
             throw new InvalidStringException();
         }
 
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.email = email;
         this.password = password;
         this.homeAddress = homeAddress;
         this.streetNumber = streetNumber;
         this.ZIPCode = ZIPCode;
         this.homeCity = homeCity;
     }
+
+    public String getName(){ return name; }
+
+    public String getSurname(){ return surname; }
+
+    public String getPhone(){ return phone; }
+
+    public String getEmail(){ return email; }
 
     public String getPassword(){ return password; }
 

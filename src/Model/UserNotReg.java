@@ -5,11 +5,12 @@ import Model.Exceptions.InvalidStringException;
 public class UserNotReg {
     protected final String name;
     protected final String surname;
-    protected String phone;
-    protected String email;
+    protected final String phone;
+    protected final String email;
+    protected final String userNotRegID;
 
     public UserNotReg(String name, String surname, String phone,
-                      String email) throws InvalidStringException {
+                      String email, String userNotRegID) throws InvalidStringException {
 
         if(name.length() == 0 || surname.length() == 0 || phone.length() == 0
                 || email.length() == 0){
@@ -20,6 +21,7 @@ public class UserNotReg {
         this.surname = surname;
         this.phone = phone;
         this.email = email;
+        this.userNotRegID = userNotRegID;
     }
 
     public String getName(){ return name; }
@@ -29,4 +31,6 @@ public class UserNotReg {
     public String getPhone(){ return phone; }
 
     public String getEmail(){ return email; }
+
+    public String getUserNotRegID(){ return userNotRegID; }
 }

@@ -39,7 +39,7 @@ public class OrderDaoImpl implements OrderDAO {
                 rs.getInt("points"),
                 rs.getString("shippingAddress"),
                 rs.getString("user"),
-                rs.getString("userNotReg"));
+                rs.getInt("isRegistred"));
 
         rs.close();
         pstmt.close();
@@ -50,8 +50,8 @@ public class OrderDaoImpl implements OrderDAO {
     }
 
     @Override
-    public String getUserEmail(String orderID) throws SQLException{
-        String sql = "SELECT user, userNotReg FROM orders WHERE orderID = ?";
+    public String getUser(String orderID) throws SQLException{
+        String sql = "SELECT user FROM orders WHERE orderID = ?";
         String user;
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -63,13 +63,7 @@ public class OrderDaoImpl implements OrderDAO {
 
         ResultSet rs = pstmt.executeQuery();
 
-        if(rs.getString("user") != null){
-            user = rs.getString("user");
-            connection.closeConnection();
-            return user;
-        }
-
-        user = rs.getString("userNotReg");
+        user = rs.getString("user");
 
         rs.close();
         pstmt.close();
@@ -103,7 +97,7 @@ public class OrderDaoImpl implements OrderDAO {
                     rs.getInt("points"),
                     rs.getString("shippingAddress"),
                     rs.getString("user"),
-                    rs.getString("userNotReg")));
+                    rs.getInt("isRegistred")));
         }
 
         rs.close();
@@ -138,7 +132,7 @@ public class OrderDaoImpl implements OrderDAO {
                     rs.getInt("points"),
                     rs.getString("shippingAddress"),
                     rs.getString("user"),
-                    rs.getString("userNotReg")));
+                    rs.getInt("isRegistred")));
         }
 
         rs.close();
@@ -154,7 +148,7 @@ public class OrderDaoImpl implements OrderDAO {
             throws SQLException {
 
         String sql = "INSERT INTO orders(orderID, date, status, paymentMethod," +
-                " price, points, shippingAddress, user, userNotReg) " +
+                " price, points, shippingAddress, user, isRegistred) " +
                 "VALUES(?,?,?,?,?,?,?,?,?)";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -169,15 +163,8 @@ public class OrderDaoImpl implements OrderDAO {
         pstmt.setBigDecimal(5, order.getPrice());
         pstmt.setInt(6, order.getPoints());
         pstmt.setString(7, order.getShippingAddress());
-
-        // STABILIRE CODICE UTENTE NON REGISTRATO!! modificare la regex di conseguenza
-        if(!Pattern.matches("NOTREG[0-9]", order.getUser())){
-            pstmt.setString(8, order.getUser());
-            pstmt.setString(9, null);
-        } else {
-            pstmt.setString(8, null);
-            pstmt.setString(9, order.getUser());
-        }
+        pstmt.setString(8, order.getUser());
+        pstmt.setInt(9, order.getIsRegistred());
 
         pstmt.executeUpdate();
 
