@@ -22,7 +22,7 @@
                 <Image url="@../../images/userIcon.png" />
             </image>
         </ImageView>-->
-        <ImageView fx:id="cartIcon" fitHeight="71.0" fitWidth="90.0" layoutX="1159.0" layoutY="14.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="cartIcon" fitHeight="70.0" fitWidth="90.0" layoutX="1159.0" layoutY="14.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../images/cartIcon.png" />
             </image>

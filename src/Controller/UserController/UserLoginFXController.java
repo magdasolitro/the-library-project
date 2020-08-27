@@ -6,18 +6,14 @@ import Model.Exceptions.InvalidStringException;
 import Model.User;
 import Model.Utils.DAOs.UserDAO;
 import Model.Utils.DaoImpl.UserDaoImpl;
-
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -41,8 +37,15 @@ public class UserLoginFXController implements Initializable {
 
 
     @FXML
-    public void handleLoginRequest(MouseEvent evt) throws SQLException,
+    public void handleLoginRequest() throws SQLException,
             InvalidStringException, IOException {
+
+        String userEmail = userEmailField.getText();
+        String userPassword = userPasswordField.getText();
+
+        UserDAO userDAO = new UserDaoImpl();
+
+        User currentUser = userDAO.getUser(userEmail);
 
         if(userEmailField.getText().isEmpty() || userPasswordField.getText().isEmpty()){
             Alert missingFields = new Alert(Alert.AlertType.ERROR);
@@ -52,25 +55,14 @@ public class UserLoginFXController implements Initializable {
             missingFields.setContentText("Your email and password are required in order to log in.");
 
             missingFields.showAndWait();
-
-            return;
-        }
-
-        String userEmail = userEmailField.getText();
-        String userPassword = userPasswordField.getText();
-
-        UserDAO userDAO = new UserDaoImpl();
-
-        User currentUser = userDAO.getUser(userEmail);
-
-        if(currentUser == null){
+        } else if(currentUser == null){
             Alert userNotRegistred = new Alert(Alert.AlertType.ERROR);
 
             userNotRegistred.setTitle("User Not Registered");
             userNotRegistred.setHeaderText("It looks like you are not registered!");
             userNotRegistred.setContentText("Try to sign in instead.");
 
-            userNotRegistred.show();
+            userNotRegistred.showAndWait();
         } else if(!userPassword.equals(currentUser.getPassword())){
             Alert wrongPassword = new Alert(Alert.AlertType.ERROR);
 
@@ -78,7 +70,7 @@ public class UserLoginFXController implements Initializable {
             wrongPassword.setHeaderText("Your password is wrong!");
             wrongPassword.setContentText("Try to re-type it.");
 
-            wrongPassword.show();
+            wrongPassword.showAndWait();
         } else {
             GeneralLoginController.setLoginInstance(userEmail);
 

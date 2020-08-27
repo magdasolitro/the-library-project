@@ -2,20 +2,13 @@ package Controller.UserNotRegController;
 
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
-import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Exceptions.UserNotInDatabaseException;
 import Model.Order;
 import Model.OrderStatusEnum;
-import Model.Utils.DAOs.BookDAO;
-import Model.Utils.DAOs.CartDAO;
-import Model.Utils.DAOs.CompositionDAO;
-import Model.Utils.DAOs.OrderDAO;
-import Model.Utils.DaoImpl.BookDaoImpl;
-import Model.Utils.DaoImpl.CartDaoImpl;
-import Model.Utils.DaoImpl.CompositionDaoImpl;
-import Model.Utils.DaoImpl.OrderDaoImpl;
+import Model.Utils.DAOs.*;
+import Model.Utils.DaoImpl.*;
 import Model.Utils.DatabaseConnection;
 import View.UserView.UserOrderConfirmationPageView;
 import javafx.fxml.FXML;
@@ -110,10 +103,15 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
 
             if (response.isPresent() && response.get() == ButtonType.OK) {
                 CartDAO cartDAO = new CartDaoImpl();
+                UserNotRegDAO userNotRegDAO = new UserNotRegDaoImpl();
 
                 String currentUser = GeneralLoginController.getLoginInstance();
 
                 try {
+                    // create a row in the userNotReg table
+                    userNotRegDAO.addNotRegistredUser(nameTF.getText(), surnameTF.getText(),
+                            phoneTF.getText(), emailTF.getText(), currentUser);
+
                     // calculate all parameters needed to checkout
                     String orderID = cartDAO.generateOrderID(currentUser);
                     BigDecimal orderPrice = cartDAO.totalCost(currentUser);

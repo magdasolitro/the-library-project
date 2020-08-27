@@ -74,9 +74,10 @@ public class UserNRMainPageFXController implements Initializable {
         genresChoiceBox.setPrefWidth(175);
         genresChoiceBox.setPrefHeight(37);
 
+        BookDAO bookDAO = new BookDaoImpl();
+
         // build full catalog view
         try {
-            BookDAO bookDAO = new BookDaoImpl();
 
             ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
 
@@ -99,6 +100,34 @@ public class UserNRMainPageFXController implements Initializable {
         priceDescRB.setToggleGroup(group);
         publYearRB.setToggleGroup(group);
         titleRB.setToggleGroup(group);
+
+        group.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (group.getSelectedToggle() != null) {
+                ArrayList<Book> orderedBooks = new ArrayList<>();
+
+                try {
+                    orderedBooks.addAll(bookDAO.getAllBooks());
+                } catch (SQLException | InvalidStringException | IllegalValueException e) {
+                    e.printStackTrace();
+                }
+
+                if(newValue.equals(priceAscRB)){
+                    orderedBooks.sort(Comparator.comparing(Book::getPrice));
+                } else if(newValue.equals(priceDescRB)){
+                    orderedBooks.sort(Comparator.comparing(Book::getPrice));
+                    Collections.reverse(orderedBooks);
+                } else if(newValue.equals(publYearRB)){
+                    orderedBooks.sort(Comparator.comparing(Book::getPublishingYear));
+                } else{
+                    orderedBooks.sort(Comparator.comparing(Book::getTitle));
+                }
+
+                // clear rightPane
+                rightPane.getChildren().remove(scrollPane);
+
+                changeBookView(orderedBooks);
+            }
+        });
 
         // set style for search button
         searchButton.setId("search-button");
@@ -125,71 +154,6 @@ public class UserNRMainPageFXController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-    public void handlePriceAscFilter() throws InvalidStringException,
-            SQLException, IllegalValueException {
-
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
-
-        orderedBooks.sort(Comparator.comparing(Book::getPrice));
-
-        // clear rightPane
-        rightPane.getChildren().remove(scrollPane);
-
-        changeBookView(orderedBooks);
-
-    }
-
-    public void handlePriceDescFilter() throws InvalidStringException,
-            SQLException, IllegalValueException {
-
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
-
-        orderedBooks.sort(Comparator.comparing(Book::getPrice));
-        Collections.reverse(orderedBooks);
-
-        // clear rightPane
-        rightPane.getChildren().remove(scrollPane);
-
-        changeBookView(orderedBooks);
-    }
-
-    public void handlePublYearFilter() throws InvalidStringException,
-            SQLException, IllegalValueException {
-
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
-
-        orderedBooks.sort(Comparator.comparing(Book::getPublishingYear));
-
-        // clear rightPane
-        rightPane.getChildren().remove(scrollPane);
-
-        changeBookView(orderedBooks);
-    }
-
-    public void handleTitleFilter() throws InvalidStringException,
-            SQLException, IllegalValueException {
-
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
-
-        orderedBooks.sort(Comparator.comparing(Book::getTitle));
-
-        // clear rightPane
-        rightPane.getChildren().remove(scrollPane);
-
-        changeBookView(orderedBooks);
-
-    }
-
 
     public void goToCartPage() {
         try{

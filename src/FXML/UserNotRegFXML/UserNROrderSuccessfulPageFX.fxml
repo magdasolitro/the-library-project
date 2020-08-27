@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserNotRegController.UserNROrderSuccessfulPageFXController">
+    <Pane fx:id="pane" layoutX="80.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 30 30 30 30; -fx-border-radius: 30 30 30 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="70.0">
+        <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="30.0" prefHeight="102.0" prefWidth="1100.0" text="Thank you for your order!">
+                <font>
+                    <Font name="Avenir Next Bold" size="50.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="150.0" text="Your order has been confirmed and is now on its way to reach its destination.">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="280.0" text="It usually takes no more than 2-3 days to deliver the articles, but times may vary">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="310.0" text="based on the location you specified. If the articles do not arrive within a week,">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="340.0" text="please contact us by sending an e-mail to">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Label layoutX="605.0" layoutY="345.0" text="mindtravels@custormerservice.com" underline="true">
+                <font>
+                    <Font name="Menlo Regular" size="16.0" />
+                </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="410.0" text="Meanwhile, you can monitor your order status from your Orders Page:">
+                <font>
+                    <Font name="Avenir Book" size="20.0" />
+                </font>
+            </Label>
+            <Button fx:id="goToOrdersButton" layoutX="367.0" layoutY="470.0" mnemonicParsing="false" onAction="#goToAllOrdersPage" style="-fx-background-color: #3CB371;" text="Track my order" textFill="WHITE">
+                <font>
+                    <Font name="Avenir Next Bold" size="17.0" />
+                </font>
+            </Button>
+            <Button fx:id="backToMainPageButton" layoutX="652.0" layoutY="470.0" mnemonicParsing="false" onAction="#handleGoBackToMainPage" style="-fx-background-color: #D3D3D3;" text="Back to main page">
+                <font>
+                    <Font name="Avenir Book" size="17.0" />
+                </font>
+            </Button>
+         <Label layoutX="220.0" layoutY="180.0" text="To track your order, use the following code:">
+            <font>
+               <Font name="Avenir Book" size="20.0" />
+            </font>
+         </Label>
+         <Label layoutX="549.0" layoutY="236.0" text="Label" />
+        </children></Pane>
+</AnchorPane>

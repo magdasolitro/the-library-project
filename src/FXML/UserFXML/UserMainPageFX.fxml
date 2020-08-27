@@ -24,19 +24,19 @@
                                <Font name="Avenir Next Bold" size="20.0" />
                            </font>
                        </Label>
-                       <RadioButton fx:id="priceAscRB" layoutX="35.0" layoutY="455.0" mnemonicParsing="false" onMouseClicked="#handlePriceAscFilter" text="Price (low to high)" textFill="WHITE">
+                       <RadioButton fx:id="priceAscRB" layoutX="35.0" layoutY="455.0" mnemonicParsing="false" text="Price (low to high)" textFill="WHITE">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <RadioButton fx:id="priceDescRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#handlePriceDescFilter" text="Price (high to low)" textFill="WHITE">
+                       <RadioButton fx:id="priceDescRB" layoutX="35.0" layoutY="500.0" mnemonicParsing="false" text="Price (high to low)" textFill="WHITE">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="545.0" mnemonicParsing="false" onMouseClicked="#handlePublYearFilter" text="Publication Year" textFill="WHITE">
+                       <RadioButton fx:id="publYearRB" layoutX="35.0" layoutY="545.0" mnemonicParsing="false" text="Publication Year" textFill="WHITE">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>
-                       <RadioButton fx:id="titleRB" layoutX="35.0" layoutY="590.0" mnemonicParsing="false" onMouseClicked="#handleTitleFilter" text="Title" textFill="WHITE">
+                       <RadioButton fx:id="titleRB" layoutX="35.0" layoutY="590.0" mnemonicParsing="false" text="Title" textFill="WHITE">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font></RadioButton>

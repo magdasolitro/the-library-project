@@ -34,6 +34,7 @@ public class SignInPageFXController implements Initializable {
     @FXML
     Button signInButton, goBackButton;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         goBackButton.setId("goback-button");
@@ -41,7 +42,7 @@ public class SignInPageFXController implements Initializable {
     }
 
     @FXML
-    public void handleSignInButton(MouseEvent evt) throws InvalidStringException,
+    public void handleSignInButton() throws InvalidStringException,
             UserNotInDatabaseException, SQLException, IOException {
         UserDAO userDAO = new UserDaoImpl();
 
@@ -116,7 +117,13 @@ public class SignInPageFXController implements Initializable {
         Stage stage = (Stage) goBackButton.getScene().getWindow();
         stage.close();
 
-        viewPage("../FXML/WelcomePageFX.fxml");
+        if(LastOpenedPageController.getLastOpenedPage() == null) {
+            viewPage("../FXML/WelcomePageFX.fxml");
+        } else {
+            // substring(3) because pattern is set to be "../../FXML" but in this case
+            // i need "../FXML" to go in the right directory
+            viewPage(LastOpenedPageController.getLastOpenedPage().substring(3));
+        }
     }
 
 

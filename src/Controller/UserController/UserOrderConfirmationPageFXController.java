@@ -187,7 +187,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                     int totalPoints = 0;
 
                     for (Book b : booksInCartAttributes) {
-                        totalPoints += b.getLibroCardPoints() ;//* bookAndQuantities.get(b);
+                        totalPoints += b.getLibroCardPoints();// * bookAndQuantities.get(b);
                     }
 
                     // add new row in Order table

@@ -10,6 +10,8 @@ import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import View.UserView.UserMainPageView;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,19 +53,20 @@ public class UserMainPageFXController implements Initializable {
 
     private ScrollPane scrollPane;
 
+    private ChoiceBox<Object> genresChoiceBox;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         // set style for search button
         searchButton.setId("search-button");
         searchButton.getStylesheets().add("/CSS/style.css");
 
-        ChoiceBox<Object> genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("All",
+        genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("All",
                 "Autobiography", "Crime Fiction", "Fantasy", "History", "Narrative", "Philosophy of Science",
                 "Politics", "Science Fiction"));
 
         // if the item of the list has changed
         genresChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
-
             BookDAO bookDAO = new BookDaoImpl();
             try {
                 ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue() - 1]));
@@ -71,13 +74,7 @@ public class UserMainPageFXController implements Initializable {
             } catch (SQLException | InvalidStringException | IllegalValueException e) {
                 e.printStackTrace();
             }
-
         });
-
-        leftPane.getChildren().add(genresChoiceBox);
-        genresChoiceBox.relocate(35, 240);
-        genresChoiceBox.setPrefWidth(175);
-        genresChoiceBox.setPrefHeight(37);
 
         try{
             // build full catalog view
@@ -103,6 +100,39 @@ public class UserMainPageFXController implements Initializable {
             priceDescRB.setToggleGroup(group);
             publYearRB.setToggleGroup(group);
             titleRB.setToggleGroup(group);
+
+            group.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> {
+                if (group.getSelectedToggle() != null) {
+                    ArrayList<Book> orderedBooks = new ArrayList<>();
+
+                    try {
+                        orderedBooks.addAll(bookDAO.getAllBooks());
+                    } catch (SQLException | InvalidStringException | IllegalValueException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(newValue.equals(priceAscRB)){
+                        orderedBooks.sort(Comparator.comparing(Book::getPrice));
+                    } else if(newValue.equals(priceDescRB)){
+                        orderedBooks.sort(Comparator.comparing(Book::getPrice));
+                        Collections.reverse(orderedBooks);
+                    } else if(newValue.equals(publYearRB)){
+                        orderedBooks.sort(Comparator.comparing(Book::getPublishingYear));
+                    } else{
+                        orderedBooks.sort(Comparator.comparing(Book::getTitle));
+                    }
+
+                    // clear rightPane
+                    rightPane.getChildren().remove(scrollPane);
+
+                    changeBookView(orderedBooks);
+                }
+            });
+
+            leftPane.getChildren().add(genresChoiceBox);
+            genresChoiceBox.relocate(35, 240);
+            genresChoiceBox.setPrefWidth(175);
+            genresChoiceBox.setPrefHeight(37);
 
         } catch (InvalidStringException | SQLException | IllegalValueException e) {
             e.printStackTrace();
@@ -132,54 +162,6 @@ public class UserMainPageFXController implements Initializable {
             confirmLogOut.close();
         }
 
-    }
-
-
-    public void handlePriceAscFilter() throws InvalidStringException,
-            SQLException, IllegalValueException {
-
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
-
-        orderedBooks.sort(Comparator.comparing(Book::getPrice));
-
-        // clear rightPane
-        rightPane.getChildren().remove(scrollPane);
-
-        changeBookView(orderedBooks);
-
-    }
-
-    public void handlePriceDescFilter() throws InvalidStringException,
-            SQLException, IllegalValueException {
-
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
-
-        orderedBooks.sort(Comparator.comparing(Book::getPrice));
-        Collections.reverse(orderedBooks);
-
-        // clear rightPane
-        rightPane.getChildren().remove(scrollPane);
-
-        changeBookView(orderedBooks);
-    }
-
-    public void handlePublYearFilter() throws InvalidStringException,
-            SQLException, IllegalValueException {
-
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
-
-        orderedBooks.sort(Comparator.comparing(Book::getPublishingYear));
-
-        // clear rightPane
-        rightPane.getChildren().remove(scrollPane);
-
-       changeBookView(orderedBooks);
     }
 
     public void handleTitleFilter() throws InvalidStringException,
@@ -222,7 +204,7 @@ public class UserMainPageFXController implements Initializable {
 
     }
 
-    public void handleBookSearch(MouseEvent evt) throws InvalidStringException,
+    public void handleBookSearch() throws InvalidStringException,
             SQLException, IllegalValueException {
 
         String bookTitle = bookSearchTextField.getText();

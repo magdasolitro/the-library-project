@@ -161,7 +161,11 @@ public class OrderDaoImpl implements OrderDAO {
         pstmt.setString(3, order.getStatus());
         pstmt.setString(4, order.getPaymentMethod());
         pstmt.setBigDecimal(5, order.getPrice());
-        pstmt.setInt(6, order.getPoints());
+        if(order.getIsRegistred() == 0){
+            pstmt.setObject(6, null);
+        } else {
+            pstmt.setInt(6, order.getPoints());
+        }
         pstmt.setString(7, order.getShippingAddress());
         pstmt.setString(8, order.getUser());
         pstmt.setInt(9, order.getIsRegistred());

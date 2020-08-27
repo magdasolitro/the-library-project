@@ -40,7 +40,7 @@ public class SingleBookPageView {
             book = bookDAO.getBook(ISBN);
 
             // BUILD TITLE
-            String splittedTitleString = splitString(book.getTitle(), 27);
+            String splittedTitleString = splitString(book.getTitle(), 25);
             titleInfo = new Label("\"" + splittedTitleString + "\"");
             titleInfo.setFont(new Font("Avenir Next Bold", 50));
 

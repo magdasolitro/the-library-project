@@ -2,15 +2,15 @@ package View.UserView;
 
 import Controller.GeneralLoginController;
 import Model.Book;
+import Model.Exceptions.IllegalValueException;
+import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.CartDAO;
 import Model.Utils.DaoImpl.CartDaoImpl;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
 import java.math.BigDecimal;
@@ -138,12 +138,13 @@ public class CartPageView {
                     CartDAO cartDAO = new CartDaoImpl();
                     try {
                         cartDAO.removeBookFromCart(book.getISBN(), GeneralLoginController.getLoginInstance());
-                    } catch (SQLException sqle) {
+
+                        ArrayList<Book> newCart = new ArrayList<>(cartDAO.cartContent(GeneralLoginController.getLoginInstance()));
+                    } catch (SQLException | InvalidStringException | IllegalValueException sqle) {
                         sqle.printStackTrace();
                     }
                 } else {
                     e.consume();
-                    removalAlert.close();
                 }
             });
 

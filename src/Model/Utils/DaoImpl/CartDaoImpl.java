@@ -247,8 +247,8 @@ public class CartDaoImpl implements CartDAO {
         if(!rs1.next()){
 
             userNameSurnameQuery = "SELECT name, surname " +
-                                   "FROM userNotReg JOIN cart ON userNotReg.email = cart.user " +
-                                   "WHERE userNotReg.email = ?";
+                                   "FROM userNotReg JOIN cart ON userNotRegID = user " +
+                                   "WHERE userNotRegID = ?";
 
             PreparedStatement pstmt2 = connection.conn.prepareStatement(userNameSurnameQuery);
             pstmt2.setString(1, email);

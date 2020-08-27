@@ -14,12 +14,12 @@
                         <Font name="Avenir Next Bold" size="23.0" />
                     </font>
                 </Label>
-            <TextField layoutX="47.0" layoutY="252.0" prefHeight="36.0" prefWidth="285.0" promptText="orderID" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="47.0">
+            <TextField fx:id="orderIdTF" layoutX="47.0" layoutY="252.0" prefHeight="36.0" prefWidth="285.0" promptText="orderID" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="47.0">
                <font>
                   <Font name="Avenir Book" size="17.0" />
                </font>
             </TextField>
-            <Button layoutX="102.0" layoutY="321.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="175.0" style="-fx-background-color: #3CB371;" text="Search" textFill="WHITE" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="102.0">
+            <Button fx:id="searchButton" layoutX="102.0" layoutY="321.0" onMouseClicked="#handleOrderSearch" mnemonicParsing="false" prefHeight="44.0" prefWidth="175.0" style="-fx-background-color: #3CB371;" text="Search" textFill="WHITE" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="102.0">
                <font>
                   <Font name="Avenir Next Bold" size="20.0" />
                </font>

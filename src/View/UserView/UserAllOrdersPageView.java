@@ -103,7 +103,7 @@ public class UserAllOrdersPageView {
         statusLabel = new Label("Status:");
         statusLabel.setFont(labelFont);
 
-        status = new Label(order.getShippingAddress());
+        status = new Label(order.getStatus());
         status.setFont(stdFont);
 
         paymentMethodLabel = new Label("Payment method:");

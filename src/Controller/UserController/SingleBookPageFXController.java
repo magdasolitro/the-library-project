@@ -3,6 +3,9 @@ package Controller.UserController;
 import Controller.BookInstanceController;
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
+import Model.Book;
+import Model.Exceptions.IllegalValueException;
+import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DAOs.CartDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
@@ -29,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -84,6 +88,9 @@ public class SingleBookPageFXController implements Initializable {
             loginLabel.setUnderline(true);
 
             loginLabel.setOnMouseClicked(e -> {
+                Stage stage = (Stage) loginLabel.getScene().getWindow();
+                stage.close();
+
                 try {
                     viewPage("../../FXML/WelcomePageFX.fxml");
                 } catch (IOException ex) {
@@ -91,9 +98,25 @@ public class SingleBookPageFXController implements Initializable {
                 }
             });
 
-            anchorPane.getChildren().add(loginLabel);
+            Label signinLabel = new Label("SIGN IN");
+            signinLabel.setFont(new Font("Avenir Book", 20));
+            signinLabel.setUnderline(true);
 
-            loginLabel.relocate(893,41);
+            signinLabel.setOnMouseClicked(e -> {
+                Stage stage = (Stage) signinLabel.getScene().getWindow();
+                stage.close();
+
+                try {
+                    viewPage("../../FXML/SignInPageFX.fxml");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            anchorPane.getChildren().addAll(loginLabel, signinLabel);
+
+            loginLabel.relocate(900,41);
+            signinLabel.relocate(1020, 41);
 
         } else {
             Label logoutLabel = new Label("LOG OUT");
@@ -128,23 +151,26 @@ public class SingleBookPageFXController implements Initializable {
 
             anchorPane.getChildren().add(logoutLabel);
 
-            logoutLabel.relocate(893, 41);
+            logoutLabel.relocate(900, 41);
 
             // load the image
             Image userIconImage = null;
 
             try {
-                userIconImage = new Image(new FileInputStream("/src/images/userIcon.png"));
+                userIconImage = new Image(new FileInputStream("src/images/userIcon.png"));
 
                 ImageView imgView = new ImageView();
                 imgView.setImage(userIconImage);
 
-                imgView.setFitHeight(76);
-                imgView.setFitHeight(81);
+                imgView.setFitWidth(80);
+                imgView.setFitHeight(75);
 
                 imgView.setOnMouseClicked( e -> {
+                    Stage stage = (Stage) imgView.getScene().getWindow();
+                    stage.close();
+
                     try {
-                        viewPage("../../FXML/UserFXML/UserProfilePageFX.fxml");
+                        viewPage("../../FXML/UserFXML/UserProfileFX.fxml");
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -152,7 +178,7 @@ public class SingleBookPageFXController implements Initializable {
 
                 anchorPane.getChildren().add(imgView);
 
-                imgView.relocate(1053, 14);
+                imgView.relocate(1045, 14);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -168,21 +194,38 @@ public class SingleBookPageFXController implements Initializable {
         CartDAO cartDAO = new CartDaoImpl();
         BookDAO bookDAO = new BookDaoImpl();
 
-        String ISBN = BookInstanceController.getCurrentBookISBN();
+        String currentBookISBN = BookInstanceController.getCurrentBookISBN();
+        String currentUser = GeneralLoginController.getLoginInstance();
 
-        try{
-            if(!bookDAO.isAvailable(ISBN)){
+        // retrieve cart content for else-if test
+        try {
+            ArrayList<Book> booksInCart = new ArrayList<>(cartDAO.cartContent(currentUser));
+            String bookToAddISBN = bookDAO.getBook(currentBookISBN).getISBN();
+
+            ArrayList<String> booksInCartISBN = new ArrayList<>();
+
+            for (Book b : booksInCart){
+                booksInCartISBN.add(b.getISBN());
+            }
+
+            if(booksInCartISBN.contains(bookToAddISBN)){
+                Alert bookAlreadyPresent = new Alert(Alert.AlertType.ERROR);
+
+                bookAlreadyPresent.setTitle("Book Already Present");
+                bookAlreadyPresent.setHeaderText("This book is already present in your cart!");
+                bookAlreadyPresent.setContentText("You may want to choose another book instead.");
+
+                bookAlreadyPresent.showAndWait();
+            } else if(!bookDAO.isAvailable(currentBookISBN)) {
                 Alert bookNotAvailable = new Alert(Alert.AlertType.ERROR);
 
                 bookNotAvailable.setTitle("Book Not Available");
                 bookNotAvailable.setHeaderText("This book is currently out of stock.");
-                bookNotAvailable.setContentText("... but we have many more books " +
-                        "you can choose!");
+                bookNotAvailable.setContentText("You may want to choose another book instead.");
 
                 bookNotAvailable.showAndWait();
             } else {
-                cartDAO.addBookToCart(BookInstanceController.getCurrentBookISBN(), GeneralLoginController.getLoginInstance(),
-                        quantitySpinner.getValue());
+                cartDAO.addBookToCart(currentBookISBN, currentUser, quantitySpinner.getValue());
 
                 Alert bookAddedToCart = new Alert(Alert.AlertType.INFORMATION);
 
@@ -192,8 +235,8 @@ public class SingleBookPageFXController implements Initializable {
 
                 bookAddedToCart.showAndWait();
             }
-        } catch (SQLException sqle){
-            sqle.printStackTrace();
+        } catch (SQLException | InvalidStringException | IllegalValueException e) {
+            e.printStackTrace();
         }
     }
 
