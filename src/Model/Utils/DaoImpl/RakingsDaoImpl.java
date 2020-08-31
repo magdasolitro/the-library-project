@@ -1,8 +1,12 @@
 package Model.Utils.DaoImpl;
 
 import Model.Book;
+import Model.Exceptions.IllegalValueException;
+import Model.Exceptions.InvalidStringException;
 import Model.GenresEnum;
-import Model.Utils.DAOs.RankingDAO;
+import Model.Rankings;
+import Model.Utils.DAOs.BookDAO;
+import Model.Utils.DAOs.RankingsDAO;
 import Model.Utils.DatabaseConnection;
 
 import java.sql.PreparedStatement;
@@ -10,12 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class RakingDaoImpl implements RankingDAO {
+public class RakingsDaoImpl implements RankingsDAO {
 
-    public ArrayList<String> getAbsoluteRanking() throws SQLException{
-        String sql = "SELECT * FROM ranking";
-
-        ArrayList<String> absoluteRanking = new ArrayList<>();
+    @Override
+    public ArrayList<Rankings> getRankingByGenre(GenresEnum genre) throws SQLException{
+        String sql = "SELECT * FROM rankings";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -24,19 +27,37 @@ public class RakingDaoImpl implements RankingDAO {
 
         ResultSet rs = pstmt.executeQuery();
 
+        ArrayList<Rankings> allRankings = new ArrayList<>();
+
         while(rs.next()){
-            //absoluteRanking.add()
+            allRankings.add(new Rankings(rs.getString("book"),
+                    rs.getInt("soldCopies"),
+                    rs.getInt("currentPosition"),
+                    rs.getInt("weeksInPosition")));
         }
 
-        return null;
+        BookDAO bookDAO = new BookDaoImpl();
+
+        ArrayList<Rankings> rankingsByGenre = new ArrayList<>();
+
+        for(Rankings r : allRankings){
+            try {
+                Book currentBook = bookDAO.getBook(r.getBook());
+
+                if(currentBook.getGenre().equals(genre.toString())){
+                    rankingsByGenre.add(r);
+                }
+            } catch (InvalidStringException | IllegalValueException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return rankingsByGenre;
     }
 
-    public ArrayList<Book> getRankingByGenre(GenresEnum genre){
-        return null;
-    }
-
-    public void incrementSoldCopies(String ISBN) throws SQLException {
-        String sql = "UPDATE ranking SET soldCopies = soldCopies + 1 " +
+    @Override
+    public void incrementSoldCopies(String ISBN, int quantity) throws SQLException {
+        String sql = "UPDATE rankings SET soldCopies = soldCopies + ? " +
                      "WHERE book = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -44,7 +65,8 @@ public class RakingDaoImpl implements RankingDAO {
 
         PreparedStatement pstmt = connection.conn.prepareStatement(sql);
 
-        pstmt.setString(1, ISBN);
+        pstmt.setInt(1, quantity);
+        pstmt.setString(2, ISBN);
 
         pstmt.executeUpdate();
 
@@ -54,9 +76,9 @@ public class RakingDaoImpl implements RankingDAO {
 
     }
 
-
+    @Override
     public void setCopiesToZero(String ISBN) throws SQLException{
-        String sql = "UPDATE ranking SET soldCopies = 0 " +
+        String sql = "UPDATE rankings SET soldCopies = 0 " +
                      "WHERE book = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -73,9 +95,9 @@ public class RakingDaoImpl implements RankingDAO {
         connection.closeConnection();
     }
 
-
+    @Override
     public int getSoldCopies(String ISBN) throws SQLException{
-        String sql = "SELECT soldCopies FROM ranking WHERE book = ?";
+        String sql = "SELECT soldCopies FROM rankings WHERE book = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();

@@ -21,13 +21,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -167,12 +164,14 @@ public class UserOrderConfirmationPageFXController implements Initializable {
 
                     BookDAO bookDAO = new BookDaoImpl();
                     CompositionDAO compositionDAO = new CompositionDaoImpl();
+                    RankingsDAO rankingsDAO = new Model.Utils.DaoImpl.RakingsDaoImpl();
 
                     for (String bookISBN : bookAndQuantities.keySet()) {
                         booksInCartAttributes.add(bookDAO.getBook(bookISBN));
 
                         compositionDAO.addBookToOrder(bookISBN, orderID, bookAndQuantities.get(bookISBN));
                         bookDAO.decreaseAvailableCopies(bookISBN, bookAndQuantities.get(bookISBN));
+                        rankingsDAO.incrementSoldCopies(bookISBN, bookAndQuantities.get(bookISBN));
                     }
 
 

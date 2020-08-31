@@ -49,6 +49,7 @@ public class EmployeeMainPageFXController implements Initializable {
 
         simplePane.getChildren().add(greetingMessageLabel);
         greetingMessageLabel.relocate(60, 40);
+
     }
 
 
@@ -114,7 +115,15 @@ public class EmployeeMainPageFXController implements Initializable {
     }
 
 
-    public void handleUpdateRankingsRequest(MouseEvent mouseEvent) {
+    public void handleUpdateRankingsRequest() {
+        Stage stage = (Stage) updateRankingsButton.getScene().getWindow();
+        stage.close();
+
+        try {
+            viewPage("../../FXML/EmployeeFXML/UpdateRankingsPageFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

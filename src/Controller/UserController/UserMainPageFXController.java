@@ -9,9 +9,6 @@ import Model.GenresEnum;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import View.UserView.UserMainPageView;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -61,15 +57,15 @@ public class UserMainPageFXController implements Initializable {
         searchButton.setId("search-button");
         searchButton.getStylesheets().add("/CSS/style.css");
 
-        genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("All",
-                "Autobiography", "Crime Fiction", "Fantasy", "History", "Narrative", "Philosophy of Science",
-                "Politics", "Science Fiction"));
+        genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("Autobiography",
+                "Crime Fiction", "Fantasy", "History", "Narrative",
+                "Philosophy of Science", "Politics", "Science Fiction"));
 
         // if the item of the list has changed
         genresChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
             BookDAO bookDAO = new BookDaoImpl();
             try {
-                ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue() - 1]));
+                ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue()]));
                 changeBookView(booksByGenre);
             } catch (SQLException | InvalidStringException | IllegalValueException e) {
                 e.printStackTrace();
