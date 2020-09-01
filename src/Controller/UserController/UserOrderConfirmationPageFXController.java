@@ -178,7 +178,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                     // current date
                     Calendar calendar = Calendar.getInstance();
 
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     String currentDate = formatter.format(calendar.getTime());
 
 

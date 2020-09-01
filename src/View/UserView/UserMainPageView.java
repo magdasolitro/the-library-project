@@ -7,14 +7,13 @@ import Model.Book;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -50,17 +49,6 @@ public class UserMainPageView {
         bookContainer.setPrefWidth(1000);   // no horizontal scroll
         bookContainer.prefHeightProperty().bind(scrollPane.heightProperty());
 
-        /*
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.LEFT);
-        column1.setPercentWidth(50);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        column2.setPercentWidth(50);
-
-        bookContainer.getColumnConstraints().addAll(column1, column2);
-        */
 
         bookContainer.setHgap(20);
 
@@ -135,15 +123,7 @@ public class UserMainPageView {
         singleBook.add(priceLabel, 1, 0);
         singleBook.add(discountLabel, 1 ,1);
 
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.LEFT);
-        column1.setPercentWidth(50);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        column2.setPercentWidth(50);
-
-        singleBook.getColumnConstraints().addAll(column1, column2);
+        singleBook.getColumnConstraints().addAll(new ColumnConstraints(450), new ColumnConstraints(450));
 
         singleBook.setVgap(10);
 

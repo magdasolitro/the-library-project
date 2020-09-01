@@ -58,7 +58,7 @@ public class LibroCard {
     private String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(calendar.getTime());
     }
 

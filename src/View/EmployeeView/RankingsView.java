@@ -17,6 +17,7 @@ import java.util.Comparator;
 public class RankingsView {
 
     public static GridPane buildRankingView(ArrayList<Rankings> ranking){
+
         // order ranking array by currentPosition
         ranking.sort(Comparator.comparing(Rankings::getCurrentPosition));
 
@@ -25,17 +26,17 @@ public class RankingsView {
         Font labelsFont = new Font("Avenir Next Bold", 20);
         Font infoFont = new Font("Avenir Book", 20);
 
+        Label rankLabel = new Label("Rank");
+        rankLabel.setFont(labelsFont);
+
         Label bookTitleLabel = new Label("Title");
         bookTitleLabel.setFont(labelsFont);
-
-        Label soldCopiesLabel = new Label("Sold Copies");
-        soldCopiesLabel.setFont(labelsFont);
 
         Label weeksInPositionLabel = new Label(" # weeks in this placement");
         weeksInPositionLabel.setFont(labelsFont);
 
+        rankingGP.add(rankLabel, 0, 0);
         rankingGP.add(bookTitleLabel, 1, 0);
-        rankingGP.add(soldCopiesLabel, 2, 0);
         rankingGP.add(weeksInPositionLabel, 3, 0);
 
         BookDAO bookDAO = new BookDaoImpl();
@@ -52,15 +53,11 @@ public class RankingsView {
                 Label bookTitle = new Label(currentBook.getTitle());
                 bookTitle.setFont(infoFont);
 
-                Label soldCopies = new Label("" + r.getSoldCopies());
-                soldCopies.setFont(infoFont);
-
                 Label weeksInPosition = new Label("" + r.getWeeksInPosition());
                 weeksInPosition.setFont(infoFont);
 
                 rankingGP.add(currentPosition, 0, i);
                 rankingGP.add(bookTitle, 1, i);
-                rankingGP.add(soldCopies, 2, i);
                 rankingGP.add(weeksInPosition, 3, i);
 
                 i++;

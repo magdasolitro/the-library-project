@@ -1,28 +1,22 @@
 package Model.Utils.DaoImpl;
 
 import Model.Book;
-
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
-import Model.Exceptions.NotSameUserException;
 import Model.Exceptions.UserNotInDatabaseException;
-import Model.Order;
-import Model.OrderStatusEnum;
-import Model.Utils.DAOs.*;
+import Model.Utils.DAOs.CartDAO;
 import Model.Utils.DatabaseConnection;
-import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
-import javax.xml.crypto.Data;
-import javax.xml.transform.Result;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.regex.Pattern;
 
 public class CartDaoImpl implements CartDAO {
 
@@ -309,7 +303,7 @@ public class CartDaoImpl implements CartDAO {
     private String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(calendar.getTime());
     }
 }

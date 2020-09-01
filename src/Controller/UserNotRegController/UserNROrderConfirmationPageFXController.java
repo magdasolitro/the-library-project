@@ -143,10 +143,12 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
 
                     BookDAO bookDAO = new BookDaoImpl();
                     CompositionDAO compositionDAO = new CompositionDaoImpl();
+                    RankingsDAO rankingsDAO = new Model.Utils.DaoImpl.RakingsDaoImpl();
 
                     for (String bookISBN : bookAndQuantities.keySet()) {
                         compositionDAO.addBookToOrder(bookISBN, orderID, bookAndQuantities.get(bookISBN));
                         bookDAO.decreaseAvailableCopies(bookISBN, bookAndQuantities.get(bookISBN));
+                        rankingsDAO.incrementSoldCopies(bookISBN, bookAndQuantities.get(bookISBN));
                     }
 
 

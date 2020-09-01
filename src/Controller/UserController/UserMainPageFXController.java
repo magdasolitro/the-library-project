@@ -64,6 +64,9 @@ public class UserMainPageFXController implements Initializable {
         // if the item of the list has changed
         genresChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
             BookDAO bookDAO = new BookDaoImpl();
+
+            rightPane.getChildren().remove(scrollPane);
+
             try {
                 ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue()]));
                 changeBookView(booksByGenre);
@@ -159,23 +162,6 @@ public class UserMainPageFXController implements Initializable {
         }
 
     }
-
-    public void handleTitleFilter() throws InvalidStringException,
-            SQLException, IllegalValueException {
-
-        BookDAO bookDAO = new BookDaoImpl();
-
-        ArrayList<Book> orderedBooks = bookDAO.getAllBooks();
-
-        orderedBooks.sort(Comparator.comparing(Book::getTitle));
-
-        // clear rightPane
-        rightPane.getChildren().remove(scrollPane);
-
-        changeBookView(orderedBooks);
-
-    }
-
 
     public void goToProfilePage() {
         try{

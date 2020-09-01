@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class RakingsDaoImpl implements RankingsDAO {
 
     @Override
-    public ArrayList<Rankings> getRankingByGenre(GenresEnum genre) throws SQLException{
+    public ArrayList<Rankings> getRankingByGenre(GenresEnum genre) throws SQLException {
         String sql = "SELECT * FROM rankings";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -29,7 +29,7 @@ public class RakingsDaoImpl implements RankingsDAO {
 
         ArrayList<Rankings> allRankings = new ArrayList<>();
 
-        while(rs.next()){
+        while (rs.next()) {
             allRankings.add(new Rankings(rs.getString("book"),
                     rs.getInt("soldCopies"),
                     rs.getInt("currentPosition"),
@@ -40,11 +40,11 @@ public class RakingsDaoImpl implements RankingsDAO {
 
         ArrayList<Rankings> rankingsByGenre = new ArrayList<>();
 
-        for(Rankings r : allRankings){
+        for (Rankings r : allRankings) {
             try {
                 Book currentBook = bookDAO.getBook(r.getBook());
 
-                if(currentBook.getGenre().equals(genre.toString())){
+                if (currentBook.getGenre().equals(genre.toString())) {
                     rankingsByGenre.add(r);
                 }
             } catch (InvalidStringException | IllegalValueException e) {
@@ -58,7 +58,7 @@ public class RakingsDaoImpl implements RankingsDAO {
     @Override
     public void incrementSoldCopies(String ISBN, int quantity) throws SQLException {
         String sql = "UPDATE rankings SET soldCopies = soldCopies + ? " +
-                     "WHERE book = ?";
+                "WHERE book = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -77,9 +77,9 @@ public class RakingsDaoImpl implements RankingsDAO {
     }
 
     @Override
-    public void setCopiesToZero(String ISBN) throws SQLException{
-        String sql = "UPDATE rankings SET soldCopies = 0 " +
-                     "WHERE book = ?";
+    public void incrementWeeksInPosition(String ISBN) throws SQLException {
+        String sql = "UPDATE rankings SET weeksInPosition = weeksInPosition + 1 " +
+                "WHERE book = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
         connection.openConnection();
@@ -96,7 +96,65 @@ public class RakingsDaoImpl implements RankingsDAO {
     }
 
     @Override
-    public int getSoldCopies(String ISBN) throws SQLException{
+    public void resetWeeksInPosition(String ISBN) throws SQLException {
+        String sql = "UPDATE rankings SET weeksInPosition = 1 " +
+                "WHERE book = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setString(1, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
+    }
+
+    @Override
+    public void resetSoldCopies(String ISBN) throws SQLException {
+        String sql = "UPDATE rankings SET soldCopies = 0 " +
+                "WHERE book = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setString(1, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
+    }
+
+    @Override
+    public void setCurrentPosition(String ISBN, int newPosition) throws SQLException {
+        String sql = "UPDATE rankings SET currentPosition = ? " +
+                "WHERE book = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setInt(1, newPosition);
+        pstmt.setString(2, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
+    }
+
+    @Override
+    public int getSoldCopies(String ISBN) throws SQLException {
         String sql = "SELECT soldCopies FROM rankings WHERE book = ?";
 
         DatabaseConnection connection = new DatabaseConnection();

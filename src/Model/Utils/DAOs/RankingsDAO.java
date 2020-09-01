@@ -12,7 +12,13 @@ public interface RankingsDAO {
 
     void incrementSoldCopies(String ISBN, int quantity) throws SQLException;
 
-    void setCopiesToZero(String ISBN) throws SQLException;
+    void incrementWeeksInPosition(String ISBN) throws SQLException;
+
+    void resetWeeksInPosition(String ISBN) throws SQLException;
+
+    void resetSoldCopies(String ISBN) throws SQLException;
+
+    void setCurrentPosition(String ISBN, int newPosition) throws SQLException;
 
     int getSoldCopies(String ISBN) throws SQLException;
 }
