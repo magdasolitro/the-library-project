@@ -35,27 +35,26 @@ public class UserMainPageView {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        GridPane bookContainer = new GridPane();
+        GridPane bookContainerGP = new GridPane();
 
         int i = 0;
 
         for (Book b : booksToShow) {
             GridPane currentBook = buildSingleBookView(b);
-            bookContainer.add(currentBook, 0, i);
+            bookContainerGP.add(currentBook, 0, i);
             GridPane.setMargin(currentBook, new Insets(20, 0, 20, 30));
             i++;
         }
 
-        bookContainer.setPrefWidth(1000);   // no horizontal scroll
-        bookContainer.prefHeightProperty().bind(scrollPane.heightProperty());
+        bookContainerGP.setPrefWidth(1000);   // no horizontal scroll
+        bookContainerGP.prefHeightProperty().bind(scrollPane.heightProperty());
 
+        bookContainerGP.setHgap(20);
 
-        bookContainer.setHgap(20);
+        bookContainerGP.setId("mainpage-gridpane");
+        bookContainerGP.getStylesheets().add("/CSS/style.css");
 
-        scrollPane.setContent(bookContainer);
-
-        bookContainer.setId("mainpage-gridpane");
-        bookContainer.getStylesheets().add("/CSS/style.css");
+        scrollPane.setContent(bookContainerGP);
 
         return scrollPane;
 
@@ -63,7 +62,6 @@ public class UserMainPageView {
 
     public static GridPane buildSingleBookView(Book book){
         GridPane singleBook = new GridPane();
-        //Pane backgroundPane = new Pane();
 
         Label titleLabel;
         Label authorLabel;

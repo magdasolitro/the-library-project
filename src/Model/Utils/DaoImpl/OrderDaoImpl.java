@@ -1,6 +1,5 @@
 package Model.Utils.DaoImpl;
 
-import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Order;
@@ -8,12 +7,10 @@ import Model.OrderStatusEnum;
 import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DatabaseConnection;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class OrderDaoImpl implements OrderDAO {
 
@@ -175,6 +172,42 @@ public class OrderDaoImpl implements OrderDAO {
         pstmt.close();
 
         connection.closeConnection();
+    }
+
+    @Override
+    public ArrayList<Order> getOrdersByStatus(OrderStatusEnum status) throws SQLException,
+            InvalidStringException, IllegalValueException {
+        String sql = "SELECT * FROM orders WHERE status = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setString(1, status.toString());
+
+        ResultSet rs = pstmt.executeQuery();
+
+        ArrayList<Order> ordersByStatus = new ArrayList<>();
+
+        while(rs.next()){
+            ordersByStatus.add(new Order(rs.getString("orderID"),
+                    rs.getString("date"),
+                    rs.getString("status"),
+                    rs.getString("paymentMethod"),
+                    rs.getBigDecimal("price"),
+                    rs.getInt("points"),
+                    rs.getString("shippingAddress"),
+                    rs.getString("user"),
+                    rs.getInt("isRegistred")));
+        }
+
+        pstmt.close();
+        rs.close();
+
+        connection.closeConnection();
+
+        return ordersByStatus;
     }
 
     @Override

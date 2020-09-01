@@ -17,9 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,7 +26,6 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -63,7 +59,7 @@ public class SingleBookPageFXController implements Initializable {
 
         spBookInfos = SingleBookPageView.buildBookInfos(BookInstanceController.getCurrentBookISBN());
 
-        spBookInfos.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        spBookInfos.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         spBookInfos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         spBookInfos.setId("single-book-scrollpane");

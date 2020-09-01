@@ -9,6 +9,7 @@ import Model.Utils.DaoImpl.OrderDaoImpl;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
@@ -45,13 +46,13 @@ public class UserAllOrdersPageView {
             int i = 1;
 
             for(Order o : allOrders){
-                GridPane singleOrderGP = singleOrderView(o);
+                GridPane singleOrderGP = singleOrderView(o, 220, 480);
                 ordersGP.add(singleOrderGP, 0, i);
                 i += 2;
             }
 
             scrollPane.setContent(ordersGP);
-            scrollPane.setPadding(new Insets(20, 0, 20, 20));
+            scrollPane.setPadding(new Insets(20, 0, 20, 40));
 
             ordersGP.setVgap(40);
             ordersGP.setId("mainpage-gridpane");
@@ -66,7 +67,8 @@ public class UserAllOrdersPageView {
         return scrollPane;
     }
 
-    public static GridPane singleOrderView(Order order){
+
+    public static GridPane singleOrderView(Order order, int col1width, int col2width){
         GridPane ordersGridPane = new GridPane();
 
         Label orderIDLabel;
@@ -156,6 +158,8 @@ public class UserAllOrdersPageView {
 
         ordersGridPane.setVgap(10);
         ordersGridPane.setHgap(40);
+
+        ordersGridPane.getColumnConstraints().addAll(new ColumnConstraints(col1width), new ColumnConstraints(col2width));
 
         ordersGridPane.setId("singleorder-gridpane");
         ordersGridPane.getStylesheets().add("/CSS/style.css");

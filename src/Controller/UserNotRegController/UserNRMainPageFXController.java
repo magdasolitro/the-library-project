@@ -70,15 +70,16 @@ public class UserNRMainPageFXController implements Initializable {
         });
 
         leftPane.getChildren().add(genresChoiceBox);
+
         genresChoiceBox.relocate(35, 240);
         genresChoiceBox.setPrefWidth(175);
         genresChoiceBox.setPrefHeight(37);
 
-        BookDAO bookDAO = new BookDaoImpl();
 
         // build full catalog view
-        try {
+        BookDAO bookDAO = new BookDaoImpl();
 
+        try {
             ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
 
             scrollPane = UserMainPageView.buildBooksView(fullCatalog);

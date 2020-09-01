@@ -1,65 +1,98 @@
 package Controller.EmployeeController;
 
-import Controller.LastOpenedPageController;
+import Model.Exceptions.IllegalValueException;
+import Model.Exceptions.InvalidStringException;
+import Model.Order;
+import Model.OrderStatusEnum;
+import Model.Utils.DAOs.OrderDAO;
+import Model.Utils.DaoImpl.OrderDaoImpl;
 import View.EmployeeView.AllOrdersPageView;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AllOrdersPageFXController implements Initializable {
 
-    @FXML
-    private ChoiceBox<String> statusCB;
 
     @FXML
     private Button goBackButton;
 
     @FXML
-    private AnchorPane rightPane;
+    private AnchorPane rightPane, leftPane;
 
-    private ScrollPane scrollPane = new ScrollPane();
+    private ScrollPane scrollPane;
+
+    private ChoiceBox<Object> statusCB;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         goBackButton.setId("goback-button");
         goBackButton.getStylesheets().add("/CSS/style.css");
 
-        statusCB.getItems().addAll(FXCollections.observableArrayList("Order Request Received", "In Preparation",
-                "Shipped", "Delivered", "Unable to Deliver", "Lost"));
+        OrderDAO orderDAO = new OrderDaoImpl();
 
-        //statusCB.getSelectionModel().selectedIndexProperty().addListener();
-        GridPane allOrdersGP = AllOrdersPageView.buildAllOrdersView();
 
-        allOrdersGP.setVgap(70);
-
-        scrollPane.setContent(allOrdersGP);
-        scrollPane.setId("ordersummary-scrollpane");
-        scrollPane.getStylesheets().add("/CSS/style.css");
-
-        scrollPane.prefWidthProperty().bind(rightPane.widthProperty());
-        allOrdersGP.prefWidthProperty().bind(scrollPane.widthProperty());
-
-        scrollPane.setPadding(new Insets(20, 0, 0, 20));
-        AnchorPane.setTopAnchor(scrollPane, (double) 0);
-        AnchorPane.setBottomAnchor(scrollPane, (double) 0);
-        AnchorPane.setRightAnchor(scrollPane, (double) 0);
-        AnchorPane.setLeftAnchor(scrollPane, (double) 0);
+        try {
+            scrollPane = AllOrdersPageView.buildAllOrdersView(orderDAO.getAllOrders());
+        } catch (SQLException | InvalidStringException | IllegalValueException e) {
+            e.printStackTrace();
+        }
 
         rightPane.getChildren().add(scrollPane);
+
+        AnchorPane.setTopAnchor(scrollPane, (double) 0);
+        AnchorPane.setBottomAnchor(scrollPane, (double) 0);
+
+        statusCB = new ChoiceBox<>(FXCollections.observableArrayList("Order Request Received", "In Preparation",
+                "Shipped", "Delivered", "Unable to Deliver", "Lost"));
+
+        statusCB.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
+
+            try {
+                ArrayList<Order> ordersByStatus = orderDAO.getOrdersByStatus(OrderStatusEnum.values()[newValue.intValue()]);
+
+                if(ordersByStatus.isEmpty()){
+                    Alert noOrdersToDisplay = new Alert(Alert.AlertType.ERROR);
+
+                    noOrdersToDisplay.setTitle("No Orders To Display");
+                    noOrdersToDisplay.setHeaderText("There are no orders with the specified status.");
+
+                    noOrdersToDisplay.showAndWait();
+                } else {
+                    rightPane.getChildren().remove(scrollPane);
+
+                    scrollPane = AllOrdersPageView.buildAllOrdersView(ordersByStatus);
+
+                    rightPane.getChildren().add(scrollPane);
+
+                    AnchorPane.setTopAnchor(scrollPane, (double) 0);
+                    AnchorPane.setBottomAnchor(scrollPane, (double) 0);
+                }
+            } catch (SQLException | InvalidStringException | IllegalValueException e) {
+                e.printStackTrace();
+            }
+        });
+
+        leftPane.getChildren().add(statusCB);
+        statusCB.relocate(35, 245);
+        statusCB.setPrefWidth(250);
+        statusCB.setPrefHeight(36);
     }
 
 

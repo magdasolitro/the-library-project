@@ -67,7 +67,7 @@ public class UserNRAllOrdersPageFXController implements Initializable {
                 } else {
                     GridPane targetOrderGP;
 
-                    targetOrderGP = UserAllOrdersPageView.singleOrderView(targetOrder);
+                    targetOrderGP = UserAllOrdersPageView.singleOrderView(targetOrder, 400, 400);
 
                     rightPane.getChildren().add(targetOrderGP);
 
