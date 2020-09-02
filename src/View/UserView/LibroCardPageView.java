@@ -85,6 +85,9 @@ public class LibroCardPageView {
         libroCardPane.getChildren().add(gplibroCard);
         libroCardPane.setPadding(new Insets(10, 10, 10, 10));
 
+        libroCardPane.setId("librocard-pane");
+        libroCardPane.getStylesheets().add("/CSS/style.css");
+
         return libroCardPane;
     }
 }

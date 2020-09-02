@@ -7,65 +7,70 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.EmployeeMainPageFXController">
     <children>
-        <SplitPane dividerPositions="0.75" prefHeight="700.0">
+        <SplitPane dividerPositions="0.78" prefHeight="700.0">
             <items>
                 <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefWidth="260.0" style="-fx-background-color: #BBA5E1;">
                     <children>
-                        <Pane fx:id="simplePane" layoutX="73.0" layoutY="116.0" prefHeight="558.0" prefWidth="851.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
+                        <Pane fx:id="simplePane" layoutX="73.0" layoutY="116.0" prefHeight="558.0" prefWidth="851.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
                             <children>
-                                <Label layoutX="60.0" layoutY="150.0" text="You can select one of the following:">
+                                <Label layoutX="60.0" layoutY="140.0" text="You can select one of the following:">
                                     <font>
                                         <Font name="Avenir Book" size="20.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="checkOrdersButton" layoutX="60.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#handleCheckOrdersRequest" prefHeight="34.0" prefWidth="243.0" text="Check Orders">
+                                <Button fx:id="checkOrdersButton" layoutX="60.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handleCheckOrdersRequest" prefHeight="34.0" prefWidth="243.0" style="-fx-background-color: #D3D3D3;" text="Check Orders">
                                     <font>
                                         <Font name="Avenir Book" size="17.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="checkLibroCardsButton" layoutX="60.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#handleCheckLibroCardsRequest" prefHeight="36.0" prefWidth="243.0" text="Check LibroCards">
+                                <Button fx:id="checkLibroCardsButton" layoutX="60.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#handleCheckLibroCardsRequest" prefHeight="36.0" prefWidth="243.0" style="-fx-background-color: D3D3D3;" text="Check LibroCards">
                                     <font>
                                         <Font name="Avenir Book" size="17.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="addBookButton" layoutX="60.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#handleAddBookRequest" prefHeight="36.0" prefWidth="243.0" text="Add a new book">
+                                <Button fx:id="addBookButton" layoutX="60.0" layoutY="310.0" mnemonicParsing="false" onMouseClicked="#handleAddBookRequest" prefHeight="36.0" prefWidth="243.0" style="-fx-background-color: #D3D3D3;" text="Add a new book">
                                     <font>
                                         <Font name="Avenir Book" size="17.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="registerEmployeeButton" layoutX="60.0" layoutY="385.0" mnemonicParsing="false" onMouseClicked="#handleRegisterEmployeeRequest" prefHeight="36.0" prefWidth="243.0" text="Register a new employee">
+                                <Button fx:id="registerEmployeeButton" layoutX="60.0" layoutY="420.0" mnemonicParsing="false" onMouseClicked="#handleRegisterEmployeeRequest" prefHeight="36.0" prefWidth="243.0" style="-fx-background-color: #D3D3D3;" text="Register a new employee">
                                     <font>
                                         <Font name="Avenir Book" size="17.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="updateRankingsButton" layoutX="60.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#handleUpdateRankingsRequest" prefHeight="36.0" prefWidth="243.0" text="Update books rankings">
+                                <Button fx:id="updateRankingsButton" layoutX="60.0" layoutY="475.0" mnemonicParsing="false" onMouseClicked="#handleUpdateRankingsRequest" prefHeight="36.0" prefWidth="243.0" style="-fx-background-color: #D3D3D3;" text="Update books rankings">
                                     <font>
                                         <Font name="Avenir Book" size="17.0" />
                                     </font>
                                 </Button>
-                                <Label layoutX="350.0" layoutY="392.0" text="* General/Local Directors only!" textFill="RED">
+                                <Label layoutX="350.0" layoutY="427.0" text="* General/Local Directors only!" textFill="RED">
                                     <font>
                                         <Font name="Avenir Book" size="15.0" />
                                     </font>
                                 </Label>
+                                <Button fx:id="modifyBooksButton" layoutX="60.0" layoutY="365.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" style="-fx-background-color: #D3D3D3;" text="Modify books">
+                                   <font>
+                                      <Font name="Avenir Book" size="17.0" />
+                                   </font>
+                                </Button>
                             </children>
                         </Pane>
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefWidth="1010.0" style="-fx-background-color: #FFFFFF;">
                     <children>
-                        <ImageView fx:id="profileIcon" fitHeight="70.0" fitWidth="80.0" layoutX="221.0" layoutY="15.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="profileIcon" fitHeight="70.0" fitWidth="80.0" layoutX="180.0" layoutY="15.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../images/userIcon.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="logoutLabel" layoutX="68.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
+                        <Label fx:id="logoutLabel" layoutX="30.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
                             <font>
                                 <Font name="Avenir Book" size="20.0" />
                             </font>
                         </Label>
                   <Separator layoutY="100.0" prefHeight="2.0" prefWidth="379.0" />
-                  <Separator layoutX="190.0" orientation="VERTICAL" prefHeight="100.0" />
+                  <Separator layoutX="150.0" orientation="VERTICAL" prefHeight="100.0" />
                     </children>
                 </AnchorPane>
             </items>

@@ -37,17 +37,17 @@
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Label>
-        <Button fx:id="myLibroCardButton" layoutX="1000.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#viewLibroCard" prefHeight="50.0" prefWidth="185.0" text="My LibroCard">
+        <Button fx:id="myLibroCardButton" layoutX="1000.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#viewLibroCard" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #D3D3D3;" text="My LibroCard">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="myOrdersButton" layoutX="1000.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#goToOrdersPage" prefHeight="50.0" prefWidth="185.0" text="My Orders">
+        <Button fx:id="myOrdersButton" layoutX="1000.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#goToOrdersPage" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #D3D3D3;" text="My Orders">
             <font>
                 <Font name="Avenir Book" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="modifyDataButton" layoutX="341.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#handleModificationRequest" prefHeight="50.0" prefWidth="201.0" text="Modify your data">
+        <Button fx:id="modifyDataButton" layoutX="340.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#handleModificationRequest" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #D3D3D3;" text="Modify your data">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
@@ -62,7 +62,7 @@
                 <Font name="Avenir Book" size="25.0" />
             </font>
         </Label>
-        <Separator layoutX="940.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="6.0" />
+        <Separator layoutX="900.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="6.0" />
         <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0">
             <font>
                 <Font name="Avenir Book" size="17.0" />
@@ -78,7 +78,7 @@
                 <Image url="@../../images/cartIcon.png" />
             </image>
         </ImageView>
-        <Separator layoutX="943.0" layoutY="98.0" prefHeight="6.0" prefWidth="357.0" />
+        <Separator layoutX="902.0" layoutY="98.0" prefHeight="7.0" prefWidth="398.0" />
         <Separator layoutX="1144.0" orientation="VERTICAL" prefHeight="101.0" />
     </children>
 </AnchorPane>

@@ -1,7 +1,6 @@
 package Model.Utils.DaoImpl;
 
 import Model.Employee;
-import Model.EmployeeRoleEnum;
 import Model.Exceptions.InvalidStringException;
 import Model.Utils.DAOs.EmployeeDAO;
 import Model.Utils.DatabaseConnection;
@@ -41,6 +40,11 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 
             return employee;
         }
+
+        rs.close();
+        pstmt.close();
+
+        connection.closeConnection();
 
         return null;
     }

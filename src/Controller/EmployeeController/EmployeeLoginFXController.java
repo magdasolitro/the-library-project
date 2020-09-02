@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class EmployeeLoginFXController implements Initializable {
     }
 
     @FXML
-    public void handleGoBackButtonClick(MouseEvent evt) throws IOException {
+    public void handleGoBackButtonClick() throws IOException {
         Stage stage = (Stage) goBackButton.getScene().getWindow();
         stage.close();
 
@@ -54,47 +53,41 @@ public class EmployeeLoginFXController implements Initializable {
             missingFields.setContentText("Your email and password are required in order to log in.");
 
             missingFields.showAndWait();
-
-            return;
-        }
-
-        String employeeEmail = employeeEmailField.getText();
-        String employeePassword = employeePasswordField.getText();
-
-        EmployeeDAO employeeDAO = new EmployeeDaoImpl();
-
-        Employee currentEmployee = null;
-        try {
-            currentEmployee = employeeDAO.getEmployee(employeeEmail);
-        } catch (SQLException | InvalidStringException e) {
-            e.printStackTrace();
-        }
-
-        if(currentEmployee == null){
-            Alert userNotRegistred = new Alert(Alert.AlertType.ERROR);
-
-            userNotRegistred.setTitle("User Not Registered");
-            userNotRegistred.setHeaderText("It looks like you are not registered!");
-            userNotRegistred.setContentText("Try to sign in instead.");
-
-            userNotRegistred.show();
-        } else if(!employeePassword.equals(currentEmployee.getPassword())){
-            Alert wrongPassword = new Alert(Alert.AlertType.ERROR);
-
-            wrongPassword.setTitle("Wrong Password");
-            wrongPassword.setHeaderText("Your password is wrong!");
-            wrongPassword.setContentText("Try to re-type it.");
-
-            wrongPassword.show();
         } else {
-            GeneralLoginController.setLoginInstance(employeeEmail);
+            String employeeEmail = employeeEmailField.getText();
+            String employeePassword = employeePasswordField.getText();
 
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.close();
+            EmployeeDAO employeeDAO = new EmployeeDaoImpl();
 
             try {
-                viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
-            } catch (IOException e) {
+                Employee currentEmployee = employeeDAO.getEmployee(employeeEmail);
+
+                if (currentEmployee == null) {
+                    Alert userNotRegistred = new Alert(Alert.AlertType.ERROR);
+
+                    userNotRegistred.setTitle("User Not Registered");
+                    userNotRegistred.setHeaderText("It looks like you are not registered!");
+                    userNotRegistred.setContentText("Try to sign in instead.");
+
+                    userNotRegistred.show();
+                } else if (!employeePassword.equals(currentEmployee.getPassword())) {
+                    Alert wrongPassword = new Alert(Alert.AlertType.ERROR);
+
+                    wrongPassword.setTitle("Wrong Password");
+                    wrongPassword.setHeaderText("Your password is wrong!");
+                    wrongPassword.setContentText("Try to re-type it.");
+
+                    wrongPassword.show();
+                } else {
+                    GeneralLoginController.setLoginInstance(employeeEmail);
+
+                    Stage stage = (Stage) loginButton.getScene().getWindow();
+                    stage.close();
+
+                    viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
+
+                }
+            } catch (SQLException | InvalidStringException | IOException e) {
                 e.printStackTrace();
             }
         }

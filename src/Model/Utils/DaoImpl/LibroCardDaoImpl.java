@@ -1,12 +1,10 @@
 package Model.Utils.DaoImpl;
 
-import Model.Book;
 import Model.Exceptions.NotSameUserException;
 import Model.LibroCard;
 import Model.Utils.DAOs.LibroCardDAO;
 import Model.Utils.DatabaseConnection;
 
-import javax.xml.transform.Result;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,17 +69,27 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
         ResultSet rs = pstmt.executeQuery();
 
-        LibroCard libroCard = new LibroCard(rs.getString("cardID"),
-                rs.getString("email"),
-                rs.getInt("points"),
-                rs.getString("issueDate"));
+        if(rs.next()) {
+            LibroCard libroCard = new LibroCard(rs.getString("cardID"),
+                    rs.getString("email"),
+                    rs.getInt("points"),
+                    rs.getString("issueDate"));
 
-        rs.close();
-        pstmt.close();
+            rs.close();
+            pstmt.close();
 
-        connection.closeConnection();
+            connection.closeConnection();
 
-        return libroCard;
+            return libroCard;
+        } else {
+            rs.close();
+            pstmt.close();
+
+            connection.closeConnection();
+
+            return null;
+        }
+
     }
 
     @Override
@@ -126,17 +134,26 @@ public class LibroCardDaoImpl implements LibroCardDAO {
 
         ResultSet rs = pstmt.executeQuery();
 
-        LibroCard libroCard = new LibroCard(rs.getString("cardID"),
-                rs.getString("email"),
-                rs.getInt("points"),
-                rs.getString("issueDate"));
+        if(rs.next()) {
+            LibroCard libroCard = new LibroCard(rs.getString("cardID"),
+                    rs.getString("email"),
+                    rs.getInt("points"),
+                    rs.getString("issueDate"));
 
-        rs.close();
-        pstmt.close();
+            pstmt.close();
+            rs.close();
 
-        connection.closeConnection();
+            connection.closeConnection();
 
-        return libroCard;
+            return libroCard;
+        } else {
+            pstmt.close();
+            rs.close();
+
+            connection.closeConnection();
+
+            return null;
+        }
     }
 
     @Override

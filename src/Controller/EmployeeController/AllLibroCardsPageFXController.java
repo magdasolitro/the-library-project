@@ -25,6 +25,9 @@ public class AllLibroCardsPageFXController implements Initializable {
     private Button searchButton;
 
     @FXML
+    private TextField searchField;
+
+    @FXML
     private RadioButton userEmailRB, cardIDRB;
 
     @FXML
@@ -33,9 +36,14 @@ public class AllLibroCardsPageFXController implements Initializable {
     @FXML
     private Button goBackButton;
 
+    private Label insertInformationLabel;
+
+    private ToggleGroup group = new ToggleGroup();
+
+    private ScrollPane scrollPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ToggleGroup group = new ToggleGroup();
 
         userEmailRB.setToggleGroup(group);
         cardIDRB.setToggleGroup(group);
@@ -43,9 +51,36 @@ public class AllLibroCardsPageFXController implements Initializable {
         // set default radiobutton to "user email"
         group.selectToggle(userEmailRB);
 
+        insertInformationLabel = new Label("Insert user's e-mail:");
+
+        Font labelFont = new Font("Avenir Book", 20);
+        insertInformationLabel.setFont(labelFont);
+
+        rightPane.getChildren().add(insertInformationLabel);
+        insertInformationLabel.relocate(50, 390);
+
+        group.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> {
+
+            rightPane.getChildren().remove(insertInformationLabel);
+
+            if(newValue.equals(userEmailRB)){
+                insertInformationLabel = new Label("Insert user's e-mail:");
+            } else {
+                insertInformationLabel = new Label("Insert cardID:");
+            }
+
+            insertInformationLabel.setFont(labelFont);
+
+            rightPane.getChildren().add(insertInformationLabel);
+            insertInformationLabel.relocate(50, 390);
+
+        });
+
+
         // set style for goBackButton
         goBackButton.setId("goback-button");
         goBackButton.getStylesheets().add("/CSS/style.css");
+
 
         Label insertLabel = new Label("Insert");
         insertLabel.setFont(new Font("Avenir Book", 17));
@@ -57,7 +92,7 @@ public class AllLibroCardsPageFXController implements Initializable {
 
             ArrayList<LibroCard> allLibroCards = new ArrayList<>(libroCardDAO.getAllLibroCards());
 
-            ScrollPane scrollPane = AllLibroCardsPageView.buildLibroCardsView(allLibroCards);
+            scrollPane = AllLibroCardsPageView.buildLibroCardsView(allLibroCards);
 
             leftPane.getChildren().add(scrollPane);
 
@@ -88,7 +123,51 @@ public class AllLibroCardsPageFXController implements Initializable {
 
 
     public void handleLibroCardSearch() {
+        LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+        LibroCard libroCard = null;
+        ArrayList<LibroCard> libroCardList = new ArrayList<>();
 
+        try {
+            if(searchField.getText().isEmpty()){
+                libroCardList = new ArrayList<>(libroCardDAO.getAllLibroCards());
+
+            } else if (group.getSelectedToggle().equals(userEmailRB)) {
+                String userEmail = searchField.getText();
+
+                libroCard = libroCardDAO.getUserLibroCard(userEmail);
+
+            } else {
+                String cardID = searchField.getText();
+
+                libroCard = libroCardDAO.getLibroCard(cardID);
+            }
+
+
+            if (libroCard == null) {
+                Alert cardNotFound = new Alert(Alert.AlertType.ERROR);
+
+                cardNotFound.setTitle("LibroCard Not Found");
+                cardNotFound.setHeaderText("The LibroCard you searched for does not exist!");
+                cardNotFound.setContentText("Maybe you misspelled the user's email or cardID.");
+
+                cardNotFound.showAndWait();
+            } else {
+                leftPane.getChildren().remove(scrollPane);
+
+                scrollPane = AllLibroCardsPageView.buildLibroCardsView(new ArrayList<>(libroCardList));
+                leftPane.getChildren().add(scrollPane);
+
+                scrollPane.setId("librocards-scrollpane");
+                scrollPane.getStylesheets().add("/CSS/style.css");
+
+                AnchorPane.setTopAnchor(scrollPane, (double) 200);
+                AnchorPane.setLeftAnchor(scrollPane, (double) 90);
+                AnchorPane.setRightAnchor(scrollPane, (double) 0);
+                AnchorPane.setBottomAnchor(scrollPane, (double) 40);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
 

@@ -45,7 +45,7 @@ public class UserMainPageFXController implements Initializable {
     private ImageView profileIcon, cartIcon;
 
     @FXML
-    private Label logoutLabel;
+    private Label logoutLabel, myOrdersLabel;
 
     private ScrollPane scrollPane;
 
@@ -75,8 +75,9 @@ public class UserMainPageFXController implements Initializable {
             }
         });
 
+
+        // build full catalog view
         try{
-            // build full catalog view
             BookDAO bookDAO = new BookDaoImpl();
 
             ArrayList<Book> fullCatalog = new ArrayList<>(bookDAO.getAllBooks());
@@ -221,6 +222,18 @@ public class UserMainPageFXController implements Initializable {
                 rightPane.getChildren().remove(scrollPane);
                 changeBookView(searchedBook);
             }
+        }
+    }
+
+
+    public void goToMyOrders() {
+        Stage stage = (Stage) myOrdersLabel.getScene().getWindow();
+        stage.close();
+
+        try{
+            viewPage("../../FXML/UserFXML/UserAllOrdersPageFX.fxml");
+        } catch (IOException ioe){
+            System.out.println("IOException" + ioe.getMessage());
         }
     }
 

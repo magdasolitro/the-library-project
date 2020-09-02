@@ -5,10 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Controller.UserController.UserMainPageFXController"
-            prefHeight="700.0" prefWidth="1010.0">
+<AnchorPane prefHeight="700.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserMainPageFXController">
    <children>
        <SplitPane dividerPositions="0.2" prefHeight="700.0">
            <items>
@@ -54,23 +51,23 @@
                </AnchorPane>
                <AnchorPane fx:id="rightPane" style="-fx-background-color: #FFFFFF;">
                    <children>
-                       <Label fx:id="logoutLabel" layoutX="646.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
+                       <Label fx:id="logoutLabel" layoutX="660.0" layoutY="35.0" onMouseClicked="#handleLogOutRequest" text="LOG OUT" underline="true">
                            <font>
                                <Font name="Avenir Book" size="20.0" />
                            </font>
                        </Label>
-                       <Separator layoutX="769.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
-                       <TextField fx:id="bookSearchTextField" layoutX="190.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Enter book title">
+                       <Separator layoutX="775.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="6.0" />
+                       <TextField fx:id="bookSearchTextField" layoutX="120.0" layoutY="28.0" prefHeight="45.0" prefWidth="300.0" promptText="Enter book title">
                            <font>
                                <Font name="Avenir Book" size="14.0" />
                            </font>
                        </TextField>
-                       <Label layoutX="100.0" layoutY="40.0" text="Search:">
+                       <Label layoutX="40.0" layoutY="40.0" text="Search:">
                            <font>
                                <Font name="Avenir Book" size="17.0" />
                            </font>
                        </Label>
-                   <ImageView fx:id="profileIcon" fitHeight="75.0" fitWidth="80.0" layoutX="808.0" layoutY="14.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
+                   <ImageView fx:id="profileIcon" fitHeight="75.0" fitWidth="80.0" layoutX="810.0" layoutY="14.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
                        <image>
                            <Image url="@../../images/userIcon.png" />
                        </image>
@@ -81,7 +78,12 @@
                            </image>
                        </ImageView>
                        <Separator layoutY="100.0" prefHeight="3.0" prefWidth="1018.0" />
-                       <Button fx:id="searchButton" layoutX="500.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleBookSearch" prefHeight="45.0" prefWidth="45.0" />
+                       <Button fx:id="searchButton" layoutX="430.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleBookSearch" prefHeight="45.0" prefWidth="45.0" />
+                       <Label fx:id="myOrdersLabel" layoutX="510.0" layoutY="35.0" text="MY ORDERS" underline="true" onMouseClicked="#goToMyOrders">
+                         <font>
+                            <Font name="Avenir Book" size="20.0" />
+                         </font>
+                      </Label>
                    </children>
                </AnchorPane>
            </items>

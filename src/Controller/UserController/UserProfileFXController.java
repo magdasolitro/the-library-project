@@ -67,7 +67,6 @@ public class UserProfileFXController implements Initializable {
 
 
     public void viewLibroCard() {
-        //TODO: this page honestly sucks. Try to figure out properly how to use a DialogPane
         DialogPane libroCardDialog = new DialogPane();
 
         Pane libroCardPane = LibroCardPageView.buildLibroCardView(GeneralLoginController.getLoginInstance());
@@ -81,6 +80,9 @@ public class UserProfileFXController implements Initializable {
         libroCardDialog.setPadding(new Insets(40, 0, 0, 70));
 
         libroCardDialog.isResizable();
+
+        libroCardDialog.setId("librocard-pane");
+        libroCardDialog.getStylesheets().add("/CSS/style.css");
 
         Scene scene = new Scene(libroCardDialog);
         Stage stage = new Stage();

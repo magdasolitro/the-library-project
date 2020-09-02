@@ -19,28 +19,31 @@ public class AllLibroCardsPageView {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        GridPane libroCardContainer = new GridPane();
+        GridPane libroCardGP = new GridPane();
 
         int i = 0;
 
         for (LibroCard lc : libroCards) {
             VBox currentLibroCard = buildSingleLibroCardView(lc);
-            libroCardContainer.add(currentLibroCard, 0, i);
-            GridPane.setMargin(currentLibroCard, new Insets(20, 0, 20, 30));
+            libroCardGP.add(currentLibroCard, 0, i);
+            GridPane.setMargin(currentLibroCard, new Insets(0, 0, 0, 30));
             i++;
         }
 
-        libroCardContainer.setVgap(20);
-        libroCardContainer.setHgap(20);
+        libroCardGP.setVgap(40);
+        libroCardGP.setHgap(20);
 
-        scrollPane.setContent(libroCardContainer);
+        scrollPane.setContent(libroCardGP);
+
+        scrollPane.setId("librocard-scrollpane");
+        scrollPane.getStylesheets().add("/CSS/style.css");
 
         return scrollPane;
 
     }
 
     private static VBox buildSingleLibroCardView(LibroCard libroCard){
-        VBox singleLibroCard = new VBox(10);
+        VBox singleLibroCardVB = new VBox(10);
 
         Label cardIDLabel;
         Label emailLabel;
@@ -48,20 +51,23 @@ public class AllLibroCardsPageView {
         Label pointsLabel;
 
         cardIDLabel = new Label(libroCard.getCardID());
-        cardIDLabel.setFont(new Font("Avenir Next Bold", 17));
+        cardIDLabel.setFont(new Font("Avenir Next Bold", 20));
 
         emailLabel = new Label(libroCard.getUser());
-        emailLabel.setFont(new Font("Avenir Book", 17));
+        emailLabel.setFont(new Font("Avenir Book", 20));
 
         issueDateLabel = new Label(libroCard.getIssueDate());
-        issueDateLabel.setFont(new Font("Avenir Book", 17));
+        issueDateLabel.setFont(new Font("Avenir Book", 20));
 
         pointsLabel = new Label("" + libroCard.getPoints());
-        pointsLabel.setFont(new Font("Avenir Book", 17));
+        pointsLabel.setFont(new Font("Avenir Book", 20));
 
-        singleLibroCard.getChildren().addAll(cardIDLabel, emailLabel, issueDateLabel, pointsLabel);
+        singleLibroCardVB.getChildren().addAll(cardIDLabel, emailLabel, issueDateLabel, pointsLabel);
 
-        return singleLibroCard;
+        singleLibroCardVB.setId("librocard-pane");
+        singleLibroCardVB.getStylesheets().add("/CSS/style.css");
+
+        return singleLibroCardVB;
     }
 
 }
