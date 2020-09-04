@@ -3,6 +3,7 @@ package Model.Utils.DAOs;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.Exceptions.ObjectNotInDatabaseException;
 import Model.GenresEnum;
 
 import java.math.BigDecimal;
@@ -11,30 +12,36 @@ import java.util.ArrayList;
 
 public interface BookDAO {
 
-    public void addBook(Book book) throws SQLException, InvalidStringException;
+    void addBook(Book book) throws SQLException, InvalidStringException;
 
-    public Book getBook(String ISBN) throws SQLException, InvalidStringException,
-            IllegalValueException;
+    Book getBook(String ISBN) throws SQLException, InvalidStringException,
+            IllegalValueException, ObjectNotInDatabaseException;
 
-    public ArrayList<Book> getBookByTitle(String title) throws SQLException,
+    ArrayList<Book> getBookByTitle(String title) throws SQLException,
             InvalidStringException, IllegalValueException;
 
-    public ArrayList<Book> getAllBooks() throws SQLException, InvalidStringException,
+    ArrayList<Book> getAllBooks() throws SQLException, InvalidStringException,
             IllegalValueException;
 
-    public ArrayList<Book> getBooksByGenre(GenresEnum genre) throws SQLException,
+    ArrayList<Book> getBooksByGenre(GenresEnum genre) throws SQLException,
             InvalidStringException, IllegalValueException;
 
-    public boolean isAvailable(String ISBN) throws SQLException;
+    boolean isAvailable(String ISBN) throws SQLException;
+    
+    void editPrice(String ISBN, BigDecimal price) throws SQLException;
 
-    public void setDiscount(String ISBN, BigDecimal discount) throws SQLException;
+    void editDiscount(String ISBN, BigDecimal discount) throws SQLException;
 
-    public void editDescription(String ISBN, String newDescription) throws SQLException;
+    void editDescription(String ISBN, String newDescription) throws SQLException;
 
-    public void decreaseAvailableCopies(String ISBN, int removedUnits) throws SQLException;
+    void editLibroCardPoints(String ISBN, int libroCardPoints) throws SQLException;
 
-    public void increaseAvailableCopies(String ISBN, int addedUnits) throws SQLException;
+    void editGenre(String ISBN, GenresEnum genre) throws SQLException;
 
-    public void setAvailableCopies(String ISBN, int availableCopies) throws SQLException;
+    void decreaseAvailableCopies(String ISBN, int removedUnits) throws SQLException;
+
+    void increaseAvailableCopies(String ISBN, int addedUnits) throws SQLException;
+
+    void editAvailableCopies(String ISBN, int availableCopies) throws SQLException;
 
 }

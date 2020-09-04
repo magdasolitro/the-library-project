@@ -48,7 +48,7 @@
                                         <Font name="Avenir Book" size="15.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="modifyBooksButton" layoutX="60.0" layoutY="365.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" style="-fx-background-color: #D3D3D3;" text="Modify books">
+                                <Button fx:id="modifyBooksButton" layoutX="60.0" layoutY="365.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" style="-fx-background-color: #D3D3D3;" onMouseClicked="#handleBookModificationRequest" text="Modify books">
                                    <font>
                                       <Font name="Avenir Book" size="17.0" />
                                    </font>

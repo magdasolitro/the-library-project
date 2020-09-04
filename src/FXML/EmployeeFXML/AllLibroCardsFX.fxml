@@ -45,11 +45,16 @@
                                 <Font name="Avenir Book" size="17.0" />
                             </font>
                         </RadioButton>
-                        <Button fx:id="searchButton" layoutX="117.0" layoutY="493.0" mnemonicParsing="false" onMouseClicked="#handleLibroCardSearch" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #3CB371;" text="Search!" textFill="WHITE">
+                        <Button fx:id="searchButton" layoutX="120.0" layoutY="493.0" mnemonicParsing="false" onMouseClicked="#handleLibroCardSearch" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #3CB371;" text="Search!" textFill="WHITE">
                             <font>
                                 <Font name="Avenir Next Bold" size="17.0" />
                             </font>
                         </Button>
+                        <Button fx:id="allLibroCardsButton" layoutX="120.0" layoutY="570.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #D3D3D3;" text="All LibroCards" onMouseClicked="#retrieveAllLibroCards">
+                            <font>
+                                <Font name="Avenir Book" size="17.0" />
+                            </font>
+                          </Button>
                     </children>
                 </AnchorPane>
             </items>

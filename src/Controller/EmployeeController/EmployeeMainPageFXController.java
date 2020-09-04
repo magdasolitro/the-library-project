@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 public class EmployeeMainPageFXController implements Initializable {
 
     @FXML Button checkOrdersButton, checkLibroCardsButton, addBookButton,
-            registerEmployeeButton, updateRankingsButton;
+            modifyBooksButton, registerEmployeeButton, updateRankingsButton;
 
     @FXML
     private Pane simplePane;
@@ -89,6 +89,18 @@ public class EmployeeMainPageFXController implements Initializable {
     }
 
 
+    public void handleBookModificationRequest() {
+        Stage stage = (Stage) modifyBooksButton.getScene().getWindow();
+        stage.close();
+
+        try {
+            viewPage("../../FXML/EmployeeFXML/BookModificationPageFX.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void handleRegisterEmployeeRequest() {
         try {
             // check if current employee has the neccessary privilegies to add a new employee
@@ -125,34 +137,6 @@ public class EmployeeMainPageFXController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-    private Label buildGreetingLabel(){
-        // add greeting message customised on the employee
-        Label greetingMessageLabel;
-        String employeeName = "";
-
-        EmployeeDAO employeeDAO = new EmployeeDaoImpl();
-
-        try {
-            Employee currentEmployee = employeeDAO.getEmployee(GeneralLoginController.getLoginInstance());
-
-            employeeName = currentEmployee.getName();
-        } catch (SQLException | InvalidStringException e) {
-            e.printStackTrace();
-        } finally{
-            if(LocalTime.now().compareTo(LocalTime.NOON) < 0){
-                greetingMessageLabel = new Label("Good Morning, " + employeeName + "!");
-                greetingMessageLabel.setFont(new Font("Avenir Next Bold", 60));
-            } else {
-                greetingMessageLabel = new Label("Good Afternoon, " + employeeName + "!");
-                greetingMessageLabel.setFont(new Font("Avenir Next Bold", 60));
-            }
-        }
-
-        return greetingMessageLabel;
-    }
-
 
     public void handleLogOutRequest(MouseEvent evt) {
         Alert confirmLogOut = new Alert(Alert.AlertType.CONFIRMATION);
@@ -193,6 +177,34 @@ public class EmployeeMainPageFXController implements Initializable {
     }
 
 
+    private Label buildGreetingLabel(){
+        // add greeting message customised on the employee
+        Label greetingMessageLabel;
+        String employeeName = "";
+
+        EmployeeDAO employeeDAO = new EmployeeDaoImpl();
+
+        try {
+            Employee currentEmployee = employeeDAO.getEmployee(GeneralLoginController.getLoginInstance());
+
+            employeeName = currentEmployee.getName();
+        } catch (SQLException | InvalidStringException e) {
+            e.printStackTrace();
+        } finally{
+            if(LocalTime.now().compareTo(LocalTime.NOON) < 0){
+                greetingMessageLabel = new Label("Good Morning, " + employeeName + "!");
+                greetingMessageLabel.setFont(new Font("Avenir Next Bold", 60));
+            } else {
+                greetingMessageLabel = new Label("Good Afternoon, " + employeeName + "!");
+                greetingMessageLabel.setFont(new Font("Avenir Next Bold", 60));
+            }
+        }
+
+        return greetingMessageLabel;
+    }
+
+
+
     private void viewPage(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
@@ -206,4 +218,5 @@ public class EmployeeMainPageFXController implements Initializable {
         stage.show();
 
     }
+
 }

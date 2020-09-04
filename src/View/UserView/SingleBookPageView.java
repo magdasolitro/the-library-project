@@ -3,6 +3,7 @@ package View.UserView;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.Exceptions.ObjectNotInDatabaseException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import javafx.geometry.HPos;
@@ -119,7 +120,7 @@ public class SingleBookPageView {
             infoColumn.setHalignment(HPos.LEFT);
             infoColumn.setPrefWidth(415);
 
-            gpBook.setVgap(20);
+            gpBook.setVgap(10);
 
             gpBook.getColumnConstraints().addAll(labelsColumn, infoColumn);
 
@@ -131,7 +132,7 @@ public class SingleBookPageView {
             VBox.setVgrow(titleInfo, Priority.ALWAYS);
             VBox.setVgrow(bookDescription, Priority.ALWAYS);
 
-        } catch (SQLException | InvalidStringException | IllegalValueException e) {
+        } catch (SQLException | InvalidStringException | IllegalValueException | ObjectNotInDatabaseException e) {
             e.printStackTrace();
         }
 
@@ -167,7 +168,7 @@ public class SingleBookPageView {
             bookDescription = new Label(bookDescriptionString);
             bookDescription.setFont(new Font("Avenir Book", 20));
             bookDescription.setMaxWidth(620);
-        } catch (SQLException | InvalidStringException | IllegalValueException e) {
+        } catch (SQLException | InvalidStringException | IllegalValueException | ObjectNotInDatabaseException e) {
             e.printStackTrace();
         }
 

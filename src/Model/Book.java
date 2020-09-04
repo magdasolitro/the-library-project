@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
-// possibili eccezioni: InvalidISBNException, NullStringException
-
 public class Book implements Comparable<Book>{
     private final String ISBN;
     private final String title;

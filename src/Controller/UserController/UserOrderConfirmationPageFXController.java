@@ -3,10 +3,7 @@ package Controller.UserController;
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
 import Model.Book;
-import Model.Exceptions.IllegalValueException;
-import Model.Exceptions.InvalidStringException;
-import Model.Exceptions.NotSameUserException;
-import Model.Exceptions.UserNotInDatabaseException;
+import Model.Exceptions.*;
 import Model.Order;
 import Model.OrderStatusEnum;
 import Model.User;
@@ -271,8 +268,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                     stage.setMaximized(true);
                     stage.show();
 
-                } catch (SQLException | UserNotInDatabaseException | InvalidStringException |
-                        IllegalValueException | NotSameUserException | IOException ex) {
+                } catch (SQLException | UserNotInDatabaseException | InvalidStringException | IllegalValueException | NotSameUserException | IOException | ObjectNotInDatabaseException ex) {
                     Alert orderFailure = new Alert(Alert.AlertType.ERROR);
 
                     orderFailure.setTitle("Order Failure");

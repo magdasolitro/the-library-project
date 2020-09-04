@@ -124,48 +124,82 @@ public class AllLibroCardsPageFXController implements Initializable {
 
     public void handleLibroCardSearch() {
         LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
-        LibroCard libroCard = null;
+        LibroCard libroCard;
         ArrayList<LibroCard> libroCardList = new ArrayList<>();
 
         try {
             if(searchField.getText().isEmpty()){
-                libroCardList = new ArrayList<>(libroCardDAO.getAllLibroCards());
+                Alert emptyFieldAlert = new Alert(Alert.AlertType.WARNING);
 
-            } else if (group.getSelectedToggle().equals(userEmailRB)) {
-                String userEmail = searchField.getText();
+                emptyFieldAlert.setTitle("Empty Field");
+                emptyFieldAlert.setHeaderText("Search field seems to be empty!");
+                emptyFieldAlert.setContentText("To perform a research, type a cardID or an e-mail.");
 
-                libroCard = libroCardDAO.getUserLibroCard(userEmail);
+                emptyFieldAlert.showAndWait();
 
             } else {
-                String cardID = searchField.getText();
+                if (group.getSelectedToggle().equals(userEmailRB)) {
+                    String userEmail = searchField.getText();
 
-                libroCard = libroCardDAO.getLibroCard(cardID);
-            }
+                    libroCard = libroCardDAO.getUserLibroCard(userEmail);
+                } else {
+                    String cardID = searchField.getText();
 
+                    libroCard = libroCardDAO.getLibroCard(cardID);
+                }
 
-            if (libroCard == null) {
-                Alert cardNotFound = new Alert(Alert.AlertType.ERROR);
+                if (libroCard == null) {
+                    Alert cardNotFound = new Alert(Alert.AlertType.ERROR);
 
-                cardNotFound.setTitle("LibroCard Not Found");
-                cardNotFound.setHeaderText("The LibroCard you searched for does not exist!");
-                cardNotFound.setContentText("Maybe you misspelled the user's email or cardID.");
+                    cardNotFound.setTitle("LibroCard Not Found");
+                    cardNotFound.setHeaderText("The LibroCard you searched for does not exist!");
+                    cardNotFound.setContentText("Maybe you misspelled the user's email or cardID.");
 
-                cardNotFound.showAndWait();
-            } else {
-                leftPane.getChildren().remove(scrollPane);
+                    cardNotFound.showAndWait();
+                } else {
+                    leftPane.getChildren().remove(scrollPane);
 
-                scrollPane = AllLibroCardsPageView.buildLibroCardsView(new ArrayList<>(libroCardList));
-                leftPane.getChildren().add(scrollPane);
+                    libroCardList.add(libroCard);
 
-                scrollPane.setId("librocards-scrollpane");
-                scrollPane.getStylesheets().add("/CSS/style.css");
+                    scrollPane = AllLibroCardsPageView.buildLibroCardsView(libroCardList);
+                    leftPane.getChildren().add(scrollPane);
 
-                AnchorPane.setTopAnchor(scrollPane, (double) 200);
-                AnchorPane.setLeftAnchor(scrollPane, (double) 90);
-                AnchorPane.setRightAnchor(scrollPane, (double) 0);
-                AnchorPane.setBottomAnchor(scrollPane, (double) 40);
+                    scrollPane.setId("librocards-scrollpane");
+                    scrollPane.getStylesheets().add("/CSS/style.css");
+
+                    AnchorPane.setTopAnchor(scrollPane, (double) 200);
+                    AnchorPane.setLeftAnchor(scrollPane, (double) 90);
+                    AnchorPane.setRightAnchor(scrollPane, (double) 0);
+                    AnchorPane.setBottomAnchor(scrollPane, (double) 0);
+
+                }
             }
         } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void retrieveAllLibroCards() {
+        // build all LibroCards view
+        try{
+            LibroCardDAO libroCardDAO = new LibroCardDaoImpl();
+
+            ArrayList<LibroCard> allLibroCards = new ArrayList<>(libroCardDAO.getAllLibroCards());
+
+            scrollPane = AllLibroCardsPageView.buildLibroCardsView(allLibroCards);
+
+            leftPane.getChildren().add(scrollPane);
+
+            scrollPane.setId("librocards-scrollpane");
+            scrollPane.getStylesheets().add("/CSS/style.css");
+
+            AnchorPane.setTopAnchor(scrollPane, (double) 200);
+            AnchorPane.setLeftAnchor(scrollPane, (double) 90);
+            AnchorPane.setRightAnchor(scrollPane, (double) 0);
+            AnchorPane.setBottomAnchor(scrollPane, (double) 0);
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -184,4 +218,5 @@ public class AllLibroCardsPageFXController implements Initializable {
         stage.show();
 
     }
+
 }

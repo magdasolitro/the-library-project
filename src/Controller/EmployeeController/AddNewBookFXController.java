@@ -39,7 +39,7 @@ public class AddNewBookFXController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // set possible choices in drop down menu
-        genresChoiceBox.getItems().addAll("All", "Autobiography", "Crime Fiction",
+        genresChoiceBox.getItems().addAll("Autobiography", "Crime Fiction",
                 "Fantasy", "History", "Narrative", "Philosophy of Science",
                 "Politics", "Science Fiction");
 
@@ -72,7 +72,7 @@ public class AddNewBookFXController implements Initializable {
                 || priceField.getText().isEmpty() || publishingHouseField.getText().isEmpty()
                 || publishingYearField.getText().isEmpty() || discountField.getText().isEmpty()
                 || ISBNField.getText().isEmpty() || copiesField.getText().isEmpty()
-                || libroCardPointsField.getText().isEmpty() || genresChoiceBox.getValue().isEmpty()){
+                || libroCardPointsField.getText().isEmpty() || genresChoiceBox.getSelectionModel().isEmpty()){
             Alert missingFields = new Alert(Alert.AlertType.ERROR);
 
             missingFields.setTitle("Fields Error");

@@ -3,6 +3,7 @@ package Model.Utils.DaoImpl;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.Exceptions.ObjectNotInDatabaseException;
 import Model.GenresEnum;
 import Model.Rankings;
 import Model.Utils.DAOs.BookDAO;
@@ -47,7 +48,7 @@ public class RakingsDaoImpl implements RankingsDAO {
                 if (currentBook.getGenre().equals(genre.toString())) {
                     rankingsByGenre.add(r);
                 }
-            } catch (InvalidStringException | IllegalValueException e) {
+            } catch (InvalidStringException | IllegalValueException | ObjectNotInDatabaseException e) {
                 e.printStackTrace();
             }
         }

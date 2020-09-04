@@ -6,6 +6,7 @@ import Controller.LastOpenedPageController;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.Exceptions.ObjectNotInDatabaseException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DAOs.CartDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
@@ -59,16 +60,16 @@ public class SingleBookPageFXController implements Initializable {
 
         spBookInfos = SingleBookPageView.buildBookInfos(BookInstanceController.getCurrentBookISBN());
 
-        spBookInfos.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        spBookInfos.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         spBookInfos.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         spBookInfos.setId("single-book-scrollpane");
         spBookInfos.getStylesheets().add("/CSS/style.css");
 
-        AnchorPane.setTopAnchor(spBookInfos, (double) 80);
-        AnchorPane.setRightAnchor(spBookInfos, (double) 480);
+        AnchorPane.setTopAnchor(spBookInfos, (double) 50);
+        AnchorPane.setRightAnchor(spBookInfos, (double) 460);
         AnchorPane.setBottomAnchor(spBookInfos, (double) 40);
-        AnchorPane.setLeftAnchor(spBookInfos, (double) 80);
+        AnchorPane.setLeftAnchor(spBookInfos, (double) 60);
 
         quantitySpinner = new Spinner<>(1, 10, 1, 1);
         quantitySpinner.setPrefHeight(45);
@@ -231,7 +232,7 @@ public class SingleBookPageFXController implements Initializable {
 
                 bookAddedToCart.showAndWait();
             }
-        } catch (SQLException | InvalidStringException | IllegalValueException e) {
+        } catch (SQLException | InvalidStringException | IllegalValueException | ObjectNotInDatabaseException e) {
             e.printStackTrace();
         }
     }

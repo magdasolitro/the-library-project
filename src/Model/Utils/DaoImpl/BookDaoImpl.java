@@ -3,6 +3,7 @@ package Model.Utils.DaoImpl;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.Exceptions.ObjectNotInDatabaseException;
 import Model.GenresEnum;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DatabaseConnection;
@@ -54,7 +55,7 @@ public class BookDaoImpl implements BookDAO {
      */
     @Override
     public Book getBook(String ISBN) throws SQLException, InvalidStringException,
-            IllegalValueException {
+            IllegalValueException, ObjectNotInDatabaseException {
         String sql = "SELECT * FROM book WHERE ISBN = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -66,24 +67,33 @@ public class BookDaoImpl implements BookDAO {
 
         ResultSet rs = pstmt.executeQuery();
         
-        Book book  = new Book(rs.getString("ISBN"),
-                rs.getString("title"),
-                rs.getString("authors"),
-                rs.getString("genre"),
-                rs.getBigDecimal("price"),
-                rs.getString("description"),
-                rs.getString("publishingHouse"),
-                rs.getInt("publishingYear"),
-                rs.getBigDecimal("discount"),
-                rs.getInt("availableCopies"),
-                rs.getInt("libroCardPoints"));
+        if(rs.next()){
+            Book book  = new Book(rs.getString("ISBN"),
+                    rs.getString("title"),
+                    rs.getString("authors"),
+                    rs.getString("genre"),
+                    rs.getBigDecimal("price"),
+                    rs.getString("description"),
+                    rs.getString("publishingHouse"),
+                    rs.getInt("publishingYear"),
+                    rs.getBigDecimal("discount"),
+                    rs.getInt("availableCopies"),
+                    rs.getInt("libroCardPoints"));
 
-        rs.close();
-        pstmt.close();
+            rs.close();
+            pstmt.close();
 
-        connection.closeConnection();
+            connection.closeConnection();
 
-        return book;
+            return book;
+        } else {
+            rs.close();
+            pstmt.close();
+
+            connection.closeConnection();
+
+            throw new ObjectNotInDatabaseException();
+        }
     }
 
 
@@ -249,7 +259,27 @@ public class BookDaoImpl implements BookDAO {
     }
 
     @Override
-    public void setDiscount(String ISBN, BigDecimal discount) throws SQLException {
+    public void editPrice(String ISBN, BigDecimal price) throws SQLException {
+        String sql = "UPDATE book SET price = ? WHERE ISBN = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setBigDecimal(1, price);
+        pstmt.setString(2, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
+    }
+
+
+    @Override
+    public void editDiscount(String ISBN, BigDecimal discount) throws SQLException {
         String sql = "UPDATE book SET discount = ? WHERE ISBN = ?";
 
         DatabaseConnection connection = new DatabaseConnection();
@@ -286,6 +316,47 @@ public class BookDaoImpl implements BookDAO {
 
         connection.closeConnection();
     }
+
+
+    @Override
+    public void editLibroCardPoints(String ISBN, int libroCardPoints) throws SQLException {
+        String sql = "UPDATE book SET libroCardPoints = ? WHERE ISBN = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setInt(1, libroCardPoints);
+        pstmt.setString(2, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
+    }
+
+
+    @Override
+    public void editGenre(String ISBN, GenresEnum genre) throws SQLException {
+        String sql = "UPDATE book SET genre = ? WHERE ISBN = ?";
+
+        DatabaseConnection connection = new DatabaseConnection();
+        connection.openConnection();
+
+        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
+
+        pstmt.setString(1, genre.toString());
+        pstmt.setString(2, ISBN);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+
+        connection.closeConnection();
+    }
+
 
     @Override
     public void decreaseAvailableCopies(String ISBN, int removedUnits) throws SQLException {
@@ -326,7 +397,7 @@ public class BookDaoImpl implements BookDAO {
     }
 
     @Override
-    public void setAvailableCopies(String ISBN, int availableCopies) throws SQLException {
+    public void editAvailableCopies(String ISBN, int availableCopies) throws SQLException {
         String sql = "UPDATE book SET availableCopies = ? WHERE ISBN = ?";
 
         DatabaseConnection connection = new DatabaseConnection();

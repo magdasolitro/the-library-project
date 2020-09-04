@@ -3,6 +3,7 @@ package View.EmployeeView;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.Exceptions.ObjectNotInDatabaseException;
 import Model.Rankings;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
@@ -62,7 +63,7 @@ public class RankingsView {
 
                 i++;
 
-            } catch (InvalidStringException | IllegalValueException | SQLException e) {
+            } catch (InvalidStringException | IllegalValueException | SQLException | ObjectNotInDatabaseException e) {
                 e.printStackTrace();
             }
         }

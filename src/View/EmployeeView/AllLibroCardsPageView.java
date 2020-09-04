@@ -26,11 +26,10 @@ public class AllLibroCardsPageView {
         for (LibroCard lc : libroCards) {
             VBox currentLibroCard = buildSingleLibroCardView(lc);
             libroCardGP.add(currentLibroCard, 0, i);
-            GridPane.setMargin(currentLibroCard, new Insets(0, 0, 0, 30));
+            GridPane.setMargin(currentLibroCard, new Insets(20, 20, 20, 20));
             i++;
         }
 
-        libroCardGP.setVgap(40);
         libroCardGP.setHgap(20);
 
         scrollPane.setContent(libroCardGP);
@@ -63,6 +62,8 @@ public class AllLibroCardsPageView {
         pointsLabel.setFont(new Font("Avenir Book", 20));
 
         singleLibroCardVB.getChildren().addAll(cardIDLabel, emailLabel, issueDateLabel, pointsLabel);
+
+        singleLibroCardVB.setPadding(new Insets(20, 20, 20, 20));
 
         singleLibroCardVB.setId("librocard-pane");
         singleLibroCardVB.getStylesheets().add("/CSS/style.css");
