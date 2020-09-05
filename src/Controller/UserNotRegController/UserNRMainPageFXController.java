@@ -28,8 +28,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class UserNRMainPageFXController implements Initializable {
-    @FXML
-    public Button rankingsButton;
 
     @FXML
     private AnchorPane rightPane, leftPane;
@@ -41,7 +39,7 @@ public class UserNRMainPageFXController implements Initializable {
     private RadioButton priceAscRB, priceDescRB, publYearRB, titleRB;
 
     @FXML
-    private Button searchButton;
+    private Button searchButton, rankingsButton;
 
     @FXML
     private ImageView cartIcon;
@@ -219,6 +217,18 @@ public class UserNRMainPageFXController implements Initializable {
     }
 
 
+    public void goToRankingsPage() {
+        Stage stage = (Stage) rankingsButton.getScene().getWindow();
+        stage.close();
+
+        try{
+            viewPage("../../FXML//RankingsPageFX.fxml");
+        } catch (IOException ioe){
+            System.out.println("IOException" + ioe.getMessage());
+        }
+    }
+
+
     private void viewPage(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
@@ -243,5 +253,6 @@ public class UserNRMainPageFXController implements Initializable {
         AnchorPane.setTopAnchor(scrollPane, (double) 100);
         AnchorPane.setBottomAnchor(scrollPane, (double) 0);
     }
+
 
 }

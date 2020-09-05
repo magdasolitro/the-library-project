@@ -16,11 +16,6 @@
                             <Font name="Avenir Next Bold" size="20.0" />
                          </font>
                       </Label>
-                      <Button layoutX="35.0" layoutY="381.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="175.0" style="-fx-background-color: #3CB371;" onMouseClicked="#updateRankings" text="Update Rankings" textFill="WHITE">
-                         <font>
-                            <Font name="Avenir Next Bold" size="18.0" />
-                         </font>
-                      </Button>
                   </children>
               </AnchorPane>
               <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" />

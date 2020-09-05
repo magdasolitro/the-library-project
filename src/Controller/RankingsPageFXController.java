@@ -1,10 +1,9 @@
-package Controller.EmployeeController;
+package Controller;
 
 import Model.GenresEnum;
 import Model.Rankings;
 import Model.Utils.DAOs.RankingsDAO;
 import Model.Utils.DaoImpl.RakingsDaoImpl;
-import Model.Utils.DatabaseConnection;
 import View.EmployeeView.RankingsView;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -24,15 +22,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 
-public class UpdateRakingsPageFXController implements Initializable {
+public class RankingsPageFXController implements Initializable {
 
     @FXML
     private Button goBackButton;
@@ -41,7 +35,6 @@ public class UpdateRakingsPageFXController implements Initializable {
     AnchorPane leftPane, rightPane;
 
     private ChoiceBox<Object> genresChoiceBox;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,6 +76,7 @@ public class UpdateRakingsPageFXController implements Initializable {
                 e.printStackTrace();
             }
         });
+
     }
 
 
@@ -92,7 +86,12 @@ public class UpdateRakingsPageFXController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml"));
+            if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
+                loader.setLocation(getClass().getResource("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml"));
+            } else{
+                loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserMainPageFX.fxml"));
+            }
+
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
@@ -105,66 +104,4 @@ public class UpdateRakingsPageFXController implements Initializable {
         }
     }
 
-
-    public void updateRankings() throws SQLException {
-         for(GenresEnum g : GenresEnum.values()){
-
-             // retrieve ranking for genre g
-             String sql = "SELECT * " +
-                          "FROM rankings " +
-                              "JOIN book ON rankings.book = book.ISBN " +
-                          "WHERE book.genre = ?";
-
-             DatabaseConnection connection = new DatabaseConnection();
-             connection.openConnection();
-
-             PreparedStatement pstmt = connection.conn.prepareStatement(sql);
-
-             pstmt.setString(1, g.toString());
-
-             ResultSet rs = pstmt.executeQuery();
-
-             ArrayList<Rankings> currentRanking = new ArrayList<>();
-
-             while(rs.next()){
-                 currentRanking.add(new Rankings(rs.getString("book"),
-                         rs.getInt("soldCopies"),
-                         rs.getInt("currentPosition"),
-                         rs.getInt("weeksInPosition")));
-             }
-
-             pstmt.close();
-             rs.close();
-
-             connection.closeConnection();
-
-             // insert rankings in an array ordered in a descendent way for soldCopies
-             currentRanking.sort(Comparator.comparing(Rankings::getSoldCopies));
-             Collections.reverse(currentRanking);
-
-             RankingsDAO rankingsDAO = new Model.Utils.DaoImpl.RakingsDaoImpl();
-
-             // set new ranking positions and possibly reset counters of soldCopies
-             for(Rankings r : currentRanking){
-                 String bookISBN = r.getBook();
-
-                 if(currentRanking.indexOf(r) + 1 == r.getCurrentPosition()){
-                     rankingsDAO.incrementWeeksInPosition(bookISBN);
-                 } else {
-                     rankingsDAO.setCurrentPosition(bookISBN, currentRanking.indexOf(r) + 1);
-                     rankingsDAO.resetWeeksInPosition(bookISBN);
-                 }
-
-                 rankingsDAO.resetSoldCopies(bookISBN);
-             }
-         }
-
-         Alert rankingsUpdated = new Alert(Alert.AlertType.INFORMATION);
-
-         rankingsUpdated.setTitle("Rankings Updated");
-         rankingsUpdated.setHeaderText("All rankings have been updated!");
-         rankingsUpdated.setContentText("Select a genre to see the current ranking.");
-
-         rankingsUpdated.showAndWait();
-    }
 }

@@ -49,13 +49,13 @@ public class BookModificationPageFXController implements Initializable {
     }
 
 
-    public void confirmChanges(MouseEvent evt) {
+    public void confirmChanges(MouseEvent evt){
         if(bookISBNTF.getText().isEmpty() ){
             Alert missingISBNAlert = new Alert(Alert.AlertType.ERROR);
 
             missingISBNAlert.setTitle("Missing ISBN");
             missingISBNAlert.setHeaderText("No book specified in the ISBN field");
-            missingISBNAlert.setContentText("To perform some changes, you must\n specify a valid ISBN.");
+            missingISBNAlert.setContentText("To perform some changes, you must specify a valid ISBN.");
 
             missingISBNAlert.showAndWait();
 
@@ -85,26 +85,48 @@ public class BookModificationPageFXController implements Initializable {
 
                 confirmChangesAlert.setTitle("Confirm Changes");
                 confirmChangesAlert.setHeaderText("Are you sure you want to confirm these changes?");
-                confirmChangesAlert.setContentText("If you click \"OK\", the changes you \nhave made will become permanent");
-
-                confirmChangesAlert.showAndWait();
+                confirmChangesAlert.setContentText("If you click \"OK\", the changes you have made will become permanent");
 
                 Optional<ButtonType> response = confirmChangesAlert.showAndWait();
 
                 if (response.isPresent() && response.get() == ButtonType.OK) {
                     if(!priceTF.getText().isEmpty()){
-                        bookDAO.editPrice(bookISBN,
-                                BigDecimal.valueOf(Float.parseFloat(priceTF.getText())));
+                        try {
+                            bookDAO.editPrice(bookISBN,
+                                    BigDecimal.valueOf(Float.parseFloat(priceTF.getText())));
+                        } catch(NumberFormatException e){
+                            Alert wrongFormatAlert = new Alert(Alert.AlertType.ERROR);
+
+                            wrongFormatAlert.setTitle("Wrong Format");
+                            wrongFormatAlert.setHeaderText("Price value is not valid");
+                            wrongFormatAlert.setContentText("Please, insert a numerical value");
+                        }
                     }
 
                     if(!discountTF.getText().isEmpty()){
-                        bookDAO.editDiscount(bookISBN,
-                                BigDecimal.valueOf(Float.parseFloat(discountTF.getText())));
+                        try{
+                            bookDAO.editDiscount(bookISBN,
+                                    BigDecimal.valueOf(Float.parseFloat(discountTF.getText())));
+                        } catch(NumberFormatException e){
+                            Alert wrongFormatAlert = new Alert(Alert.AlertType.ERROR);
+
+                            wrongFormatAlert.setTitle("Wrong Format");
+                            wrongFormatAlert.setHeaderText("Discount value is not valid");
+                            wrongFormatAlert.setContentText("Please, insert a numerical value");
+                        }
                     }
 
                     if(!availableCopiesTF.getText().isEmpty()){
-                        bookDAO.editAvailableCopies(bookISBN,
-                                Integer.parseInt(availableCopiesTF.getText()));
+                        try {
+                            bookDAO.editAvailableCopies(bookISBN,
+                                    Integer.parseInt(availableCopiesTF.getText()));
+                        } catch(NumberFormatException e){
+                            Alert wrongFormatAlert = new Alert(Alert.AlertType.ERROR);
+
+                            wrongFormatAlert.setTitle("Wrong Format");
+                            wrongFormatAlert.setHeaderText("The value for available copies is not valid");
+                            wrongFormatAlert.setContentText("Please, insert an positive integer value");
+                        }
                     }
 
                     if(!libroCardPointsTF.getText().isEmpty()) {
@@ -122,6 +144,13 @@ public class BookModificationPageFXController implements Initializable {
                         bookDAO.editDescription(bookISBN, descriptionTA.getText());
                     }
 
+                    Alert modificationSuccessfulAlert = new Alert(Alert.AlertType.INFORMATION);
+
+                    modificationSuccessfulAlert.setTitle("Modification Successful");
+                    modificationSuccessfulAlert.setHeaderText("Your modification was successful");
+
+                    modificationSuccessfulAlert.showAndWait();
+
                 } else {
                     evt.consume();
                     confirmChangesAlert.close();
@@ -131,17 +160,10 @@ public class BookModificationPageFXController implements Initializable {
                 Alert exceptionAlert = new Alert(Alert.AlertType.ERROR);
 
                 exceptionAlert.setTitle("Exception Occurred");
-                exceptionAlert.setHeaderText("An exception occurred while trying to complete this operation.");
+                exceptionAlert.setHeaderText("An exception occurred while trying\nto complete this operation.");
                 exceptionAlert.setContentText("Error: " + e.getMessage());
 
                 exceptionAlert.showAndWait();
-            } finally {
-                Alert modificationSuccessfulAlert = new Alert(Alert.AlertType.INFORMATION);
-
-                modificationSuccessfulAlert.setTitle("Modification Successful");
-                modificationSuccessfulAlert.setHeaderText("The changes you specified have been successfully performed");
-
-                modificationSuccessfulAlert.showAndWait();
             }
         }
     }

@@ -39,7 +39,7 @@ public class UserMainPageFXController implements Initializable {
     private RadioButton priceAscRB, priceDescRB, publYearRB, titleRB;
 
     @FXML
-    private Button searchButton;
+    private Button searchButton, rankingsButton;
 
     @FXML
     private ImageView profileIcon, cartIcon;
@@ -175,6 +175,7 @@ public class UserMainPageFXController implements Initializable {
         }
     }
 
+
     public void goToCartPage() {
         try{
             Stage stage = (Stage) cartIcon.getScene().getWindow();
@@ -232,6 +233,18 @@ public class UserMainPageFXController implements Initializable {
 
         try{
             viewPage("../../FXML/UserFXML/UserAllOrdersPageFX.fxml");
+        } catch (IOException ioe){
+            System.out.println("IOException" + ioe.getMessage());
+        }
+    }
+
+
+    public void goToRankingsPage() {
+        Stage stage = (Stage) rankingsButton.getScene().getWindow();
+        stage.close();
+
+        try{
+            viewPage("../../FXML/RankingsPageFX.fxml");
         } catch (IOException ioe){
             System.out.println("IOException" + ioe.getMessage());
         }
