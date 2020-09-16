@@ -8,7 +8,6 @@ import Model.Utils.DAOs.LibroCardDAO;
 import Model.Utils.DAOs.UserDAO;
 import Model.Utils.DaoImpl.LibroCardDaoImpl;
 import Model.Utils.DaoImpl.UserDaoImpl;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -108,7 +106,7 @@ public class SignInPageFXController implements Initializable {
             Stage stage = (Stage) signInButton.getScene().getWindow();
             stage.close();
 
-            viewPage("../FXML/UserFXML/UserMainPageFX.fxml");
+            viewPage("../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
         }
     }
 
@@ -120,9 +118,9 @@ public class SignInPageFXController implements Initializable {
         if(LastOpenedPageController.getLastOpenedPage() == null) {
             viewPage("../FXML/WelcomePageFX.fxml");
         } else {
-            // substring(3) because pattern is set to be "../../FXML" but in this case
+            // substring(6) because pattern is set to be "../../../FXML" but in this case
             // i need "../FXML" to go in the right directory
-            viewPage(LastOpenedPageController.getLastOpenedPage().substring(3));
+            viewPage(LastOpenedPageController.getLastOpenedPage().substring(6));
         }
     }
 

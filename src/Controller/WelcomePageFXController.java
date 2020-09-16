@@ -2,20 +2,14 @@ package Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.Random;
-import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.regex.Pattern;
 
 
 public class WelcomePageFXController {
@@ -32,7 +26,7 @@ public class WelcomePageFXController {
         Stage stage = (Stage) userButton.getScene().getWindow();
         stage.close();
 
-        viewPage("../FXML/UserFXML/UserLoginFX.fxml");
+        viewPage("../FXML/UserFXML/UserRegFXML/UserLoginFX.fxml");
     }
 
     @FXML
@@ -54,7 +48,7 @@ public class WelcomePageFXController {
         String userNotRegIdentifier = "NOTREG" + randomNumber;
         GeneralLoginController.setLoginInstance(userNotRegIdentifier);
 
-        viewPage("../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+        viewPage("../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
     }
 
     @FXML

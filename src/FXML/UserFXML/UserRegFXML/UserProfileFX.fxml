@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserProfileFXController">
+<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserRegController.UserProfileFXController">
     <children>
         <Label layoutX="90.0" layoutY="250.0" text="Address:">
             <font>
@@ -75,7 +75,7 @@
         </Label>
         <ImageView fx:id="cartIcon" fitHeight="70.0" fitWidth="90.0" layoutX="1183.0" layoutY="15.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../images/cartIcon.png" />
+                <Image url="@../../../images/cartIcon.png" />
             </image>
         </ImageView>
         <Separator layoutX="902.0" layoutY="98.0" prefHeight="7.0" prefWidth="398.0" />

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.BookModificationPageFXController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.BookModificationPageFXController">
      <children>
          <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0" />
          <TextField fx:id="bookISBNTF" layoutX="70.0" layoutY="225.0" prefHeight="38.0" prefWidth="300.0" promptText="ISBN">

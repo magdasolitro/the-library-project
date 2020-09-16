@@ -1,4 +1,4 @@
-package Controller.UserController;
+package Controller.UserController.UserRegController;
 
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
@@ -77,7 +77,7 @@ public class UserLoginFXController implements Initializable {
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
 
-            viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+            viewPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
         }
     }
 
@@ -87,7 +87,7 @@ public class UserLoginFXController implements Initializable {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
 
-        viewPage("../../FXML/WelcomePageFX.fxml");
+        viewPage("../../../FXML/WelcomePageFX.fxml");
     }
 
 
@@ -96,7 +96,7 @@ public class UserLoginFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserLoginFX.fxml");
+        LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserRegFXML/UserLoginFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

@@ -5,7 +5,7 @@ import Model.Rankings;
 import Model.Utils.DAOs.RankingsDAO;
 import Model.Utils.DaoImpl.RakingsDaoImpl;
 import Model.Utils.DatabaseConnection;
-import View.EmployeeView.RankingsView;
+import View.RankingsView;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

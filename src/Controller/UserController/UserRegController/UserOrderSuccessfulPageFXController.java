@@ -1,4 +1,4 @@
-package Controller.UserController;
+package Controller.UserController.UserRegController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +27,7 @@ public class UserOrderSuccessfulPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/UserAllOrdersPageFX.fxml");
+            viewPage("../../../FXML/UserFXML/UserRegFXML/UserAllOrdersPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class UserOrderSuccessfulPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+            viewPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

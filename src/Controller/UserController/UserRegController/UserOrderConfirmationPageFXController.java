@@ -1,4 +1,4 @@
-package Controller.UserController;
+package Controller.UserController.UserRegController;
 
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
@@ -86,7 +86,7 @@ public class UserOrderConfirmationPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/UserCartPageFX.fxml");
+            viewPage("../../../FXML/UserFXML/CartPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -256,10 +256,10 @@ public class UserOrderConfirmationPageFXController implements Initializable {
                     closingStage.close();
 
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(UserOrderConfirmationPageView.class.getResource("../../FXML/UserFXML/UserOrderSuccessfulPageFX.fxml"));
+                    loader.setLocation(UserOrderConfirmationPageView.class.getResource("../../../FXML/UserFXML/UserRegFXML/UserOrderSuccessfulPageFX.fxml"));
                     Parent root = loader.load();
 
-                    LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
 
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();

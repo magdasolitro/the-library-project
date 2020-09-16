@@ -1,4 +1,4 @@
-package Controller.UserController;
+package Controller.UserController.UserRegController;
 
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
@@ -156,7 +156,7 @@ public class UserMainPageFXController implements Initializable {
 
             GeneralLoginController.logout();
 
-            viewPage("../../FXML/WelcomePageFX.fxml");
+            viewPage("../../../FXML/WelcomePageFX.fxml");
         } else {
             evt.consume();
             confirmLogOut.close();
@@ -169,7 +169,7 @@ public class UserMainPageFXController implements Initializable {
             Stage stage = (Stage) profileIcon.getScene().getWindow();
             stage.close();
 
-            viewPage("../../FXML/UserFXML/UserProfileFX.fxml");
+            viewPage("../../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
         } catch (IOException ioe){
             ioe.printStackTrace();
         }
@@ -181,7 +181,7 @@ public class UserMainPageFXController implements Initializable {
             Stage stage = (Stage) cartIcon.getScene().getWindow();
             stage.close();
 
-            viewPage("../../FXML/UserFXML/UserCartPageFX.fxml");
+            viewPage("../../../FXML/UserFXML/CartPageFX.fxml");
         } catch (IOException ioe){
             System.out.println("IOException" + ioe.getMessage());
         }
@@ -232,7 +232,7 @@ public class UserMainPageFXController implements Initializable {
         stage.close();
 
         try{
-            viewPage("../../FXML/UserFXML/UserAllOrdersPageFX.fxml");
+            viewPage("../../../FXML/UserFXML/UserRegFXML/UserAllOrdersPageFX.fxml");
         } catch (IOException ioe){
             System.out.println("IOException" + ioe.getMessage());
         }
@@ -244,7 +244,7 @@ public class UserMainPageFXController implements Initializable {
         stage.close();
 
         try{
-            viewPage("../../FXML/RankingsPageFX.fxml");
+            viewPage("../../../FXML/RankingsPageFX.fxml");
         } catch (IOException ioe){
             System.out.println("IOException" + ioe.getMessage());
         }
@@ -256,7 +256,7 @@ public class UserMainPageFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+        LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

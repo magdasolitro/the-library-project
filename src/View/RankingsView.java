@@ -1,4 +1,4 @@
-package View.EmployeeView;
+package View;
 
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
@@ -7,7 +7,9 @@ import Model.Exceptions.ObjectNotInDatabaseException;
 import Model.Rankings;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
+import javafx.geometry.HPos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
@@ -38,7 +40,21 @@ public class RankingsView {
 
         rankingGP.add(rankLabel, 0, 0);
         rankingGP.add(bookTitleLabel, 1, 0);
-        rankingGP.add(weeksInPositionLabel, 3, 0);
+        rankingGP.add(weeksInPositionLabel, 2, 0);
+
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPrefWidth(100);
+        column1.setHalignment(HPos.CENTER);
+
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setPrefWidth(300);
+        column2.setHalignment(HPos.LEFT);
+
+        ColumnConstraints column3 = new ColumnConstraints();
+        column3.setPrefWidth(270);
+        column3.setHalignment(HPos.LEFT);
+
+        rankingGP.getColumnConstraints().addAll(column1, column2, column3);
 
         BookDAO bookDAO = new BookDaoImpl();
 
@@ -69,7 +85,6 @@ public class RankingsView {
         }
 
         rankingGP.setHgap(30);
-        rankingGP.setVgap(10);
 
         return rankingGP;
     }

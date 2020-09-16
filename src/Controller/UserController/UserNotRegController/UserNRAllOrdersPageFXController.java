@@ -1,4 +1,4 @@
-package Controller.UserNotRegController;
+package Controller.UserController.UserNotRegController;
 
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
@@ -85,7 +85,7 @@ public class UserNRAllOrdersPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+            viewPage("../../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

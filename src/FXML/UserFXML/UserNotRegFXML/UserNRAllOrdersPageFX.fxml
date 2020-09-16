@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.27" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserNotRegController.UserNRAllOrdersPageFXController">
+<SplitPane dividerPositions="0.27" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserNotRegController.UserNRAllOrdersPageFXController">
     <items>
         <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #BBA5E1;">
             <children>

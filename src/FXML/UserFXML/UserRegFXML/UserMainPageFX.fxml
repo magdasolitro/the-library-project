@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserMainPageFXController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserRegController.UserMainPageFXController">
    <children>
        <SplitPane dividerPositions="0.2" prefHeight="700.0">
            <items>
@@ -44,7 +44,7 @@
                        </Button>
                        <ImageView fitHeight="130.0" fitWidth="240.0" layoutX="5.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                               <Image url="@../../images/MindTravelsLogo.png" />
+                               <Image url="@../../../images/MindTravelsLogo.png" />
                            </image>
                        </ImageView>
                    </children>
@@ -69,12 +69,12 @@
                        </Label>
                    <ImageView fx:id="profileIcon" fitHeight="75.0" fitWidth="80.0" layoutX="810.0" layoutY="14.0" onMouseClicked="#goToProfilePage" pickOnBounds="true" preserveRatio="true">
                        <image>
-                           <Image url="@../../images/userIcon.png" />
+                           <Image url="@../../../images/userIcon.png" />
                        </image>
                    </ImageView>
                        <ImageView fx:id="cartIcon" fitHeight="70.0" fitWidth="90.0" layoutX="922.0" layoutY="15.0" onMouseClicked="#goToCartPage" pickOnBounds="true" preserveRatio="true">
                            <image>
-                               <Image url="@../../images/cartIcon.png" />
+                               <Image url="@../../../images/cartIcon.png" />
                            </image>
                        </ImageView>
                        <Separator layoutY="100.0" prefHeight="3.0" prefWidth="1018.0" />

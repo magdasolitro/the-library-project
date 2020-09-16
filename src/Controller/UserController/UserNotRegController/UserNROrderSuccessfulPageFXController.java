@@ -1,7 +1,8 @@
-package Controller.UserNotRegController;
+package Controller.UserController.UserNotRegController;
 
 import Model.Utils.DAOs.OrderDAO;
 import Model.Utils.DaoImpl.OrderDaoImpl;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -13,5 +14,11 @@ public class UserNROrderSuccessfulPageFXController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         OrderDAO orderDAO = new OrderDaoImpl();
 
+    }
+
+    public void goToAllOrdersPage(ActionEvent event) {
+    }
+
+    public void handleGoBackToMainPage(ActionEvent event) {
     }
 }

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.EmployeeLoginFXController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.EmployeeLoginFXController">
         <Pane layoutX="318.0" layoutY="127.0" prefHeight="485.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;">
                 <Label id="LoginAsEmployeeText" layoutY="48.0" alignment="CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="664.0" style="-fx-background-color: #ffffff;" text="Login as Employee" textAlignment="RIGHT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
                     <font>

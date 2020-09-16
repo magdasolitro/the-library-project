@@ -4,16 +4,14 @@ import Model.GenresEnum;
 import Model.Rankings;
 import Model.Utils.DAOs.RankingsDAO;
 import Model.Utils.DaoImpl.RakingsDaoImpl;
-import View.EmployeeView.RankingsView;
+import View.RankingsView;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -35,6 +33,7 @@ public class RankingsPageFXController implements Initializable {
     AnchorPane leftPane, rightPane;
 
     private ChoiceBox<Object> genresChoiceBox;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,7 +62,7 @@ public class RankingsPageFXController implements Initializable {
                         new ArrayList<>(rankingsDAO.getRankingByGenre(GenresEnum.values()[newValue.intValue()]));
                 GridPane rankingsGP = RankingsView.buildRankingView(rankingsByGenre);
 
-                VBox rankingsVB = new VBox(20);
+                VBox rankingsVB = new VBox(10);
 
                 Label genreLabel = new Label(GenresEnum.values()[newValue.intValue()].toString());
                 genreLabel.setFont(new Font("Avenir Next Bold", 35));
@@ -77,6 +76,40 @@ public class RankingsPageFXController implements Initializable {
             }
         });
 
+
+        // show all rankings
+        ScrollPane rankingsSP = new ScrollPane();
+        VBox allRankingsVB = new VBox(50);
+
+        for (GenresEnum g : GenresEnum.values()){
+            try {
+                Label genreLabel = new Label(g.toString());
+                genreLabel.setFont(new Font("Avenir Next Bold", 35));
+
+                ArrayList<Rankings> rankingsByGenre = new ArrayList<>(rankingsDAO.getRankingByGenre(g));
+                GridPane rankingsGP = RankingsView.buildRankingView(rankingsByGenre);
+
+                rankingsGP.prefWidth(800);
+
+                allRankingsVB.getChildren().addAll(genreLabel, rankingsGP);
+                allRankingsVB.setId("rankings-scrollpane");
+                allRankingsVB.getStylesheets().add("/CSS/style.css");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        rankingsSP.setContent(allRankingsVB);
+        rankingsSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        rankingsSP.setId("rankings-scrollpane");
+        rankingsSP.getStylesheets().add("/CSS/style.css");
+
+        rankingsSP.setPrefHeight(600);
+        rankingsSP.setPrefWidth(925);
+
+        rightPane.getChildren().add(rankingsSP);
+        rankingsSP.relocate(50, 50);
+
     }
 
 
@@ -87,9 +120,9 @@ public class RankingsPageFXController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader();
             if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
-                loader.setLocation(getClass().getResource("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml"));
+                loader.setLocation(getClass().getResource("../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml"));
             } else{
-                loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserMainPageFX.fxml"));
+                loader.setLocation(getClass().getResource("../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml"));
             }
 
             Parent root = loader.load();

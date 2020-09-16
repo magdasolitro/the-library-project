@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -26,9 +25,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
-public class UserCartPageFXController implements Initializable {
+public class CartPageFXController implements Initializable {
     @FXML
     private AnchorPane rightPane;
 
@@ -100,12 +98,12 @@ public class UserCartPageFXController implements Initializable {
 
         try{
             switch (LastOpenedPageController.getLastOpenedPage()) {
-                case "../../FXML/UserFXML/UserProfileFX.fxml": {
+                case "../../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml": {
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserProfileFX.fxml"));
+                    loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml"));
                     Parent root = loader.load();
 
-                    LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                    LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
 
                     Scene scene = new Scene(root);
                     Stage newStage = new Stage();
@@ -122,9 +120,9 @@ public class UserCartPageFXController implements Initializable {
                     Parent root = loader.load();
 
                     if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
-                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
                     } else {
-                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
                     }
 
                     Scene scene = new Scene(root);
@@ -135,12 +133,12 @@ public class UserCartPageFXController implements Initializable {
                     newStage.show();
                     break;
                 }
-                case "../../FXML/UserFXML/UserMainPageFX.fxml": {
-                    viewPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+                case "../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml": {
+                    viewPage("../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
                     break;
                 }
-                case "../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml":{
-                    viewPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+                case "../../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml":{
+                    viewPage("../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
                     break;
                 }
             }
