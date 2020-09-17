@@ -118,7 +118,7 @@ public class DataModificationPageFXController implements Initializable {
                 stage.close();
 
                 try {
-                    viewPage("../../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
+                    viewPage("/FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
                 } catch (IOException ioe) {
                     ioe.getStackTrace();
                 }
@@ -145,7 +145,7 @@ public class DataModificationPageFXController implements Initializable {
             stage.close();
 
             try {
-                viewPage("../../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
+                viewPage("/FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
             } catch (IOException ioe){
                 ioe.getStackTrace();
             }
@@ -157,7 +157,7 @@ public class DataModificationPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
+            viewPage("/FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
         } catch (IOException ioe){
             ioe.getStackTrace();
         }
@@ -168,7 +168,7 @@ public class DataModificationPageFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+        LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

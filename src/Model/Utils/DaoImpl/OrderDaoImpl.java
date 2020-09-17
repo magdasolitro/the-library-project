@@ -28,15 +28,19 @@ public class OrderDaoImpl implements OrderDAO {
 
         ResultSet rs = pstmt.executeQuery();
 
-        Order order = new Order(rs.getString("orderID"),
-                rs.getString("date"),
-                rs.getString("status"),
-                rs.getString("paymentMethod"),
-                rs.getBigDecimal("price"),
-                rs.getInt("points"),
-                rs.getString("shippingAddress"),
-                rs.getString("user"),
-                rs.getInt("isRegistred"));
+        Order order = null;
+
+        while(rs.next()) {
+            order = new Order(rs.getString("orderID"),
+                    rs.getString("date"),
+                    rs.getString("status"),
+                    rs.getString("paymentMethod"),
+                    rs.getBigDecimal("price"),
+                    rs.getInt("points"),
+                    rs.getString("shippingAddress"),
+                    rs.getString("user"),
+                    rs.getInt("isRegistred"));
+        }
 
         rs.close();
         pstmt.close();
@@ -44,6 +48,7 @@ public class OrderDaoImpl implements OrderDAO {
         connection.closeConnection();
 
         return order;
+
     }
 
     @Override

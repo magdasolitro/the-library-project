@@ -89,7 +89,7 @@ public class SingleBookPageFXController implements Initializable {
                 stage.close();
 
                 try {
-                    viewPage("../../FXML/WelcomePageFX.fxml");
+                    viewPage("/FXML/WelcomePageFX.fxml");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -104,7 +104,7 @@ public class SingleBookPageFXController implements Initializable {
                 stage.close();
 
                 try {
-                    viewPage("../../FXML/SignInPageFX.fxml");
+                    viewPage("/FXML/SignInPageFX.fxml");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -136,7 +136,7 @@ public class SingleBookPageFXController implements Initializable {
                     GeneralLoginController.logout();
 
                     try {
-                        viewPage("../../FXML/WelcomePageFX.fxml");
+                        viewPage("/FXML/WelcomePageFX.fxml");
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -167,7 +167,7 @@ public class SingleBookPageFXController implements Initializable {
                     stage.close();
 
                     try {
-                        viewPage("../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
+                        viewPage("/FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -242,7 +242,7 @@ public class SingleBookPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/UserProfileFX.fxml");
+            viewPage("/FXML/UserFXML/UserProfileFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -253,7 +253,7 @@ public class SingleBookPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/CartPageFX.fxml");
+            viewPage("/FXML/UserFXML/CartPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -264,7 +264,7 @@ public class SingleBookPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/UserFXML/CartPageFX.fxml");
+            viewPage("/FXML/UserFXML/CartPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -287,7 +287,7 @@ public class SingleBookPageFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/SingleBookPageFX.fxml");
+        LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/SingleBookPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

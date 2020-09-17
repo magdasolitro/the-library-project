@@ -132,7 +132,7 @@ public class UserMainPageView {
                 Stage stage = (Stage) singleBook.getScene().getWindow();
                 stage.close();
 
-                viewPage("../../FXML/UserFXML/SingleBookPageFX.fxml");
+                viewPage("/FXML/UserFXML/SingleBookPageFX.fxml");
             } catch (IOException ioe){
                 System.out.println("IOException" + ioe.getMessage());
             }
@@ -148,9 +148,9 @@ public class UserMainPageView {
         Parent root = loader.load();
 
         if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")){
-            LastOpenedPageController.setLastOpenedPage("../../FXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+            LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
         } else {
-            LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserMainPageFX.fxml");
+            LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
         }
 
         Scene scene = new Scene(root);

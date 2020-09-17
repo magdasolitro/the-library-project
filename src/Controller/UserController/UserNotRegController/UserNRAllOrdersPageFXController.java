@@ -85,7 +85,7 @@ public class UserNRAllOrdersPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+            viewPage("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

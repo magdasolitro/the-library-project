@@ -140,7 +140,7 @@ public class UserNRMainPageFXController implements Initializable {
         Stage stage = (Stage) loginLabel.getScene().getWindow();
         stage.close();
 
-        viewPage("../../../FXML/WelcomePageFX.fxml");
+        viewPage("/FXML/WelcomePageFX.fxml");
     }
 
     public void handleSignInRequest() {
@@ -148,7 +148,7 @@ public class UserNRMainPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../../FXML/SignInPageFX.fxml");
+            viewPage("/FXML/SignInPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -159,7 +159,7 @@ public class UserNRMainPageFXController implements Initializable {
             Stage stage = (Stage) cartIcon.getScene().getWindow();
             stage.close();
 
-            viewPage("../../../FXML/UserFXML/CartPageFX.fxml");
+            viewPage("/FXML/UserFXML/CartPageFX.fxml");
         } catch (IOException ioe){
             System.out.println("IOException" + ioe.getMessage());
         }
@@ -210,7 +210,7 @@ public class UserNRMainPageFXController implements Initializable {
             Stage stage = (Stage) myOrdersLabel.getScene().getWindow();
             stage.close();
 
-            viewPage("../../../FXML/UserFXML/UserNotRegFXML/UserNRAllOrdersPageFX.fxml");
+            viewPage("/FXML/UserFXML/UserNotRegFXML/UserNRAllOrdersPageFX.fxml");
         } catch (IOException ioe){
             System.out.println("IOException" + ioe.getMessage());
         }
@@ -222,7 +222,7 @@ public class UserNRMainPageFXController implements Initializable {
         stage.close();
 
         try{
-            viewPage("../../../FXML/RankingsPageFX.fxml");
+            viewPage("/FXML/RankingsPageFX.fxml");
         } catch (IOException ioe){
             System.out.println("IOException" + ioe.getMessage());
         }
@@ -234,7 +234,7 @@ public class UserNRMainPageFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+        LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

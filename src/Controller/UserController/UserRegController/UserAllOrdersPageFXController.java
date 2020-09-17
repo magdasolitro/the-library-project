@@ -46,7 +46,7 @@ public class UserAllOrdersPageFXController implements Initializable {
         stage.close();
 
         try{
-            viewPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+            viewPage(LastOpenedPageController.getLastOpenedPage());
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
@@ -58,7 +58,7 @@ public class UserAllOrdersPageFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+        LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

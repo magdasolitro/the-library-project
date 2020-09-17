@@ -98,12 +98,12 @@ public class CartPageFXController implements Initializable {
 
         try{
             switch (LastOpenedPageController.getLastOpenedPage()) {
-                case "../../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml": {
+                case "/FXML/UserFXML/UserRegFXML/UserProfileFX.fxml": {
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("../../FXML/UserFXML/UserRegFXML/UserProfileFX.fxml"));
+                    loader.setLocation(getClass().getResource("/FXML/UserFXML/UserRegFXML/UserProfileFX.fxml"));
                     Parent root = loader.load();
 
-                    LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+                    LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
 
                     Scene scene = new Scene(root);
                     Stage newStage = new Stage();
@@ -114,15 +114,15 @@ public class CartPageFXController implements Initializable {
 
                     break;
                 }
-                case "../../FXML/UserFXML/SingleBookPageFX.fxml": {
+                case "/FXML/UserFXML/SingleBookPageFX.fxml": {
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("../../FXML/UserFXML/SingleBookPageFX.fxml"));
+                    loader.setLocation(getClass().getResource("/FXML/UserFXML/SingleBookPageFX.fxml"));
                     Parent root = loader.load();
 
                     if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
-                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+                        LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
                     } else {
-                        LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+                        LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
                     }
 
                     Scene scene = new Scene(root);
@@ -133,12 +133,12 @@ public class CartPageFXController implements Initializable {
                     newStage.show();
                     break;
                 }
-                case "../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml": {
-                    viewPage("../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+                case "/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml": {
+                    viewPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
                     break;
                 }
-                case "../../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml":{
-                    viewPage("../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+                case "/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml":{
+                    viewPage("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
                     break;
                 }
             }
@@ -154,9 +154,9 @@ public class CartPageFXController implements Initializable {
 
         try {
             if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
-                viewPage("../../FXML/UserNotRegFXML/UserNROrderConfirmationPageFX.fxml");
+                viewPage("/FXML/UserFXML/UserNotRegFXML/UserNROrderConfirmationPageFX.fxml");
             } else {
-                viewPage("../../FXML/UserFXML/UserOrderConfirmationPageFX.fxml");
+                viewPage("/FXML/UserFXML/UserRegFXML/UserOrderConfirmationPageFX.fxml");
             }
         } catch (IOException e) {
             e.printStackTrace();

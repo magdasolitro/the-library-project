@@ -1,7 +1,6 @@
 package Controller.UserController.UserRegController;
 
 import Controller.GeneralLoginController;
-import Controller.LastOpenedPageController;
 import Model.Exceptions.InvalidStringException;
 import Model.User;
 import Model.Utils.DAOs.UserDAO;
@@ -77,7 +76,7 @@ public class UserLoginFXController implements Initializable {
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
 
-            viewPage("../../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+            viewPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
         }
     }
 
@@ -87,7 +86,7 @@ public class UserLoginFXController implements Initializable {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
 
-        viewPage("../../../FXML/WelcomePageFX.fxml");
+        viewPage("/FXML/WelcomePageFX.fxml");
     }
 
 
@@ -95,8 +94,6 @@ public class UserLoginFXController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
-
-        LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserRegFXML/UserLoginFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

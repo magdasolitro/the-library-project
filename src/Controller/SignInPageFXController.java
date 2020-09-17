@@ -106,7 +106,7 @@ public class SignInPageFXController implements Initializable {
             Stage stage = (Stage) signInButton.getScene().getWindow();
             stage.close();
 
-            viewPage("../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+            viewPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
         }
     }
 
@@ -116,11 +116,9 @@ public class SignInPageFXController implements Initializable {
         stage.close();
 
         if(LastOpenedPageController.getLastOpenedPage() == null) {
-            viewPage("../FXML/WelcomePageFX.fxml");
+            viewPage("/FXML/WelcomePageFX.fxml");
         } else {
-            // substring(6) because pattern is set to be "../../../FXML" but in this case
-            // i need "../FXML" to go in the right directory
-            viewPage(LastOpenedPageController.getLastOpenedPage().substring(6));
+            viewPage(LastOpenedPageController.getLastOpenedPage());
         }
     }
 

@@ -2,6 +2,7 @@ package Controller.UserController.UserNotRegController;
 
 import Controller.GeneralLoginController;
 import Controller.LastOpenedPageController;
+import Controller.OrderIDController;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
 import Model.Exceptions.UserNotInDatabaseException;
@@ -54,7 +55,7 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
         try {
             CartDAO cartDAO = new CartDaoImpl();
 
-            Label totalPriceLabel = new Label("" + cartDAO.totalCost(GeneralLoginController.getLoginInstance()));
+            Label totalPriceLabel = new Label("$ " + cartDAO.totalCost(GeneralLoginController.getLoginInstance()));
             totalPriceLabel.setFont(new Font("Avenir Book", 25));
 
             whiteAnchorPane.getChildren().add(totalPriceLabel);
@@ -72,7 +73,7 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../../FXML/UserFXML/CartPageFX.fxml");
+            viewPage("/FXML/UserFXML/CartPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -184,15 +185,17 @@ public class UserNROrderConfirmationPageFXController implements Initializable {
 
                     connection2.closeConnection();
 
+                    OrderIDController.setCurrentOrderID(orderID);
+
 
                     Stage closingStage = (Stage) checkOutButton.getScene().getWindow();
                     closingStage.close();
 
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(UserOrderConfirmationPageView.class.getResource("../../../FXML/UserFXML/UserOrderSuccessfulPageFX.fxml"));
+                    loader.setLocation(UserOrderConfirmationPageView.class.getResource("/FXML/UserFXML/UserNotRegFXML/UserNROrderSuccessfulPageFX.fxml"));
                     Parent root = loader.load();
 
-                    LastOpenedPageController.setLastOpenedPage("../../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+                    LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
 
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();

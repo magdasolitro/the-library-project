@@ -100,7 +100,7 @@ public class UserProfileFXController implements Initializable {
             Stage stage = (Stage) myOrdersButton.getScene().getWindow();
             stage.close();
 
-            viewPage("../../../FXML/UserFXML/UserRegFXML/UserAllOrdersPageFX.fxml");
+            viewPage("/FXML/UserFXML/UserRegFXML/UserAllOrdersPageFX.fxml");
         } catch(IOException ioe){
             ioe.getStackTrace();
         }
@@ -111,7 +111,7 @@ public class UserProfileFXController implements Initializable {
             Stage stage = (Stage) cartIcon.getScene().getWindow();
             stage.close();
 
-            viewPage("../../../FXML/UserFXML/CartPageFX.fxml");
+            viewPage("/FXML/UserFXML/CartPageFX.fxml");
         } catch(IOException ioe){
             ioe.getStackTrace();
         }
@@ -123,7 +123,7 @@ public class UserProfileFXController implements Initializable {
             Stage stage = (Stage) modifyDataButton.getScene().getWindow();
             stage.close();
 
-            viewPage("../../../FXML/UserFXML/UserRegFXML/DataModificationPageFX.fxml");
+            viewPage("/FXML/UserFXML/UserRegFXML/DataModificationPageFX.fxml");
         } catch(IOException ioe){
             ioe.getStackTrace();
         }
@@ -147,7 +147,7 @@ public class UserProfileFXController implements Initializable {
             stage.close();
 
             try {
-                viewPage("../../../FXML/WelcomePageFX.fxml");
+                viewPage("/FXML/WelcomePageFX.fxml");
             } catch (IOException ioe) {
                 ioe.getStackTrace();
             }
@@ -183,7 +183,7 @@ public class UserProfileFXController implements Initializable {
                 Stage stage = (Stage) deleteAccountButton.getScene().getWindow();
                 stage.close();
 
-                viewPage("../../../FXML/WelcomePageFX.fxml");
+                viewPage("/FXML/WelcomePageFX.fxml");
 
             } catch(SQLException | IOException e){
                 e.getStackTrace();
@@ -199,7 +199,15 @@ public class UserProfileFXController implements Initializable {
         stage.close();
 
         try{
-            viewPage(LastOpenedPageController.getLastOpenedPage());
+            if(LastOpenedPageController.getLastOpenedPage().equals("/FXML/UserFXML/SingleBookPageFX.fxml"))
+                if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG"))
+                    viewPage("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+                else{
+                    viewPage("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
+                }
+            else {
+                viewPage(LastOpenedPageController.getLastOpenedPage());
+            }
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
@@ -211,11 +219,7 @@ public class UserProfileFXController implements Initializable {
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
 
-        if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
-            LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
-        } else {
-            LastOpenedPageController.setLastOpenedPage("../../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml");
-        }
+        LastOpenedPageController.setLastOpenedPage("/FXML/UserFXML/UserRegFXML/UserProfileFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

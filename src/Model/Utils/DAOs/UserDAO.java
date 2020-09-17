@@ -7,22 +7,22 @@ import java.sql.SQLException;
 
 public interface UserDAO {
 
-    public User getUser(String email) throws SQLException, InvalidStringException;
+    User getUser(String email) throws SQLException, InvalidStringException;
 
-    public void addUser(User user) throws SQLException, UserNotInDatabaseException,
+    void addUser(User user) throws SQLException, UserNotInDatabaseException,
             InvalidStringException;
 
-    public void deleteUser(String email) throws SQLException;
+    void deleteUser(String email) throws SQLException;
 
-    public void updatePhone(String email, String newPhone) throws SQLException;
+    void updatePhone(String email, String newPhone) throws SQLException;
 
-    public void updatePassword(String email, String newPassword) throws SQLException;
+    void updatePassword(String email, String newPassword) throws SQLException;
 
-    public void updateHomeAddress(String email, String newAddress) throws SQLException;
+    void updateHomeAddress(String email, String newAddress) throws SQLException;
 
-    public void updateStreetNumber(String email, String newStreetNumber) throws SQLException;
+    void updateStreetNumber(String email, String newStreetNumber) throws SQLException;
 
-    public void updateZIPCode(String email, String newZIPCode) throws SQLException;
+    void updateZIPCode(String email, String newZIPCode) throws SQLException;
 
-    public void updateHomeCity(String email, String newHomeCity) throws SQLException;
+    void updateHomeCity(String email, String newHomeCity) throws SQLException;
 }

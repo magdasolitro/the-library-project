@@ -130,44 +130,6 @@ public class CartDaoImpl implements CartDAO {
         return totalCost.setScale(2, RoundingMode.FLOOR);
     }
 
-    @Override
-    public void increaseQuantity(String ISBN, String email) throws SQLException {
-        String sql = "UPDATE cart SET quantity = quantity + 1 " +
-                     "WHERE book = ?" +
-                     "AND user = ?";
-
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.openConnection();
-
-        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
-        pstmt.setString(1, ISBN);
-        pstmt.setString(2, email);
-
-        pstmt.executeUpdate();
-
-        pstmt.close();
-
-        connection.closeConnection();
-    }
-
-    @Override
-    public void decreaseQuantity(String ISBN, String email) throws SQLException {
-        String sql = "UPDATE cart SET quantity = quantity - 1 WHERE book = ?" +
-                     "AND user = ?";
-
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.openConnection();
-
-        PreparedStatement pstmt = connection.conn.prepareStatement(sql);
-        pstmt.setString(1, ISBN);
-        pstmt.setString(2, email);
-
-        pstmt.executeUpdate();
-
-        pstmt.close();
-
-        connection.closeConnection();
-    }
 
     @Override
     public ArrayList<Book> cartContent(String email) throws SQLException,
