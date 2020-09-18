@@ -10,18 +10,18 @@
 \contentsline {paragraph}{}{3}
 \contentsline {section}{\numberline {3}UML}{3}
 \contentsline {subsection}{\numberline {3.1}Use Cases}{3}
-\contentsline {subsection}{\numberline {3.2}Activity Diagram}{3}
-\contentsline {subsection}{\numberline {3.3}Class Diagram}{3}
-\contentsline {subsection}{\numberline {3.4}Sequence Diagram}{4}
-\contentsline {section}{\numberline {4}Scelte progettuali}{4}
-\contentsline {subsection}{\numberline {4.1}Sviluppo}{4}
-\contentsline {subsection}{\numberline {4.2}Metodologia di sviluppo}{4}
-\contentsline {subsection}{\numberline {4.3}Database}{4}
-\contentsline {subsubsection}{\numberline {4.3.1}Schema logico}{5}
-\contentsline {subsubsection}{\numberline {4.3.2}Schema relazionale}{5}
-\contentsline {subsection}{\numberline {4.4}MVC Pattern}{5}
-\contentsline {subsection}{\numberline {4.5}Singleton Pattern}{5}
-\contentsline {subsection}{\numberline {4.6}Observer Pattern}{5}
-\contentsline {subsection}{\numberline {4.7}Data Access Object Pattern}{6}
-\contentsline {section}{\numberline {5}Validazione}{6}
-\contentsline {section}{\numberline {6}Conclusioni}{6}
+\contentsline {subsection}{\numberline {3.2}Activity Diagram}{9}
+\contentsline {subsection}{\numberline {3.3}Class Diagram}{9}
+\contentsline {subsection}{\numberline {3.4}Sequence Diagram}{9}
+\contentsline {section}{\numberline {4}Scelte progettuali}{9}
+\contentsline {subsection}{\numberline {4.1}Sviluppo}{9}
+\contentsline {subsection}{\numberline {4.2}Metodologia di sviluppo}{10}
+\contentsline {subsection}{\numberline {4.3}Database}{10}
+\contentsline {subsubsection}{\numberline {4.3.1}Schema logico}{10}
+\contentsline {subsubsection}{\numberline {4.3.2}Schema relazionale}{10}
+\contentsline {subsection}{\numberline {4.4}MVC Pattern}{10}
+\contentsline {subsection}{\numberline {4.5}Singleton Pattern}{11}
+\contentsline {subsection}{\numberline {4.6}Observer Pattern}{11}
+\contentsline {subsection}{\numberline {4.7}Data Access Object Pattern}{11}
+\contentsline {section}{\numberline {5}Validazione}{12}
+\contentsline {section}{\numberline {6}Conclusioni}{12}

@@ -35,7 +35,7 @@
                         <Font name="Avenir Book" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="signInLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="418.0" onMouseClicked="#handleSignInClick" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #ffffff;" text="Sign in" textAlignment="CENTER" underline="true">
+                <Label fx:id="signInLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="418.0" onMouseClicked="#handleSignInClick" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #ffffff;" text="Sign Up" textAlignment="CENTER" underline="true">
                     <font>
                         <Font name="Avenir Book" size="20.0" />
                     </font>

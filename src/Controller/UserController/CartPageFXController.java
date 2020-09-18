@@ -149,16 +149,29 @@ public class CartPageFXController implements Initializable {
 
 
     public void handleCheckOut() {
-        Stage stage = (Stage) checkOutButton.getScene().getWindow();
-        stage.close();
+
+        CartDAO cartDAO = new CartDaoImpl();
 
         try {
-            if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
-                viewPage("/FXML/UserFXML/UserNotRegFXML/UserNROrderConfirmationPageFX.fxml");
+            if(cartDAO.cartContent(GeneralLoginController.getLoginInstance()).isEmpty()){
+                Alert emptyCartAlert = new Alert(Alert.AlertType.ERROR);
+
+                emptyCartAlert.setTitle("Empty Cart Error");
+                emptyCartAlert.setHeaderText("You cannot proceed to check out.");
+                emptyCartAlert.setContentText("Your cart is empty!");
+
+                emptyCartAlert.showAndWait();
             } else {
-                viewPage("/FXML/UserFXML/UserRegFXML/UserOrderConfirmationPageFX.fxml");
+                Stage stage = (Stage) checkOutButton.getScene().getWindow();
+                stage.close();
+
+                if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
+                    viewPage("/FXML/UserFXML/UserNotRegFXML/UserNROrderConfirmationPageFX.fxml");
+                } else {
+                    viewPage("/FXML/UserFXML/UserRegFXML/UserOrderConfirmationPageFX.fxml");
+                }
             }
-        } catch (IOException e) {
+        } catch (SQLException | InvalidStringException | IllegalValueException | IOException e) {
             e.printStackTrace();
         }
     }

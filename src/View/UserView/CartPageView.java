@@ -140,8 +140,8 @@ public class CartPageView {
                         cartDAO.removeBookFromCart(book.getISBN(), GeneralLoginController.getLoginInstance());
 
                         ArrayList<Book> newCart = new ArrayList<>(cartDAO.cartContent(GeneralLoginController.getLoginInstance()));
-                    } catch (SQLException | InvalidStringException | IllegalValueException sqle) {
-                        sqle.printStackTrace();
+                    } catch (SQLException | InvalidStringException | IllegalValueException ex) {
+                        ex.printStackTrace();
                     }
                 } else {
                     e.consume();

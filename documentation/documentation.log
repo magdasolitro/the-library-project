@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.18)  17 SEP 2020 21:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.18)  18 SEP 2020 23:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -137,28 +137,48 @@ Package csquotes Info: ... configuration file loaded successfully.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/csquotes/csquotes.cfg
 File: csquotes.cfg 
 ))
+(/usr/local/texlive/2018/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/04/07 v2.4g Tabular extension package (FMi)
+\col@sep=\dimen116
+\ar@mcellbox=\box27
+\extrarowheight=\dimen117
+\NC@list=\toks20
+\extratabsurround=\skip43
+\backup@length=\skip44
+\ar@cellbox=\box28
+)
+\rotheadsize=\dimen118
+\c@nlinenum=\count104
+\TeXr@lab=\toks21
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'italian'.
-
-(./documentation.aux)
+ (./documentation.aux)
 \openout1 = `documentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Info: Redefining \it@ocap on input line 12.
-LaTeX Info: Redefining \it@ccap on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Info: Redefining \it@ocap on input line 15.
+LaTeX Info: Redefining \it@ccap on input line 15.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -196,17 +216,17 @@ LaTeX Info: Redefining \it@ccap on input line 12.
 
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count104
-\scratchdimen=\dimen116
-\scratchbox=\box27
-\nofMPsegments=\count105
-\nofMParguments=\count106
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count107
-\MPscratchDim=\dimen117
-\MPnumerator=\count108
-\makeMPintoPDFobject=\count109
-\everyMPtoPDFconversion=\toks21
+\scratchcounter=\count105
+\scratchdimen=\dimen119
+\scratchbox=\box29
+\nofMPsegments=\count106
+\nofMParguments=\count107
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count108
+\MPscratchDim=\dimen120
+\MPnumerator=\count109
+\makeMPintoPDFobject=\count110
+\everyMPtoPDFconversion=\toks23
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -262,7 +282,7 @@ e
 <images/univr_logo.png, id=1, 255.95625pt x 191.9672pt>
 File: images/univr_logo.png Graphic file (type png)
 <use images/univr_logo.png>
-Package pdftex.def Info: images/univr_logo.png  used on input line 18.
+Package pdftex.def Info: images/univr_logo.png  used on input line 21.
 (pdftex.def)             Requested size: 127.9778pt x 95.98335pt.
 
 [1
@@ -276,62 +296,99 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 12.
 )
-\tf@toc=\write3
-\openout3 = `documentation.toc'.
+\tf@toc=\write4
+\openout4 = `documentation.toc'.
 
  [1] [2]
-<images/Utils.png, id=21, 1152.305pt x 163.61125pt>
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 77.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+Overfull \hbox (9.64058pt too wide) in paragraph at lines 58--120
+[]
+ []
+
+
+Overfull \hbox (16.754pt too wide) in paragraph at lines 58--120
+[]
+ []
+
+
+Overfull \hbox (17.01501pt too wide) in paragraph at lines 58--120
+[]
+ []
+
+[3] [4] [5]
+Overfull \hbox (11.44418pt too wide) in paragraph at lines 121--147
+[][] 
+ []
+
+[6]
+Overfull \hbox (16.57074pt too wide) in paragraph at lines 148--170
+[][] 
+ []
+
+[7]
+Overfull \hbox (21.49603pt too wide) in paragraph at lines 171--195
+[][] 
+ []
+
+[8]
+<images/Utils.png, id=42, 1152.305pt x 163.61125pt>
 File: images/Utils.png Graphic file (type png)
 <use images/Utils.png>
-Package pdftex.def Info: images/Utils.png  used on input line 59.
-(pdftex.def)             Requested size: 460.91383pt x 65.44333pt.
-<images/Controller.png, id=23, 1233.60875pt x 168.63pt>
-File: images/Controller.png Graphic file (type png)
-<use images/Controller.png>
-Package pdftex.def Info: images/Controller.png  used on input line 64.
-(pdftex.def)             Requested size: 493.43475pt x 67.45079pt.
+Package pdftex.def Info: images/Utils.png  used on input line 200.
+(pdftex.def)             Requested size: 495.48149pt x 70.35146pt.
 
-Overfull \hbox (9.73788pt too wide) in paragraph at lines 64--65
+Overfull \hbox (11.78462pt too wide) in paragraph at lines 200--201
  [][] 
  []
 
-[3 <./images/Utils.png> <./images/Controller.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 76--80
+<images/Controller.png, id=44, 1233.60875pt x 168.63pt>
+File: images/Controller.png Graphic file (type png)
+<use images/Controller.png>
+Package pdftex.def Info: images/Controller.png  used on input line 205.
+(pdftex.def)             Requested size: 493.43475pt x 67.45079pt.
+
+Overfull \hbox (9.73788pt too wide) in paragraph at lines 205--206
+ [][] 
+ []
+
+[9 <./images/Utils.png> <./images/Controller.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 217--221
 
  []
 
-<images/MVCPattern.png, id=30, 396.48125pt x 378.41376pt>
+<images/MVCPattern.png, id=50, 396.48125pt x 378.41376pt>
 File: images/MVCPattern.png Graphic file (type png)
 <use images/MVCPattern.png>
-Package pdftex.def Info: images/MVCPattern.png  used on input line 86.
+Package pdftex.def Info: images/MVCPattern.png  used on input line 228.
 (pdftex.def)             Requested size: 158.58968pt x 151.36281pt.
-[4]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 91.
- (/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Underfull \hbox (badness 10000) in paragraph at lines 90--93
+
+Underfull \hbox (badness 10000) in paragraph at lines 232--235
 
  []
 
-[5 <./images/MVCPattern.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 97.
+[10 <./images/MVCPattern.png>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 239.
+
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 97.
- [6]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 239.
+ [11] [12]
 (./documentation.aux) ) 
 Here is how much of TeX's memory you used:
- 3704 strings out of 492649
- 52162 string characters out of 6129622
- 140967 words of memory out of 5000000
- 7520 multiletter control sequences out of 15000+600000
+ 3943 strings out of 492649
+ 55043 string characters out of 6129622
+ 150477 words of memory out of 5000000
+ 7748 multiletter control sequences out of 15000+600000
  14899 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,7n,25p,1024b,224s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,14n,25p,1024b,224s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/cm-s
 uper/cm-super-t1.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-s
@@ -345,10 +402,10 @@ c2074.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfrm1
 pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfti1200.pf
 b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
 
-Output written on documentation.pdf (7 pages, 312433 bytes).
+Output written on documentation.pdf (13 pages, 328578 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 53 compressed objects within 1 object stream
+ 100 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -50,7 +50,7 @@ public class BookModificationPageFXController implements Initializable {
 
 
     public void confirmChanges(MouseEvent evt){
-        if(bookISBNTF.getText().isEmpty() ){
+        if(bookISBNTF.getText().isEmpty()){
             Alert missingISBNAlert = new Alert(Alert.AlertType.ERROR);
 
             missingISBNAlert.setTitle("Missing ISBN");
@@ -58,7 +58,6 @@ public class BookModificationPageFXController implements Initializable {
             missingISBNAlert.setContentText("To perform some changes, you must specify a valid ISBN.");
 
             missingISBNAlert.showAndWait();
-
         } else if(priceTF.getText().isEmpty() &&
                 discountTF.getText().isEmpty() && availableCopiesTF.getText().isEmpty() &&
                 libroCardPointsTF.getText().isEmpty() && genresCB.getSelectionModel().isEmpty() &&
@@ -66,7 +65,7 @@ public class BookModificationPageFXController implements Initializable {
 
             Alert allEmptyFieldsAlert = new Alert(Alert.AlertType.WARNING);
 
-            allEmptyFieldsAlert.setTitle("All Empty Fields");
+            allEmptyFieldsAlert.setTitle("Empty Fields");
             allEmptyFieldsAlert.setContentText("All the fields are empty!");
             allEmptyFieldsAlert.setHeaderText("No changes will be performed on the book data.");
 
@@ -90,24 +89,26 @@ public class BookModificationPageFXController implements Initializable {
                 Optional<ButtonType> response = confirmChangesAlert.showAndWait();
 
                 if (response.isPresent() && response.get() == ButtonType.OK) {
-                    if(!priceTF.getText().isEmpty()){
-                        try {
+                    if (!priceTF.getText().isEmpty()) {
+                        //try {
                             bookDAO.editPrice(bookISBN,
-                                    BigDecimal.valueOf(Float.parseFloat(priceTF.getText())));
-                        } catch(NumberFormatException e){
+                                    BigDecimal.valueOf( Float.parseFloat( priceTF.getText()) ) );
+                        /*} catch (NumberFormatException e) {
                             Alert wrongFormatAlert = new Alert(Alert.AlertType.ERROR);
 
                             wrongFormatAlert.setTitle("Wrong Format");
                             wrongFormatAlert.setHeaderText("Price value is not valid");
                             wrongFormatAlert.setContentText("Please, insert a numerical value");
                         }
+
+                         */
                     }
 
-                    if(!discountTF.getText().isEmpty()){
-                        try{
+                    if (!discountTF.getText().isEmpty()) {
+                        try {
                             bookDAO.editDiscount(bookISBN,
                                     BigDecimal.valueOf(Float.parseFloat(discountTF.getText())));
-                        } catch(NumberFormatException e){
+                        } catch (NumberFormatException e) {
                             Alert wrongFormatAlert = new Alert(Alert.AlertType.ERROR);
 
                             wrongFormatAlert.setTitle("Wrong Format");
@@ -116,11 +117,11 @@ public class BookModificationPageFXController implements Initializable {
                         }
                     }
 
-                    if(!availableCopiesTF.getText().isEmpty()){
+                    if (!availableCopiesTF.getText().isEmpty()) {
                         try {
                             bookDAO.editAvailableCopies(bookISBN,
                                     Integer.parseInt(availableCopiesTF.getText()));
-                        } catch(NumberFormatException e){
+                        } catch (NumberFormatException e) {
                             Alert wrongFormatAlert = new Alert(Alert.AlertType.ERROR);
 
                             wrongFormatAlert.setTitle("Wrong Format");
@@ -129,7 +130,7 @@ public class BookModificationPageFXController implements Initializable {
                         }
                     }
 
-                    if(!libroCardPointsTF.getText().isEmpty()) {
+                    if (!libroCardPointsTF.getText().isEmpty()) {
                         bookDAO.editLibroCardPoints(bookISBN,
                                 Integer.parseInt(libroCardPointsTF.getText()));
                     }
@@ -140,7 +141,7 @@ public class BookModificationPageFXController implements Initializable {
 
                      */
 
-                    if(!descriptionTA.getText().isEmpty()){
+                    if (!descriptionTA.getText().isEmpty()) {
                         bookDAO.editDescription(bookISBN, descriptionTA.getText());
                     }
 
@@ -150,6 +151,7 @@ public class BookModificationPageFXController implements Initializable {
                     modificationSuccessfulAlert.setHeaderText("Your modification was successful");
 
                     modificationSuccessfulAlert.showAndWait();
+
 
                 } else {
                     evt.consume();
@@ -183,7 +185,7 @@ public class BookModificationPageFXController implements Initializable {
             stage.close();
 
             try {
-                viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
+                viewPage("/FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -198,7 +200,7 @@ public class BookModificationPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

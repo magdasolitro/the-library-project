@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserRegController.DataModificationPageFXController">
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.UserRegController.DataModificationPageFXController">
     <children>
         <Label layoutX="90.0" layoutY="270.0" text="Address:">
             <font>
@@ -63,7 +63,7 @@
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>
         </Button>
-        <Button fx:id="cancelChangesButton" layoutX="350.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#cancelChanges" prefHeight="50.0" prefWidth="200.0" text="Cancel">
+        <Button fx:id="cancelChangesButton" layoutX="350.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#cancelChanges" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #D3D3D3;" text="Cancel">
             <font>
                 <Font name="Avenir Next Bold" size="20.0" />
             </font>

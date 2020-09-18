@@ -6,8 +6,11 @@
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{csquotes}
+\usepackage{makecell}
+\usepackage{comment}
 
 \geometry{a4paper,left=2cm,right=2cm}
+
 
 \begin{document}
 	\begin{titlepage}
@@ -52,11 +55,149 @@
 	\end{quotation}
 	\section{UML}
 	\subsection{Use Cases}
+	In questa sezione verranno presentate alcune schede dei casi d'uso principali.\\Quali casi d'uso? visualizzazione tutte librocard (employee), inserimento nuovo libro (employee)\vspace{10px}, inserimento nuovo dipendente\\
+	% ridefinisco lo spazio tra righe
+	\renewcommand{\arraystretch}{2.0}
+	% aumento lo spazio tra colonne
+	\setlength{\tabcolsep}{15pt}
+	\begin{tabular}{| l | l |}
+		\hline
+		\textbf{ID} & UC1: Registrazione utente\\
+		\hline
+		\textbf{Attori} & Utente non registrato\\
+		\hline
+		\textbf{Precondizioni} & \\
+		\hline
+		\textbf{Sequenza} & \makecell[l]{
+		\\1) L'utente clicca sul pulsante \texttt{Sign Up} e viene portato nella pa-\\gina di registrazione\vspace{5px}\\
+		2) L'utente inserisce i propri dati anagrafici, le informazioni di \\contatto e una password negli appositi campi\vspace{5px}\\
+		3) L'utente clicca sul pulsante \texttt{Sign Up}\\
+		\quad\quad3.a) Se l'utente risulta essere già registrato, presenta un mes-\\\quad\quad saggio di errore e rifiuta la registrazione\\
+		\quad\quad3.b) Se l'utente non riempie alcuni campi, presenta un messag-\\\quad\quad gio di errore e rifiuta la registrazione\\
+		\quad\quad3.c) Se nel campo di controllo della password l'utente inserisce\\\quad\quad una password diversa, presenta un messaggio di errore e rifiu-\\\quad\quad ta la registrazione\vspace{5px}\\}\\
+		\hline
+		\textbf{Postcondizioni} & L'utente è stato correttamente inserito nel database\\
+		\hline
+	\end{tabular}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{ID} & UC2: Creazione di un ordine\\
+		\hline
+		\textbf{Attori} & Utente registrato\\
+		\hline
+		\textbf{Precondizioni} & \makecell[l]{\\1. L'utente deve aver effettuato il log in\vspace{5px}\\2. Il carrello dell'utente deve avere almeno un articolo\vspace{5px}\\}\\
+		\hline
+		\textbf{Sequenza} & \makecell[l]{\\1) Dalla pagina del carrello, l'utente clicca il pulsante \texttt{Check Out}\\
+		\quad\quad1.a Se il carrello è vuoto, viene presentato un messaggio d'erro-\\\quad\quad re che impedisce di procedere all'acquisto\vspace{5px}\\
+		2) L'utente seleziona un metodo di pagamento\vspace{5px}\\
+		3) L'utente sceglie l'indirizzo di spedizione, che può essere quello di \\domicilio o un altro indirizzo \vspace{5px}\\
+		\quad\quad 3.a) Se l'utente sceglie un indirizzo diverso da quello del domici-\\\quad\quad lio, allora deve specificare l'indirizzo nel campo apposito\vspace{5px}\\
+		4) L'utente clicca sul pulsante \texttt{Check Out}\vspace{5px}\\
+		\quad\quad 4.a) Se l'utente non ha selezionato un metodo di pagamento o\\\quad\quad non ha specificato l'indirizzo alternativo, viene presentato un \\
+		\quad\quad messaggio d'errore che richiede l'inserimento dei dati mancanti\vspace{5px}\\}\\
+		\hline
+		\textbf{Postcondizioni} & L'ordine viene confermato\\
+		\hline
+	\end{tabular}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{ID} & UC3: Creazione di un ordine\\
+		\hline
+		\textbf{Attori} & Utente non registrato\\
+		\hline
+		\textbf{Precondizioni} & \makecell[l]{Il carrello dell'utente deve avere almeno un articolo\vspace{5px}\\}\\
+		\hline
+		\textbf{Sequenza} & \makecell[l]{\\1) Dalla pagina del carrello, l'utente clicca il pulsante \texttt{Check Out}\\
+			\quad\quad1.a) Se il carrello è vuoto, viene presentato un messaggio d'erro-\\\quad\quad re che impedisce di procedere all'acquisto\vspace{5px}\\
+			2) L'utente deve specificare: nome, cognome, metodo di pagamento,\\un indirizzo di spedizione e le informazioni di contatto nei campi ap-\\positi \vspace{5px}\\
+			3) L'utente clicca sul pulsante \texttt{Check Out}\vspace{5px}\\
+			\quad\quad 3.a) Se l'utente non ha inserito tutti i campi richiesti, viene pre-\\\quad\quad sentato un messaggio d'errore che impedisce di completare \\\quad\quad l'acquisto\vspace{5px}\\}\\
+		\hline
+		\textbf{Postcondizioni} & L'ordine viene confermato\\
+		\hline
+	\end{tabular}
+	\vspace{20px}
+	\newpage
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{ID} & UC4: Modifica dei dati personali\\
+		\hline
+		\textbf{Attori} & Utente registrato\\
+		\hline
+		\textbf{Precondizioni} & \makecell[l]{L'utente deve aver effettuato il log in\vspace{5px}\\}\\
+		\hline
+		\textbf{Sequenza} & \makecell[l]{\\1) Dalla pagina del profilo, l'utente clicca il pulsante \texttt{Modify} \\ \texttt{your data}, che porta alla pagina di modifica dei dati\vspace{5px}\\
+		2) L'utente riempie esclusivamente i campi che desidera modifi-\\care\vspace{5px}\\
+		3) Se l'utente clicca sul pulsante \texttt{Confirm changes}, si apre un \\messaggio che richiede la conferma della modifica:\vspace{5px}\\
+		\hspace{11px} 3.1) Se l'utente clicca sul pulsante \texttt{OK} del dialog, i dati nel\\ 
+		\hspace{38px}database vengono modificati e l'utente viene riportato \\
+		\hspace{38px}nella pagina del profilo\vspace{5px}\\
+		\hspace{11px} 3.2) Se l'utente clicca sul pulsante \texttt{Cancel}, il dialog si chiude\\
+		\hspace{38px}e si resta nella pagina di modifica dei dati\vspace{5px}\\
+		4) Se l'utente clicca sul pulsante \texttt{Cancel} della pagina, si apre un\\
+		messaggio che richiede la conferma dell'azione:\vspace{5px}\\
+		\hspace{11px} 4.1) Se l'utente clicca il pulsante \texttt{OK} del dialog, si viene ripor-\\
+		\hspace{38px}tati nella pagina del profilo e i dati restano immutati\vspace{5px}\\
+		\hspace{11px} 4.2) Se l'utente clicca il pulsante \texttt{Cancel} del dialog, si resta \\
+		\hspace{38px} nella pagina di modifica dei dati\vspace{5px}}\\
+		\hline
+		\textbf{Postcondizioni} & I dati dell'utente vengono modificati, oppure restano inalterati\\
+		\hline
+	\end{tabular}
+	\newpage
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{ID} & UC5: Ricerca di un ordine\\
+		\hline
+		\textbf{Attori} & Utente non registrato\\
+		\hline
+		\textbf{Precondizioni} & \\
+		\hline
+		\textbf{Sequenza} & \makecell[l]{\\1) Dalla \texttt{MainPage}, l'utente clicca sulla scritta \texttt{MY ORDERS} in\\alto
+		a sinistra\vspace{5px}\\
+		2) L'utente viene portato nella pagina di relativa al traccia-\\mento degli ordini\vspace{5px}\\
+		3) L'utente inserisce nel campo apposito il codice univoco \\dell'ordine che desidera visualizzare\vspace{5px}\\
+		4) L'utente clicca sul pulsante di ricerca \texttt{Search}:\vspace{5px}\\
+		\hspace{15px}4.1) Se il codice corrisponde effettivamente a un ordine re-\\
+		\hspace{38px}gistrato nel database, si visualizzano le relative infor-\\
+		\hspace{38px}mazioni\vspace{5px}\\}\\
+		\hline
+		\textbf{Caso d'eccezione} & \makecell[l]{\\Se il codice non corrisponde ad alcun ordine presente nel data-\\base, si apre un messaggio d'errore\vspace{5px}}\\
+		\hline
+		\textbf{Postcondizione} & \makecell[l]{\\L'utente visualizza le informazioni relative all'ordine se questo\\ è presente nel database.\vspace{5px}\\}\\
+		\hline
+	\end{tabular}
+	\newpage
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{ID} & UC6: Aggiunta di un libro al carrello\\
+		\hline
+		\textbf{Attori} & Utente registrato\\
+		\hline
+		\textbf{Precondizioni} & L'utente deve aver effettuato il log in\\
+		\hline
+		\textbf{Sequenza} & \makecell[l]{\\1) Dalla \texttt{MainPage}, l'utente seleziona un libro\vspace{5px}\\
+		2) L'utente viene portato nella pagina contenente tutte le infor-\\
+		\hspace{15px}mazioni relative al libro\vspace{5px}\\
+		3) Se l'utente desidera più di una copia di quel libro, può sele-\\
+		\hspace{15px}zionare fino a dieci unità tramite lo Spinner a destra\vspace{5px}\\
+		4) L'utente clicca sul pulsante \texttt{Add To Cart} per aggiungere il \\
+		\hspace{15px}libro\vspace{5px}\\}\\
+		\hline
+		\textbf{Caso d'eccezione} & \makecell[l]{\\1) Se non ci sono più copie di quel libro, viene presentato un \\
+		\hspace{15px}messaggio d'errore e il libro non viene aggiunto\vspace{5px}\\
+		2) Se il libro è già presente nel carrello, viene presentato un\\
+		\hspace{15px}messaggio di errore e il libro non viene aggiunto\vspace{5px}\\}\\
+		\hline
+		\textbf{Postcondizione} & \makecell[l]{Il libro è stato aggiunto al carrello}\\
+		\hline
+	\end{tabular}
+	\newpage
 	\subsection{Activity Diagram}
 	\subsection{Class Diagram}
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[scale=0.4]{images/Utils.png}
+		\includegraphics[scale=0.43]{images/Utils.png}
 		\caption{Class Diagram per il package Utils}
 	\end{figure}
 	\begin{figure}[h!]
@@ -78,6 +219,7 @@
 	SQLite è un database engine \textit{"serverless"}, che viene quindi memorizzato interamente in locale, ed è inoltre scritto interamente in C, il che lo rende particolarmente veloce.\\
 	Questo strumento presenta tuttavia anche dei limiti ... \\
 	\subsubsection{Schema logico}
+	
 	\subsubsection{Schema relazionale}
 	\subsection{MVC Pattern}
 	Il funzionamento del progetto è basato sul MVC pattern, che prevede la suddivisione logica delle classi in tre componenti:
