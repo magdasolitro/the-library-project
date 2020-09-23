@@ -1,0 +1,51 @@
+title User Login
+
+activate Utente
+activate UserLoginPageFX 
+Utente -> UserLoginPageFX: 1: inserisci credenziali
+space
+deactivate Utente
+
+space
+
+activate Utente
+Utente->UserLoginPageFX: 2: clicca "Log In"
+UserLoginPageFX ->UserLoginPageFXController: 3: handleLoginRequest : void
+
+activate UserLoginPageFXController
+UserLoginPageFXController->UserDaoImpl: 4: getUser : userEmail
+activate UserDaoImpl
+
+alt credenziali valide
+UserLoginPageFXController <-- UserDaoImpl: 5: utente trovato
+deactivate UserDaoImpl
+deactivate UserLoginPageFX
+
+Utente <-- UserLoginPageFXController: 6: mostra MainPage
+deactivate UserLoginPageFXController
+
+else campi vuoti
+activate UserLoginPageFX
+activate UserLoginPageFXController
+UserLoginPageFXController ->UserLoginPageFXController : 7: campi vuoti
+Utente <-- UserLoginPageFXController: 8: mostra messaggio d'errore
+space
+deactivate UserLoginPageFXController
+deactivate UserLoginPageFX
+
+else credenziali non valide
+
+activate UserDaoImpl
+activate UserLoginPageFX
+activate UserLoginPageFXController
+UserLoginPageFXController <-- UserDaoImpl: 9: utente non trovato
+deactivate UserDaoImpl
+
+Utente <-- UserLoginPageFXController: 10: mostra messaggio d'errore
+space
+deactivate UserLoginPageFXController
+deactivate UserLoginPageFX
+deactivate Utente
+
+
+end

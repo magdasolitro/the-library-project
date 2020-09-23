@@ -1,0 +1,55 @@
+title Modifica dati
+
+activate Utente
+activate UserProfilePageFX
+
+Utente ->UserProfilePageFX: 1: clicca "Modify data"
+
+
+UserProfilePageFX -> UserProfileFXController: 2: handleModificationRequest : void
+
+activate UserProfileFXController
+
+space
+deactivate UserProfilePageFX
+
+UserProfileFXController -> DataModificationPageFX: 3: apri DataModificationPage
+
+
+deactivate UserProfileFXController
+activate DataModificationPageFX
+
+Utente -> DataModificationPageFX: 4: riempi campi
+Utente ->DataModificationPageFX: 5: clicca "Confirm changes"
+
+DataModificationPageFX -> DataModificationPageFXController: 6: confirmChanges : void
+
+activate DataModificationPageFXController
+alt campi password diversi
+DataModificationPageFXController -> DataModificationPageFXController: 7: campi password diversi
+
+Utente <-- DataModificationPageFXController: 8: messaggio d'errore
+
+else
+
+DataModificationPageFXController ->UserDaoImpl: 9: aggiorna campi
+activate UserDaoImpl
+DataModificationPageFXController <-- UserDaoImpl: 10: aggiornamento completato 
+
+activate UserProfilePageFX
+
+DataModificationPageFX <--DataModificationPageFXController: 11: chiudi pagina
+
+deactivate DataModificationPageFX
+
+UserProfilePageFX <-- DataModificationPageFXController : 12: apri pagina profilo
+
+deactivate DataModificationPageFXController
+
+Utente <--UserProfilePageFX: 13: visualizza pagina
+
+deactivate Utente
+deactivate UserProfilePageFX
+deactivate UserDaoImpl
+
+end

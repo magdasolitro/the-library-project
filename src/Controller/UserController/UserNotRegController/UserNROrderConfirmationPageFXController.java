@@ -32,7 +32,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class UserNROrderConfirmationPageFXController implements Initializable {
+public class UserNROrderConfirmationPageFXController extends OrderIDController implements Initializable {
 
     @FXML
     private AnchorPane whiteAnchorPane;

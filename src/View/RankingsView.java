@@ -11,6 +11,7 @@ import javafx.geometry.HPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.sql.SQLException;
@@ -52,7 +53,7 @@ public class RankingsView {
 
         ColumnConstraints column3 = new ColumnConstraints();
         column3.setPrefWidth(270);
-        column3.setHalignment(HPos.LEFT);
+        column3.setHalignment(HPos.CENTER);
 
         rankingGP.getColumnConstraints().addAll(column1, column2, column3);
 
@@ -63,6 +64,8 @@ public class RankingsView {
         for(Rankings r : ranking){
             try {
                 Book currentBook = bookDAO.getBook(r.getBook());
+
+                VBox singleRankingVB = new VBox(10);
 
                 Label currentPosition = new Label("" + r.getCurrentPosition());
                 currentPosition.setFont(infoFont);
@@ -75,7 +78,7 @@ public class RankingsView {
 
                 rankingGP.add(currentPosition, 0, i);
                 rankingGP.add(bookTitle, 1, i);
-                rankingGP.add(weeksInPosition, 3, i);
+                rankingGP.add(weeksInPosition, 2, i);
 
                 i++;
 
@@ -83,6 +86,10 @@ public class RankingsView {
                 e.printStackTrace();
             }
         }
+
+        rankingGP.add(new Label(""), 0, i+1);
+        rankingGP.add(new Label(""), 0, i+2);
+        rankingGP.add(new Label(""), 0, i+3);
 
         rankingGP.setHgap(30);
 

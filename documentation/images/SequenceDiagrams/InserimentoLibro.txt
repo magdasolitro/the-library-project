@@ -1,0 +1,48 @@
+title Inserimento Libro
+
+activate Responsabile
+activate EmployeeMainPageFX
+Responsabile -> EmployeeMainPageFX: 1: clicca "Add a new book"
+EmployeeMainPageFX -> EmployeeMainPageFXController: 2: handleAddBookRequest : void
+activate EmployeeMainPageFXController
+EmployeeMainPageFX <-- EmployeeMainPageFXController: 3: chiudi MainPage
+deactivate EmployeeMainPageFX
+EmployeeMainPageFXController ->AddNewBookPageFX: 4: apri AddNewBookPage
+activate AddNewBookPageFX
+deactivate EmployeeMainPageFXController
+Responsabile -> AddNewBookPageFX: 5: inserisci dati libro
+Responsabile -> AddNewBookPageFX: 6: clicca "Add book"
+AddNewBookPageFX -> AddNewBookPageFXController: 7: handleAddBookRequest : void
+activate AddNewBookPageFXController
+AddNewBookPageFXController -> BookDaoImpl: 8: getBook : ISBN
+activate BookDaoImpl
+
+alt libro già presente
+AddNewBookPageFXController <-- BookDaoImpl: 9: libro già presente
+deactivate BookDaoImpl
+Responsabile <-- AddNewBookPageFXController: 10: mostra messaggio d'errore
+deactivate AddNewBookPageFXController
+deactivate Responsabile
+
+else campi vuoti
+
+activate Responsabile
+activate AddNewBookPageFXController
+AddNewBookPageFXController ->AddNewBookPageFXController: 11 alcuni campi vuoti
+Responsabile <--AddNewBookPageFXController: 12: mostra messaggio d'errore
+deactivate AddNewBookPageFXController
+deactivate Responsabile
+
+else libro aggiunto
+
+activate Responsabile
+activate AddNewBookPageFXController
+activate BookDaoImpl
+AddNewBookPageFXController <-- BookDaoImpl: 13: libro non trovato
+deactivate BookDaoImpl
+Responsabile <-- AddNewBookPageFXController: 14: mostra messaggio di successo
+deactivate AddNewBookPageFXController
+deactivate AddNewBookPageFX
+deactivate Responsabile
+
+end

@@ -49,7 +49,7 @@ public class AddNewEmployeeFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

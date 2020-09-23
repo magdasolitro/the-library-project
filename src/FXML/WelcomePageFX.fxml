@@ -6,49 +6,49 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="anchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
+<AnchorPane id="anchorPane" prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomePageFXController">
     <children>
-      <Pane id="pane" layoutX="319.0" layoutY="167.0" prefHeight="485.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;">
-         <children>
+        <Pane id="pane" layoutX="319.0" layoutY="167.0" prefHeight="445.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;">
+            <children>
                 <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="28.0" prefHeight="102.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;" text="Welcome!" textAlignment="CENTER">
                     <font>
                         <Font name="Avenir Next Bold" size="70.0" />
                     </font>
                 </Label>
-                <Button fx:id="userButton" layoutX="115.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#handleUserButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="USER">
-                    <font>
-                        <Font name="Avenir Book" size="25.0" />
-                    </font>
-            </Button>
-                <Label fx:id="logInChoiceLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="160.0" prefHeight="36.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF;" text="You can log in as:">
-                    <font>
-                        <Font name="Avenir Book" size="25.0" />
-                    </font>
-                </Label>
-                <Button fx:id="employeeButton" layoutX="384.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#handleEmployeeButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
+                <Button fx:id="userButton" layoutX="115.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#handleUserButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="USER">
                     <font>
                         <Font name="Avenir Book" size="25.0" />
                     </font>
                 </Button>
-                <Label fx:id="continueAsGuest" alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="360.0" onMouseClicked="#handleGuestClick" prefHeight="30.0" prefWidth="203.0" style="-fx-background-color: #ffffff;" text="Continue as guest" textAlignment="CENTER" underline="true">
-                    <font>
-                        <Font name="Avenir Book" size="20.0" />
-                    </font>
-                </Label>
-                <Label fx:id="signInLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="418.0" onMouseClicked="#handleSignInClick" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #ffffff;" text="Sign Up" textAlignment="CENTER" underline="true">
-                    <font>
-                        <Font name="Avenir Book" size="20.0" />
-                    </font>
-                </Label>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </Pane>
-      <ImageView fitHeight="166.0" fitWidth="297.0" layoutX="502.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-              <Image url="@../images/MindTravelsLogo.png" />
-          </image>
-      </ImageView>
+                    <Label fx:id="logInChoiceLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="150.0" prefHeight="36.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF;" text="You can log in as:">
+                        <font>
+                            <Font name="Avenir Book" size="25.0" />
+                        </font>
+                    </Label>
+                    <Button fx:id="employeeButton" layoutX="384.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#handleEmployeeButtonClick" prefHeight="54.0" prefWidth="165.0" style="-fx-background-color: #A9A9A9;" text="EMPLOYEE">
+                        <font>
+                            <Font name="Avenir Book" size="25.0" />
+                        </font>
+                    </Button>
+                    <Label fx:id="continueAsGuest" alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="320.0" onMouseClicked="#handleGuestClick" prefHeight="30.0" prefWidth="203.0" style="-fx-background-color: #ffffff;" text="Continue as guest" textAlignment="CENTER" underline="true">
+                        <font>
+                            <Font name="Avenir Book" size="20.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="signInLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="365.0" onMouseClicked="#handleSignInClick" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #ffffff;" text="Sign Up" textAlignment="CENTER" underline="true">
+                        <font>
+                            <Font name="Avenir Book" size="20.0" />
+                        </font>
+                    </Label>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </Pane>
+        <ImageView fitHeight="166.0" fitWidth="297.0" layoutX="502.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/MindTravelsLogo.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

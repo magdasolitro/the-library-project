@@ -40,9 +40,11 @@ public class BookModificationPageFXController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        genresCB.getItems().addAll("Autobiography", "Crime Fiction",
+        /*genresCB.getItems().addAll("Autobiography", "Crime Fiction",
                 "Fantasy", "History", "Narrative", "Philosophy of Science",
                 "Politics", "Science Fiction");
+
+         */
 
         goBackButton.setId("goback-button");
         goBackButton.getStylesheets().add("/CSS/style.css");

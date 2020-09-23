@@ -3,6 +3,7 @@ package Controller.EmployeeController;
 import Model.Book;
 import Model.Exceptions.IllegalValueException;
 import Model.Exceptions.InvalidStringException;
+import Model.Exceptions.ObjectNotInDatabaseException;
 import Model.Utils.DAOs.BookDAO;
 import Model.Utils.DaoImpl.BookDaoImpl;
 import javafx.fxml.FXML;
@@ -53,7 +54,7 @@ public class AddNewBookFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,8 +65,6 @@ public class AddNewBookFXController implements Initializable {
         BigDecimal price, discount;
 
         int publishingYear, copies, libroCardPoints;
-
-        Book newBook = null;
 
         // check if all the fields have been filled
         if(titleField.getText().isEmpty() || authorsField.getText().isEmpty()
@@ -81,54 +80,67 @@ public class AddNewBookFXController implements Initializable {
                     "you must provide all the requested informations");
 
             missingFields.showAndWait();
-        }
+        } else {
 
-        // check validity of numeric fields
-        try{
-            String priceStr = priceField.getText();
-            String publishingYearStr = publishingYearField.getText();
-            String discountStr = discountField.getText();
-            String copiesStr = copiesField.getText();
-            String libroCardPointsStr = libroCardPointsField.getText();
-
-            price = BigDecimal.valueOf(Float.parseFloat(priceStr));
-            publishingYear = Integer.parseInt(publishingYearStr);
-            discount = BigDecimal.valueOf(Float.parseFloat(discountStr));
-            copies = Integer.parseInt(copiesStr);
-            libroCardPoints = Integer.parseInt(libroCardPointsStr);
-
-            newBook = new Book(ISBNField.getText(), titleField.getText(),
-                    authorsField.getText(), genresChoiceBox.getValue(), price,
-                    descriptionField.getText(), publishingHouseField.getText(),
-                    publishingYear, discount, copies, libroCardPoints);
-
-        } catch(NumberFormatException nfe){
-            Alert nonValidNumericFieldsAlert = new Alert(Alert.AlertType.ERROR);
-
-            nonValidNumericFieldsAlert.setTitle("Non Valid Fields");
-            nonValidNumericFieldsAlert.setHeaderText("Some fields do not contain" +
-                    " acceptable values!");
-            nonValidNumericFieldsAlert.setContentText("Note that the fields Price, " +
-                    "Publishing Year, Discount, Number of Copies and LibroCard " +
-                    "Points should contain numeric values.");
-        } catch (InvalidStringException | IllegalValueException e) {
-            e.printStackTrace();
-        } finally {
-            BookDAO bookDAO = new BookDaoImpl();
-
+            // check validity of numeric fields
             try {
-                bookDAO.addBook(newBook);
-            } catch (SQLException | InvalidStringException e) {
+                String priceStr = priceField.getText();
+                String publishingYearStr = publishingYearField.getText();
+                String discountStr = discountField.getText();
+                String copiesStr = copiesField.getText();
+                String libroCardPointsStr = libroCardPointsField.getText();
+
+                price = BigDecimal.valueOf(Float.parseFloat(priceStr));
+                publishingYear = Integer.parseInt(publishingYearStr);
+                discount = BigDecimal.valueOf(Float.parseFloat(discountStr));
+                copies = Integer.parseInt(copiesStr);
+                libroCardPoints = Integer.parseInt(libroCardPointsStr);
+
+                Book newBook = new Book(ISBNField.getText(), titleField.getText(),
+                        authorsField.getText(), genresChoiceBox.getValue(), price,
+                        descriptionField.getText(), publishingHouseField.getText(),
+                        publishingYear, discount, copies, libroCardPoints);
+
+                BookDAO bookDAO = new BookDaoImpl();
+
+
+                try {
+                    if(bookDAO.getBook(ISBNField.getText()) == null){
+                        bookDAO.addBook(newBook);
+
+                        Alert bookSuccessfullyAddedAlert = new Alert(Alert.AlertType.INFORMATION);
+
+                        bookSuccessfullyAddedAlert.setTitle("Book Added");
+                        bookSuccessfullyAddedAlert.setHeaderText("Book successfully added!");
+                        bookSuccessfullyAddedAlert.setContentText("Congratulations! Now " +
+                                "the library is more full of culture than ever.");
+
+                        bookSuccessfullyAddedAlert.showAndWait();
+                    } else{
+                        Alert bookAlreadyInStock = new Alert(Alert.AlertType.ERROR);
+
+                        bookAlreadyInStock.setTitle("Book Already in Stock");
+                        bookAlreadyInStock.setHeaderText("The book you specified is already in stock!");
+                        bookAlreadyInStock.setContentText("Please, try to add a new book.");
+
+                        bookAlreadyInStock.showAndWait();
+                    }
+                } catch (SQLException | InvalidStringException | ObjectNotInDatabaseException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (NumberFormatException nfe) {
+                Alert nonValidNumericFieldsAlert = new Alert(Alert.AlertType.ERROR);
+
+                nonValidNumericFieldsAlert.setTitle("Non Valid Fields");
+                nonValidNumericFieldsAlert.setHeaderText("Some fields do not contain" +
+                        " acceptable values!");
+                nonValidNumericFieldsAlert.setContentText("Note that the fields Price, " +
+                        "Publishing Year, Discount, Number of Copies and LibroCard " +
+                        "Points should contain numeric values.");
+            } catch (InvalidStringException | IllegalValueException e) {
                 e.printStackTrace();
             }
-
-            Alert bookSuccessfullyAddedAlert = new Alert(Alert.AlertType.INFORMATION);
-
-            bookSuccessfullyAddedAlert.setTitle("Book Added");
-            bookSuccessfullyAddedAlert.setHeaderText("Book successfully added!");
-            bookSuccessfullyAddedAlert.setContentText("Congratulations! Now the library is more full of culture than ever.");
-
-            bookSuccessfullyAddedAlert.showAndWait();
         }
     }
 

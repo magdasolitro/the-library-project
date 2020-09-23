@@ -1,0 +1,50 @@
+title Employee Login
+
+activate Responsabile
+activate EmployeeLoginPageFX
+Responsabile -> EmployeeLoginPageFX: 1: inserisci credenziali
+space
+deactivate Responsabile
+
+space
+
+activate Responsabile
+Responsabile->EmployeeLoginPageFX: 2: clicca "Log In"
+EmployeeLoginPageFX ->EmployeeLoginPageFXController: 3: handleLoginRequest : void
+activate EmployeeLoginPageFXController
+EmployeeLoginPageFXController->EmployeeDaoImpl: 4: getEmployee : employeeEmail
+activate EmployeeDaoImpl
+
+alt credenziali valide
+EmployeeLoginPageFXController <-- EmployeeDaoImpl: 5: responsabile trovato
+deactivate EmployeeDaoImpl
+deactivate EmployeeLoginPageFX
+
+Responsabile <-- EmployeeLoginPageFXController: 6: mostra MainPage
+deactivate EmployeeLoginPageFXController
+
+else campi vuoti
+activate EmployeeLoginPageFX
+activate EmployeeLoginPageFXController
+EmployeeLoginPageFXController ->EmployeeLoginPageFXController : 7: campi vuoti
+Responsabile <-- EmployeeLoginPageFXController: 8: mostra messaggio d'errore
+space
+deactivate EmployeeLoginPageFXController
+deactivate EmployeeLoginPageFX
+
+else credenziali non valide
+
+activate EmployeeDaoImpl
+activate EmployeeLoginPageFX
+activate EmployeeLoginPageFXController
+EmployeeLoginPageFXController <-- EmployeeDaoImpl: 9: responsabile non trovato
+deactivate EmployeeDaoImpl
+
+Responsabile <-- EmployeeLoginPageFXController: 10: mostra messaggio d'errore
+space
+deactivate EmployeeLoginPageFXController
+deactivate EmployeeLoginPageFX
+deactivate Responsabile
+
+
+end

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.18)  18 SEP 2020 23:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.1.18)  21 SEP 2020 22:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -300,112 +300,296 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \openout4 = `documentation.toc'.
 
  [1] [2]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 77.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Overfull \hbox (9.64058pt too wide) in paragraph at lines 58--120
-[]
- []
-
-
-Overfull \hbox (16.754pt too wide) in paragraph at lines 58--120
-[]
- []
-
-
-Overfull \hbox (17.01501pt too wide) in paragraph at lines 58--120
-[]
- []
-
-[3] [4] [5]
-Overfull \hbox (11.44418pt too wide) in paragraph at lines 121--147
-[][] 
- []
-
-[6]
-Overfull \hbox (16.57074pt too wide) in paragraph at lines 148--170
-[][] 
- []
-
-[7]
-Overfull \hbox (21.49603pt too wide) in paragraph at lines 171--195
-[][] 
- []
-
-[8]
-<images/Utils.png, id=42, 1152.305pt x 163.61125pt>
-File: images/Utils.png Graphic file (type png)
-<use images/Utils.png>
-Package pdftex.def Info: images/Utils.png  used on input line 200.
-(pdftex.def)             Requested size: 495.48149pt x 70.35146pt.
-
-Overfull \hbox (11.78462pt too wide) in paragraph at lines 200--201
- [][] 
- []
-
-<images/Controller.png, id=44, 1233.60875pt x 168.63pt>
-File: images/Controller.png Graphic file (type png)
-<use images/Controller.png>
-Package pdftex.def Info: images/Controller.png  used on input line 205.
-(pdftex.def)             Requested size: 493.43475pt x 67.45079pt.
-
-Overfull \hbox (9.73788pt too wide) in paragraph at lines 205--206
- [][] 
- []
-
-[9 <./images/Utils.png> <./images/Controller.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 217--221
-
- []
-
-<images/MVCPattern.png, id=50, 396.48125pt x 378.41376pt>
-File: images/MVCPattern.png Graphic file (type png)
-<use images/MVCPattern.png>
-Package pdftex.def Info: images/MVCPattern.png  used on input line 228.
-(pdftex.def)             Requested size: 158.58968pt x 151.36281pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 232--235
-
- []
-
-[10 <./images/MVCPattern.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 239.
-
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 60.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 239.
- [11] [12]
-(./documentation.aux) ) 
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
+<images/UseCaseDiagrams/EmployeeDiagram.png, id=21, 675.52374pt x 452.69125pt>
+File: images/UseCaseDiagrams/EmployeeDiagram.png Graphic file (type png)
+<use images/UseCaseDiagrams/EmployeeDiagram.png>
+Package pdftex.def Info: images/UseCaseDiagrams/EmployeeDiagram.png  used on in
+put line 67.
+(pdftex.def)             Requested size: 270.20471pt x 181.07329pt.
+ [3 <./images/UseCaseDiagrams/EmployeeDiagram.png>]
+<images/UseCaseDiagrams/UserDiagram.png, id=29, 715.67375pt x 452.69125pt>
+File: images/UseCaseDiagrams/UserDiagram.png Graphic file (type png)
+<use images/UseCaseDiagrams/UserDiagram.png>
+Package pdftex.def Info: images/UseCaseDiagrams/UserDiagram.png  used on input 
+line 73.
+(pdftex.def)             Requested size: 286.26442pt x 181.07329pt.
+<images/UseCaseDiagrams/UserNotRegistredDiagram.png, id=30, 459.7175pt x 377.41
+pt>
+File: images/UseCaseDiagrams/UserNotRegistredDiagram.png Graphic file (type png
+)
+<use images/UseCaseDiagrams/UserNotRegistredDiagram.png>
+Package pdftex.def Info: images/UseCaseDiagrams/UserNotRegistredDiagram.png  us
+ed on input line 79.
+(pdftex.def)             Requested size: 183.88373pt x 150.96132pt.
+ [4 <./images/UseCaseDiagrams/UserDiagram.png> <./images/UseCaseDiagrams/UserNo
+tRegistredDiagram.png>]
+Overfull \hbox (0.80956pt too wide) in paragraph at lines 87--103
+[][] 
+ []
+
+[5]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 132.
+
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+Overfull \hbox (9.69907pt too wide) in paragraph at lines 104--139
+[][] 
+ []
+
+[6]
+Overfull \hbox (4.17102pt too wide) in paragraph at lines 140--166
+[][] 
+ []
+
+[7]
+Overfull \hbox (21.03075pt too wide) in paragraph at lines 167--187
+[][] 
+ []
+
+[8]
+Overfull \hbox (9.56862pt too wide) in paragraph at lines 188--218
+[][] 
+ []
+
+[9] [10]
+Overfull \hbox (11.44418pt too wide) in paragraph at lines 236--262
+[][] 
+ []
+
+[11]
+Overfull \hbox (34.56375pt too wide) in paragraph at lines 263--285
+[][] 
+ []
+
+[12]
+Overfull \hbox (3.87122pt too wide) in paragraph at lines 286--325
+[] 
+ []
+
+[13] [14]
+Overfull \hbox (34.2873pt too wide) in paragraph at lines 361--402
+[][]
+ []
+
+[15] [16]
+<images/ActivityDiagrams/RegistraUtente.png, id=75, 566.115pt x 462.72874pt>
+File: images/ActivityDiagrams/RegistraUtente.png Graphic file (type png)
+<use images/ActivityDiagrams/RegistraUtente.png>
+Package pdftex.def Info: images/ActivityDiagrams/RegistraUtente.png  used on in
+put line 407.
+(pdftex.def)             Requested size: 226.44199pt x 185.08821pt.
+<images/ActivityDiagrams/InserimentoLibro.png, id=76, 863.225pt x 552.0625pt>
+File: images/ActivityDiagrams/InserimentoLibro.png Graphic file (type png)
+<use images/ActivityDiagrams/InserimentoLibro.png>
+Package pdftex.def Info: images/ActivityDiagrams/InserimentoLibro.png  used on 
+input line 412.
+(pdftex.def)             Requested size: 345.28389pt x 220.82108pt.
+ [17 <./images/ActivityDiagrams/RegistraUtente.png> <./images/ActivityDiagrams/
+InserimentoLibro.png>]
+<images/ActivityDiagrams/RicercaLibroCard.png, id=82, 566.115pt x 462.72874pt>
+File: images/ActivityDiagrams/RicercaLibroCard.png Graphic file (type png)
+<use images/ActivityDiagrams/RicercaLibroCard.png>
+Package pdftex.def Info: images/ActivityDiagrams/RicercaLibroCard.png  used on 
+input line 418.
+(pdftex.def)             Requested size: 254.74939pt x 208.22601pt.
+<images/ActivityDiagrams/ModificaLibro.png, id=83, 581.17125pt x 570.13pt>
+File: images/ActivityDiagrams/ModificaLibro.png Graphic file (type png)
+<use images/ActivityDiagrams/ModificaLibro.png>
+Package pdftex.def Info: images/ActivityDiagrams/ModificaLibro.png  used on inp
+ut line 423.
+(pdftex.def)             Requested size: 261.52464pt x 256.55614pt.
+ [18 <./images/ActivityDiagrams/RicercaLibroCard.png> <./images/ActivityDiagram
+s/ModificaLibro.png>]
+<images/ActivityDiagrams/RegistraDipendente.png, id=90, 526.96875pt x 452.69125
+pt>
+File: images/ActivityDiagrams/RegistraDipendente.png Graphic file (type png)
+<use images/ActivityDiagrams/RegistraDipendente.png>
+Package pdftex.def Info: images/ActivityDiagrams/RegistraDipendente.png  used o
+n input line 429.
+(pdftex.def)             Requested size: 263.48372pt x 226.34506pt.
+<images/ActivityDiagrams/CreazioneOrdineUtente.png, id=91, 367.3725pt x 477.785
+pt>
+File: images/ActivityDiagrams/CreazioneOrdineUtente.png Graphic file (type png)
+
+<use images/ActivityDiagrams/CreazioneOrdineUtente.png>
+Package pdftex.def Info: images/ActivityDiagrams/CreazioneOrdineUtente.png  use
+d on input line 434.
+(pdftex.def)             Requested size: 202.05548pt x 262.78256pt.
+ [19 <./images/ActivityDiagrams/RegistraDipendente.png> <./images/ActivityDiagr
+ams/CreazioneOrdineUtente.png>]
+<images/ActivityDiagrams/CreazioneOrdineUtenteNonReg.png, id=97, 403.5075pt x 4
+77.785pt>
+File: images/ActivityDiagrams/CreazioneOrdineUtenteNonReg.png Graphic file (typ
+e png)
+<use images/ActivityDiagrams/CreazioneOrdineUtenteNonReg.png>
+Package pdftex.def Info: images/ActivityDiagrams/CreazioneOrdineUtenteNonReg.pn
+g  used on input line 440.
+(pdftex.def)             Requested size: 201.75325pt x 238.8919pt.
+ [20 <./images/ActivityDiagrams/CreazioneOrdineUtenteNonReg.png>]
+<images/ClassDiagrams/UtilsClassDiagram.png, id=102, 2294.5725pt x 768.8725pt>
+File: images/ClassDiagrams/UtilsClassDiagram.png Graphic file (type png)
+<use images/ClassDiagrams/UtilsClassDiagram.png>
+Package pdftex.def Info: images/ClassDiagrams/UtilsClassDiagram.png  used on in
+put line 448.
+(pdftex.def)             Requested size: 458.90637pt x 153.77177pt.
+<images/ClassDiagrams/ModelClassDiagram.png, id=103, 2577.63pt x 644.4075pt>
+File: images/ClassDiagrams/ModelClassDiagram.png Graphic file (type png)
+<use images/ClassDiagrams/ModelClassDiagram.png>
+Package pdftex.def Info: images/ClassDiagrams/ModelClassDiagram.png  used on in
+put line 453.
+(pdftex.def)             Requested size: 515.51688pt x 128.87921pt.
+
+Overfull \hbox (31.82pt too wide) in paragraph at lines 453--454
+ [][] 
+ []
+
+<images/ClassDiagrams/ControllerClassDiagram.png, id=104, 4137.4575pt x 857.202
+5pt>
+File: images/ClassDiagrams/ControllerClassDiagram.png Graphic file (type png)
+<use images/ClassDiagrams/ControllerClassDiagram.png>
+Package pdftex.def Info: images/ClassDiagrams/ControllerClassDiagram.png  used 
+on input line 458.
+(pdftex.def)             Requested size: 537.88837pt x 111.44023pt.
+
+Overfull \hbox (54.1915pt too wide) in paragraph at lines 458--459
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[21 <./images/ClassDiagrams/UtilsClassDiagram.png (PNG copy)> <./images/ClassDi
+agrams/ModelClassDiagram.png (PNG copy)>]
+<images/ClassDiagrams/ViewClassDiagram.png, id=108, 1660.2025pt x 1401.235pt>
+File: images/ClassDiagrams/ViewClassDiagram.png Graphic file (type png)
+<use images/ClassDiagrams/ViewClassDiagram.png>
+Package pdftex.def Info: images/ClassDiagrams/ViewClassDiagram.png  used on inp
+ut line 464.
+(pdftex.def)             Requested size: 332.03462pt x 280.24203pt.
+ [22 <./images/ClassDiagrams/ControllerClassDiagram.png (PNG copy)> <./images/C
+lassDiagrams/ViewClassDiagram.png (PNG copy)>]
+<images/SequenceDiagrams/UserLogin.png, id=112, 850.17625pt x 1036.87375pt>
+File: images/SequenceDiagrams/UserLogin.png Graphic file (type png)
+<use images/SequenceDiagrams/UserLogin.png>
+Package pdftex.def Info: images/SequenceDiagrams/UserLogin.png  used on input l
+ine 472.
+(pdftex.def)             Requested size: 382.57578pt x 466.58888pt.
+ [23 <./images/SequenceDiagrams/UserLogin.png>]
+<images/SequenceDiagrams/EmployeeLogin.png, id=117, 920.43875pt x 1036.87375pt>
+
+File: images/SequenceDiagrams/EmployeeLogin.png Graphic file (type png)
+<use images/SequenceDiagrams/EmployeeLogin.png>
+Package pdftex.def Info: images/SequenceDiagrams/EmployeeLogin.png  used on inp
+ut line 478.
+(pdftex.def)             Requested size: 460.21825pt x 518.43561pt.
+ [24 <./images/SequenceDiagrams/EmployeeLogin.png>]
+<images/SequenceDiagrams/InserimentoLibro.png, id=123, 1409.265pt x 1057.9525pt
+>
+File: images/SequenceDiagrams/InserimentoLibro.png Graphic file (type png)
+<use images/SequenceDiagrams/InserimentoLibro.png>
+Package pdftex.def Info: images/SequenceDiagrams/InserimentoLibro.png  used on 
+input line 484.
+(pdftex.def)             Requested size: 493.25015pt x 370.28893pt.
+
+Overfull \hbox (9.55328pt too wide) in paragraph at lines 484--485
+ [][] 
+ []
+
+[25 <./images/SequenceDiagrams/InserimentoLibro.png>]
+<images/SequenceDiagrams/AggiornamentoDati.png, id=128, 1454.43375pt x 1005.757
+5pt>
+File: images/SequenceDiagrams/AggiornamentoDati.png Graphic file (type png)
+<use images/SequenceDiagrams/AggiornamentoDati.png>
+Package pdftex.def Info: images/SequenceDiagrams/AggiornamentoDati.png  used on
+ input line 490.
+(pdftex.def)             Requested size: 509.05945pt x 352.0204pt.
+
+Overfull \hbox (25.36258pt too wide) in paragraph at lines 490--491
+ [][] 
+ []
+
+[26 <./images/SequenceDiagrams/AggiornamentoDati.png>]
+<images/SequenceDiagrams/AggiuntaLibro.png, id=133, 1248.665pt x 1157.32375pt>
+File: images/SequenceDiagrams/AggiuntaLibro.png Graphic file (type png)
+<use images/SequenceDiagrams/AggiuntaLibro.png>
+Package pdftex.def Info: images/SequenceDiagrams/AggiuntaLibro.png  used on inp
+ut line 496.
+(pdftex.def)             Requested size: 437.03929pt x 405.06938pt.
+ [27 <./images/SequenceDiagrams/AggiuntaLibro.png>]
+<images/SequenceDiagrams/CreazioneOrdine.png, id=138, 1406.25375pt x 1028.84375
+pt>
+File: images/SequenceDiagrams/CreazioneOrdine.png Graphic file (type png)
+<use images/SequenceDiagrams/CreazioneOrdine.png>
+Package pdftex.def Info: images/SequenceDiagrams/CreazioneOrdine.png  used on i
+nput line 502.
+(pdftex.def)             Requested size: 492.19618pt x 360.10071pt.
+
+Overfull \hbox (8.49931pt too wide) in paragraph at lines 502--503
+ [][] 
+ []
+
+[28 <./images/SequenceDiagrams/CreazioneOrdine.png>]
+<images/SequenceDiagrams/AggiuntaEmployee.png, id=143, 1610.015pt x 1299.85625p
+t>
+File: images/SequenceDiagrams/AggiuntaEmployee.png Graphic file (type png)
+<use images/SequenceDiagrams/AggiuntaEmployee.png>
+Package pdftex.def Info: images/SequenceDiagrams/AggiuntaEmployee.png  used on 
+input line 508.
+(pdftex.def)             Requested size: 515.21533pt x 415.9625pt.
+
+Overfull \hbox (31.51846pt too wide) in paragraph at lines 508--509
+ [][] 
+ []
+
+[29 <./images/SequenceDiagrams/AggiuntaEmployee.png>]
+<images/MVCPattern.png, id=148, 396.48125pt x 378.41376pt>
+File: images/MVCPattern.png Graphic file (type png)
+<use images/MVCPattern.png>
+Package pdftex.def Info: images/MVCPattern.png  used on input line 525.
+(pdftex.def)             Requested size: 158.58968pt x 151.36281pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 532--535
+
+ []
+
+[31 <./images/MVCPattern.png>] [32] [33] (./documentation.aux) ) 
 Here is how much of TeX's memory you used:
- 3943 strings out of 492649
- 55043 string characters out of 6129622
- 150477 words of memory out of 5000000
- 7748 multiletter control sequences out of 15000+600000
+ 4041 strings out of 492649
+ 59410 string characters out of 6129622
+ 146477 words of memory out of 5000000
+ 7824 multiletter control sequences out of 15000+600000
  14899 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,14n,25p,1024b,224s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/cm-s
-uper/cm-super-t1.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-s
-uper/sfbx1200.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-sup
-er/sfbx1440.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super
-/sfbx1728.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/s
-fbx2488.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfc
-c2074.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfrm1
-200.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfrm144
-0.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfrm1728.
-pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sfti1200.pf
-b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-
-Output written on documentation.pdf (13 pages, 328578 bytes).
+ 41i,14n,25p,1024b,226s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/tex
+live/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texli
+ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2018/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/20
+18/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2018
+/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2018/t
+exmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb></usr/local/texlive/2018/tex
+mf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2018/texmf
+-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2018/texmf-d
+ist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2018/texmf-dis
+t/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2018/texmf-dist/
+fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on documentation.pdf (34 pages, 1738917 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
- 66 compressed objects within 1 object stream
+ 201 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 116 words of extra memory for PDF output out of 10000 (max. 10000000)
 

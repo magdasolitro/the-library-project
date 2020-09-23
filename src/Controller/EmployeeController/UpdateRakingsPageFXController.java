@@ -12,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -57,7 +54,7 @@ public class UpdateRakingsPageFXController implements Initializable {
         leftPane.getChildren().add(genresChoiceBox);
 
         genresChoiceBox.relocate(35, 300);
-        genresChoiceBox.setPrefWidth(175);
+        genresChoiceBox.setPrefWidth(190);
         genresChoiceBox.setPrefHeight(37);
 
         genresChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -83,6 +80,39 @@ public class UpdateRakingsPageFXController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+        // show all rankings
+        ScrollPane rankingsSP = new ScrollPane();
+        VBox allRankingsVB = new VBox(10);
+
+        for (GenresEnum g : GenresEnum.values()){
+            try {
+                Label genreLabel = new Label(g.toString());
+                genreLabel.setFont(new Font("Avenir Next Bold", 35));
+
+                ArrayList<Rankings> rankingsByGenre = new ArrayList<>(rankingsDAO.getRankingByGenre(g));
+                GridPane rankingsGP = RankingsView.buildRankingView(rankingsByGenre);
+
+                allRankingsVB.getChildren().addAll(genreLabel, rankingsGP);
+                allRankingsVB.setId("rankings-scrollpane");
+                allRankingsVB.getStylesheets().add("/CSS/style.css");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        rankingsSP.setContent(allRankingsVB);
+        rankingsSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        rankingsSP.setId("rankings-scrollpane");
+        rankingsSP.getStylesheets().add("/CSS/style.css");
+
+        rankingsSP.setPrefHeight(600);
+        rankingsSP.setPrefWidth(925);
+
+        allRankingsVB.setPrefWidth(910);
+
+        rightPane.getChildren().add(rankingsSP);
+        rankingsSP.relocate(50, 50);
     }
 
 
@@ -92,7 +122,7 @@ public class UpdateRakingsPageFXController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml"));
+            loader.setLocation(getClass().getResource("/FXML/EmployeeFXML/EmployeeMainPageFX.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

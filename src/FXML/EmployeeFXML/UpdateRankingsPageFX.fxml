@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.UpdateRakingsPageFXController">
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.UpdateRakingsPageFXController">
    <children>
-      <SplitPane dividerPositions="0.27" prefHeight="700.0" prefWidth="1200.0">
+      <SplitPane dividerPositions="0.27" prefHeight="700.0" prefWidth="1300.0">
           <items>
-              <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #BBA5E1;">
+              <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #BBA5E1;">
                   <children>
                       <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0" />
                       <Label layoutX="35.0" layoutY="250.0" text="Rankings by genre:" textFill="WHITE">
@@ -16,9 +16,14 @@
                             <Font name="Avenir Next Bold" size="20.0" />
                          </font>
                       </Label>
+                  <Button layoutX="35.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#updateRankings" prefHeight="36.0" prefWidth="190.0" style="-fx-background-color: #3CB371;" text="Update" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Next Bold" size="17.0" />
+                     </font>
+                  </Button>
                   </children>
               </AnchorPane>
-              <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" />
+              <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #FFFFFF;" />
         </items>
       </SplitPane>
    </children>

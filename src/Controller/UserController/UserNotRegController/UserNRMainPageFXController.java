@@ -27,7 +27,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
-public class UserNRMainPageFXController implements Initializable {
+public class UserNRMainPageFXController extends LastOpenedPageController implements Initializable {
 
     @FXML
     private AnchorPane rightPane, leftPane;

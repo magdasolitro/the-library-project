@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.BookModificationPageFXController">
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.BookModificationPageFXController">
      <children>
          <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButton" prefHeight="40.0" prefWidth="70.0" />
          <TextField fx:id="bookISBNTF" layoutX="70.0" layoutY="225.0" prefHeight="38.0" prefWidth="300.0" promptText="ISBN">
@@ -63,11 +63,6 @@
                 <Font name="Avenir Book" size="17.0" />
              </font>
          </Label>
-         <!--<Label layoutX="70.0" layoutY="600.0" text="Genre:">
-             <font>
-                <Font name="Avenir Book" size="17.0" />
-             </font>
-         </Label>-->
          <TextField fx:id="libroCardPointsTF" layoutX="230.0" layoutY="535.0" prefHeight="36.0" prefWidth="80.0">
              <font>
                 <Font name="Avenir Book" size="17.0" />
@@ -84,6 +79,5 @@
                 <Font name="Avenir Book" size="17.0" />
              </font>
          </Button>
-         <!--<ChoiceBox fx:id="genresCB" layoutX="230.0" layoutY="594.0" prefHeight="36.0" prefWidth="160.0" style="-fx-background-color: #D3D3D3;" />-->
    </children>
 </AnchorPane>

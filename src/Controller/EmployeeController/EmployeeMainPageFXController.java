@@ -1,6 +1,7 @@
 package Controller.EmployeeController;
 
 import Controller.GeneralLoginController;
+import Controller.LastOpenedPageController;
 import Model.Employee;
 import Model.EmployeeRoleEnum;
 import Model.Exceptions.InvalidStringException;
@@ -58,7 +59,7 @@ public class EmployeeMainPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/EmployeeFXML/AllOrdersPageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/AllOrdersPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,7 +71,7 @@ public class EmployeeMainPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/EmployeeFXML/AllLibroCardsFX.fxml");
+            viewPage("/FXML/EmployeeFXML/AllLibroCardsFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,7 +83,7 @@ public class EmployeeMainPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/EmployeeFXML/AddNewBookFX.fxml");
+            viewPage("/FXML/EmployeeFXML/AddNewBookFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,7 +95,7 @@ public class EmployeeMainPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/EmployeeFXML/BookModificationPageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/BookModificationPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,6 +103,9 @@ public class EmployeeMainPageFXController implements Initializable {
 
 
     public void handleRegisterEmployeeRequest() {
+        Stage stage = (Stage) registerEmployeeButton.getScene().getWindow();
+        stage.close();
+
         try {
             // check if current employee has the neccessary privilegies to add a new employee
             EmployeeDAO employeeDAO = new EmployeeDaoImpl();
@@ -119,7 +123,7 @@ public class EmployeeMainPageFXController implements Initializable {
 
                 notDirectorAlert.showAndWait();
             } else {
-                viewPage("../../FXML/EmployeeFXML/AddNewEmployeeFX.fxml");
+                viewPage("/FXML/EmployeeFXML/AddNewEmployeeFX.fxml");
             }
         } catch (SQLException | InvalidStringException | IOException e) {
             e.printStackTrace();
@@ -132,7 +136,7 @@ public class EmployeeMainPageFXController implements Initializable {
         stage.close();
 
         try {
-            viewPage("../../FXML/EmployeeFXML/UpdateRankingsPageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/UpdateRankingsPageFX.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -154,7 +158,7 @@ public class EmployeeMainPageFXController implements Initializable {
             GeneralLoginController.logout();
 
             try {
-                viewPage("../../FXML/WelcomePageFX.fxml");
+                viewPage("/FXML/WelcomePageFX.fxml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -170,7 +174,7 @@ public class EmployeeMainPageFXController implements Initializable {
             Stage stage = (Stage) profileIcon.getScene().getWindow();
             stage.close();
 
-            viewPage("../../FXML/EmployeeFXML/EmployeeProfilePageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/EmployeeProfilePageFX.fxml");
         } catch (IOException ioe){
             ioe.printStackTrace();
         }
@@ -209,6 +213,8 @@ public class EmployeeMainPageFXController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
+
+        LastOpenedPageController.setLastOpenedPage("/FXML/WelcomePageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

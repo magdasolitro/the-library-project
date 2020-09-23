@@ -10,18 +10,15 @@
 \contentsline {paragraph}{}{3}
 \contentsline {section}{\numberline {3}UML}{3}
 \contentsline {subsection}{\numberline {3.1}Use Cases}{3}
-\contentsline {subsection}{\numberline {3.2}Activity Diagram}{9}
-\contentsline {subsection}{\numberline {3.3}Class Diagram}{9}
-\contentsline {subsection}{\numberline {3.4}Sequence Diagram}{9}
-\contentsline {section}{\numberline {4}Scelte progettuali}{9}
-\contentsline {subsection}{\numberline {4.1}Sviluppo}{9}
-\contentsline {subsection}{\numberline {4.2}Metodologia di sviluppo}{10}
-\contentsline {subsection}{\numberline {4.3}Database}{10}
-\contentsline {subsubsection}{\numberline {4.3.1}Schema logico}{10}
-\contentsline {subsubsection}{\numberline {4.3.2}Schema relazionale}{10}
-\contentsline {subsection}{\numberline {4.4}MVC Pattern}{10}
-\contentsline {subsection}{\numberline {4.5}Singleton Pattern}{11}
-\contentsline {subsection}{\numberline {4.6}Observer Pattern}{11}
-\contentsline {subsection}{\numberline {4.7}Data Access Object Pattern}{11}
-\contentsline {section}{\numberline {5}Validazione}{12}
-\contentsline {section}{\numberline {6}Conclusioni}{12}
+\contentsline {subsection}{\numberline {3.2}Activity Diagram}{17}
+\contentsline {subsection}{\numberline {3.3}Class Diagrams}{21}
+\contentsline {subsection}{\numberline {3.4}Sequence Diagrams}{23}
+\contentsline {section}{\numberline {4}Scelte progettuali}{30}
+\contentsline {subsection}{\numberline {4.1}Sviluppo}{30}
+\contentsline {subsection}{\numberline {4.2}Database}{30}
+\contentsline {subsection}{\numberline {4.3}MVC Pattern}{30}
+\contentsline {subsection}{\numberline {4.4}Singleton Pattern}{31}
+\contentsline {subsection}{\numberline {4.5}Observer Pattern}{31}
+\contentsline {subsection}{\numberline {4.6}Data Access Object Pattern}{32}
+\contentsline {section}{\numberline {5}Validazione}{32}
+\contentsline {section}{\numberline {6}Conclusioni}{32}

@@ -26,7 +26,7 @@ public class WelcomePageFXController {
         Stage stage = (Stage) userButton.getScene().getWindow();
         stage.close();
 
-        viewPage("../FXML/UserFXML/UserRegFXML/UserLoginFX.fxml");
+        viewPage("/FXML/UserFXML/UserRegFXML/UserLoginFX.fxml");
     }
 
     @FXML
@@ -34,7 +34,7 @@ public class WelcomePageFXController {
         Stage stage = (Stage) employeeButton.getScene().getWindow();
         stage.close();
 
-        viewPage("../FXML/EmployeeFXML/EmployeeLoginFX.fxml");
+        viewPage("/FXML/EmployeeFXML/EmployeeLoginFX.fxml");
     }
 
     @FXML
@@ -48,7 +48,7 @@ public class WelcomePageFXController {
         String userNotRegIdentifier = "NOTREG" + randomNumber;
         GeneralLoginController.setLoginInstance(userNotRegIdentifier);
 
-        viewPage("../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
+        viewPage("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml");
     }
 
     @FXML
@@ -56,7 +56,7 @@ public class WelcomePageFXController {
         Stage stage = (Stage) signInLabel.getScene().getWindow();
         stage.close();
 
-        viewPage("../FXML/SignInPageFX.fxml");
+        viewPage("/FXML/SignInPageFX.fxml");
     }
 
 

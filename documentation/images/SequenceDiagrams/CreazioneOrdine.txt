@@ -1,0 +1,40 @@
+
+title Creazione Ordine 
+
+activate Utente
+activate CartPageFX
+activate CartPageView
+
+Utente -> CartPageFX: 1: clicca "Check Out"
+CartPageFX -> CartPageFXController: 2: handleCheckOut : void
+activate CartPageFXController
+CartPageFXController -> CartDaoImpl: 3: cartContent : email
+activate CartDaoImpl
+CartPageFXController <-- CartDaoImpl: 4: contenuto carrello
+deactivate CartDaoImpl
+
+alt [carrello vuoto]
+
+CartPageFXController -> CartPageFXController: 5: carrello vuoto
+CartPageFXController --> Utente: 6: messaggio d'errore
+
+else [carrello non vuoto]
+CartPageFXController -> CartPageFXController: 5: carrello non vuoto
+CartPageFXController --> CartPageFX: 6: chiudi pagina
+deactivate CartPageView
+deactivate CartPageFX
+CartPageFXController -> OrderConfirmationPageFX : 7: apri pagina
+deactivate CartPageFXController
+activate OrderConfirmationPageFX
+Utente <-- OrderConfirmationPageFX: 8: mostra pagina
+Utente -> OrderConfirmationPageFX: 9: inserisci dati richiesti
+Utente -> OrderConfirmationPageFX: 10: clicca "Check Out"
+
+OrderConfirmationPageFX -> OrderConfirmationPageFXController : 11: crea ordine
+activate OrderConfirmationPageFXController
+space 
+deactivate Utente
+deactivate OrderConfirmationPageFX
+deactivate OrderConfirmationPageFXController
+
+end

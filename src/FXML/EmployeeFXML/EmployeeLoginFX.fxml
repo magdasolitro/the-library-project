@@ -4,27 +4,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.EmployeeLoginFXController">
-        <Pane layoutX="318.0" layoutY="127.0" prefHeight="485.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;">
-                <Label id="LoginAsEmployeeText" layoutY="48.0" alignment="CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="664.0" style="-fx-background-color: #ffffff;" text="Login as Employee" textAlignment="RIGHT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #BBA5E1;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeController.EmployeeLoginFXController">
+        <Pane layoutX="318.0" layoutY="127.0" prefHeight="450.0" prefWidth="664.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 30 30 30 30; -fx-background-radius: 30 30 30 30;">
+                <Label id="LoginAsEmployeeText" alignment="CENTER" contentDisplay="CENTER" layoutY="48.0" prefHeight="87.0" prefWidth="664.0" style="-fx-background-color: #ffffff;" text="Login as Employee" textAlignment="RIGHT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
                     <font>
                         <Font name="Avenir Next Bold" size="60.0" />
                     </font>
                 </Label>
-            <TextField fx:id="employeeEmailField" layoutX="207.0" layoutY="200.0" prefHeight="33.0" prefWidth="250.0" promptText="e-mail" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="238.0800018310547">
+            <TextField fx:id="employeeEmailField" layoutX="207.0" layoutY="180.0" prefHeight="33.0" prefWidth="250.0" promptText="e-mail" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="238.0800018310547">
                 <font>
                     <Font name="Avenir Book" size="15.0" />
                 </font></TextField>
-            <PasswordField fx:id="employeePasswordField" layoutX="207.0" layoutY="262.0" prefHeight="33.0" prefWidth="250.0" promptText="password" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="247.0800018310547">
+            <PasswordField fx:id="employeePasswordField" layoutX="207.0" layoutY="240.0" prefHeight="33.0" prefWidth="250.0" promptText="password" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="247.0800018310547">
                 <font>
                     <Font name="Avenir Book" size="15.0" />
                 </font>
             </PasswordField>
-           <Button fx:id="loginButton" mnemonicParsing="false" onMouseClicked="#handleLogInRequest" layoutX="255.0" layoutY="342.0" prefHeight="44.0" prefWidth="155.0" style="-fx-background-color: #3CB371;" text="Log In" textFill="WHITE">
-               <font>
-                   <Font name="Avenir Next Bold" size="20.0" />
-               </font>
-           </Button>
+            <Button fx:id="loginButton" layoutX="209.0" layoutY="310.0" mnemonicParsing="false" onMouseClicked="#handleLogInRequest" prefHeight="44.0" prefWidth="250.0" style="-fx-background-color: #3CB371;" text="Log In" textFill="WHITE">
+                <font>
+                    <Font name="Avenir Next Bold" size="20.0" />
+                </font>
+            </Button>
         </Pane>
         <Button fx:id="goBackButton" mnemonicParsing="false" onMouseClicked="#handleGoBackButtonClick" prefHeight="40.0" prefWidth="70.0">
             <font>

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.SingleBookPageFXController">
+<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController.SingleBookPageFXController">
     <children>
         <Button fx:id="addToCartButton" layoutX="993.0" layoutY="416.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #3CB371;" text="Add To Cart" textFill="WHITE">
             <font>

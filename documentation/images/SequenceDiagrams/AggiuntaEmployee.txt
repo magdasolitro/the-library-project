@@ -1,0 +1,58 @@
+title Aggiunta dipendente
+
+activate Responsabile
+activate EmployeeMainPageFX
+
+Responsabile -> EmployeeMainPageFX: 1: clicca "Add employee"
+EmployeeMainPageFX ->EmployeeMainPageFXController: 2: handleRegisterEmployeeRequest : void
+activate EmployeeMainPageFXController
+
+EmployeeMainPageFXController -> EmployeeDaoImpl: 3: getRole
+activate EmployeeDaoImpl
+EmployeeDaoImpl -> EmployeeMainPageFXController: 4: role
+deactivate EmployeeDaoImpl
+
+alt role == General/Local Director
+
+EmployeeMainPageFXController -> EmployeeMainPageFXController: 5: ruolo abilitato
+
+EmployeeMainPageFXController ->EmployeeMainPageFX: 6: chiudi MainPage
+deactivate EmployeeMainPageFX
+EmployeeMainPageFXController -> AddNewEmployeePageFX: 7: apri AddNewEmployeePage
+deactivate EmployeeMainPageFXController
+activate AddNewEmployeePageFX
+Responsabile -> AddNewEmployeePageFX: 8: inserisci dati dipendente
+Responsabile -> AddNewEmployeePageFX: 9: clicca "Register"
+AddNewEmployeePageFX -> AddNewEmployeePageFXController : 10: handleRegistrationRequest : void
+activate AddNewEmployeePageFXController
+
+alt campi non validi
+
+AddNewEmployeePageFXController -> AddNewEmployeePageFXController : 11: campi non validi
+
+AddNewEmployeePageFXController ->Responsabile: 12: messaggio d'errore
+
+deactivate AddNewEmployeePageFXController
+
+
+else campi validi
+
+activate AddNewEmployeePageFXController
+AddNewEmployeePageFXController -> AddNewEmployeePageFXController : 11: campi validi
+
+AddNewEmployeePageFXController ->Responsabile: 12: messaggio di conferma registrazione
+
+deactivate AddNewEmployeePageFXController
+
+end
+
+else ruolo non abilitato
+
+activate EmployeeMainPageFXController
+EmployeeMainPageFXController -> EmployeeMainPageFXController: 13: ruolo non abilitato
+EmployeeMainPageFXController -->Responsabile: 14: messaggio d'errore
+deactivate EmployeeMainPageFXController
+deactivate Responsabile
+deactivate AddNewEmployeePageFX
+
+end 

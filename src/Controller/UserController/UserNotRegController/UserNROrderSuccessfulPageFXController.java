@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class UserNROrderSuccessfulPageFXController implements Initializable {
+public class UserNROrderSuccessfulPageFXController extends OrderIDController implements Initializable {
 
     @FXML
     private Pane whitePane;

@@ -62,7 +62,7 @@ public class RankingsPageFXController implements Initializable {
                         new ArrayList<>(rankingsDAO.getRankingByGenre(GenresEnum.values()[newValue.intValue()]));
                 GridPane rankingsGP = RankingsView.buildRankingView(rankingsByGenre);
 
-                VBox rankingsVB = new VBox(10);
+                VBox rankingsVB = new VBox(20);
 
                 Label genreLabel = new Label(GenresEnum.values()[newValue.intValue()].toString());
                 genreLabel.setFont(new Font("Avenir Next Bold", 35));
@@ -79,7 +79,7 @@ public class RankingsPageFXController implements Initializable {
 
         // show all rankings
         ScrollPane rankingsSP = new ScrollPane();
-        VBox allRankingsVB = new VBox(50);
+        VBox allRankingsVB = new VBox(10);
 
         for (GenresEnum g : GenresEnum.values()){
             try {
@@ -89,7 +89,7 @@ public class RankingsPageFXController implements Initializable {
                 ArrayList<Rankings> rankingsByGenre = new ArrayList<>(rankingsDAO.getRankingByGenre(g));
                 GridPane rankingsGP = RankingsView.buildRankingView(rankingsByGenre);
 
-                rankingsGP.prefWidth(800);
+                //rankingsGP.prefWidth(900);
 
                 allRankingsVB.getChildren().addAll(genreLabel, rankingsGP);
                 allRankingsVB.setId("rankings-scrollpane");
@@ -107,6 +107,8 @@ public class RankingsPageFXController implements Initializable {
         rankingsSP.setPrefHeight(600);
         rankingsSP.setPrefWidth(925);
 
+        allRankingsVB.setPrefWidth(910);
+
         rightPane.getChildren().add(rankingsSP);
         rankingsSP.relocate(50, 50);
 
@@ -120,9 +122,9 @@ public class RankingsPageFXController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader();
             if(GeneralLoginController.getLoginInstance().substring(0,6).equals("NOTREG")) {
-                loader.setLocation(getClass().getResource("../FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml"));
+                loader.setLocation(getClass().getResource("/FXML/UserFXML/UserNotRegFXML/UserNRMainPageFX.fxml"));
             } else{
-                loader.setLocation(getClass().getResource("../FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml"));
+                loader.setLocation(getClass().getResource("/FXML/UserFXML/UserRegFXML/UserMainPageFX.fxml"));
             }
 
             Parent root = loader.load();

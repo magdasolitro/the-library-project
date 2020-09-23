@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 
-public class UserMainPageFXController implements Initializable {
+public class UserMainPageFXController extends GeneralLoginController implements Initializable {
 
     @FXML
     private AnchorPane rightPane, leftPane;
@@ -59,7 +59,7 @@ public class UserMainPageFXController implements Initializable {
 
         genresChoiceBox = new ChoiceBox<>(FXCollections.observableArrayList("Autobiography",
                 "Crime Fiction", "Fantasy", "History", "Narrative",
-                "Philosophy of Science", "Politics", "Science Fiction"));
+                "Philosophy of Science", "Politics", "Science Fiction", "All"));
 
         // if the item of the list has changed
         genresChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -68,8 +68,12 @@ public class UserMainPageFXController implements Initializable {
             rightPane.getChildren().remove(scrollPane);
 
             try {
-                ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue()]));
-                changeBookView(booksByGenre);
+                if(newValue.intValue() < 7) {
+                    ArrayList<Book> booksByGenre = new ArrayList<>(bookDAO.getBooksByGenre(GenresEnum.values()[newValue.intValue()]));
+                    changeBookView(booksByGenre);
+                } else {
+                    changeBookView(bookDAO.getAllBooks());
+                }
             } catch (SQLException | InvalidStringException | IllegalValueException e) {
                 e.printStackTrace();
             }

@@ -4,8 +4,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.math.BigDecimal;
-
 
 public class Main extends Application {
 
@@ -21,8 +19,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
-
-        System.out.println(BigDecimal.valueOf(Float.parseFloat("ciao")));
 
     }
 

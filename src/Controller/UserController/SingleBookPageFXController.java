@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class SingleBookPageFXController implements Initializable {
+public class SingleBookPageFXController extends BookInstanceController implements Initializable {
 
     @FXML
     Button addToCartButton;

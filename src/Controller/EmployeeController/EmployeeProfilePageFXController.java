@@ -1,12 +1,9 @@
 package Controller.EmployeeController;
 
 import Controller.GeneralLoginController;
-import Controller.LastOpenedPageController;
-import Model.Employee;
 import Model.Utils.DAOs.UserDAO;
 import Model.Utils.DaoImpl.UserDaoImpl;
 import View.EmployeeView.EmployeeProfileView;
-import View.UserView.UserProfileView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -83,7 +80,7 @@ public class EmployeeProfilePageFXController implements Initializable {
                     Stage stage = (Stage) deleteAccountButton.getScene().getWindow();
                     stage.close();
 
-                    viewPage("../../FXML/WelcomePageFX.fxml");
+                    viewPage("/FXML/WelcomePageFX.fxml");
                 } catch (IOException ioe) {
                     System.out.println("IOException: " + ioe.getMessage());
                 }
@@ -102,7 +99,7 @@ public class EmployeeProfilePageFXController implements Initializable {
         stage.close();
 
         try{
-            viewPage("../../FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/EmployeeMainPageFX.fxml");
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
@@ -126,7 +123,7 @@ public class EmployeeProfilePageFXController implements Initializable {
             stage.close();
 
             try {
-                viewPage("../../FXML/WelcomePageFX.fxml");
+                viewPage("/FXML/WelcomePageFX.fxml");
             } catch (IOException ioe) {
                 ioe.getStackTrace();
             }
@@ -142,7 +139,7 @@ public class EmployeeProfilePageFXController implements Initializable {
             Stage stage = (Stage) userIcon.getScene().getWindow();
             stage.close();
 
-            viewPage("../../FXML/EmployeeFXML/EmployeeProfilePageFX.fxml");
+            viewPage("/FXML/EmployeeFXML/EmployeeProfilePageFX.fxml");
         } catch(IOException ioe){
             ioe.getStackTrace();
         }
@@ -153,6 +150,8 @@ public class EmployeeProfilePageFXController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(path));
         Parent root = loader.load();
+
+        //LastOpenedPageController.setLastOpenedPage("/FXML/EmployeeFXML/EmployeeProfilePageFX.fxml");
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

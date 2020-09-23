@@ -1,0 +1,51 @@
+title Aggiunta libro a carrello
+
+activate Utente
+activate UserMainPageFX
+activate UserMainPageView
+
+Utente ->UserMainPageView: 1: seleziona libro
+UserMainPageView -->UserMainPageFX: 2: chiudi MainPage
+deactivate UserMainPageFX
+UserMainPageView ->SingleBookPageFX: 3: apri pagina libro
+deactivate UserMainPageView
+
+activate SingleBookPageFX
+Utente -> SingleBookPageFX: 4: seleziona quantità
+Utente -> SingleBookPageFX: 5: clicca "Add to Cart"
+SingleBookPageFX ->SingleBookPageFXController: 6: addToCart: void
+activate SingleBookPageFXController
+
+SingleBookPageFXController -> CartDaoImpl: 6: cartContent : email
+activate CartDaoImpl
+SingleBookPageFXController <-- CartDaoImpl: 7: contenuto carrello
+deactivate CartDaoImpl
+
+alt [libro già presente]
+SingleBookPageFXController ->SingleBookPageFXController: 9: libro già nel carrello
+Utente <-- SingleBookPageFXController: 8: messaggio d'errore
+deactivate Utente
+
+else libro non disponibile
+
+activate BookDaoImpl
+activate Utente
+SingleBookPageFXController ->BookDaoImpl: 9: isAvailable : ISBN
+SingleBookPageFXController <-- BookDaoImpl: 10: false
+Utente <-- SingleBookPageFXController: 11: messaggio d'errore
+deactivate BookDaoImpl
+deactivate Utente
+
+else libro disponibile
+
+activate BookDaoImpl
+activate Utente
+SingleBookPageFXController ->BookDaoImpl: 12: isAvailable : ISBN
+SingleBookPageFXController <-- BookDaoImpl: 13: true
+Utente <-- SingleBookPageFXController: 14: messaggio di conferma aggiunta
+deactivate BookDaoImpl
+deactivate Utente
+deactivate SingleBookPageFX
+deactivate SingleBookPageFXController
+
+end
